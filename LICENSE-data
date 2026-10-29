@@ -1,0 +1,15 @@
+Licencias del contenido (carpetas data/ y content-src/)
+
+1. Datos derivados de Wiktionary (léxico: género, plurales, formas, traducciones),
+   vía german-nouns y kaikki.org: Creative Commons Attribution-ShareAlike 4.0
+   International (CC BY-SA 4.0), por la cláusula share-alike de la fuente.
+   https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+2. Textos de terceros (Wikipedia, Wikinews, prensa con licencia CC, dominio público):
+   cada texto declara su fuente y licencia en su propio archivo (campo "license").
+
+3. Imágenes, textos y datos de terceros: atribuciones en data/credits.json.
+
+4. Contenido propio (ejercicios, fichas, textos redactados): CC BY-SA 4.0.
+
+El código de la app está bajo la licencia MIT (archivo LICENSE).

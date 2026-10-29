@@ -1,0 +1,10 @@
+# Sitio armado por la CI
+_site/
+
+# Backups y reportes exportados desde la app: nunca al repo público
+aleman-backup-*.json
+aleman-reportes-*.json
+reports/
+
+__pycache__/
+node_modules/
