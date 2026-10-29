@@ -13,7 +13,8 @@ export function germanVoices(timeout = 2000) {
 }
 
 export function speak(text, { rate = 1, voice } = {}) {
-  speechSynthesis.cancel();
+  // En Safari, cancel() justo antes de speak() puede hacer fallar la frase nueva.
+  if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'de-DE';
   u.rate = rate;

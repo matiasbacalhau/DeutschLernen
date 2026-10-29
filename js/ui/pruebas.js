@@ -38,18 +38,20 @@ export default async function pruebas(el, { store }) {
   const ready = Boolean(navigator.serviceWorker?.controller && cached);
   offline.set(ready, ready ? 'lista' : 'todavía no (recargá una vez)');
 
-  const voice = row('Voz alemana', 'Para una voz mejor: Ajustes → Accesibilidad → Contenido leído → Voces → Alemán, y descargá una voz "mejorada".');
-  const voiceList = h('p', { class: 'muted' });
+  const voice = row('Voz alemana', 'Para una voz mejor: en Ajustes buscá "Voces" (Accesibilidad → Leer y hablar → Voces → Alemán) y descargá una voz "mejorada". Probá primero con la predeterminada y después cada voz de la lista.');
+  // iOS lista voces que no están descargadas: forzar una de esas da "synthesis-failed".
+  const voiceSelect = h('select', {}, h('option', { value: '' }, 'Predeterminada del sistema'));
   let voices = [];
   voice.card.append(
-    voiceList,
+    voiceSelect,
     h('button', {
       onclick: async () => {
+        const chosen = voices[voiceSelect.value];
         try {
-          await tts.speak('Guten Tag! Ich lerne Deutsch.', { rate: 0.9, voice: voices[0] });
-          voice.set(true, 'suena');
+          await tts.speak('Guten Tag! Ich lerne Deutsch.', { rate: 0.9, voice: chosen });
+          voice.set(true, `suena (${chosen ? chosen.name : 'predeterminada'})`);
         } catch (e) {
-          voice.set(false, `error: ${e.message}`);
+          voice.set(false, `error con ${chosen ? chosen.name : 'la predeterminada'}: ${e.message}`);
         }
       },
     }, 'Escuchar'),
@@ -57,7 +59,7 @@ export default async function pruebas(el, { store }) {
   if (tts.supported()) {
     voices = await tts.germanVoices();
     voice.set(voices.length > 0, voices.length ? `${voices.length} voz/voces` : 'no hay voces alemanas');
-    voiceList.textContent = voices.map(v => `${v.name} (${v.lang})`).join(', ');
+    voiceSelect.append(...voices.map((v, i) => h('option', { value: i }, `${v.name} (${v.lang})`)));
   } else {
     voice.set(false, 'este navegador no tiene síntesis de voz');
   }

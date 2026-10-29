@@ -24,7 +24,8 @@ const SHELL = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)));
+  // cache: 'reload' saltea la caché HTTP (Pages manda max-age=600); si no, la versión nueva guardaría archivos viejos.
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })))));
 });
 
 self.addEventListener('activate', e => {
