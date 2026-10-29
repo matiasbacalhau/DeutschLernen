@@ -4,5 +4,5 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-node --test tests/
+node --test tests/*.test.js
 python3 tools/lt_check.py
