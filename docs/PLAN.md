@@ -30,6 +30,7 @@ como extra, en audición con recursos gratuitos. Se usa en **iPhone** como PWA: 
 4. **El JSON generado se commitea:** el servidor local funciona sin build y la CI verifica que esté al día.
 5. **Contradicciones resueltas:** sesión de 5 min sin material nuevo como única excepción; piso de mantenimiento en el scheduler; excepciones declaradas para tareas abiertas; tolerancia que no borra lo que se evalúa; FSRS solo para vocabulario; orden de iteraciones coherente.
 6. **Reglas operativas nuevas**, numeradas y verificables, en §7.
+7. **Biblioteca personal (uso privado):** los textos que no se pueden publicar (Hesse, Projekt Gutenberg-DE, prensa sin CC) se importan en el iPhone y nunca entran al repo (§1, §3 Lectura, regla 21). Cambiar de host no resolvía la licencia: el límite es publicar, no dónde se publica.
 
 ---
 
@@ -59,8 +60,8 @@ anexo Goethe B1–C2 (https://www.goethe.de/resources/files/pdf236/serbien-rahme
 - **Traducciones al español:** sección *Übersetzungen* de Wiktionary DE (CC-BY-SA, vía la extracción del Wiktionary alemán en kaikki). Lo que falte se traduce a mano y se revisa. german-nouns trae definiciones en alemán y kaikki EN glosas en inglés, así que ninguno sirve solo.
 - **Tatoeba** (pares alemán–español, CC-BY / CC0) para frases de ejemplo — https://tatoeba.org/downloads. Sus frases pasan por el mismo control de calidad que el alemán redactado (§4).
 - **DWDS** (frecuencia y colocaciones, solo consulta) para priorizar el vocabulario B2–C1 y los Funktionsverbgefüge.
-- **Lectura auténtica legal:** Wikipedia en alemán (CC-BY-SA, con atribución), Wikisource-DE y gutenberg.org (dominio público), Wikinews en alemán. **No** Projekt Gutenberg-DE: sus condiciones solo permiten uso privado.
-- **Literatura de dominio público** (en DE y AR, 70 años *post mortem*): Thomas Mann (*Tonio Kröger*, *Der Tod in Venedig*; libre desde 2026, verificar si ya está en Wikisource-DE), Musil (*Törleß*), Joseph Roth (*Die Legende vom heiligen Trinker*, *Hiob*), Rilke (*Briefe an einen jungen Dichter*), Storm (*Immensee*), Kafka, Zweig, Schnitzler y Tucholsky (ironía, C1). Hesse sigue protegido hasta 2033: solo enlace "leer más", sin guardar el texto.
+- **Lectura auténtica legal:** Wikipedia en alemán (CC-BY-SA, con atribución), Wikisource-DE y gutenberg.org (dominio público), Wikinews en alemán. **No** Projekt Gutenberg-DE en el repo: sus condiciones solo permiten uso privado (sí en la biblioteca personal).
+- **Literatura de dominio público** (en DE y AR, 70 años *post mortem*): Thomas Mann (*Tonio Kröger*, *Der Tod in Venedig*; libre desde 2026, verificar si ya está en Wikisource-DE), Musil (*Törleß*), Joseph Roth (*Die Legende vom heiligen Trinker*, *Hiob*), Rilke (*Briefe an einen jungen Dichter*), Storm (*Immensee*), Kafka, Zweig, Schnitzler y Tucholsky (ironía, C1). Hesse sigue protegido hasta 2033: en el repo solo enlace "leer más", sin guardar el texto; se puede leer desde la biblioteca personal.
 
 ### Prensa y revistas
 La licencia se revisa artículo por artículo (bpb, por ejemplo, mezcla licencias) y se guarda en `data/texts/*.json` (`license`, `modified`).
@@ -68,6 +69,11 @@ La licencia se revisa artículo por artículo (bpb, por ejemplo, mezcla licencia
 - **CC BY-NC-ND** (la mayoría de bpb, libros de la Rosa-Luxemburg-Stiftung): se guardan solo sin modificar. Preguntas y glosario van aparte.
 - **Sin CC** (Spiegel, Zeit, taz, nachrichtenleicht.de): solo enlace más preguntas propias. No funcionan offline.
 - NC no es problema porque la app no es comercial. Por nivel: A2–B1 nachrichtenleicht y bpb en lenguaje simple; B2–C1 netzpolitik, *LUXEMBURG* y dossiers de bpb.
+
+### Biblioteca personal (uso privado)
+Para lo que no se puede publicar: Hesse, Projekt Gutenberg-DE, artículos de Spiegel o Zeit guardados, libros propios. El repo y la URL pública nunca los contienen; respetar igual las condiciones de cada sitio.
+- **A — Importar en el teléfono (base):** el usuario importa un archivo (txt, html o epub) desde Archivos y queda solo en IndexedDB. La app arma lo que puede sin revisión: glosario desde el léxico, estado de palabras, envío al SRS y un resumen abierto que LanguageTool corrige cuando el usuario toca "corregir". No hay preguntas de comprensión. Las palabras sin entrada en el léxico se muestran "sin traducción".
+- **B — Paquete preparado en la compu (para los textos que valgan la pena):** `tools/pack_text.py` toma el texto y sus preguntas, corre `validate` y LanguageTool local (Docker) y genera un `.json` que se importa en el iPhone. Queda con la misma calidad que el contenido público. Los paquetes se guardan en `privado/` (en `.gitignore`).
 
 ### Audición (gratis)
 DW: Nicos Weg (A1–B1), "Deutsch – warum nicht?" (A1–A2), Top-Thema mit Vokabeln (B1–B2, **con manuscrito**), Langsam gesprochene Nachrichten (B2–C1, **con manuscrito**) ·
@@ -219,6 +225,7 @@ Al final se muestra un resumen: reglas trabajadas, reglas débiles, racha y minu
 - **Estado de palabras al estilo Lute:** al leer, cada palabra se muestra resaltada según su estado (nueva, aprendiendo, conocida). Tocarla permite cambiar el estado o mandarla al SRS, y al terminar el texto se puede marcar el resto como conocido. Se reconocen lemas (*ging* → *gehen*) y términos multipalabra (verbos separables, Funktionsverbgefüge). El dashboard muestra "palabras conocidas frente a la meta del nivel".
 - Niveles B2–C1: además, **textos auténticos con licencia libre** (Wikipedia en alemán, Wikinews, prensa CC, literatura de dominio público), guardados con su fuente y licencia y con preguntas propias (idea principal, postura, inferencias, vocabulario en contexto, estructura argumentativa).
 - Estrategias de lectura explícitas por nivel: escaneo de datos (A1), idea principal (A2/B1), opinión e intención (B2), implícitos y registro (C1).
+- **Biblioteca personal** (§1): los textos importados (A) se leen con glosario y estado de palabras, sin ítems cerrados, así que no mueven el mastery; solo el SRS y el resumen. Los paquetes (B) traen preguntas revisadas y cuentan como cualquier lectura. Los textos A se marcan "sin revisar" en la app.
 
 ### Escritura
 Consigna tipo Goethe/telc, contador de palabras, teclas ä ö ü ß, LanguageTool, checklist de criterios por nivel (cumplimiento de la tarea, coherencia, conectores, variedad, registro) y **texto modelo** que se ve después de enviar (excepción declarada: es una tarea abierta). Para B2–C1 incluye la reescritura de estilo (nominal ↔ verbal). Los errores de LT mapeados alimentan el mastery; un error de ortografía en una palabra del léxico baja además la tarjeta FSRS de esa palabra.
@@ -261,11 +268,11 @@ Banco de unos 15 ítems por nivel (gramática generada, lectura, realia, mini-di
 | **0 — Esqueleto** | Repo con LICENSE (código MIT, datos CC-BY-SA), CI (`check.sh` con LanguageTool en Docker) y Pages; PWA instalable; router; store con export/import; prueba en el iPhone de instalación, offline, TTS alemán y CORS de LanguageTool. |
 | **1 — Porción vertical** | `curriculum.json` (todos los niveles, con grafo), `morph.js` (artículos, presente) con tests de tablas propias, léxico mínimo a mano (~50 sustantivos A1), generador `articulo-caso`, tipos gap/choice/order/image-choice, `diagnose` + feedback "incorrecto → regla → siguiente" (sin solución ni reintento), mastery y scheduler básicos, sesión variable de 5/15/30 min (sin SRS ni audición), **A1 unidad 1 completa** (ficha, lectura, ejercicios, escritura corta con checklist y modelo, todavía sin LT). Ya se usa a diario. |
 | **2 — Test de nivel + A1 u. 2–4** | Test adaptativo con banco A1–A2, dashboard, SRS de vocabulario (ts-fsrs), léxico A1 desde german-nouns y kaikki (desde acá los tests de morph son contra Wiktionary), glosario con estado de palabras al estilo Lute y divisor de compuestos. |
-| **3 — A1 completo** | Unidades 5–12, hotspot (preposiciones con Akk y chunks de Dativ)/realia/odd-one-out, dictado TTS, reproductor YouTube, primeros videos A1, Perfekt en morph. |
+| **3 — A1 completo** | Unidades 5–12, hotspot (preposiciones con Akk y chunks de Dativ)/realia/odd-one-out, dictado TTS, reproductor YouTube, primeros videos A1, Perfekt en morph, biblioteca personal A (importar texto, glosario y estado de palabras). |
 | **4 — Escritura + A2 (1.ª mitad)** | Módulo de escritura con LT y `lt-map`, picture-story y describe, declinación adjetival y Dativ en morph, examen de salida de A1. |
 | **5 — A2 completo** | Generadores wechselpraep, verb-praeposition, konj2; examen de salida de A2. |
 | **6–7 — B1** | Präteritum, Passiv y relativas en el generador, lecturas B1, simulacro Goethe B1. |
-| **8–9 — B2** | Textos auténticos (Wikipedia, prensa CC, dominio público; verificar si Thomas Mann ya está en Wikisource-DE), Erörterung, `chart`, Konj. I, simulacro B2. |
+| **8–9 — B2** | Textos auténticos (Wikipedia, prensa CC, dominio público; verificar si Thomas Mann ya está en Wikisource-DE), Erörterung, `chart`, Konj. I, simulacro B2, biblioteca personal B (`tools/pack_text.py` e importación de paquetes). |
 | **10–11 — C1** | Nominalización, Partizipialattribut, Funktionsverbgefüge, ensayo C1, literatura de dominio público, simulacro C1. |
 | **Continuo** | Ajustes según los datos de uso: qué tags fallan más y qué tiempos reales lleva cada ejercicio. |
 
@@ -275,6 +282,7 @@ Banco de unos 15 ítems por nivel (gramática generada, lectura, realia, mini-di
 - Feedback: con una respuesta equivocada en un ítem cerrado se ve "Incorrecto", la regla, un ejemplo distinto y "Siguiente". **Nunca se ve la solución ni hay reintento.** El glosario y el ejemplo no revelan la forma evaluada.
 - Scheduler (test automático, con RNG y reloj fijos): simular 30 respuestas con errores forzados en un par (tag, tipo). La frecuencia de ese par debe subir y bajar al acertar, sin repetir el mismo ítem en la sesión ni más de 2 seguidos del mismo tag. Un error diagnosticado en un prerrequisito debe penalizar ese prerrequisito (completo) y el tag del ítem (parcial). Un par dominado sigue apareciendo con el peso del piso.
 - Tests de reglas: morph acepta todas las variantes; normalize no borra el rasgo del tag ortográfico; un ítem en cuarentena no cambia el mastery; `validate.py` rechaza un texto sin licencia y uno ND modificado.
+- Biblioteca personal: un texto importado sobrevive a un export/import y no cambia el mastery. `git ls-files privado/` sale vacío y ningún archivo publicado en Pages contiene un texto de la biblioteca.
 - iPhone: instalar desde la URL de Pages y probar modo avión, TTS, YouTube y LanguageTool. El progreso tiene que persistir al cerrar la app y sobrevivir a un export/import.
 
 ---
@@ -299,15 +307,18 @@ Resumen verificable de las reglas que ya están repartidas en el plan. Ante una 
 ### Respuestas y calidad
 11. **Respuesta única o conjunto completo.** Las consignas generadas fijan la restricción; `order` acepta todos los órdenes V2 válidos; morph devuelve conjuntos de variantes.
 12. **La normalización nunca borra el rasgo evaluado.** ß, umlaut, mayúscula y coma se exigen si el tag es ortográfico. En el resto se aceptan con aviso ("ojo: ß"). Los inputs van con autocapitalize y autocorrect apagados.
-13. **Todo el alemán que entra a la app pasa por el control de calidad:** ítems, plantillas (por instancias), Tatoeba y textos (con excepción marcada para la ortografía anterior a 1996).
+13. **Todo el alemán que publica la app pasa por el control de calidad** (la biblioteca personal A es la excepción, ver regla 21): ítems, plantillas (por instancias), Tatoeba y textos (con excepción marcada para la ortografía anterior a 1996).
 14. **Test de nivel:** 50–69 % = nivel "en curso"; sin feedback durante el test; formas rotativas; el examen de salida aprueba con 60 % por módulo.
 
 ### Build, repo y licencias
 15. **El JSON generado se commitea** y la CI falla si no está al día. Punto de entrada único: `tools/check.sh`.
 16. **Dependencias:** ninguna en runtime (ts-fsrs vendorizado con su LICENSE). Las herramientas usan `tools/requirements.txt`. `build_lexicon.py` corre en local y su salida se commitea.
 17. **Licencias:** código MIT y datos derivados de Wiktionary CC-BY-SA 4.0. La licencia de cada texto se registra por artículo.
-18. **Contenido no libre** (DW, Easy German, audios Goethe, Lingolia, prensa sin CC, Hesse): solo enlace o embed, nunca rehost ni transcripción guardada.
-19. **Nada personal en el repo público:** ni progreso ni reportes.
+18. **Contenido no libre** (DW, Easy German, audios Goethe, Lingolia, prensa sin CC, Hesse): en el repo solo enlace o embed, nunca rehost ni transcripción guardada. Para uso privado, la biblioteca personal (regla 21).
+19. **Nada personal en el repo público:** ni progreso, ni reportes, ni textos de la biblioteca personal.
 
 ### Iteraciones
 20. **Cada iteración usa solo lo que ya existe.** La sesión, los tipos de ejercicio y los tests se arman con los componentes entregados hasta esa iteración. En A1 el Dativ va como chunks; se vuelve productivo en A2.
+
+### Biblioteca personal
+21. **Lo privado vive en el dispositivo.** Los textos de uso privado solo entran por importación (A: archivo suelto, sin revisar, sin ítems cerrados ni efecto en el mastery; B: paquete revisado en la compu con LanguageTool local). Nunca se commitean, nunca se publican y nunca se mandan a la CI.
