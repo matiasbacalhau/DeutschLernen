@@ -1,5 +1,5 @@
 // Formato del backup, migraciones y recordatorio. Lógica pura: no toca IndexedDB ni el DOM.
-export const APP_ID = 'aleman-a1-c1';
+export const APP_ID = 'deutschlernen';
 export const SCHEMA_VERSION = 1;
 
 // migrations[n] convierte los datos de la versión n − 1 a la n.
