@@ -1,0 +1,31 @@
+// Piezas compartidas por los checks: armado del Result y evaluación de respuestas escritas.
+import { matchAnswer } from '../normalize.js';
+import { diagnose } from '../diagnose.js';
+
+export const tagInfo = (ctx, tag) => ctx.curriculum.tags[tag] ?? {};
+
+export function result(key, tag, ok, {rule = null, notice = null, prereq = null, ...extra} = {}) {
+  return {key, tag, ok, rule: ok ? null : rule, notice, prereq, review: false, ...extra};
+}
+
+export const keyFor = (ex, n, total) => (total > 1 ? `${ex.id}#${n}` : ex.id);
+
+// item: ejercicio o hueco con {tag, answers, errors?, dims?, generated?}.
+export function checkWritten(key, item, answer, ctx) {
+  const info = tagInfo(ctx, item.tag);
+  const m = matchAnswer(answer, item.answers, {orthographic: !!info.orthographic});
+  if (m.ok) return result(key, item.tag, true, {notice: m.notice});
+  if (item.generated) {
+    const d = diagnose(item, answer, ctx.curriculum.tags);
+    return result(key, item.tag, false, d);
+  }
+  const hit = (item.errors ?? []).find((e) => matchAnswer(answer, [e.answer], {orthographic: !!info.orthographic}).ok);
+  return result(key, item.tag, false, {rule: hit?.rule ?? info.rule});
+}
+
+// options: [{text, correct?, rule?}]; answer: índice elegido.
+export function checkOption(key, tag, options, answer, ctx) {
+  const opt = options[answer];
+  if (opt?.correct) return result(key, tag, true);
+  return result(key, tag, false, {rule: opt?.rule ?? tagInfo(ctx, tag).rule});
+}

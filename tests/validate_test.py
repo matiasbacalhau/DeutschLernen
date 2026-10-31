@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import unittest
@@ -148,6 +149,11 @@ class CountItemsTest(unittest.TestCase):
         self.assertEqual(count_items({'type': 'reading', 'questions': [{}, {}, {}]}), 3)
         self.assertEqual(count_items({'type': 'detective', 'apply': [{}, {}]}), 3)
         self.assertEqual(count_items({'type': 'writing-free'}), 1)
+
+    def test_fixture_compartido_con_js(self):
+        with open(os.path.join(os.path.dirname(__file__), 'fixtures', 'count-items.json'), encoding='utf-8') as f:
+            for caso in json.load(f):
+                self.assertEqual(count_items(caso['exercise']), caso['items'], caso['exercise']['type'])
 
 
 if __name__ == '__main__':
