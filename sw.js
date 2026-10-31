@@ -10,6 +10,7 @@ const SHELL = [
   'js/app.js',
   'js/core/backup.js',
   'js/core/checks.js',
+  'js/core/content.js',
   'js/core/router.js',
   'js/core/store.js',
   'js/services/languagetool.js',
@@ -22,6 +23,11 @@ const SHELL = [
   'icons/icon-192.png',
   'icons/icon-512.png',
   'icons/icon-512-maskable.png',
+  'data/curriculum.json',
+  'data/lexicon.json',
+  'data/lt-map.json',
+  'data/templates.json',
+  'data/levels/a1/unit-01.json',
 ];
 
 self.addEventListener('install', e => {

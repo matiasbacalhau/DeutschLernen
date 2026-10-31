@@ -1,0 +1,22 @@
+{
+ "id": "a1.u01",
+ "level": "A1",
+ "title": "Ankommen",
+ "topics": [
+  {
+   "topic": "a1.u1.t1",
+   "draft": true,
+   "steps": []
+  },
+  {
+   "topic": "a1.u1.t2",
+   "draft": true,
+   "steps": []
+  },
+  {
+   "topic": "a1.u1.t3",
+   "draft": true,
+   "steps": []
+  }
+ ]
+}

@@ -15,13 +15,13 @@ function files(dir) {
 }
 
 test('SHELL incluye todos los archivos de la app', () => {
-  const expected = ['index.html', 'manifest.webmanifest', ...files('css'), ...files('js'), ...files('icons')];
+  const expected = ['index.html', 'manifest.webmanifest', ...files('css'), ...files('js'), ...files('icons'), ...files('data')];
   const missing = expected.filter(f => !shell.includes(f));
   assert.deepEqual(missing, []);
 });
 
 test('SHELL no lista archivos inexistentes', () => {
-  const existing = new Set(['./', 'index.html', 'manifest.webmanifest', ...files('css'), ...files('js'), ...files('icons')]);
+  const existing = new Set(['./', 'index.html', 'manifest.webmanifest', ...files('css'), ...files('js'), ...files('icons'), ...files('data')]);
   assert.deepEqual(shell.filter(f => !existing.has(f)), []);
 });
 
