@@ -7,13 +7,11 @@ const GATE = 0.6;
 export const forgetting = (last, now) => 1 + Math.min(1, (now - last) / MONTH);
 
 // candidates: ejercicios cerrados de un solo ítem (con `tag` y `type`).
-// opts: {now, rng, count, excludeTags, recentTags, curriculum}
+// opts: {now, rng, count, excludeTags, curriculum}
 // - curriculum (data/curriculum.json) aporta tags[tag].requires para el gating (≥ 0.6; sin datos cuenta 0).
-// - recentTags: los tags vistos hace poco pesan la mitad.
 // - peso = max(0.1, 1 − m_par) × forgetting(last del tag); m_par cae a m del tag si el par no tiene datos.
-export function pickReview(candidates, state, {now, rng, count, excludeTags = [], recentTags = [], curriculum} = {}) {
+export function pickReview(candidates, state, {now, rng, count, excludeTags = [], curriculum} = {}) {
   const excluded = new Set(excludeTags);
-  const recent = new Set(recentTags);
   const pool = [];
   for (const ex of candidates) {
     if (excluded.has(ex.tag)) continue;
@@ -23,8 +21,7 @@ export function pickReview(candidates, state, {now, rng, count, excludeTags = []
     if (reqs.some(r => (masteryOf(state, r) ?? 0) < GATE)) continue;
     const pair = state.pairs[`${ex.tag}|${ex.type}`];
     const mp = pair && pair.n > 0 ? pair.m : m;
-    let w = Math.max(0.1, 1 - mp) * forgetting(state.tags[ex.tag].last, now);
-    if (recent.has(ex.tag)) w *= 0.5;
+    const w = Math.max(0.1, 1 - mp) * forgetting(state.tags[ex.tag].last, now);
     pool.push({ex, w});
   }
   const out = [];
@@ -39,24 +36,43 @@ export function pickReview(candidates, state, {now, rng, count, excludeTags = []
 
 const same3 = (out, ex) => out.length >= 2 && out.at(-1).tag === ex.tag && out.at(-2).tag === ex.tag;
 
-// Mezcla al azar conservando el orden de `main`; evita 3 seguidos del mismo tag y reintenta
-// si se acorrala (si no existe un orden válido devuelve el último intento).
+// Reparte `review` entre `main` conservando el orden de `main`. Búsqueda con retroceso: nunca deja
+// 3 seguidos del mismo tag si existe algún orden válido; `rng` solo decide qué se prueba primero.
+// Si no existe ningún orden válido, reparte el repaso a intervalos parejos dentro de `main`.
 export function interleave(main, review, rng) {
-  let out;
-  for (let attempt = 0; attempt < 30; attempt++) {
-    const m = [...main], r = [...review];
-    out = [];
-    while (m.length || r.length) {
-      const pickReviewNext = r.length && (!m.length || rng() < r.length / (m.length + r.length));
-      const okR = r.map((e, i) => i).filter(i => !same3(out, r[i]));
-      let take;
-      if (pickReviewNext && okR.length) take = r.splice(okR[Math.floor(rng() * okR.length)], 1)[0];
-      else if (m.length && !same3(out, m[0])) take = m.shift();
-      else if (okR.length) take = r.splice(okR[0], 1)[0];
-      else take = m.length ? m.shift() : r.shift();
-      out.push(take);
+  const total = main.length + review.length;
+  const out = [];
+  const used = new Set();
+  const dead = new Set();
+  const go = i => {
+    if (out.length === total) return true;
+    const k = `${i}|${[...used].join(',')}|${out.at(-2)?.tag}|${out.at(-1)?.tag}`;
+    if (dead.has(k)) return false;
+    const opts = [];
+    const seen = new Set();
+    review.forEach((e, j) => {
+      if (!used.has(j) && !seen.has(e.tag)) { seen.add(e.tag); opts.push({j, e}); }
+    });
+    const rest = review.length - used.size;
+    const reviewFirst = rest && (i >= main.length || rng() < rest / (total - out.length));
+    // Entre los de repaso el orden es al azar; main va primero o último según reviewFirst.
+    for (let a = opts.length - 1; a > 0; a--) {
+      const b = Math.floor(rng() * (a + 1));
+      [opts[a], opts[b]] = [opts[b], opts[a]];
     }
-    if (!out.some((e, i) => i >= 2 && same3(out.slice(0, i), e))) return out;
-  }
-  return out;
+    if (i < main.length) opts.splice(reviewFirst ? opts.length : 0, 0, {main: true, e: main[i]});
+    for (const o of opts) {
+      if (same3(out, o.e)) continue;
+      out.push(o.e);
+      if (o.main) { if (go(i + 1)) return true; }
+      else { used.add(o.j); if (go(i)) return true; used.delete(o.j); }
+      out.pop();
+    }
+    dead.add(k);
+    return false;
+  };
+  if (go(0)) return out;
+  const res = [...main];
+  review.forEach((e, k) => res.splice(Math.round(((k + 1) * main.length) / (review.length + 1)) + k, 0, e));
+  return res;
 }

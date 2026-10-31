@@ -91,3 +91,51 @@ test('interleave: nunca 3 seguidos del mismo tag y conserva todos', () => {
     }
   }
 });
+
+const mk = (str, p) => [...str].map((tag, i) => ex(`${p}${i}`, tag));
+const triple3 = a => a.some((e, i) => i >= 2 && e.tag === a[i - 1].tag && e.tag === a[i - 2].tag);
+
+test('interleave: caso ajustado yxxxx + xxy', () => {
+  for (let seed = 1; seed <= 30; seed++) {
+    const out = interleave(mk('yxxxx', 'm'), mk('xxy', 'r'), lcg(seed));
+    assert.equal(out.length, 8);
+    assert.ok(!triple3(out), out.map(e => e.tag).join(''));
+    assert.deepEqual(out.filter(e => e.id.startsWith('m')).map(e => e.id), ['m0', 'm1', 'm2', 'm3', 'm4']);
+  }
+});
+
+// Fuerza bruta: ¿existe algún orden válido que conserve main?
+function solvable(main, review) {
+  const go = (i, rest, out) => {
+    if (i === main.length && !rest.length) return true;
+    const t = o => out.length >= 2 && out.at(-1) === o && out.at(-2) === o;
+    if (i < main.length && !t(main[i]) && go(i + 1, rest, [...out, main[i]])) return true;
+    return rest.some((r, j) => !t(r) && go(i, rest.filter((_, k) => k !== j), [...out, r]));
+  };
+  return go(0, [...review], []);
+}
+function allStrings(max) {
+  const res = [''];
+  for (let n = 1; n <= max; n++) for (let v = 0; v < 2 ** n; v++) res.push([...Array(n)].map((_, b) => 'xy'[(v >> b) & 1]).join(''));
+  return res;
+}
+
+test('interleave: exhaustivo, sin 3 seguidos siempre que exista orden válido', () => {
+  let solvables = 0;
+  for (const m of allStrings(5)) for (const r of allStrings(3)) {
+    const out = interleave(mk(m, 'm'), mk(r, 'r'), lcg(m.length * 7 + r.length + 1));
+    assert.equal(out.length, m.length + r.length);
+    assert.equal(new Set(out.map(e => e.id)).size, out.length);
+    if (solvable([...m], [...r])) { solvables++; assert.ok(!triple3(out), `${m} + ${r}`); }
+  }
+  assert.ok(solvables > 100);
+});
+
+test('pickReview: par sin datos usa el mastery del tag', () => {
+  const s = {tags: {'a1.nom': {m: 1, n: 5, last: NOW}, 'a1.sein': {m: 0, n: 5, last: NOW}}, pairs: {}};
+  const c = [ex('n', 'a1.nom'), ex('s', 'a1.sein')];
+  const rng = lcg(5);
+  let sein = 0;
+  for (let i = 0; i < 300; i++) if (pickReview(c, s, {now: NOW, rng, count: 1})[0].tag === 'a1.sein') sein++;
+  assert.ok(sein > 240, `sein ${sein}/300`); // pesos 1 vs 0.1
+});
