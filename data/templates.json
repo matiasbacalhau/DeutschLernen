@@ -90,7 +90,6 @@
   "slot": {
    "pos": "noun",
    "fields": [
-    "essen",
     "getraenke",
     "vorrat"
    ]
@@ -118,7 +117,7 @@
   "det": "def",
   "kase": "akk",
   "verb": "möchten",
-  "context": "En el bar: Jana ya se fue y pagás solo lo tuyo (con artículo definido).",
+  "context": "En el bar, la moza pregunta qué cobra y señalás lo que está en la mesa (con artículo definido).",
   "text": "Ich möchte ___ {noun} bezahlen, bitte.",
   "slot": {
    "pos": "noun",
@@ -133,12 +132,11 @@
   "det": "kein",
   "kase": "akk",
   "verb": "möchten",
-  "context": "Comiste de más y el anfitrión te sigue ofreciendo.",
+  "context": "En una cena: el anfitrión te quiere servir otra vez y ya no podés más.",
   "text": "Danke, ich möchte ___ {noun} mehr.",
   "slot": {
    "pos": "noun",
    "fields": [
-    "essen",
     "getraenke"
    ]
   }

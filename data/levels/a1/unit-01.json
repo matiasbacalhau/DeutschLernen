@@ -4859,7 +4859,7 @@
      "Por qué existe. El alemán marca en el artículo quién hace y quién recibe. Por eso puede mover las piezas: *Der Hund beißt den Mann* y *Den Hund beißt der Mann* tienen el mismo orden de palabras, pero en la segunda el que muerde es el hombre. El orden no decide; decide el artículo.",
      "El español también lo tiene, escondido en los pronombres: *él* es el sujeto, pero *lo quiero*. El portugués igual: *ele* frente a *eu o quero*. El alemán hace con el artículo masculino lo que nosotros hacemos con el pronombre.",
      "El inglés lo tuvo y lo perdió. En inglés antiguo el artículo masculino era *se* como sujeto y *þone* como objeto, pariente directo de *den*. Sobrevive solo en los pronombres: *he → him*, *who → whom*. El alemán conservó el sistema entero.",
-     "Por qué solo el masculino. En el indoeuropeo el femenino y el neutro ya usaban la misma forma para sujeto y objeto (y el neutro, en latín, también: *templum* es igual en los dos casos). Al alemán le quedó una sola terminación distinta, la *-n* del masculino. Una sola regla para aprender, y es esa.",
+     "Por qué solo el masculino. El neutro siempre fue igual como sujeto y como objeto (en latín, *templum* sirve para los dos). El femenino sí los distinguía (latín *rosa* / *rosam*), pero el germánico los igualó. El masculino conservó su *-n*: *den*, *einen*. Una sola terminación distinta, y por lo tanto una sola regla.",
      "*kein* es *k* + *ein* y se declina igual: *einen → keinen*, *eine → keine*, *ein → kein*. En plural, donde no hay *ein*, *kein* sí existe: *keine Eier*.",
      "*möchten* es la forma cortés de *mögen* (gustar): literalmente 'me gustaría'. Es el *quisiera* alemán, y es lo que se dice en una panadería. *Ich will einen Kaffee* (quiero un café) suena a nene caprichoso.",
      "Con o sin artículo, como en español: *Ich brauche Milch* (leche, sin cantidad) o *Ich möchte eine Milch* (un vaso, un cartón). *Ich möchte Kaffee* es 'quiero café'; *Ich möchte einen Kaffee* es 'quiero un café'. Si no hay artículo, no hay nada que declinar.",
@@ -4980,7 +4980,7 @@
         },
         {
          "text": "Ich möchte ein Kaffee zum Mitnehmen, bitte.",
-         "rule": "Con *möchten*, el café es lo que querés: el objeto directo, que va en *Akkusativ*. El artículo del sujeto no sirve en todos los géneros."
+         "rule": "Con *möchten*, el café es el objeto directo y va en *Akkusativ*: revisá si su género es el que cambia."
         },
         {
          "text": "Ich möchte eine Kaffee zum Mitnehmen, bitte.",
@@ -5318,7 +5318,8 @@
        ],
        "wrong": 3,
        "corrections": [
-        "einen"
+        "einen",
+        "den"
        ],
        "rule": "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que se necesita, no el sujeto.",
        "dims": {
@@ -5528,7 +5529,8 @@
        ],
        "wrong": 2,
        "corrections": [
-        "eine"
+        "eine",
+        "die"
        ],
        "rule": "*einen* acompaña a un solo género, y no es el de *Tüte*.",
        "dims": {
@@ -6018,7 +6020,8 @@
        ],
        "wrong": 3,
        "corrections": [
-        "einen"
+        "einen",
+        "den"
        ],
        "rule": "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto.",
        "dims": {
@@ -6059,7 +6062,7 @@
         },
         {
          "who": "them",
-         "text": "Wurst habe ich leider keine mehr. Aber Äpfel habe ich!"
+         "text": "Wurst ist leider aus. Aber Äpfel habe ich!"
         }
        ],
        "gaps": [
@@ -6251,7 +6254,8 @@
         "Herr Yilmaz hat keinen Apfelsaft.",
         "Herr Yilmaz hat keinen Apfelsaft mehr.",
         "Keinen Apfelsaft hat Herr Yilmaz.",
-        "Keinen Apfelsaft hat Herr Yilmaz mehr."
+        "Keinen Apfelsaft hat Herr Yilmaz mehr.",
+        "Keinen Apfelsaft mehr hat Herr Yilmaz."
        ],
        "dims": {
         "gender": "m"
@@ -6528,7 +6532,7 @@
        "tag": "a1.akk.mask",
        "reserve": true,
        "source": "Der Käse ist lecker.",
-       "instruction": "Usá el mismo artículo definido, pero empezá con *Ich möchte…*",
+       "instruction": "Ahora el queso es lo que querés: con artículo definido y *Ich möchte…*",
        "answers": [
         "Ich möchte den Käse.",
         "Den Käse möchte ich."
@@ -6610,7 +6614,13 @@
           "Sie kocht eine Suppe",
           "Jana kocht eine Suppe",
           "Eine Kürbissuppe kocht sie",
-          "Eine Kürbissuppe kocht Jana"
+          "Eine Kürbissuppe kocht Jana",
+          "Eine Suppe kocht sie",
+          "Eine Suppe kocht Jana",
+          "Sie kocht Kürbissuppe",
+          "Jana kocht Kürbissuppe",
+          "Sie kocht Suppe",
+          "Jana kocht Suppe"
          ],
          "dims": {
           "gender": "f"
@@ -6656,7 +6666,17 @@
           "Paul möchte unbedingt einen Kuchen",
           "Einen Kuchen als Nachtisch",
           "Er möchte einen Kuchen als Nachtisch",
-          "Paul möchte einen Kuchen als Nachtisch"
+          "Paul möchte einen Kuchen als Nachtisch",
+          "Einen Nachtisch möchte Paul",
+          "Einen Kuchen möchte er",
+          "Einen Kuchen möchte Paul",
+          "Unbedingt einen Nachtisch",
+          "Er möchte Nachtisch",
+          "Er möchte unbedingt Nachtisch",
+          "Paul möchte Nachtisch",
+          "Paul möchte unbedingt Nachtisch",
+          "Einen Nachtisch möchte er unbedingt",
+          "Einen Nachtisch möchte Paul unbedingt"
          ],
          "errors": [
           {
@@ -6757,20 +6777,31 @@
        "answers": [
         "Ich möchte einen Kaffee, bitte.",
         "Ich möchte einen Kaffee bitte.",
-        "Ich möchte bitte einen Kaffee.",
+        "Ich möchte einen Kaffee.",
         "Ich möchte gern einen Kaffee, bitte.",
+        "Ich möchte gern einen Kaffee bitte.",
+        "Ich möchte gern einen Kaffee.",
         "Ich möchte gerne einen Kaffee, bitte.",
+        "Ich möchte gerne einen Kaffee bitte.",
+        "Ich möchte gerne einen Kaffee.",
         "Ich hätte gern einen Kaffee, bitte.",
-        "Ich hätte gerne einen Kaffee, bitte.",
         "Ich hätte gern einen Kaffee bitte.",
+        "Ich hätte gern einen Kaffee.",
+        "Ich hätte gerne einen Kaffee, bitte.",
         "Ich hätte gerne einen Kaffee bitte.",
+        "Ich hätte gerne einen Kaffee.",
+        "Ich möchte bitte einen Kaffee.",
+        "Ich möchte bitte gern einen Kaffee.",
+        "Ich möchte bitte gerne einen Kaffee.",
         "Ich hätte bitte gern einen Kaffee.",
         "Ich hätte bitte gerne einen Kaffee.",
-        "Ich hätte gern einen Kaffee.",
-        "Ich hätte gerne einen Kaffee.",
         "Einen Kaffee, bitte.",
         "Einen Kaffee bitte.",
-        "Ich möchte einen Kaffee."
+        "Bitte einen Kaffee.",
+        "Einen Kaffee möchte ich.",
+        "Einen Kaffee möchte ich bitte.",
+        "Einen Kaffee hätte ich gern.",
+        "Einen Kaffee hätte ich gerne."
        ],
        "dims": {
         "gender": "m"
@@ -6832,8 +6863,10 @@
        "answers": [
         "Wir haben keinen Ofen.",
         "Einen Ofen haben wir nicht.",
+        "Keinen Ofen haben wir.",
         "Wir haben keinen Backofen.",
-        "Einen Backofen haben wir nicht."
+        "Einen Backofen haben wir nicht.",
+        "Keinen Backofen haben wir."
        ],
        "dims": {
         "gender": "m"
@@ -6896,7 +6929,8 @@
        "answers": [
         "Ich brauche ein Messer.",
         "Ein Messer brauche ich.",
-        "Ich benötige ein Messer."
+        "Ich benötige ein Messer.",
+        "Ein Messer benötige ich."
        ],
        "dims": {
         "gender": "n"
@@ -7077,14 +7111,33 @@
        "from": "en",
        "source": "I'd like a bottle of wine.",
        "answers": [
-        "Ich möchte eine Flasche Wein.",
-        "Ich hätte gern eine Flasche Wein.",
-        "Ich hätte gerne eine Flasche Wein.",
-        "Ich möchte gern eine Flasche Wein.",
-        "Ich möchte gerne eine Flasche Wein.",
-        "Eine Flasche Wein möchte ich.",
         "Ich möchte eine Flasche Wein, bitte.",
-        "Ich möchte eine Flasche Wein bitte."
+        "Ich möchte eine Flasche Wein bitte.",
+        "Ich möchte eine Flasche Wein.",
+        "Ich möchte gern eine Flasche Wein, bitte.",
+        "Ich möchte gern eine Flasche Wein bitte.",
+        "Ich möchte gern eine Flasche Wein.",
+        "Ich möchte gerne eine Flasche Wein, bitte.",
+        "Ich möchte gerne eine Flasche Wein bitte.",
+        "Ich möchte gerne eine Flasche Wein.",
+        "Ich hätte gern eine Flasche Wein, bitte.",
+        "Ich hätte gern eine Flasche Wein bitte.",
+        "Ich hätte gern eine Flasche Wein.",
+        "Ich hätte gerne eine Flasche Wein, bitte.",
+        "Ich hätte gerne eine Flasche Wein bitte.",
+        "Ich hätte gerne eine Flasche Wein.",
+        "Ich möchte bitte eine Flasche Wein.",
+        "Ich möchte bitte gern eine Flasche Wein.",
+        "Ich möchte bitte gerne eine Flasche Wein.",
+        "Ich hätte bitte gern eine Flasche Wein.",
+        "Ich hätte bitte gerne eine Flasche Wein.",
+        "Eine Flasche Wein, bitte.",
+        "Eine Flasche Wein bitte.",
+        "Bitte eine Flasche Wein.",
+        "Eine Flasche Wein möchte ich.",
+        "Eine Flasche Wein möchte ich bitte.",
+        "Eine Flasche Wein hätte ich gern.",
+        "Eine Flasche Wein hätte ich gerne."
        ],
        "dims": {
         "gender": "f"
@@ -7126,7 +7179,14 @@
         "Keine Tüte danke.",
         "Ich brauche keine Tüte, vielen Dank.",
         "Nein danke, ich brauche keine Tüte.",
-        "Nein, danke, ich brauche keine Tüte."
+        "Nein, danke, ich brauche keine Tüte.",
+        "Danke, ich brauche keine Plastiktüte.",
+        "Danke ich brauche keine Plastiktüte.",
+        "Ich benötige keine Tüte, danke.",
+        "Ich benötige keine Tüte danke.",
+        "Danke, ich benötige keine Tüte.",
+        "Keine Tüte, bitte.",
+        "Keine Tüte bitte."
        ],
        "dims": {
         "gender": "f"

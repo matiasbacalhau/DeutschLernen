@@ -2,7 +2,8 @@
 # Criterio: TODA instancia tiene que ser algo que una persona diría (se leen todas al cambiar una plantilla o el léxico:
 # `node tools/german_texts.mjs | grep tpl-`). El generador no admite exclusiones por lema, así que la ranura se ajusta
 # con los campos del léxico (essen = comidas, getraenke = bebidas, vorrat = alacena, kueche = utensilios y aparatos).
-# Los contables de `essen` (Ei, Tomate, Brötchen…) quedan fuera de los "Liste"/"brauchen kein": en una lista van en plural.
+# Los contables de `essen` (Ei, Tomate, Brötchen…) quedan fuera de las plantillas de lista y de *kein … mehr*: ahí irían en plural
+# (*keine Kartoffeln mehr*). *Suppe* va en `gerichte` (platos), fuera del changuito de `haben-indef`.
 # La frase fuerza el determinante (regla 11: la consigna fija la restricción):
 # - indef: "noch … bitte" (otro más), "nur … im Korb, wir brauchen aber zwei", "noch … für die Küche";
 # - kein: "… mehr" (ya no);
@@ -24,13 +25,13 @@
    text: "Von deiner Liste habe ich ___ {noun} schon.", slot: {pos: noun, fields: [getraenke, vorrat]}}
 - {id: tpl-haben-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: haben,
    context: "Revisando la heladera y la alacena antes de ir al súper.",
-   text: "Wir haben ___ {noun} mehr.", slot: {pos: noun, fields: [essen, getraenke, vorrat]}}
+   text: "Wir haben ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke, vorrat]}}
 - {id: tpl-moechten-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: möchten,
    context: "En el bar: el primero ya se terminó y pedís otro.",
    text: "Ich möchte noch ___ {noun}, bitte.", slot: {pos: noun, fields: [getraenke], countable: true}}
 - {id: tpl-moechten-def, tag_prefix: a1.akk, det: def, kase: akk, verb: möchten,
-   context: "En el bar: Jana ya se fue y pagás solo lo tuyo (con artículo definido).",
+   context: "En el bar, la moza pregunta qué cobra y señalás lo que está en la mesa (con artículo definido).",
    text: "Ich möchte ___ {noun} bezahlen, bitte.", slot: {pos: noun, fields: [getraenke]}}
 - {id: tpl-moechten-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: möchten,
-   context: "Comiste de más y el anfitrión te sigue ofreciendo.",
-   text: "Danke, ich möchte ___ {noun} mehr.", slot: {pos: noun, fields: [essen, getraenke]}}
+   context: "En una cena: el anfitrión te quiere servir otra vez y ya no podés más.",
+   text: "Danke, ich möchte ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke]}}

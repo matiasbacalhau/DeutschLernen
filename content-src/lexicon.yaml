@@ -80,7 +80,7 @@
 - {lemma: Fleisch, pos: noun, article: das, plural: null, es: "carne", field: essen, freq: 1, level: A1}
 - {lemma: Fisch, pos: noun, article: der, plural: Fische, es: "pescado", field: essen, freq: 2, level: A1}
 - {lemma: Reis, pos: noun, article: der, plural: null, es: "arroz", field: vorrat, freq: 2, level: A1}
-- {lemma: Suppe, pos: noun, article: die, plural: Suppen, es: "sopa", field: essen, freq: 2, level: A1}
+- {lemma: Suppe, pos: noun, article: die, plural: Suppen, es: "sopa", field: gerichte, freq: 2, level: A1}
 - {lemma: Salat, pos: noun, article: der, plural: Salate, es: "ensalada", field: essen, freq: 2, level: A1}
 - {lemma: Kuchen, pos: noun, article: der, plural: Kuchen, es: "torta", field: essen, freq: 2, level: A1}
 - {lemma: Zucker, pos: noun, article: der, plural: null, es: "azúcar", field: vorrat, freq: 2, level: A1}
