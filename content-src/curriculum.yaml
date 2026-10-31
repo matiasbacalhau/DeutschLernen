@@ -45,50 +45,120 @@ tags:
     title: "Pronombres personales"
     requires: []
     orthographic: false
+    rule: "Los *Personalpronomen* (pronombres personales) reemplazan al sujeto y hay uno distinto para cada persona; el trato formal se escribe con mayúscula."
+    examples:
+      - {de: "Ich bin müde.", es: "Estoy cansado.", dims: {"person": "ich"}}
+      - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
+      - {de: "Er kommt aus Brasilien.", es: "Él viene de Brasil.", dims: {"person": "er"}}
+      - {de: "Wir sind im Zimmer.", es: "Estamos en el cuarto.", dims: {"person": "wir"}}
+    curiosities: ["*du* y el inglés antiguo *thou* vienen de la misma raíz germánica."]
   a1.sein.praesens:
     title: "sein en presente"
     requires: [a1.pron.personal]
     orthographic: false
+    rule: "El verbo *sein* (ser/estar) es irregular: cambia con cada persona y sirve tanto para ser como para estar."
+    examples:
+      - {de: "Ich bin neu hier.", es: "Soy nuevo acá.", dims: {"person": "ich"}}
+      - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
+      - {de: "Wir sind in der Küche.", es: "Estamos en la cocina.", dims: {"person": "wir"}}
+      - {de: "Sie ist an der Rezeption.", es: "Ella está en la recepción.", dims: {"person": "sie"}}
+    curiosities: ["*sein* es irregular, igual que *to be* en inglés y *ser* en español y portugués."]
   a1.wfragen:
     title: "W-Fragen"
     requires: []
     orthographic: false
+    rule: "Las *W-Fragen* (preguntas con palabra interrogativa) empiezan con esa palabra y el verbo conjugado va enseguida, en segunda posición."
+    examples:
+      - {de: "Wer ist das?", es: "¿Quién es?", dims: {"word": "wer"}}
+      - {de: "Was ist das?", es: "¿Qué es esto?", dims: {"word": "was"}}
+      - {de: "Wo ist die Küche?", es: "¿Dónde está la cocina?", dims: {"word": "wo"}}
+      - {de: "Woher kommst du?", es: "¿De dónde sos?", dims: {"word": "woher"}}
+      - {de: "Wie heißt du?", es: "¿Cómo te llamás?", dims: {"word": "wie"}}
+    curiosities: ["Casi todas las palabras interrogativas alemanas empiezan con *w*, como *who*, *what* y *where* en inglés."]
   a1.nom.mask:
     title: "Nominativ masculino"
     requires: []
     orthographic: false
+    rule: "En *Nominativ* (el sujeto) el sustantivo masculino lleva su artículo propio; el género se aprende junto con cada palabra."
+    examples:
+      - {de: "Der Löffel ist neu.", es: "La cuchara es nueva.", dims: {"gender": "m"}}
+      - {de: "Die Lampe ist im Zimmer.", es: "La lámpara está en el cuarto.", dims: {"gender": "f"}}
+      - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
   a1.nom.fem:
     title: "Nominativ femenino"
     requires: []
     orthographic: false
+    rule: "En *Nominativ* (el sujeto) el sustantivo femenino lleva su artículo propio; el género se aprende junto con cada palabra."
+    examples:
+      - {de: "Die Lampe ist neu.", es: "La lámpara es nueva.", dims: {"gender": "f"}}
+      - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
+      - {de: "Das Fenster ist offen.", es: "La ventana está abierta.", dims: {"gender": "n"}}
   a1.nom.neut:
     title: "Nominativ neutro"
     requires: []
     orthographic: false
+    rule: "En *Nominativ* (el sujeto) el sustantivo neutro lleva su artículo propio; el género se aprende junto con cada palabra."
+    examples:
+      - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
+      - {de: "Der Schrank ist leer.", es: "El armario está vacío.", dims: {"gender": "m"}}
+      - {de: "Die Küche ist klein.", es: "La cocina es chica.", dims: {"gender": "f"}}
   a1.nom.plural:
     title: "Nominativ plural"
     requires: []
     orthographic: false
+    rule: "En *Nominativ* (el sujeto) el plural comparte un único artículo para todos los géneros."
+    examples:
+      - {de: "Die Betten sind groß.", es: "Las camas son grandes.", dims: {"gender": "pl"}}
+      - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
+      - {de: "Die Lampen sind neu.", es: "Las lámparas son nuevas.", dims: {"gender": "pl"}}
+      - {de: "Das Fenster ist offen.", es: "La ventana está abierta.", dims: {"gender": "n"}}
   a1.akk.mask:
     title: "Akkusativ masculino"
     requires: [a1.nom.mask]
     orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); solo el masculino cambia el artículo respecto del Nominativ."
+    examples:
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
   a1.akk.fem:
     title: "Akkusativ femenino"
     requires: [a1.nom.fem]
     orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el femenino no cambia: queda igual que en Nominativ."
+    examples:
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
   a1.akk.neut:
     title: "Akkusativ neutro"
     requires: [a1.nom.neut]
     orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el neutro no cambia: queda igual que en Nominativ."
+    examples:
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Lampe.", es: "Tengo una lámpara.", dims: {"gender": "f"}}
   a1.akk.plural:
     title: "Akkusativ plural"
     requires: [a1.nom.plural]
     orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el plural no cambia: queda igual que en Nominativ."
+    examples:
+      - {de: "Wir brauchen Teller.", es: "Necesitamos platos.", dims: {"gender": "pl"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
   a1.ortho.nomen:
     title: "Sustantivos con mayúscula"
     requires: []
     orthographic: true
+    rule: "En alemán todos los sustantivos se escriben con mayúscula inicial, también en medio de la oración."
+    examples:
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+    curiosities: ["Hasta el siglo XVIII el inglés también escribía muchos sustantivos con mayúscula."]
   a1.perfekt.hilfsverb:
     title: "Perfekt: haben o sein"
     requires: [a1.sein.praesens]
