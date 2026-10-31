@@ -39,3 +39,18 @@ test('pickExample con dims: excluye ejemplos que no tienen esas claves', () => {
   const c = {tags: {x: {examples: [{de: 'sin', es: 's'}, {de: 'otro', es: 'o', dims: {kase: 'nom'}}, {de: 'ok', es: 'k', dims: {gender: 'f'}}]}}};
   for (const r of [0, 0.5, 0.99]) assert.equal(pickExample('x', {gender: 'm'}, c, () => r).de, 'ok');
 });
+
+test('pickExample compara solo las claves compartidas (gap generado con kase y det)', () => {
+  const dims = {gender: 'm', kase: 'akk', det: 'indef'};
+  for (let i = 0; i < 20; i++) {
+    const ex = pickExample('a1.akk.mask', dims, real, Math.random);
+    assert.ok(ex, 'hay ejemplo');
+    const src = real.tags['a1.akk.mask'].examples.find((e) => e.de === ex.de);
+    assert.notEqual(src.dims.gender, 'm');
+  }
+  const c = {tags: {x: {examples: [{de: 'ajeno', es: 'a', dims: {person: 'ich'}}, {de: 'igual', es: 'i', dims: {gender: 'm', kase: 'nom'}},
+    {de: 'ok', es: 'k', dims: {gender: 'f'}}]}}};
+  for (const r of [0, 0.5, 0.99]) assert.equal(pickExample('x', dims, c, () => r).de, 'ok');
+  const sinCompartidas = {tags: {x: {examples: [{de: 'ajeno', es: 'a', dims: {person: 'ich'}}]}}};
+  assert.equal(pickExample('x', dims, sinCompartidas, () => 0), null);
+});
