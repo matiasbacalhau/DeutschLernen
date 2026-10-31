@@ -1,0 +1,18 @@
+- {id: tpl-brauchen-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: brauchen, context: "En el súper, con la lista en la mano.",
+   text: "Ich brauche ___ {noun}.", slot: {pos: noun, fields: [essen, kueche, einkaufen], countable: true}}
+- {id: tpl-brauchen-def, tag_prefix: a1.akk, det: def, kase: akk, verb: brauchen, context: "En la cocina compartida, preparando la cena.",
+   text: "Ich brauche ___ {noun}.", slot: {pos: noun, fields: [essen, kueche]}}
+- {id: tpl-brauchen-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: brauchen, context: "En el súper, revisando qué ya tenés.",
+   text: "Ich brauche ___ {noun}.", slot: {pos: noun, fields: [essen, kueche, einkaufen]}}
+- {id: tpl-haben-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: haben, context: "Mostrándole tu cuarto del hostel a un compañero.",
+   text: "Ich habe ___ {noun}.", slot: {pos: noun, fields: [hostel, wohnung], countable: true}}
+- {id: tpl-haben-def, tag_prefix: a1.akk, det: def, kase: akk, verb: haben, context: "En la recepción del hostel, al llegar.",
+   text: "Ich habe ___ {noun} dabei.", slot: {pos: noun, fields: [hostel, wohnung, kueche]}}
+- {id: tpl-haben-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: haben, context: "Describiendo el departamento nuevo.",
+   text: "In meiner Wohnung habe ich ___ {noun}.", slot: {pos: noun, fields: [wohnung, kueche], countable: true}}
+- {id: tpl-moechten-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: möchten, context: "En la panadería, frente al mostrador.",
+   text: "Ich möchte ___ {noun}, bitte.", slot: {pos: noun, fields: [essen], countable: true}}
+- {id: tpl-moechten-def, tag_prefix: a1.akk, det: def, kase: akk, verb: möchten, context: "En el mercado, mirando la mesa de degustación.",
+   text: "Ich möchte ___ {noun} probieren.", slot: {pos: noun, fields: [essen]}}
+- {id: tpl-moechten-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: möchten, context: "En el desayuno del hostel, rechazando algo.",
+   text: "Ich möchte ___ {noun}, danke.", slot: {pos: noun, fields: [essen]}}
