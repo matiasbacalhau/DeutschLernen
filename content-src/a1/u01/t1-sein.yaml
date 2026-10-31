@@ -376,8 +376,8 @@ steps:
             answers: ["Er", "Der", "Tom"]
             dims: {person: er}
             errors:
-              - {answer: "Sie", rule: "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."}
-              - {answer: "Es", rule: "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."}
+              - {answer: "Sie", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
+              - {answer: "Es", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
           - tag: a1.sein.praesens
             answers: ["bin"]
             dims: {person: ich}

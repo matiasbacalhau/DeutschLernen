@@ -1292,7 +1292,7 @@
  {
   "lemma": "Deutschland",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Alemania",
   "field": "laender",
@@ -1302,7 +1302,7 @@
  {
   "lemma": "Österreich",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Austria",
   "field": "laender",
@@ -1322,7 +1322,7 @@
  {
   "lemma": "Brasilien",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Brasil",
   "field": "laender",
@@ -1332,7 +1332,7 @@
  {
   "lemma": "Argentinien",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Argentina",
   "field": "laender",
@@ -1342,7 +1342,7 @@
  {
   "lemma": "Uruguay",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Uruguay",
   "field": "laender",
@@ -1352,7 +1352,7 @@
  {
   "lemma": "Chile",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Chile",
   "field": "laender",
@@ -1362,7 +1362,7 @@
  {
   "lemma": "Mexiko",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "México",
   "field": "laender",
@@ -1372,7 +1372,7 @@
  {
   "lemma": "Spanien",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "España",
   "field": "laender",
@@ -1382,7 +1382,7 @@
  {
   "lemma": "Italien",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Italia",
   "field": "laender",
@@ -1392,7 +1392,7 @@
  {
   "lemma": "Frankreich",
   "pos": "noun",
-  "article": "das",
+  "article": null,
   "plural": null,
   "es": "Francia",
   "field": "laender",

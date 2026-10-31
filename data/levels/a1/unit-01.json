@@ -992,11 +992,11 @@
          "errors": [
           {
            "answer": "Sie",
-           "rule": "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."
+           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
           },
           {
            "answer": "Es",
-           "rule": "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."
+           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
           }
          ]
         },
