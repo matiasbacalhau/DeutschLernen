@@ -152,8 +152,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Preguntale a Anna por la ducha."
-        chunks: ["ist", "Wo", "die Dusche"]
-        answers: [["Wo", "ist", "die Dusche"]]
+        chunks: ["ist", "wo", "die Dusche"]
+        answers: [["wo", "ist", "die Dusche"]]
         dims: {word: wo}
         reviewed: true
 
@@ -184,8 +184,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Anna te pregunta de dónde sos."
-        chunks: ["du", "Woher", "kommst"]
-        answers: [["Woher", "kommst", "du"]]
+        chunks: ["du", "woher", "kommst"]
+        answers: [["woher", "kommst", "du"]]
         dims: {word: woher}
         reviewed: true
 
@@ -204,8 +204,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Lo más importante: el wifi."
-        chunks: ["das WLAN-Passwort", "ist", "Wie"]
-        answers: [["Wie", "ist", "das WLAN-Passwort"]]
+        chunks: ["das WLAN-Passwort", "ist", "wie"]
+        answers: [["wie", "ist", "das WLAN-Passwort"]]
         dims: {word: wie}
         reviewed: true
 
@@ -225,8 +225,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Tenés hambre desde Frankfurt. Preguntá por el desayuno."
-        chunks: ["das Frühstück", "ist", "Wann"]
-        answers: [["Wann", "ist", "das Frühstück"]]
+        chunks: ["das Frühstück", "ist", "wann"]
+        answers: [["wann", "ist", "das Frühstück"]]
         dims: {word: wann}
         reviewed: true
 
@@ -237,7 +237,7 @@ steps:
         tokens: ["Die", "Frau", "an", "der", "Rezeption", "ist", "super", "nett.", "Er", "spricht", "Spanisch!"]
         wrong: 8
         corrections: ["Sie", "Die"]
-        rule: "El pronombre sigue el género de la palabra a la que reemplaza: *die Frau* es femenino."
+        rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate de quién habla Tom y qué género tiene esa palabra."
         dims: {person: sie}
         reviewed: true
 
@@ -245,8 +245,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "En el lobby hay un tipo tocando *Wonderwall* por cuarta vez."
-        chunks: ["der Mann mit der Gitarre", "Wer", "ist"]
-        answers: [["Wer", "ist", "der Mann mit der Gitarre"]]
+        chunks: ["der Mann mit der Gitarre", "wer", "ist"]
+        answers: [["wer", "ist", "der Mann mit der Gitarre"]]
         dims: {word: wer}
         reviewed: true
 
@@ -265,8 +265,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Anna te da una tarjeta de plástico rarísima."
-        chunks: ["das hier", "ist", "Was"]
-        answers: [["Was", "ist", "das hier"]]
+        chunks: ["das hier", "ist", "was"]
+        answers: [["was", "ist", "das hier"]]
         dims: {word: was}
         reviewed: true
 
@@ -285,8 +285,8 @@ steps:
         type: order
         tag: a1.wfragen
         prompt: "Anna le pregunta al señor de traje, muy formal, cuánto tiempo se queda."
-        chunks: ["Sie", "Wie lange", "sind", "hier"]
-        answers: [["Wie lange", "sind", "Sie", "hier"]]
+        chunks: ["Sie", "wie lange", "sind", "hier"]
+        answers: [["wie lange", "sind", "Sie", "hier"]]
         dims: {word: wie}
         reviewed: true
 
@@ -308,8 +308,8 @@ steps:
         tag: a1.wfragen
         reserve: true
         prompt: "Anna les pregunta a dos mochileras de dónde son."
-        chunks: ["ihr", "seid", "Woher"]
-        answers: [["Woher", "seid", "ihr"]]
+        chunks: ["ihr", "seid", "woher"]
+        answers: [["woher", "seid", "ihr"]]
         dims: {word: woher}
         reviewed: true
 
@@ -318,8 +318,8 @@ steps:
         tag: a1.wfragen
         reserve: true
         prompt: "Revolvés la mochila. Nada."
-        chunks: ["der Schlüssel", "ist", "Wo"]
-        answers: [["Wo", "ist", "der Schlüssel"]]
+        chunks: ["der Schlüssel", "ist", "wo"]
+        answers: [["wo", "ist", "der Schlüssel"]]
         dims: {word: wo}
         reviewed: true
 
@@ -328,8 +328,8 @@ steps:
         tag: a1.wfragen
         reserve: true
         prompt: "Anna mira tu pasaporte y no puede creer la foto."
-        chunks: ["bist", "Wie alt", "du"]
-        answers: [["Wie alt", "bist", "du"]]
+        chunks: ["bist", "wie alt", "du"]
+        answers: [["wie alt", "bist", "du"]]
         dims: {word: wie}
         reviewed: true
 
@@ -709,7 +709,7 @@ steps:
         tokens: ["Das", "Hostel", "ist", "super.", "Er", "ist", "klein,", "aber", "sehr", "sauber."]
         wrong: 4
         corrections: ["Es", "Das"]
-        rule: "El pronombre toma el género del sustantivo al que reemplaza, y *Hostel* tiene género neutro."
+        rule: "El pronombre sigue el género gramatical del sustantivo al que reemplaza: fijate a qué palabra se refiere y qué género tiene."
         dims: {person: es}
         reviewed: true
 

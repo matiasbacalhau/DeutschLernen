@@ -79,7 +79,7 @@ tags:
     title: "Nominativ masculino"
     requires: []
     orthographic: false
-    rule: "En *Nominativ* (el sujeto) el sustantivo masculino lleva su artículo propio; el género se aprende junto con cada palabra."
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
     examples:
       - {de: "Der Löffel ist neu.", es: "La cuchara es nueva.", dims: {"gender": "m"}}
       - {de: "Die Lampe ist im Zimmer.", es: "La lámpara está en el cuarto.", dims: {"gender": "f"}}
@@ -88,7 +88,7 @@ tags:
     title: "Nominativ femenino"
     requires: []
     orthographic: false
-    rule: "En *Nominativ* (el sujeto) el sustantivo femenino lleva su artículo propio; el género se aprende junto con cada palabra."
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
     examples:
       - {de: "Die Lampe ist neu.", es: "La lámpara es nueva.", dims: {"gender": "f"}}
       - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
@@ -97,7 +97,7 @@ tags:
     title: "Nominativ neutro"
     requires: []
     orthographic: false
-    rule: "En *Nominativ* (el sujeto) el sustantivo neutro lleva su artículo propio; el género se aprende junto con cada palabra."
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
     examples:
       - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
       - {de: "Der Schrank ist leer.", es: "El armario está vacío.", dims: {"gender": "m"}}
@@ -116,7 +116,7 @@ tags:
     title: "Akkusativ masculino"
     requires: [a1.nom.mask]
     orthographic: false
-    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); solo el masculino cambia el artículo respecto del Nominativ."
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
     examples:
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
       - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
@@ -125,7 +125,7 @@ tags:
     title: "Akkusativ femenino"
     requires: [a1.nom.fem]
     orthographic: false
-    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el femenino no cambia: queda igual que en Nominativ."
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
     examples:
       - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
@@ -134,7 +134,7 @@ tags:
     title: "Akkusativ neutro"
     requires: [a1.nom.neut]
     orthographic: false
-    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el neutro no cambia: queda igual que en Nominativ."
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
     examples:
       - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}

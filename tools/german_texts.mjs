@@ -29,9 +29,12 @@ function exerciseTexts(ex) {
     case 'translate':
       ex.answers.forEach((a, n) => add(`answers[${n}]`, a));
       break;
-    case 'order':
-      ex.answers.forEach((a, n) => add(`answers[${n}]`, a.join(' ')));
+    case 'order': {
+      // Los chunks van en mayúscula de mitad de frase: la oración se chequea con la primera letra en mayúscula.
+      const sentence = (a) => { const t = a.join(' '); return t.charAt(0).toLocaleUpperCase('de') + t.slice(1); };
+      ex.answers.forEach((a, n) => add(`answers[${n}]`, sentence(a)));
       break;
+    }
     case 'choice':
       ex.options.forEach((o, n) => { if (o.correct) add(`options[${n}]`, o.text); });
       break;

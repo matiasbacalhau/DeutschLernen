@@ -6,9 +6,14 @@
 # Política de respuestas:
 # - Femenino y plural: se acepta cualquier determinante que el contexto admita (die, eine, meine, unsere, diese…),
 #   porque todos muestran el género.
-# - Masculino y neutro: *ein*, *mein*, *unser* son iguales en los dos géneros y no prueban nada. Por eso esos huecos
-#   fuerzan el definido: con una primera mención con *ein* (anáfora: "Da ist ein Topf. ___ Topf…", que admite
-#   der/dieser) o con una etiqueta de Jana, que según el contexto "siempre lleva artículo definido".
+# - Masculino y neutro: *ein*, *mein*, *unser* son iguales en los dos géneros y no prueban nada. Por eso los huecos
+#   escritos fuerzan el definido: con una primera mención con *ein* (anáfora: "Da ist ein Topf. ___ Topf…", que admite
+#   der/dieser) o con una etiqueta de Jana, que según el contexto "siempre lleva artículo definido" (se acepta
+#   también el demostrativo, que marca el género).
+# - spot-error: la corrección acepta todo determinante gramatical y verosímil en el contexto (regla 11, lado seguro),
+#   incluso *ein/mein/unser*: quien tocó el artículo equivocado ya descartó ese género.
+# - order: los chunks van con la mayúscula de mitad de frase (el check pliega la primera letra) y se listan todos
+#   los órdenes V2, también el que abre con el sujeto.
 # - Las reglas de error nombran la pista (terminación, compuesta, plural, -chen) o dicen que el género se aprende
 #   con la palabra; nunca dicen el género del sustantivo preguntado (sería decir el artículo, regla 3).
 topic: a1.u1.t2
@@ -35,7 +40,7 @@ ficha:
     - "Que no coincida no es culpa tuya: ni el español y el portugués se ponen de acuerdo. *La leche* es *o leite*, y *el árbol* es *a árvore*. En alemán, *die Milch* y *der Baum*. El género viene con la palabra; la cosa no lo decide."
     - "La mesa puesta como ayuda-memoria: *der Löffel*, *die Gabel*, *das Messer*. Tres cubiertos, tres géneros, y ninguno coincide con el español. Si te acordás de esa mesa, tenés un ejemplo de cada uno."
     - "Con las personas el sexo sí suele contar: *der Mann*, *die Frau*, *der Vermieter* y *die Vermieterin* (la *-in* hace el femenino). La excepción famosa es *das Mädchen* (la chica): *-chen* manda más que la biología. Mark Twain se quejaba de que en alemán una chica no tiene sexo y un nabo sí (*die Rübe*)."
-    - "Las pistas, en detalle. Casi infalibles: *-ung* (*die Wohnung*), *-heit* (*die Gesundheit*), *-keit* (*die Kleinigkeit*) e *-ion* (*die Information*) son femeninas; *-chen* (*das Brötchen*) y *-lein* (*das Fräulein*) son neutras. Fallan solo cuando esas letras no son un sufijo, como en *der Sprung* (el salto). Tendencias, con excepciones: casi todas las terminadas en *-e* son femeninas (*die Lampe*, *die Tasse*; pero *der Käse*, *der Name*), y los aparatos en *-er* suelen ser masculinos (*der Toaster*, *der Computer*; ojo con *das Fenster* y *das Messer*, que terminan igual y no son aparatos)."
+    - "Las pistas, en detalle. Casi infalibles: *-ung* (*die Wohnung*), *-heit* (*die Gesundheit*), *-keit* (*die Kleinigkeit*) e *-ion* (*die Information*) son femeninas; *-chen* (*das Brötchen*) y *-lein* (*das Büchlein*) son neutras. Fallan solo cuando esas letras no son un sufijo, como en *der Sprung* (el salto). Tendencias, con excepciones: casi todas las terminadas en *-e* son femeninas (*die Lampe*, *die Tasse*; pero *der Käse*, *der Name*), y los aparatos en *-er* suelen ser masculinos (*der Toaster*, *der Computer*; ojo con *das Fenster* y *das Messer*, que terminan igual y no son aparatos)."
     - "Compuestas: la última parte pone el género y la primera, el detalle. *das Wasser* + *der Kocher* = *der Wasserkocher*; *der Kaffee* + *die Maschine* = *die Kaffeemaschine*; *schlafen* + *das Zimmer* = *das Schlafzimmer*. Ganga: aprendés una palabra y te llevás diez."
     - "El plural siempre lleva el mismo artículo, sea cual sea el género del singular: *der Tisch → die Tische*, *das Bett → die Betten*. Lo difícil del plural no es el artículo sino la terminación (*-e*, *-en*, *-er*, *-s*, con o sin umlaut): por eso el glosario te muestra el plural de cada palabra."
     - "*Das ist…* no cambia. En *Das ist der Tisch* o *Das ist eine Lampe*, ese primer *das* no es un artículo sino 'esto' o 'eso', y queda fijo. El artículo es el que va pegado al sustantivo."
@@ -105,7 +110,7 @@ steps:
       - id: t2-1-ch-lampe
         type: choice
         tag: a1.nom.fem
-        prompt: "En el living hay una lámpara con forma de flamenco. Nadie sabe de quién es. ¿Qué preguntás?"
+        prompt: "En el living hay algo con forma de flamenco, con cable y una bombita. ¿Qué preguntás?"
         options:
           - {text: "Ist das eine Lampe?", correct: true}
           - {text: "Ist das ein Lampe?", rule: "El indefinido también marca el género, aunque menos que el definido: pensá qué género tienen casi todas las palabras terminadas en *-e*."}
@@ -150,8 +155,8 @@ steps:
         tag: a1.nom.plural
         reserve: true
         sentences:
-          - {de: "Der Stuhl ist neu.", highlight: "Der"}
-          - {de: "Die Stühle sind alt.", highlight: "Die"}
+          - {de: "Der Tisch ist neu.", highlight: "Der"}
+          - {de: "Die Tische sind alt.", highlight: "Die"}
           - {de: "Das Bett ist bequem.", highlight: "Das"}
           - {de: "Die Betten sind zu kurz.", highlight: "Die"}
           - {de: "Die Lampe ist schön.", highlight: "Die"}
@@ -162,9 +167,9 @@ steps:
           - {text: "El plural toma siempre el artículo del masculino."}
           - {text: "Los sustantivos en plural van sin artículo."}
         apply:
-          - {text: "Im Wohnzimmer stehen zwei Sofas. ___ Sofas sind grün.", answers: ["Die", "Diese", "Beide"], dims: {gender: pl}}
+          - {text: "Im Wohnzimmer stehen zwei Sofas. ___ Sofas sind grün.", answers: ["Die", "Diese", "Beide", "Unsere"], dims: {gender: pl}}
           - {text: "Im Keller sind drei Fahrräder. ___ Fahrräder sind von Paul.", answers: ["Die", "Diese", "Alle"], dims: {gender: pl}}
-          - {text: "In der Küche hängen vier Lampen. ___ Lampen sind sehr alt.", answers: ["Die", "Diese", "Alle"], dims: {gender: pl}}
+          - {text: "In der Küche hängen vier Lampen. ___ Lampen sind sehr alt.", answers: ["Die", "Diese", "Alle", "Unsere"], dims: {gender: pl}}
         reviewed: true
 
   # ───────────────────────────── Escalón 2 ─────────────────────────────
@@ -176,10 +181,12 @@ steps:
         type: order
         tag: a1.nom.mask
         prompt: "Paul pregunta qué hay en la caja 3. Contestale."
-        chunks: ["und", "der", "Im Karton", "Lampe", "sind", "die", "Toaster"]
+        chunks: ["und", "der", "im Karton", "Lampe", "sind", "die", "Toaster"]
         answers:
-          - ["Im Karton", "sind", "der", "Toaster", "und", "die", "Lampe"]
-          - ["Im Karton", "sind", "die", "Lampe", "und", "der", "Toaster"]
+          - ["im Karton", "sind", "der", "Toaster", "und", "die", "Lampe"]
+          - ["im Karton", "sind", "die", "Lampe", "und", "der", "Toaster"]
+          - ["der", "Toaster", "und", "die", "Lampe", "sind", "im Karton"]
+          - ["die", "Lampe", "und", "der", "Toaster", "sind", "im Karton"]
         dims: {gender: m}
         reviewed: true
 
@@ -189,7 +196,7 @@ steps:
         prompt: "Mensaje de Paul desde la escalera. Tiene un error."
         tokens: ["Der", "Sofa", "passt", "nicht", "durch", "die", "Tür!"]
         wrong: 0
-        corrections: ["Das", "Dieses", "Unser", "Dein", "Mein", "Ein"]
+        corrections: ["Das", "Dieses", "Unser", "Euer", "Dein", "Mein", "Ein"]
         rule: "El género de *Sofa* no se copia del español (*el sofá*): se aprende con la palabra."
         dims: {gender: n}
         reviewed: true
@@ -210,10 +217,12 @@ steps:
         type: order
         tag: a1.nom.neut
         prompt: "Jana pregunta qué quedó en el balcón."
-        chunks: ["die", "Auf dem Balkon", "Pflanzen", "das", "und", "sind", "Fahrrad"]
+        chunks: ["die", "auf dem Balkon", "Pflanzen", "das", "und", "sind", "Fahrrad"]
         answers:
-          - ["Auf dem Balkon", "sind", "das", "Fahrrad", "und", "die", "Pflanzen"]
-          - ["Auf dem Balkon", "sind", "die", "Pflanzen", "und", "das", "Fahrrad"]
+          - ["auf dem Balkon", "sind", "das", "Fahrrad", "und", "die", "Pflanzen"]
+          - ["auf dem Balkon", "sind", "die", "Pflanzen", "und", "das", "Fahrrad"]
+          - ["das", "Fahrrad", "und", "die", "Pflanzen", "sind", "auf dem Balkon"]
+          - ["die", "Pflanzen", "und", "das", "Fahrrad", "sind", "auf dem Balkon"]
         dims: {gender: n}
         reviewed: true
 
@@ -243,10 +252,12 @@ steps:
         type: order
         tag: a1.nom.fem
         prompt: "Paul ya se instaló en el sofá nuevo. Contale a Jana qué hay ahí."
-        chunks: ["Kissen", "sind", "die", "Auf dem Sofa", "das", "und", "Decke"]
+        chunks: ["Kissen", "sind", "die", "auf dem Sofa", "das", "und", "Decke"]
         answers:
-          - ["Auf dem Sofa", "sind", "die", "Decke", "und", "das", "Kissen"]
-          - ["Auf dem Sofa", "sind", "das", "Kissen", "und", "die", "Decke"]
+          - ["auf dem Sofa", "sind", "die", "Decke", "und", "das", "Kissen"]
+          - ["auf dem Sofa", "sind", "das", "Kissen", "und", "die", "Decke"]
+          - ["die", "Decke", "und", "das", "Kissen", "sind", "auf dem Sofa"]
+          - ["das", "Kissen", "und", "die", "Decke", "sind", "auf dem Sofa"]
         dims: {gender: f}
         reviewed: true
 
@@ -276,7 +287,7 @@ steps:
         type: spot-error
         tag: a1.ortho.nomen
         prompt: "Mensaje de Paul desde la calle. Tiene un error."
-        tokens: ["Die", "Lampe", "ist", "noch", "im", "auto."]
+        tokens: ["Mein", "Rucksack", "ist", "noch", "im", "auto."]
         wrong: 5
         corrections: ["Auto"]
         rule: "En alemán todo sustantivo empieza con mayúscula, también en medio de la oración."
@@ -286,11 +297,13 @@ steps:
       - id: t2-2-ord-handtuecher
         type: order
         tag: a1.nom.plural
-        prompt: "Jana pregunta qué falta desempacar en el baño."
-        chunks: ["Handtücher", "der", "und", "Im Bad", "Spiegel", "sind", "die"]
+        prompt: "Jana pregunta qué hay ya en el baño."
+        chunks: ["Handtücher", "der", "und", "im Bad", "Spiegel", "sind", "die"]
         answers:
-          - ["Im Bad", "sind", "der", "Spiegel", "und", "die", "Handtücher"]
-          - ["Im Bad", "sind", "die", "Handtücher", "und", "der", "Spiegel"]
+          - ["im Bad", "sind", "der", "Spiegel", "und", "die", "Handtücher"]
+          - ["im Bad", "sind", "die", "Handtücher", "und", "der", "Spiegel"]
+          - ["der", "Spiegel", "und", "die", "Handtücher", "sind", "im Bad"]
+          - ["die", "Handtücher", "und", "der", "Spiegel", "sind", "im Bad"]
         dims: {gender: pl}
         reviewed: true
 
@@ -300,7 +313,7 @@ steps:
         prompt: "Mensaje de Paul a las 7:00 del día siguiente. Tiene un error."
         tokens: ["Wo", "ist", "der", "Kaffeemaschine?", "Ich", "brauche", "Kaffee!"]
         wrong: 2
-        corrections: ["die", "eure", "unsere", "deine", "meine"]
+        corrections: ["die", "eure", "unsere", "deine", "meine", "diese"]
         rule: "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."
         dims: {gender: f}
         reviewed: true
@@ -311,7 +324,7 @@ steps:
         prompt: "Nota de Jana en la puerta. Tiene un error."
         tokens: ["Der", "Päckchen", "vor", "der", "Tür", "ist", "für", "dich,", "Leo!"]
         wrong: 0
-        corrections: ["Das", "Dieses"]
+        corrections: ["Das", "Dieses", "Ein"]
         rule: "Las palabras en *-chen* tienen todas el mismo género, sin excepción."
         dims: {gender: n}
         reviewed: true
@@ -344,10 +357,12 @@ steps:
         tag: a1.nom.mask
         reserve: true
         prompt: "Jana pregunta qué guardaste debajo de la cama."
-        chunks: ["Decken", "und", "der", "Unter dem Bett", "die", "Koffer", "sind"]
+        chunks: ["Decken", "und", "der", "unter dem Bett", "die", "Koffer", "sind"]
         answers:
-          - ["Unter dem Bett", "sind", "der", "Koffer", "und", "die", "Decken"]
-          - ["Unter dem Bett", "sind", "die", "Decken", "und", "der", "Koffer"]
+          - ["unter dem Bett", "sind", "der", "Koffer", "und", "die", "Decken"]
+          - ["unter dem Bett", "sind", "die", "Decken", "und", "der", "Koffer"]
+          - ["der", "Koffer", "und", "die", "Decken", "sind", "unter dem Bett"]
+          - ["die", "Decken", "und", "der", "Koffer", "sind", "unter dem Bett"]
         dims: {gender: m}
         reviewed: true
 
@@ -356,10 +371,12 @@ steps:
         tag: a1.nom.neut
         reserve: true
         prompt: "Paul pregunta qué queda en el auto."
-        chunks: ["Teppich", "das", "Im Auto", "und", "Regal", "sind", "der"]
+        chunks: ["Teppich", "das", "im Auto", "und", "Regal", "sind", "der"]
         answers:
-          - ["Im Auto", "sind", "das", "Regal", "und", "der", "Teppich"]
-          - ["Im Auto", "sind", "der", "Teppich", "und", "das", "Regal"]
+          - ["im Auto", "sind", "das", "Regal", "und", "der", "Teppich"]
+          - ["im Auto", "sind", "der", "Teppich", "und", "das", "Regal"]
+          - ["das", "Regal", "und", "der", "Teppich", "sind", "im Auto"]
+          - ["der", "Teppich", "und", "das", "Regal", "sind", "im Auto"]
         dims: {gender: n}
         reviewed: true
 
@@ -435,6 +452,9 @@ steps:
         instruction: "Cambiá *Topf* por *Pfanne*."
         answers: ["Die Pfanne ist schmutzig.", "Schmutzig ist die Pfanne.", "Die Pfanne ist dreckig.", "Dreckig ist die Pfanne."]
         dims: {gender: f}
+        errors:
+          - {answer: "Der Pfanne ist schmutzig.", rule: "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Topf*. *Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras así."}
+          - {answer: "Das Pfanne ist schmutzig.", rule: "*Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."}
         reviewed: true
 
       - id: t2-3-sit-kaffee
@@ -453,7 +473,7 @@ steps:
               - {answer: "der", rule: "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."}
               - {answer: "das", rule: "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."}
           - tag: a1.nom.plural
-            answers: ["die", "unsere", "deine", "meine", "diese"]
+            answers: ["die", "unsere", "eure", "deine", "meine", "diese"]
             dims: {gender: pl}
             errors:
               - {answer: "der", rule: "*Tassen* es plural: en plural hay un solo artículo para los tres géneros."}
@@ -467,6 +487,9 @@ steps:
         instruction: "Cambiá *Tasse* por *Glas*."
         answers: ["Das Glas ist im Schrank.", "Im Schrank ist das Glas.", "Das Glas steht im Schrank.", "Im Schrank steht das Glas."]
         dims: {gender: n}
+        errors:
+          - {answer: "Die Glas ist im Schrank.", rule: "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Glas*."}
+          - {answer: "Der Glas ist im Schrank.", rule: "El género de *Glas* no sale del español (*el vaso*): se aprende con la palabra."}
         reviewed: true
 
       - id: t2-3-gap-schuessel
@@ -490,6 +513,7 @@ steps:
         dims: {gender: m}
         errors:
           - {answer: "Die Löffel liegt auf dem Tisch.", rule: "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Gabel*, se aprende con *Löffel*."}
+          - {answer: "Das Löffel liegt auf dem Tisch.", rule: "*Löffel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."}
         reviewed: true
 
       - id: t2-3-sit-glas
@@ -524,6 +548,7 @@ steps:
         dims: {gender: pl}
         errors:
           - {answer: "Das Gläser sind sauber.", rule: "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."}
+          - {answer: "Der Gläser sind sauber.", rule: "En plural hay un solo artículo para los tres géneros."}
           - {answer: "Die Gläser ist sauber.", rule: "Con un sujeto en plural, *sein* también va en plural."}
         reviewed: true
 
@@ -532,7 +557,7 @@ steps:
         tag: a1.nom.mask
         context: "Etiqueta de Jana en la heladera (con artículo definido, como todas sus etiquetas)."
         text: "___ Kühlschrank ist für alle. Das Essen nicht."
-        answers: ["Der"]
+        answers: ["Der", "Dieser"]
         dims: {gender: m}
         errors:
           - {answer: "Die", rule: "En las palabras compuestas manda la última parte: *Kühl-schrank*."}
@@ -542,13 +567,13 @@ steps:
       - id: t2-3-tf-wasserkocher
         type: transform
         tag: a1.nom.mask
-        source: "Das ist der Wasserkocher."
-        instruction: "Ahora con el artículo indefinido."
-        answers: ["Das ist ein Wasserkocher."]
+        source: "Das ist ein Wasserkocher."
+        instruction: "Ahora con el artículo definido."
+        answers: ["Das ist der Wasserkocher."]
         dims: {gender: m}
         errors:
-          - {answer: "Das ist eine Wasserkocher.", rule: "El indefinido sigue el género del sustantivo, y en las palabras compuestas manda la última parte."}
-          - {answer: "Das ist einen Wasserkocher.", rule: "*einen* es una forma de *Akkusativ* (objeto directo); con *sein* todo va en *Nominativ*."}
+          - {answer: "Das ist das Wasserkocher.", rule: "*ein* sirve para dos géneros y no decide nada; en las palabras compuestas manda la última parte, no *Wasser*."}
+          - {answer: "Das ist die Wasserkocher.", rule: "En las palabras compuestas manda la última parte: *Wasser-kocher*."}
         reviewed: true
 
       - id: t2-3-gap-besteck
@@ -556,7 +581,7 @@ steps:
         tag: a1.nom.neut
         context: "Etiqueta de Jana en un cajón (con artículo definido, como todas sus etiquetas)."
         text: "___ Besteck ist hier. Bitte zurücklegen!"
-        answers: ["Das"]
+        answers: ["Das", "Dieses"]
         dims: {gender: n}
         errors:
           - {answer: "Die", rule: "*Besteck* es singular en alemán, aunque en español digamos *los cubiertos*: no es plural, y su género se aprende con la palabra."}
@@ -588,7 +613,7 @@ steps:
           - {who: me, text: "Oh nein! ___ Wasserkocher ist von Jana!"}
         gaps:
           - tag: a1.nom.fem
-            answers: ["die", "unsere"]
+            answers: ["die", "unsere", "meine", "deine", "diese"]
             dims: {gender: f}
             errors:
               - {answer: "der", rule: "*Mikrowelle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."}
@@ -605,24 +630,25 @@ steps:
         type: transform
         tag: a1.nom.fem
         reserve: true
-        source: "Das ist die Spüle."
+        source: "Das ist die Gabel."
         instruction: "Ahora con el artículo indefinido."
-        answers: ["Das ist eine Spüle."]
+        answers: ["Das ist eine Gabel."]
         dims: {gender: f}
         errors:
-          - {answer: "Das ist ein Spüle.", rule: "El indefinido sigue el género del sustantivo, y el femenino tiene una forma propia."}
+          - {answer: "Das ist ein Gabel.", rule: "El indefinido sigue el mismo género que el definido de la fuente: no es igual para los tres géneros."}
         reviewed: true
 
       - id: t2-3-tf-messer
         type: transform
         tag: a1.nom.neut
         reserve: true
-        source: "Der Löffel ist sauber."
-        instruction: "Cambiá *Löffel* por *Messer*."
+        source: "Die Tasse ist sauber."
+        instruction: "Cambiá *Tasse* por *Messer*."
         answers: ["Das Messer ist sauber.", "Sauber ist das Messer."]
         dims: {gender: n}
         errors:
-          - {answer: "Der Messer ist sauber.", rule: "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Löffel*, se aprende con *Messer*."}
+          - {answer: "Der Messer ist sauber.", rule: "Ni *el cuchillo* ni la terminación *-er* ayudan acá (*Messer* no es un aparato): su género se aprende con la palabra."}
+          - {answer: "Die Messer ist sauber.", rule: "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Messer*."}
         reviewed: true
 
       - id: t2-3-gap-spuele
@@ -631,7 +657,7 @@ steps:
         reserve: true
         context: "Etiqueta de Jana sobre la mesada (con artículo definido, como todas sus etiquetas)."
         text: "___ Spüle ist kein Schrank, Paul!"
-        answers: ["Die"]
+        answers: ["Die", "Diese"]
         dims: {gender: f}
         errors:
           - {answer: "Der", rule: "*Spüle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."}
@@ -655,11 +681,11 @@ steps:
         questions:
           - tag: a1.nom.fem
             prompt: "Was ist im Haus kaputt?"
-            answers: ["Die Heizung", "Heizung", "Die Heizung im Haus", "Die Heizung ist kaputt", "Die Heizung ist leider kaputt", "Die Heizung im Haus ist kaputt", "Die Heizung im Haus ist leider kaputt", "Leider ist die Heizung kaputt", "Heizung im Haus"]
+            answers: ["Die Heizung", "Heizung", "Die Heizung im Haus", "Die Heizung ist kaputt", "Die Heizung ist leider kaputt", "Die Heizung im Haus ist kaputt", "Die Heizung im Haus ist leider kaputt", "Leider ist die Heizung kaputt", "Heizung im Haus", "Im Haus ist die Heizung kaputt", "Im Haus ist die Heizung leider kaputt", "Die Heizung ist im Haus kaputt", "Die Heizung ist im Haus leider kaputt", "Leider ist die Heizung im Haus kaputt", "Im Haus ist leider die Heizung kaputt"]
             dims: {gender: f}
           - tag: a1.nom.mask
             prompt: "Wer kommt am Mittwoch?"
-            answers: ["Der Techniker", "Techniker", "Ein Techniker", "Der Techniker kommt", "Der Techniker kommt am Mittwoch", "Am Mittwoch kommt der Techniker", "Ein Techniker kommt"]
+            answers: ["Der Techniker", "Techniker", "Ein Techniker", "Der Techniker kommt", "Der Techniker kommt am Mittwoch", "Am Mittwoch kommt der Techniker", "Ein Techniker kommt", "Ein Techniker kommt am Mittwoch", "Am Mittwoch kommt ein Techniker"]
             dims: {gender: m}
           - tag: a1.nom.neut
             prompt: "Was ist von 9 bis 12 Uhr kalt?"
@@ -670,19 +696,19 @@ steps:
             dims: {gender: n}
           - tag: a1.nom.plural
             prompt: "Was gehört in den Hof?"
-            answers: ["Die Fahrräder", "Fahrräder", "Die Fahrräder gehören in den Hof", "In den Hof gehören die Fahrräder", "Fahrräder gehören in den Hof"]
+            answers: ["Die Fahrräder", "Fahrräder", "Die Fahrräder gehören in den Hof", "In den Hof gehören die Fahrräder", "Fahrräder gehören in den Hof", "Die Fahrräder gehören in den Hof, nicht in den Flur", "Fahrräder gehören in den Hof, nicht in den Flur", "In den Hof gehören die Fahrräder, nicht in den Flur", "Die Fahrräder, nicht in den Flur"]
             dims: {gender: pl}
         curiosities: ["En español *el agua* es femenina: lleva *el* solo para no juntar dos *a* tónicas (*las aguas*, *el agua fría*)."]
         reviewed: true
 
-      - id: t2-4-se-techniker
+      - id: t2-4-se-nachbar
         type: spot-error
         tag: a1.nom.mask
         prompt: "Respuesta de Paul en el grupo del edificio. Tiene un error."
-        tokens: ["Kein", "Problem!", "Das", "Techniker", "kann", "klingeln,", "ich", "bin", "da."]
+        tokens: ["Kein", "Problem!", "Das", "Nachbar", "von", "oben", "hat", "auch", "einen", "Schlüssel."]
         wrong: 2
-        corrections: ["Der", "Dieser"]
-        rule: "Con las personas, el artículo sigue el género de la palabra que las nombra, y los oficios lo marcan en la terminación (*Lehrer* / *Lehrerin*)."
+        corrections: ["Der", "Dieser", "Unser", "Mein"]
+        rule: "Con las personas, el artículo sigue el género de la palabra que las nombra, y la versión femenina se marca con *-in* (*Nachbar* / *Nachbarin*); solo *-chen* y *-lein* rompen esa regla."
         dims: {gender: m}
         reviewed: true
 
@@ -696,6 +722,7 @@ steps:
         errors:
           - {answer: "Die Löffel ist schmutzig.", rule: "El género alemán no se copia del español: que *cuchara* sea femenino no dice nada de *Löffel*."}
           - {answer: "Die Löffel ist dreckig.", rule: "El género alemán no se copia del español: que *cuchara* sea femenino no dice nada de *Löffel*."}
+          - {answer: "Das Löffel ist schmutzig.", rule: "*Löffel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."}
         reviewed: true
 
       - id: t2-4-se-muelltonne
@@ -705,7 +732,7 @@ steps:
         tokens: ["Achtung:", "Der", "Mülltonne", "im", "Hof", "ist", "schon", "voll!"]
         wrong: 1
         corrections: ["Die", "Diese", "Unsere"]
-        rule: "En las palabras compuestas manda la última parte, no la primera: *Müll* no decide."
+        rule: "En las palabras compuestas manda la última parte, no *Müll*: *-tonne*, que termina en *-e*. Pensá qué género tienen casi todas las palabras así."
         dims: {gender: f}
         reviewed: true
 
@@ -719,6 +746,8 @@ steps:
         errors:
           - {answer: "Der Gabel ist auf dem Tisch.", rule: "El género alemán no se copia del español: que *tenedor* sea masculino no dice nada de *Gabel*."}
           - {answer: "Der Gabel liegt auf dem Tisch.", rule: "El género alemán no se copia del español: que *tenedor* sea masculino no dice nada de *Gabel*."}
+          - {answer: "Das Gabel ist auf dem Tisch.", rule: "*Gabel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."}
+          - {answer: "Das Gabel liegt auf dem Tisch.", rule: "*Gabel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."}
         reviewed: true
 
       - id: t2-4-se-fahrrad
@@ -727,8 +756,8 @@ steps:
         prompt: "Mensaje de la vecina del segundo piso. Tiene un error."
         tokens: ["Hallo!", "Der", "Fahrrad", "im", "Flur", "ist", "von", "meinem", "Sohn.", "Sorry!"]
         wrong: 1
-        corrections: ["Das", "Dieses"]
-        rule: "En las palabras compuestas manda la última parte: *Fahr-rad*."
+        corrections: ["Das", "Dieses", "Ein"]
+        rule: "En las palabras compuestas manda la última parte: *Fahr-rad*, y *Rad* (rueda) no tiene ninguna pista de masculino."
         dims: {gender: n}
         reviewed: true
 
@@ -741,6 +770,7 @@ steps:
         dims: {gender: n}
         errors:
           - {answer: "Der Messer ist neu.", rule: "El género alemán no se copia del español, y *Messer* no es un aparato en *-er*: su género se aprende con la palabra."}
+          - {answer: "Die Messer ist neu.", rule: "*Messer* no tiene ninguna pista de femenino: su género se aprende con la palabra."}
         reviewed: true
 
       - id: t2-4-se-party
@@ -764,6 +794,7 @@ steps:
         errors:
           - {answer: "Die Mädchen ist acht.", rule: "Con *-chen* el género lo pone la terminación, no la persona."}
           - {answer: "Die Mädchen ist acht Jahre alt.", rule: "Con *-chen* el género lo pone la terminación, no la persona."}
+          - {answer: "Der Mädchen ist acht.", rule: "Con *-chen* el género lo pone la terminación, no la persona."}
         reviewed: true
 
       - id: t2-4-tr-stuehle
@@ -775,6 +806,7 @@ steps:
         dims: {gender: pl}
         errors:
           - {answer: "Der Stühle sind neu.", rule: "*Stühle* es plural: en plural hay un solo artículo para los tres géneros."}
+          - {answer: "Das Stühle sind neu.", rule: "*Stühle* es plural: en plural hay un solo artículo para los tres géneros."}
           - {answer: "Die Stühle ist neu.", rule: "Con un sujeto en plural, *sein* también va en plural."}
         reviewed: true
 
@@ -798,7 +830,7 @@ steps:
         prompt: "Nota de Lina pegada en la puerta del sótano. Tiene un error."
         tokens: ["Ich", "heiße", "Lina.", "Der", "Kätzchen", "im", "Keller", "ist", "von", "mir!"]
         wrong: 3
-        corrections: ["Das", "Dieses"]
+        corrections: ["Das", "Dieses", "Ein"]
         rule: "Las palabras en *-chen* tienen todas el mismo género, sin excepción."
         dims: {gender: n}
         reviewed: true
@@ -822,7 +854,7 @@ steps:
         reserve: true
         from: es
         source: "El departamento es chico."
-        answers: ["Die Wohnung ist klein.", "Klein ist die Wohnung.", "Das Apartment ist klein.", "Klein ist das Apartment."]
+        answers: ["Die Wohnung ist klein.", "Klein ist die Wohnung.", "Das Apartment ist klein.", "Klein ist das Apartment.", "Das Appartement ist klein.", "Klein ist das Appartement."]
         dims: {gender: f}
         errors:
           - {answer: "Der Wohnung ist klein.", rule: "*Wohnung* termina en *-ung*, una de las pistas casi infalibles: el español (*el departamento*) no cuenta."}
