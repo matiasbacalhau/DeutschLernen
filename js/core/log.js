@@ -1,7 +1,7 @@
 // Entradas del registro de uso (spec §8). Compactas: cada respuesta ocupa ~100 bytes.
 
 export const answerEntry = (result, {exerciseId, type, ms, at}) => ({
-  t: 'a', item: exerciseId, tag: result.tag ?? null, type, ok: !!result.ok, diag: result.rule ?? null, ms, at,
+  t: 'a', item: result.key, tag: result.tag ?? null, type, ok: !!result.ok, diag: result.rule ?? null, ms, at,
 });
 
 export const groupEntry = ({id, startedAt, endedAt, abandoned}) => ({
