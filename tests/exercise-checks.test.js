@@ -74,6 +74,21 @@ test('order: acepta cualquier orden válido, compara por texto', async () => {
   assert.equal((await run(two, ['Die', 'Maus', 'sieht', 'die', 'Katze']))[0].ok, true);
 });
 
+test('order: la mayúscula de la primera letra se pliega; la del resto de la frase no', async () => {
+  const ex = {id: 'o', type: 'order', tag: 't', chunks: ['im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe'],
+    answers: [['im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe'], ['der', 'Toaster', 'und', 'die', 'Lampe', 'sind', 'im Karton']]};
+  // Un chunk escrito en minúscula puede abrir la frase.
+  assert.equal((await run(ex, ['im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe']))[0].ok, true);
+  assert.equal((await run(ex, ['der', 'Toaster', 'und', 'die', 'Lampe', 'sind', 'im Karton']))[0].ok, true);
+  // Se pliega de los dos lados: una respuesta aceptada escrita con mayúscula inicial coincide con el chunk en minúscula.
+  const cap = {...ex, answers: [['Im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe']]};
+  assert.equal((await run(cap, ['im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe']))[0].ok, true);
+  // En medio de la frase la mayúscula sigue contando.
+  const mid = {...ex, chunks: ['Im Karton', 'sind', 'der', 'Toaster', 'und', 'die', 'Lampe']};
+  assert.equal((await run(mid, ['der', 'Toaster', 'und', 'die', 'Lampe', 'sind', 'Im Karton']))[0].ok, false);
+  assert.equal((await run(ex, ['im Karton', 'sind', 'der', 'toaster', 'und', 'die', 'Lampe']))[0].ok, false);
+});
+
 test('chunks repetidos', async () => {
   const ex = {id: 'o', type: 'order', tag: 't', chunks: ['Die', 'Katze', 'sieht', 'die', 'Maus'],
     answers: [['Die', 'Katze', 'sieht', 'die', 'Maus']]};
