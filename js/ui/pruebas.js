@@ -18,7 +18,7 @@ function row(title, help) {
 async function voiceCard() {
   const voice = row('Voz alemana', 'Para una voz mejor: en Ajustes buscá "Voces" (Accesibilidad → Leer y hablar → Voces → Alemán) y descargá una voz "mejorada". Probá primero con la predeterminada y después cada voz de la lista.');
   // iOS lista voces que no están descargadas: forzar una de esas da "synthesis-failed".
-  const voiceSelect = h('select', {}, h('option', { value: '' }, 'Predeterminada del sistema'));
+  const voiceSelect = h('select', { 'aria-label': 'Voz alemana' }, h('option', { value: '' }, 'Predeterminada del sistema'));
   const voices = tts.supported() ? await tts.germanVoices() : [];
   voice.set(voicesCheck(tts.supported(), voices));
   voiceSelect.append(...voices.map((v, i) => h('option', { value: i }, `${v.name} (${v.lang})`)));

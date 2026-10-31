@@ -1,11 +1,14 @@
 import { h } from './dom.js';
 
+let seq = 0;
+
 const KEYS = ['ä', 'ö', 'ü', 'ß'];
 
 // Campo de respuesta con fila de teclas ä ö ü ß. Las teclas insertan en el cursor y no le sacan el foco al campo.
 export function answerInput({ multiline = false, label } = {}) {
+  const id = `answer-${++seq}`;
   const field = h(multiline ? 'textarea' : 'input', {
-    autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false', 'aria-label': label, type: multiline ? null : 'text',
+    id, autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false', autocomplete: 'off', type: multiline ? null : 'text',
   });
   const insert = ch => {
     const { selectionStart: a, selectionEnd: b } = field;
@@ -19,7 +22,7 @@ export function answerInput({ multiline = false, label } = {}) {
     onpointerdown: e => e.preventDefault(),
     onclick: () => insert(ch),
   }, ch));
-  const root = h('div', { class: 'answer' }, label && h('label', {}, label), field, h('div', { class: 'umlauts' }, keys));
+  const root = h('div', { class: 'answer' }, label && h('label', { for: id }, label), field, h('div', { class: 'umlauts' }, keys));
   root.value = () => field.value;
   root.focus = () => field.focus();
   return root;

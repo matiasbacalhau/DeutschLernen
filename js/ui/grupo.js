@@ -60,7 +60,9 @@ export default async function grupo(el, { store, content, params }) {
     group.glossary && h('button', { type: 'button', class: 'secondary small', onclick: () => { glossaryBox.hidden = !glossaryBox.hidden; } }, 'Glosario'),
   );
   const screen = h('div', { class: 'screen' });
-  el.append(bar, glossaryBox, screen);
+  // Región viva: el resultado de cada ejercicio se anuncia sin releer toda la pantalla.
+  const announcer = h('div', { class: 'sr-only', role: 'status' });
+  el.append(bar, glossaryBox, screen, announcer);
 
   const show = (...nodes) => {
     screen.replaceChildren(...nodes.flat(Infinity).filter(Boolean));
@@ -169,6 +171,9 @@ export default async function grupo(el, { store, content, params }) {
   }
 
   function feedback(ex, answer, results) {
+    announcer.textContent = WRITING.has(ex.type)
+      ? (results[0].pending ? 'Sin conexión: se corrige después.' : results[0].ok ? 'Sin errores' : 'Con errores')
+      : (results.every(r => r.ok) ? 'Bien' : 'Incorrecto');
     const nodes = WRITING.has(ex.type) ? writingFeedback(ex, answer, results[0]) : closedFeedback(ex, answer, results);
     const anyBad = results.some(r => !r.ok && !r.pending);
     const fichaDef = defOf(ex.topic ?? topicId);
@@ -182,8 +187,14 @@ export default async function grupo(el, { store, content, params }) {
     const nextBtn = h('button', { type: 'button', onclick: async () => {
       if (nextBtn.disabled) return;
       nextBtn.disabled = true;
-      await report.saving;
-      next();
+      try {
+        await report.saving;
+        await next();
+      } catch {
+        // Si el reporte o el commit fallan, Siguiente queda disponible para reintentar.
+        nextBtn.disabled = false;
+        announcer.textContent = 'No se pudo guardar. Probá de nuevo.';
+      }
     } }, 'Siguiente');
     show(nodes, fichaBtn, fichaBox, report, nextBtn);
   }
@@ -287,6 +298,10 @@ export default async function grupo(el, { store, content, params }) {
           });
           box.replaceChildren(h('p', { class: 'muted' }, 'Gracias: quedó reportado y este ejercicio no cuenta para tu progreso hasta revisarlo.'));
         })();
+        box.saving.catch(() => {
+          send.disabled = false;
+          announcer.textContent = 'No se pudo guardar el reporte. Tocá Enviar reporte de nuevo.';
+        });
       } }, 'Enviar reporte');
       box.replaceChildren(h('div', { class: 'answer' }, note), send);
       note.focus();
