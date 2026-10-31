@@ -11,6 +11,9 @@
   "DE_AGREEMENT": {
    "es": "El artículo tiene que concordar en género y caso con el sustantivo: revisá el género de la palabra."
   },
+  "OBJECT_AGREEMENT": {
+   "es": "Regla del objeto directo e indirecto: el caso del artículo no es el que pide el verbo."
+  },
   "DE_VERBAGREEMENT": {
    "es": "El verbo cambia con cada persona: tiene que concordar con el sujeto."
   },
@@ -18,10 +21,10 @@
    "es": "Hay una palabra mal escrita: revisá su ortografía."
   },
   "UPPERCASE_SENTENCE_START": {
-   "es": "La oración empieza con mayúscula."
+   "es": "Regla del comienzo de oración: la primera palabra se escribe de una manera especial."
   },
   "FRAGEZEICHEN_STATT_PUNKT": {
-   "es": "Una pregunta se cierra con signo de interrogación, y en alemán solo va al final."
+   "es": "El tipo de oración (aquí, una pregunta) pide un signo de cierre distinto del que usaste."
   },
   "DE_DOUBLE_PUNCTUATION": {
    "es": "Hay un signo de puntuación repetido."
@@ -30,7 +33,7 @@
    "es": "Regla de la coma antes de und/oder: revisá si lo que sigue es una oración con sujeto propio."
   },
   "KOMMA_ZWISCHEN_HAUPT_UND_NEBENSATZ_2": {
-   "es": "Entre la oración principal y la subordinada va una coma."
+   "es": "Regla de la puntuación entre la oración principal y la subordinada: falta un signo que las separe."
   }
  },
  "categories": {
@@ -43,9 +46,11 @@
   "TYPOGRAPHY": "tipografía",
   "REDUNDANCY": "palabra repetida",
   "COLLOQUIALISMS": "lenguaje coloquial",
-  "REPETITIONS_STYLE": "estilo"
+  "REPETITIONS_STYLE": "estilo",
+  "STYLE": "estilo"
  },
  "notice_categories": [
+  "STYLE",
   "TYPOGRAPHY",
   "REDUNDANCY",
   "COLLOQUIALISMS",

@@ -164,3 +164,30 @@ test('processQueue: corta en el primer fallo y deja el resto en la cola', async 
 test('processQueue: cola vacía o inexistente devuelve []', async () => {
   assert.deepEqual(await processQueue(memStore(), async () => []), []);
 });
+
+test('STYLE real (lt-map): solo aviso, la escritura sigue ok', () => {
+  const g = gradeWriting([m('ALGO_DE_ESTILO', 'STYLE', 0, 4, 'msg', ['x'])], realMap);
+  assert.equal(g.ok, true);
+  assert.deepEqual(g.marks.map(x => [x.kind, x.text]), [['notice', 'estilo']]);
+});
+
+test('OBJECT_AGREEMENT está mapeada sin tag y sin delatar la forma', () => {
+  const g = gradeWriting([m('OBJECT_AGREEMENT', 'GRAMMAR', 11, 10, 'Prüfen Sie ...', ['einen Kaffee'])], realMap);
+  assert.equal(g.ok, false);
+  assert.deepEqual(g.penalties, []);
+  assert.ok(!g.marks[0].text.includes('einen'));
+  assert.notEqual(g.marks[0].text, 'gramática');
+});
+
+test('el es de ningún lt-map nombra signos ni formas concretas de puntuación', () => {
+  for (const r of Object.values(realMap.rules)) assert.ok(!/interrogaci|mayúscula|coma\b/i.test(r.es.replace(/Regla de la coma antes de und\/oder/, '')), r.es);
+});
+
+test('processQueue: lo encolado durante la espera no se pierde', async () => {
+  const s = memStore();
+  await enqueue(s, {key: 'a', groupId: 'g', text: 'uno', at: 1});
+  const ltCheck = async () => { await enqueue(s, {key: 'n', groupId: 'g', text: 'nuevo', at: 3}); return []; };
+  const done = await processQueue(s, ltCheck);
+  assert.deepEqual(done.map(e => e.key), ['a']);
+  assert.deepEqual(s.d.ltQueue.map(e => e.key), ['n']);
+});
