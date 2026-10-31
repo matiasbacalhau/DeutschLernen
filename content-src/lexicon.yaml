@@ -21,6 +21,9 @@
 - {lemma: Steckdose, pos: noun, article: die, plural: Steckdosen, es: "enchufe", field: hostel, freq: 3, level: A1}
 - {lemma: Decke, pos: noun, article: die, plural: Decken, es: "manta", field: hostel, freq: 3, level: A1}
 - {lemma: Kissen, pos: noun, article: das, plural: Kissen, es: "almohada", field: hostel, freq: 3, level: A1}
+- {lemma: Etagenbett, pos: noun, article: das, plural: Etagenbetten, es: "cucheta", field: hostel, freq: 3, level: A1}
+- {lemma: Schließfach, pos: noun, article: das, plural: Schließfächer, es: "casillero (con llave)", field: hostel, freq: 3, level: A1}
+- {lemma: Ohrstöpsel, pos: noun, article: der, plural: Ohrstöpsel, es: "tapón para los oídos", field: hostel, freq: 3, level: A1}
 - {lemma: Wohnung, pos: noun, article: die, plural: Wohnungen, es: "departamento", field: wohnung, freq: 1, level: A1}
 - {lemma: Küche, pos: noun, article: die, plural: Küchen, es: "cocina (el ambiente)", field: wohnung, freq: 1, level: A1}
 - {lemma: Wohnzimmer, pos: noun, article: das, plural: Wohnzimmer, es: "living", field: wohnung, freq: 2, level: A1}

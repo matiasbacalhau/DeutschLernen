@@ -5,8 +5,2178 @@
  "topics": [
   {
    "topic": "a1.u1.t1",
-   "draft": true,
-   "steps": []
+   "tags": [
+    "a1.pron.personal",
+    "a1.sein.praesens",
+    "a1.wfragen"
+   ],
+   "arbitrary": false,
+   "hides": [],
+   "ficha": {
+    "short": [
+     "*sein* (ser/estar) es el verbo más usado del alemán y el más irregular: cada persona tiene su forma y hay que saberla de memoria. Un solo verbo hace de *ser* y de *estar*, como *to be* en inglés.",
+     "El sujeto va siempre. Los *Personalpronomen* (pronombres personales) no se omiten como en español: *Ich bin müde*, nunca *Bin müde*.",
+     "*sie* en minúscula es *ella* o *ellos* (el verbo desempata). *Sie* con mayúscula es *usted* o *ustedes* y conjuga como *ellos*.",
+     "En las *W-Fragen* (preguntas con palabra interrogativa) la palabra con *w* va primero y el verbo conjugado enseguida: *Wo ist das Bad?*"
+    ],
+    "table": {
+     "head": [
+      "Persona",
+      "sein",
+      "en español"
+     ],
+     "rows": [
+      [
+       "ich",
+       "bin",
+       "yo soy / estoy"
+      ],
+      [
+       "du",
+       "bist",
+       "vos sos / estás"
+      ],
+      [
+       "er · sie · es",
+       "ist",
+       "él · ella · eso es / está"
+      ],
+      [
+       "wir",
+       "sind",
+       "nosotros somos / estamos"
+      ],
+      [
+       "ihr",
+       "seid",
+       "ustedes (en confianza) son / están"
+      ],
+      [
+       "sie",
+       "sind",
+       "ellos · ellas son / están"
+      ],
+      [
+       "Sie",
+       "sind",
+       "usted · ustedes (formal) es / son"
+      ]
+     ]
+    },
+    "more": [
+     "Por qué es tan raro. *sein* son en realidad tres verbos viejos pegados con cinta: *bin* y *bist* vienen de la misma raíz que el inglés *be*; *ist* y *sind*, de la del latín *est* y el español *es*; y el pasado *war*, de la del inglés *was*. Por eso no se parece a sí mismo. No es que te lo olvidaste: nunca tuvo lógica.",
+     "Ser y estar en uno. *Ich bin Leo* (soy Leo) e *Ich bin müde* (estoy cansado) usan el mismo verbo. El español y el portugués separan *ser* y *estar*; el alemán y el inglés no. Un verbo menos para elegir.",
+     "La edad no se tiene, se es: *Wie alt bist du?* — *Ich bin 30.* Igual que *I am 30*. El español y el portugués (*tenho 30 anos*) son los raros acá.",
+     "Por qué el pronombre no se cae. En español *soy* ya dice quién habla. En alemán *sind* sirve para *wir*, *sie* y *Sie*: sin pronombre no se sabe de quién hablás. Por eso el sujeto va siempre, aunque el verbo parezca alcanzar.",
+     "Tres *sie* en una palabra: *sie ist* (ella), *sie sind* (ellos) y *Sie sind* (usted). Desempatan el verbo y la mayúscula. Al principio de la oración, donde todo va con mayúscula, desempata el contexto.",
+     "*Sie* de cortesía es, literalmente, un 'ellos': por eso conjuga en plural, aunque le hables a una sola persona. Es el mismo truco que *usted*, que conjuga en tercera persona porque viene de *vuestra merced*.",
+     "du, ihr, Sie. En el hostel todo el mundo se tutea: *du* para una persona, *ihr* para varias. *Sie* queda para la recepción de un hotel serio, la oficina y la policía. Ante la duda con un desconocido mayor, *Sie*.",
+     "Las palabras con w: *wer* (quién), *was* (qué), *wo* (dónde), *woher* (de dónde), *wohin* (adónde), *wann* (cuándo), *wie* (cómo), *wie alt* (qué edad), *wie lange* (cuánto tiempo). Ojo: *wer* suena a *where*, pero es *quién*. *Where* es *wo*. Es el falso amigo más traicionero de la unidad.",
+     "El orden: la palabra interrogativa en el primer lugar y el verbo conjugado en el segundo, como en inglés *Where is…?*. Un *wie alt* o un *wie lange* cuentan como un solo bloque."
+    ]
+   },
+   "steps": [
+    {
+     "n": 1,
+     "name": "Descubrir",
+     "scene": {
+      "title": "Ankunft im Hostel",
+      "context": "Hostel Seeblick · 22:15 · llovió todo el camino y la mochila pesa como un ropero"
+     },
+     "exercises": [
+      {
+       "id": "t1-1-det-sein",
+       "type": "detective",
+       "tag": "a1.sein.praesens",
+       "sentences": [
+        {
+         "de": "Ich bin Leo.",
+         "highlight": "bin"
+        },
+        {
+         "de": "Du bist ganz nass!",
+         "highlight": "bist"
+        },
+        {
+         "de": "Der Rucksack ist sehr schwer.",
+         "highlight": "ist"
+        },
+        {
+         "de": "Ich bin total müde.",
+         "highlight": "bin"
+        },
+        {
+         "de": "Wir sind endlich da.",
+         "highlight": "sind"
+        },
+        {
+         "de": "Ihr seid auch neu hier, oder?",
+         "highlight": "seid"
+        }
+       ],
+       "rules": [
+        {
+         "text": "La forma cambia según quién es el sujeto: cada persona tiene la suya.",
+         "correct": true
+        },
+        {
+         "text": "La forma cambia según si significa *ser* o *estar*."
+        },
+        {
+         "text": "La forma cambia según la palabra que viene después."
+        },
+        {
+         "text": "La forma cambia cuando la frase es una exclamación."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Hier ___ die Dusche.",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         }
+        },
+        {
+         "text": "Tom und ich ___ jetzt in Zimmer 12.",
+         "answers": [
+          "sind"
+         ],
+         "dims": {
+          "person": "wir"
+         }
+        },
+        {
+         "text": "Oh, du ___ auch hier!",
+         "answers": [
+          "bist"
+         ],
+         "dims": {
+          "person": "du"
+         }
+        }
+       ],
+       "curiosities": [
+        "*bin* y *bist* son parientes del inglés *be*; *ist*, del inglés *is* y del español *es*."
+       ],
+       "reviewed": true,
+       "words": [
+        "Zimmer",
+        "Rucksack",
+        "Dusche"
+       ]
+      },
+      {
+       "id": "t1-1-det-wfragen",
+       "type": "detective",
+       "tag": "a1.wfragen",
+       "sentences": [
+        {
+         "de": "Wo ist die Rezeption?",
+         "highlight": "ist"
+        },
+        {
+         "de": "Wer ist das?",
+         "highlight": "ist"
+        },
+        {
+         "de": "Woher kommst du?",
+         "highlight": "kommst"
+        },
+        {
+         "de": "Wie heißt du?",
+         "highlight": "heißt"
+        },
+        {
+         "de": "Wann ist das Frühstück?",
+         "highlight": "ist"
+        }
+       ],
+       "rules": [
+        {
+         "text": "La palabra interrogativa va primero y el verbo conjugado va enseguida, en segundo lugar.",
+         "correct": true
+        },
+        {
+         "text": "El verbo conjugado va siempre al final de la pregunta."
+        },
+        {
+         "text": "El sujeto va primero, como en una afirmación."
+        },
+        {
+         "text": "El orden es libre: lo que marca la pregunta es el signo de pregunta."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Armá la pregunta con estas piezas: das Bad · wo · ist",
+         "answers": [
+          "Wo ist das Bad?"
+         ],
+         "dims": {
+          "word": "wo"
+         }
+        },
+        {
+         "text": "Armá la pregunta con estas piezas: du · wie alt · bist",
+         "answers": [
+          "Wie alt bist du?"
+         ],
+         "dims": {
+          "word": "wie"
+         }
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Rezeption",
+        "Bad",
+        "Frühstück"
+       ]
+      },
+      {
+       "id": "t1-1-ch-wir",
+       "type": "choice",
+       "tag": "a1.pron.personal",
+       "prompt": "Tom y vos llegan juntos y empapados. La recepcionista pregunta: *Seid ihr Leo und Tom?* ¿Qué contestás?",
+       "options": [
+        {
+         "text": "Ja, wir sind Leo und Tom.",
+         "correct": true
+        },
+        {
+         "text": "Ja, ihr seid Leo und Tom.",
+         "rule": "*ihr* es la gente a la que le hablás (ustedes); acá el sujeto te incluye a vos."
+        },
+        {
+         "text": "Ja, sie sind Leo und Tom.",
+         "rule": "*sie* en minúscula habla de otros (ellos); acá el sujeto te incluye a vos."
+        },
+        {
+         "text": "Ja, ich bin Leo und Tom.",
+         "rule": "Son dos personas: el pronombre tiene que incluir a las dos (salvo que seas dos personas a la vez)."
+        }
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-1-ch-wie",
+       "type": "choice",
+       "tag": "a1.wfragen",
+       "prompt": "En la cucheta de arriba aparece una chica nueva. Querés saber cómo se llama. ¿Qué le preguntás?",
+       "options": [
+        {
+         "text": "Wie heißt du?",
+         "correct": true
+        },
+        {
+         "text": "Was heißt du?",
+         "rule": "*was* pregunta por una cosa o un significado (*was heißt…?* es '¿qué significa…?'); para un nombre se usa otra palabra interrogativa."
+        },
+        {
+         "text": "Wer heißt du?",
+         "rule": "*wer* pregunta quién es alguien; con *heißen* (llamarse) va otra palabra interrogativa."
+        },
+        {
+         "text": "Wo heißt du?",
+         "rule": "*wo* pregunta por un lugar, no por un nombre."
+        }
+       ],
+       "dims": {
+        "word": "wie"
+       },
+       "curiosities": [
+        "*Was heißt das?* significa '¿qué significa eso?': con *was*, *heißen* pasa a querer decir 'significar'."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-1-ch-sie-formal",
+       "type": "choice",
+       "tag": "a1.sein.praesens",
+       "prompt": "Un señor de traje llega con tres valijas. Anna, la recepcionista, lo trata de usted. ¿Qué le dice?",
+       "options": [
+        {
+         "text": "Sie sind in Zimmer 3.",
+         "correct": true
+        },
+        {
+         "text": "Sie ist in Zimmer 3.",
+         "rule": "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."
+        },
+        {
+         "text": "Sie bist in Zimmer 3.",
+         "rule": "Esa forma es la de *du*; con el trato formal el verbo cambia."
+        },
+        {
+         "text": "Sie seid in Zimmer 3.",
+         "rule": "Esa forma es la de *ihr* (ustedes, en confianza); el trato formal usa otra."
+        }
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "curiosities": [
+        "*Sie* de cortesía conjuga en plural, igual que *usted* conjuga en tercera persona: los dos nacieron como una forma indirecta de hablarle a alguien."
+       ],
+       "reviewed": true,
+       "words": [
+        "Zimmer"
+       ]
+      },
+      {
+       "id": "t1-1-sit-tuer",
+       "type": "situation",
+       "scene": {
+        "title": "Vor der Tür",
+        "context": "22:16 · tocás el portero eléctrico, chorreando"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hallo? Wer ist da?"
+        },
+        {
+         "who": "me",
+         "text": "Hallo! ___ bin Leo. Ich habe eine Reservierung."
+        },
+        {
+         "who": "them",
+         "text": "Ah, Leo! Komm rein, die Tür ist offen."
+        },
+        {
+         "who": "me",
+         "text": "Danke! Der Rucksack ___ so schwer."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Ich"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "Er",
+           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
+          },
+          {
+           "answer": "Du",
+           "rule": "*du* es a quién le hablás; acá te presentás vos."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         },
+         "errors": [
+          {
+           "answer": "bin",
+           "rule": "El sujeto es *der Rucksack* (él), no vos: va la forma de tercera persona."
+          },
+          {
+           "answer": "sind",
+           "rule": "*der Rucksack* es uno solo: la forma de *sein* va en singular."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Rucksack",
+        "Reservierung",
+        "Tür"
+       ]
+      },
+      {
+       "id": "t1-1-det-sein-b",
+       "type": "detective",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "sentences": [
+        {
+         "de": "Ich bin Mia.",
+         "highlight": "bin"
+        },
+        {
+         "de": "Du bist Tom, oder?",
+         "highlight": "bist"
+        },
+        {
+         "de": "Das Hostel ist klein.",
+         "highlight": "ist"
+        },
+        {
+         "de": "Die Küche ist hier.",
+         "highlight": "ist"
+        },
+        {
+         "de": "Wir sind aus Chile.",
+         "highlight": "sind"
+        },
+        {
+         "de": "Ihr seid zu laut!",
+         "highlight": "seid"
+        }
+       ],
+       "rules": [
+        {
+         "text": "La forma depende del sujeto: *ich*, *du*, *wir* e *ihr* tienen cada uno la suya, y *er/sie/es* comparten una.",
+         "correct": true
+        },
+        {
+         "text": "La forma depende del género del sustantivo que viene después."
+        },
+        {
+         "text": "La forma depende de si se habla de un lugar o de una persona."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Ich ___ jetzt endlich im Bett.",
+         "answers": [
+          "bin"
+         ],
+         "dims": {
+          "person": "ich"
+         }
+        },
+        {
+         "text": "Das WLAN hier ___ super schnell.",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         }
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Hostel",
+        "Bett",
+        "WLAN",
+        "Küche",
+        "Chile"
+       ]
+      },
+      {
+       "id": "t1-1-gap-wir",
+       "type": "gap",
+       "tag": "a1.pron.personal",
+       "reserve": true,
+       "context": "Le contás a Anna, en la recepción, de dónde son vos y tu amiga.",
+       "text": "___ sind aus Brasilien.",
+       "answers": [
+        "Wir"
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "errors": [
+        {
+         "answer": "Ich",
+         "rule": "Hablás de vos y tu amiga juntos: el pronombre tiene que incluir a las dos personas."
+        },
+        {
+         "answer": "Sie",
+         "rule": "*sie/Sie* habla de otros o trata de usted; acá el sujeto incluye a quien habla."
+        },
+        {
+         "answer": "Ihr",
+         "rule": "*ihr* es la gente a la que le hablás; acá el sujeto incluye a quien habla."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brasilien"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "name": "Reconocer",
+     "scene": {
+      "title": "An der Rezeption",
+      "context": "22:20 · Anna habla rapidísimo y vos dejás un charco en el piso"
+     },
+     "exercises": [
+      {
+       "id": "t1-2-ord-dusche",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Preguntale a Anna por la ducha.",
+       "chunks": [
+        "ist",
+        "Wo",
+        "die Dusche"
+       ],
+       "answers": [
+        [
+         "Wo",
+         "ist",
+         "die Dusche"
+        ]
+       ],
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Dusche"
+       ]
+      },
+      {
+       "id": "t1-2-ch-wann",
+       "type": "choice",
+       "tag": "a1.wfragen",
+       "prompt": "Detrás de Anna hay un cartel: *Frühstück 7–10 Uhr*. Querés confirmar el horario. ¿Qué preguntás?",
+       "options": [
+        {
+         "text": "Wann ist das Frühstück?",
+         "correct": true
+        },
+        {
+         "text": "Wo ist das Frühstück?",
+         "rule": "*wo* pregunta por el lugar; vos querés saber el horario."
+        },
+        {
+         "text": "Wer ist das Frühstück?",
+         "rule": "*wer* pregunta por personas (el desayuno no es nadie, por suerte)."
+        },
+        {
+         "text": "Was ist das Frühstück?",
+         "rule": "*was* pregunta qué es una cosa, no a qué hora pasa."
+        }
+       ],
+       "dims": {
+        "word": "wann"
+       },
+       "reviewed": true,
+       "words": [
+        "Frühstück"
+       ]
+      },
+      {
+       "id": "t1-2-se-handtuecher",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "prompt": "Anna te pasa un papelito con la info del cuarto. Tiene un error.",
+       "tokens": [
+        "Die",
+        "Handtücher",
+        "ist",
+        "im",
+        "Schrank."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "sind"
+       ],
+       "rule": "El sujeto es plural: *sein* tiene que ir en la forma de plural.",
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Handtuch",
+        "Schrank"
+       ]
+      },
+      {
+       "id": "t1-2-ord-woher",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Anna te pregunta de dónde sos.",
+       "chunks": [
+        "du",
+        "Woher",
+        "kommst"
+       ],
+       "answers": [
+        [
+         "Woher",
+         "kommst",
+         "du"
+        ]
+       ],
+       "dims": {
+        "word": "woher"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-se-wer-dusche",
+       "type": "spot-error",
+       "tag": "a1.wfragen",
+       "prompt": "Mensaje de un huésped perdido en el pasillo. Tiene un error.",
+       "tokens": [
+        "Entschuldigung,",
+        "wer",
+        "ist",
+        "die",
+        "Dusche?",
+        "Ich",
+        "finde",
+        "sie",
+        "nicht."
+       ],
+       "wrong": 1,
+       "corrections": [
+        "wo"
+       ],
+       "rule": "*wer* pregunta por una persona (aunque suene a *where*); para buscar un lugar hace falta otra palabra interrogativa.",
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Dusche"
+       ]
+      },
+      {
+       "id": "t1-2-ord-passwort",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Lo más importante: el wifi.",
+       "chunks": [
+        "das WLAN-Passwort",
+        "ist",
+        "Wie"
+       ],
+       "answers": [
+        [
+         "Wie",
+         "ist",
+         "das WLAN-Passwort"
+        ]
+       ],
+       "dims": {
+        "word": "wie"
+       },
+       "reviewed": true,
+       "words": [
+        "Passwort",
+        "WLAN"
+       ]
+      },
+      {
+       "id": "t1-2-ch-sie-plural",
+       "type": "choice",
+       "tag": "a1.sein.praesens",
+       "prompt": "Anna te cuenta de las dos chicas que duermen en el sillón del lobby. ¿Qué frase está bien?",
+       "options": [
+        {
+         "text": "Sie sind aus Italien.",
+         "correct": true
+        },
+        {
+         "text": "Sie ist aus Italien.",
+         "rule": "*sie* con esa forma del verbo es una sola persona (ella); para dos personas *sein* cambia."
+        },
+        {
+         "text": "Sie seid aus Italien.",
+         "rule": "Esa forma va solo con *ihr* (ustedes, en confianza)."
+        },
+        {
+         "text": "Sie bin aus Italien.",
+         "rule": "Esa forma va solo con *ich*."
+        }
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Italien"
+       ]
+      },
+      {
+       "id": "t1-2-ord-fruehstueck",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Tenés hambre desde Frankfurt. Preguntá por el desayuno.",
+       "chunks": [
+        "das Frühstück",
+        "ist",
+        "Wann"
+       ],
+       "answers": [
+        [
+         "Wann",
+         "ist",
+         "das Frühstück"
+        ]
+       ],
+       "dims": {
+        "word": "wann"
+       },
+       "reviewed": true,
+       "words": [
+        "Frühstück"
+       ]
+      },
+      {
+       "id": "t1-2-se-frau",
+       "type": "spot-error",
+       "tag": "a1.pron.personal",
+       "prompt": "Mensaje de Tom sobre la recepción. Tiene un error.",
+       "tokens": [
+        "Die",
+        "Frau",
+        "an",
+        "der",
+        "Rezeption",
+        "ist",
+        "super",
+        "nett.",
+        "Er",
+        "spricht",
+        "Spanisch!"
+       ],
+       "wrong": 8,
+       "corrections": [
+        "Sie"
+       ],
+       "rule": "El pronombre tiene que coincidir con la persona de la que se habla: acá es una mujer.",
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "Rezeption",
+        "Frau"
+       ]
+      },
+      {
+       "id": "t1-2-ord-gitarre",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "En el lobby hay un tipo tocando *Wonderwall* por cuarta vez.",
+       "chunks": [
+        "der Mann mit der Gitarre",
+        "Wer",
+        "ist"
+       ],
+       "answers": [
+        [
+         "Wer",
+         "ist",
+         "der Mann mit der Gitarre"
+        ]
+       ],
+       "dims": {
+        "word": "wer"
+       },
+       "reviewed": true,
+       "words": [
+        "Mann"
+       ]
+      },
+      {
+       "id": "t1-2-se-tom-mia",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "prompt": "Anna anota quién está en tu cuarto. Tiene un error.",
+       "tokens": [
+        "Tom",
+        "und",
+        "Mia",
+        "ist",
+        "sehr",
+        "nett."
+       ],
+       "wrong": 3,
+       "corrections": [
+        "sind"
+       ],
+       "rule": "*Tom und Mia* son dos personas: el sujeto es plural y *sein* tiene que ir en plural.",
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-ord-was",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Anna te da una tarjeta de plástico rarísima.",
+       "chunks": [
+        "das hier",
+        "ist",
+        "Was"
+       ],
+       "answers": [
+        [
+         "Was",
+         "ist",
+         "das hier"
+        ]
+       ],
+       "dims": {
+        "word": "was"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-se-was-kommst",
+       "type": "spot-error",
+       "tag": "a1.wfragen",
+       "prompt": "Mensaje de Mia a un chico nuevo. Tiene un error.",
+       "tokens": [
+        "Was",
+        "kommst",
+        "du?",
+        "Aus",
+        "Spanien?"
+       ],
+       "wrong": 0,
+       "corrections": [
+        "Woher"
+       ],
+       "rule": "*was* pregunta por una cosa; para el origen hace falta la palabra interrogativa de procedencia.",
+       "dims": {
+        "word": "woher"
+       },
+       "reviewed": true,
+       "words": [
+        "Spanien"
+       ]
+      },
+      {
+       "id": "t1-2-ord-wie-lange",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "prompt": "Anna le pregunta al señor de traje, muy formal, cuánto tiempo se queda.",
+       "chunks": [
+        "Sie",
+        "Wie lange",
+        "sind",
+        "hier"
+       ],
+       "answers": [
+        [
+         "Wie lange",
+         "sind",
+         "Sie",
+         "hier"
+        ]
+       ],
+       "dims": {
+        "word": "wie"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-ch-sie-heissen",
+       "type": "choice",
+       "tag": "a1.pron.personal",
+       "prompt": "Anna anota en el registro al señor de traje. ¿Qué le pregunta?",
+       "options": [
+        {
+         "text": "Wie heißen Sie?",
+         "correct": true
+        },
+        {
+         "text": "Wie heißt du?",
+         "rule": "Con un desconocido mayor en una recepción se usa el trato formal, no *du*."
+        },
+        {
+         "text": "Wie heißt Sie?",
+         "rule": "Con *Sie* de usted el verbo va en la forma de plural, aunque sea una sola persona."
+        },
+        {
+         "text": "Wie heißt ihr?",
+         "rule": "*ihr* es para varias personas en confianza, y acá es un señor solo al que se trata de usted."
+        }
+       ],
+       "dims": {
+        "person": "Sie"
+       },
+       "reviewed": true,
+       "words": [
+        "heißen"
+       ]
+      },
+      {
+       "id": "t1-2-ord-woher-ihr",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "prompt": "Anna les pregunta a dos mochileras de dónde son.",
+       "chunks": [
+        "ihr",
+        "seid",
+        "Woher"
+       ],
+       "answers": [
+        [
+         "Woher",
+         "seid",
+         "ihr"
+        ]
+       ],
+       "dims": {
+        "word": "woher"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-ord-schluessel",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "prompt": "Revolvés la mochila. Nada.",
+       "chunks": [
+        "der Schlüssel",
+        "ist",
+        "Wo"
+       ],
+       "answers": [
+        [
+         "Wo",
+         "ist",
+         "der Schlüssel"
+        ]
+       ],
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Schlüssel"
+       ]
+      },
+      {
+       "id": "t1-2-ord-wie-alt",
+       "type": "order",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "prompt": "Anna mira tu pasaporte y no puede creer la foto.",
+       "chunks": [
+        "bist",
+        "Wie alt",
+        "du"
+       ],
+       "answers": [
+        [
+         "Wie alt",
+         "bist",
+         "du"
+        ]
+       ],
+       "dims": {
+        "word": "wie"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-2-se-wlan",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "prompt": "Queja de un huésped en el libro de la recepción. Tiene un error.",
+       "tokens": [
+        "Das",
+        "WLAN",
+        "sind",
+        "heute",
+        "langsam."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "ist"
+       ],
+       "rule": "*das WLAN* es uno solo: el sujeto es singular y *sein* va en singular.",
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "WLAN"
+       ]
+      },
+      {
+       "id": "t1-2-se-wo-heisst",
+       "type": "spot-error",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "prompt": "Mensaje de Tom a Mia. Tiene un error.",
+       "tokens": [
+        "Wo",
+        "heißt",
+        "du?",
+        "Ich",
+        "bin",
+        "Tom."
+       ],
+       "wrong": 0,
+       "corrections": [
+        "Wie"
+       ],
+       "rule": "*wo* pregunta por un lugar; para el nombre hace falta otra palabra interrogativa.",
+       "dims": {
+        "word": "wie"
+       },
+       "reviewed": true,
+       "words": []
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "name": "Producir guiado",
+     "scene": {
+      "title": "Zimmer 12",
+      "context": "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"
+     },
+     "field": "hostel",
+     "exercises": [
+      {
+       "id": "t1-3-sit-schnarchen",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "23:40 · alguien ronca en la oscuridad"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hey! Wer schnarcht da so laut?"
+        },
+        {
+         "who": "me",
+         "text": "Das ist Tom. ___ ist im Etagenbett oben."
+        },
+        {
+         "who": "them",
+         "text": "Hast du Ohrstöpsel?"
+        },
+        {
+         "who": "me",
+         "text": "Nein, leider nicht. Und ich ___ so müde!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Er",
+          "Der",
+          "Tom"
+         ],
+         "dims": {
+          "person": "er"
+         },
+         "errors": [
+          {
+           "answer": "Sie",
+           "rule": "El pronombre tiene que coincidir con la persona de la que se habla: Tom es un hombre."
+          },
+          {
+           "answer": "Es",
+           "rule": "El pronombre tiene que coincidir con la persona de la que se habla: Tom es un hombre, no una cosa."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "bin"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "bist",
+           "rule": "Esa forma es la de *du*; el sujeto acá sos vos mismo."
+          },
+          {
+           "answer": "ist",
+           "rule": "Esa forma es la de tercera persona (él, ella, eso); el sujeto acá sos vos mismo."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Etagenbett",
+        "Ohrstöpsel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-tom",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Ich bin im Etagenbett oben.",
+       "instruction": "Ahora con *Tom* como sujeto.",
+       "answers": [
+        "Tom ist im Etagenbett oben.",
+        "Tom ist oben im Etagenbett."
+       ],
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "Etagenbett"
+       ]
+      },
+      {
+       "id": "t1-3-sit-mia",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "23:45 · entra una chica con linterna buscando su cama"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hi, ich bin Mia. Ich bin neu hier."
+        },
+        {
+         "who": "me",
+         "text": "Hallo Mia! ___ kommst du?"
+        },
+        {
+         "who": "them",
+         "text": "Aus Chile. Und du?"
+        },
+        {
+         "who": "me",
+         "text": "Aus Argentinien. ___ ist dein Bett? Oben oder unten?"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.wfragen",
+         "answers": [
+          "Woher"
+         ],
+         "dims": {
+          "word": "woher"
+         },
+         "errors": [
+          {
+           "answer": "Wo",
+           "rule": "*wo* pregunta dónde está algo; para el origen hace falta la palabra que pregunta 'desde dónde'."
+          }
+         ]
+        },
+        {
+         "tag": "a1.wfragen",
+         "answers": [
+          "Wo",
+          "Welches"
+         ],
+         "dims": {
+          "word": "wo"
+         },
+         "errors": [
+          {
+           "answer": "Wer",
+           "rule": "*wer* pregunta por personas (aunque suene a *where*); acá buscás un lugar."
+          },
+          {
+           "answer": "Woher",
+           "rule": "Esa palabra pregunta por el origen; acá preguntás dónde está la cama ahora."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Bett",
+        "Argentinien",
+        "Chile"
+       ]
+      },
+      {
+       "id": "t1-3-tf-handtuecher",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Das Handtuch ist nass.",
+       "instruction": "Ahora en plural: *die Handtücher*.",
+       "answers": [
+        "Die Handtücher sind nass."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Handtuch"
+       ]
+      },
+      {
+       "id": "t1-3-gap-ihr",
+       "type": "gap",
+       "tag": "a1.sein.praesens",
+       "context": "1:00 · Tom y Mia vuelven del bar cantando.",
+       "text": "Leise! Ihr ___ zu laut!",
+       "answers": [
+        "seid"
+       ],
+       "dims": {
+        "person": "ihr"
+       },
+       "errors": [
+        {
+         "answer": "sind",
+         "rule": "Con *ihr* (ustedes, en confianza) *sein* tiene una forma propia, distinta de la de *wir* y *sie*."
+        },
+        {
+         "answer": "seit",
+         "rule": "Suena igual, pero *seit* es una preposición de tiempo (desde); acá va el verbo *sein*."
+        }
+       ],
+       "curiosities": [
+        "*seid* (de *sein*) y *seit* (desde) suenan igual: hasta muchos alemanes los confunden por escrito."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-sit-schluessel",
+       "type": "situation",
+       "scene": {
+        "title": "Im Gang",
+        "context": "0:10 · volviste del baño y la llave no abre"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hm? Wer ist da?"
+        },
+        {
+         "who": "me",
+         "text": "___ bin es, Leo! Der Schlüssel funktioniert nicht."
+        },
+        {
+         "who": "them",
+         "text": "Oh nein! Und wo sind Mia und Lea?"
+        },
+        {
+         "who": "me",
+         "text": "___ sind noch in der Bar."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Ich"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "Er",
+           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
+          }
+         ]
+        },
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Sie",
+          "Die",
+          "Beide"
+         ],
+         "dims": {
+          "person": "sie_pl"
+         },
+         "errors": [
+          {
+           "answer": "Wir",
+           "rule": "Vos estás en el pasillo: el sujeto son otras personas, no vos."
+          },
+          {
+           "answer": "Ihr",
+           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están ahí."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schlüssel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-mia",
+       "type": "transform",
+       "tag": "a1.pron.personal",
+       "source": "Mia ist aus Chile.",
+       "instruction": "Reemplazá *Mia* por un pronombre personal.",
+       "answers": [
+        "Sie ist aus Chile."
+       ],
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "Chile"
+       ]
+      },
+      {
+       "id": "t1-3-sit-handtuch",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "0:30 · inventario de lo que falta, con linterna"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo, ist das dein Handtuch?"
+        },
+        {
+         "who": "me",
+         "text": "Nein, das ist das Handtuch von Tom. Es ___ nass."
+        },
+        {
+         "who": "them",
+         "text": "Igitt! Und die Kissen?"
+        },
+        {
+         "who": "me",
+         "text": "Die Kissen ___ super weich. Aber die Decke ist zu dünn."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         },
+         "errors": [
+          {
+           "answer": "sind",
+           "rule": "*es* reemplaza a *das Handtuch*, que es uno solo: *sein* va en singular."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "sind"
+         ],
+         "dims": {
+          "person": "wir"
+         },
+         "errors": [
+          {
+           "answer": "ist",
+           "rule": "*die Kissen* es plural (el singular es *das Kissen*): *sein* va en plural."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Handtuch",
+        "Decke",
+        "Kissen"
+       ]
+      },
+      {
+       "id": "t1-3-tf-sie",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Du bist in Zimmer 12.",
+       "instruction": "Ahora con trato formal (*Sie*).",
+       "answers": [
+        "Sie sind in Zimmer 12.",
+        "Sie sind im Zimmer 12."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Zimmer"
+       ]
+      },
+      {
+       "id": "t1-3-gap-was",
+       "type": "gap",
+       "tag": "a1.wfragen",
+       "context": "Lea encuentra algo chiquito y amarillo en el Schließfach.",
+       "text": "___ ist das? Ein Ohrstöpsel?",
+       "answers": [
+        "Was"
+       ],
+       "dims": {
+        "word": "was"
+       },
+       "errors": [
+        {
+         "answer": "Wer",
+         "rule": "*wer* pregunta por personas; esto es una cosa."
+        },
+        {
+         "answer": "Wo",
+         "rule": "*wo* pregunta por un lugar; acá querés saber qué cosa es."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schließfach",
+        "Ohrstöpsel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-wo",
+       "type": "transform",
+       "tag": "a1.wfragen",
+       "source": "Der Schlüssel ist im Schließfach.",
+       "instruction": "Convertila en la pregunta por el lugar.",
+       "answers": [
+        "Wo ist der Schlüssel?"
+       ],
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Schlüssel",
+        "Schließfach"
+       ]
+      },
+      {
+       "id": "t1-3-sit-fruehstueck",
+       "type": "situation",
+       "reserve": true,
+       "scene": {
+        "title": "Frühstücksraum",
+        "context": "7:05 · nadie durmió y Tom está fresco como una lechuga"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Guten Morgen! Alles okay?"
+        },
+        {
+         "who": "me",
+         "text": "Nein! Wir ___ total müde. Du schnarchst wie ein Traktor!"
+        },
+        {
+         "who": "them",
+         "text": "Ich? Ich schnarche nicht!"
+        },
+        {
+         "who": "me",
+         "text": "Doch! Frag Mia und Lea. ___ sind auch total müde."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "sind"
+         ],
+         "dims": {
+          "person": "wir"
+         },
+         "errors": [
+          {
+           "answer": "seid",
+           "rule": "Esa es la forma de *ihr* (ustedes); el sujeto acá es *wir*."
+          },
+          {
+           "answer": "bin",
+           "rule": "Esa es la forma de *ich*; el sujeto acá es *wir*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Sie",
+          "Die",
+          "Beide"
+         ],
+         "dims": {
+          "person": "sie_pl"
+         },
+         "errors": [
+          {
+           "answer": "Ihr",
+           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-tf-wir",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "source": "Ich bin müde.",
+       "instruction": "Ahora con *wir*.",
+       "answers": [
+        "Wir sind müde."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-tf-woher",
+       "type": "transform",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "source": "Lea ist aus Spanien.",
+       "instruction": "Convertila en la pregunta por el origen de Lea.",
+       "answers": [
+        "Woher ist Lea?",
+        "Woher kommt Lea?",
+        "Wo ist Lea her?",
+        "Wo kommt Lea her?"
+       ],
+       "dims": {
+        "word": "woher"
+       },
+       "reviewed": true,
+       "words": [
+        "Spanien"
+       ]
+      },
+      {
+       "id": "t1-3-gap-sie-pl",
+       "type": "gap",
+       "tag": "a1.pron.personal",
+       "reserve": true,
+       "context": "Anna te señala a dos chicos que entran al cuarto con un Koffer cada uno.",
+       "text": "Das sind Tom und Jan. ___ sind aus Kanada.",
+       "answers": [
+        "Sie",
+        "Die",
+        "Beide"
+       ],
+       "dims": {
+        "person": "sie_pl"
+       },
+       "errors": [
+        {
+         "answer": "Er",
+         "rule": "Son dos personas: el pronombre tiene que ser de plural."
+        },
+        {
+         "answer": "Ihr",
+         "rule": "*ihr* es la gente a la que le hablás; Anna te habla a vos de ellos."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Koffer"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "name": "Detectar y usar",
+     "scene": {
+      "title": "Eine E-Mail vom Hostel",
+      "context": "Al día siguiente · 9:30 · llegó un email con las reglas de la casa"
+     },
+     "exercises": [
+      {
+       "id": "t1-4-read-hausregeln",
+       "type": "reading",
+       "title": "Willkommen im Hostel Seeblick!",
+       "text": "Hallo und herzlich willkommen im Hostel Seeblick!\nWir sind Anna und Jonas von der Rezeption. Hier sind die Hausregeln:\nDie Rezeption ist von 7 bis 23 Uhr offen. Das Frühstück ist von 7 bis 10 Uhr in der Küche. Die Nachtruhe ist von 22 bis 7 Uhr. Der Hund an der Rezeption heißt Bruno. Er ist sehr lieb, aber er ist kein Kissen! Habt ihr Fragen? Wir sind immer für euch da.\nViele Grüße\nAnna und Jonas\n",
+       "questions": [
+        {
+         "tag": "a1.wfragen",
+         "prompt": "Wie heißt der Hund?",
+         "answers": [
+          "Bruno",
+          "Er heißt Bruno",
+          "Der Hund heißt Bruno"
+         ],
+         "dims": {
+          "word": "wie"
+         }
+        },
+        {
+         "tag": "a1.wfragen",
+         "prompt": "Wann ist das Frühstück?",
+         "options": [
+          {
+           "text": "Von 7 bis 10 Uhr.",
+           "correct": true
+          },
+          {
+           "text": "Von 22 bis 7 Uhr.",
+           "rule": "*wann* pregunta por el horario: ese horario es de otra regla de la casa. Fijate cuál va con el desayuno."
+          },
+          {
+           "text": "Von 7 bis 23 Uhr.",
+           "rule": "*wann* pregunta por el horario: ese horario es de otra regla de la casa. Fijate cuál va con el desayuno."
+          }
+         ],
+         "dims": {
+          "word": "wann"
+         }
+        },
+        {
+         "tag": "a1.wfragen",
+         "prompt": "Wo ist das Frühstück?",
+         "answers": [
+          "In der Küche",
+          "Küche",
+          "Das Frühstück ist in der Küche",
+          "Es ist in der Küche"
+         ],
+         "dims": {
+          "word": "wo"
+         }
+        },
+        {
+         "tag": "a1.wfragen",
+         "prompt": "Was ist Bruno nicht?",
+         "options": [
+          {
+           "text": "Ein Kissen.",
+           "correct": true
+          },
+          {
+           "text": "Ein Hund.",
+           "rule": "*was* pregunta por una cosa: buscá en las frases sobre Bruno qué cosa *no* es."
+          },
+          {
+           "text": "Sehr lieb.",
+           "rule": "*was* pregunta por una cosa: buscá en las frases sobre Bruno qué cosa *no* es."
+          }
+         ],
+         "dims": {
+          "word": "was"
+         }
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Hostel",
+        "Rezeption",
+        "Frühstück",
+        "Kissen",
+        "Küche",
+        "Uhr"
+       ]
+      },
+      {
+       "id": "t1-4-se-frau-berg",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "prompt": "Respuesta del hostel a una huésped que escribió de usted. Tiene un error.",
+       "tokens": [
+        "Liebe",
+        "Frau",
+        "Berg,",
+        "Sie",
+        "ist",
+        "in",
+        "Zimmer",
+        "3."
+       ],
+       "wrong": 4,
+       "corrections": [
+        "sind"
+       ],
+       "rule": "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona.",
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Zimmer",
+        "Frau"
+       ]
+      },
+      {
+       "id": "t1-4-tr-wie-alt",
+       "type": "translate",
+       "tag": "a1.sein.praesens",
+       "from": "es",
+       "source": "¿Cuántos años tenés?",
+       "answers": [
+        "Wie alt bist du?"
+       ],
+       "dims": {
+        "person": "du"
+       },
+       "errors": [
+        {
+         "answer": "Wie viele Jahre hast du?",
+         "rule": "En alemán la edad no se tiene: se pregunta con *sein* y el adjetivo de edad."
+        },
+        {
+         "answer": "Wie alt hast du?",
+         "rule": "En alemán la edad no se tiene: se pregunta con *sein* y el adjetivo de edad."
+        }
+       ],
+       "curiosities": [
+        "El inglés y el alemán *son* años (*I am 30*); el español y el portugués los *tienen*."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-4-se-wohin",
+       "type": "spot-error",
+       "tag": "a1.wfragen",
+       "prompt": "Mensaje de un huésped a la recepción, a las 7:01. Tiene un error.",
+       "tokens": [
+        "Hallo!",
+        "Wohin",
+        "ist",
+        "die",
+        "Küche?",
+        "Ich",
+        "habe",
+        "Hunger."
+       ],
+       "wrong": 1,
+       "corrections": [
+        "Wo"
+       ],
+       "rule": "*wohin* pregunta hacia dónde va algo (movimiento); para dónde está algo hace falta otra palabra.",
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Küche"
+       ]
+      },
+      {
+       "id": "t1-4-tr-30",
+       "type": "translate",
+       "tag": "a1.sein.praesens",
+       "from": "es",
+       "source": "Tengo 30 años.",
+       "answers": [
+        "Ich bin 30 Jahre alt.",
+        "Ich bin 30.",
+        "Ich bin dreißig Jahre alt.",
+        "Ich bin dreißig."
+       ],
+       "dims": {
+        "person": "ich"
+       },
+       "errors": [
+        {
+         "answer": "Ich habe 30 Jahre.",
+         "rule": "En alemán la edad no se tiene: se dice con *sein*."
+        },
+        {
+         "answer": "Ich habe 30 Jahre alt.",
+         "rule": "En alemán la edad no se tiene: se dice con *sein*."
+        },
+        {
+         "answer": "Ich habe dreißig Jahre.",
+         "rule": "En alemán la edad no se tiene: se dice con *sein*."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-4-tr-who",
+       "type": "translate",
+       "tag": "a1.wfragen",
+       "from": "en",
+       "source": "Who are you?",
+       "answers": [
+        "Wer bist du?",
+        "Wer sind Sie?",
+        "Wer seid ihr?"
+       ],
+       "dims": {
+        "word": "wer"
+       },
+       "errors": [
+        {
+         "answer": "Wo bist du?",
+         "rule": "*wo* pregunta por un lugar: la palabra para personas es otra, aunque se parezca a *where*."
+        },
+        {
+         "answer": "Wo sind Sie?",
+         "rule": "*wo* pregunta por un lugar: la palabra para personas es otra, aunque se parezca a *where*."
+        }
+       ],
+       "curiosities": [
+        "*wer* es pariente de *who* y *wo* de *where*: los sonidos se cruzaron, los significados no."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-4-se-hostel-er",
+       "type": "spot-error",
+       "tag": "a1.pron.personal",
+       "prompt": "Reseña de un huésped en la web del hostel. Tiene un error.",
+       "tokens": [
+        "Das",
+        "Hostel",
+        "ist",
+        "super.",
+        "Er",
+        "ist",
+        "klein,",
+        "aber",
+        "sehr",
+        "sauber."
+       ],
+       "wrong": 4,
+       "corrections": [
+        "Es",
+        "Das"
+       ],
+       "rule": "El pronombre toma el género del sustantivo al que reemplaza, y *Hostel* tiene género neutro.",
+       "dims": {
+        "person": "es"
+       },
+       "reviewed": true,
+       "words": [
+        "Hostel"
+       ]
+      },
+      {
+       "id": "t1-4-tr-zimmer",
+       "type": "translate",
+       "tag": "a1.sein.praesens",
+       "from": "es",
+       "source": "Usted está en la habitación 12.",
+       "answers": [
+        "Sie sind in Zimmer 12.",
+        "Sie sind im Zimmer 12.",
+        "Sie sind in Zimmer Nummer 12.",
+        "Sie sind im Zimmer Nummer 12."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "errors": [
+        {
+         "answer": "Sie ist in Zimmer 12.",
+         "rule": "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."
+        },
+        {
+         "answer": "Sie ist im Zimmer 12.",
+         "rule": "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Zimmer"
+       ]
+      },
+      {
+       "id": "t1-4-se-seit",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "prompt": "La primera línea del cartel de bienvenida. Tiene un error.",
+       "tokens": [
+        "Ihr",
+        "seit",
+        "herzlich",
+        "willkommen!"
+       ],
+       "wrong": 1,
+       "corrections": [
+        "seid"
+       ],
+       "rule": "*seit* (desde) es una preposición de tiempo; acá va el verbo *sein* en la forma de *ihr*, que suena igual pero se escribe distinto.",
+       "dims": {
+        "person": "ihr"
+       },
+       "curiosities": [
+        "Hasta muchos alemanes confunden *seid* y *seit* por escrito: suenan exactamente igual."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-4-tr-kueche",
+       "type": "translate",
+       "tag": "a1.pron.personal",
+       "from": "es",
+       "source": "Estamos en la cocina.",
+       "answers": [
+        "Wir sind in der Küche."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "errors": [
+        {
+         "answer": "Sind in der Küche.",
+         "rule": "En alemán el sujeto no se omite: el pronombre va siempre."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Küche"
+       ]
+      },
+      {
+       "id": "t1-4-se-gaeste",
+       "type": "spot-error",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "prompt": "Queja anónima en el libro de la recepción. Tiene un error.",
+       "tokens": [
+        "Die",
+        "Gäste",
+        "aus",
+        "Zimmer",
+        "5",
+        "ist",
+        "sehr",
+        "laut."
+       ],
+       "wrong": 5,
+       "corrections": [
+        "sind"
+       ],
+       "rule": "*die Gäste* es plural (el singular es *der Gast*): *sein* va en plural.",
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Zimmer",
+        "Gast"
+       ]
+      },
+      {
+       "id": "t1-4-se-wann-rezeption",
+       "type": "spot-error",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "prompt": "Mensaje de Tom, perdido en el primer piso. Tiene un error.",
+       "tokens": [
+        "Wann",
+        "ist",
+        "die",
+        "Rezeption?",
+        "Ich",
+        "sehe",
+        "sie",
+        "nicht."
+       ],
+       "wrong": 0,
+       "corrections": [
+        "Wo"
+       ],
+       "rule": "*wann* pregunta por el momento; para buscar un lugar hace falta otra palabra interrogativa.",
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Rezeption"
+       ]
+      },
+      {
+       "id": "t1-4-tr-where",
+       "type": "translate",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "from": "en",
+       "source": "Where are you?",
+       "answers": [
+        "Wo bist du?",
+        "Wo sind Sie?",
+        "Wo seid ihr?"
+       ],
+       "dims": {
+        "word": "wo"
+       },
+       "errors": [
+        {
+         "answer": "Wer bist du?",
+         "rule": "*wer* pregunta por personas (es *who*, aunque suene a *where*)."
+        },
+        {
+         "answer": "Wer seid ihr?",
+         "rule": "*wer* pregunta por personas (es *who*, aunque suene a *where*)."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-4-tr-chile",
+       "type": "translate",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "from": "es",
+       "source": "Somos de Chile.",
+       "answers": [
+        "Wir sind aus Chile.",
+        "Wir kommen aus Chile.",
+        "Wir stammen aus Chile."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "errors": [
+        {
+         "answer": "Wir sind von Chile.",
+         "rule": "Para el origen (país, ciudad) el alemán usa otra preposición, no *von*."
+        },
+        {
+         "answer": "Sind aus Chile.",
+         "rule": "En alemán el sujeto no se omite: el pronombre va siempre."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Chile",
+        "kommen"
+       ]
+      },
+      {
+       "id": "t1-4-tr-was",
+       "type": "translate",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "from": "es",
+       "source": "¿Qué es esto?",
+       "answers": [
+        "Was ist das?",
+        "Was ist das hier?",
+        "Was ist dies?",
+        "Was ist denn das?"
+       ],
+       "dims": {
+        "word": "was"
+       },
+       "errors": [
+        {
+         "answer": "Wer ist das?",
+         "rule": "*wer* pregunta por personas; para una cosa hace falta otra palabra interrogativa."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "name": "Redactar",
+     "scene": {
+      "title": "Gruppenchat Hostel Seeblick",
+      "context": "Mediodía · 47 mensajes sin leer, la mitad sobre los ronquidos de Tom"
+     },
+     "exercises": [
+      {
+       "id": "t1-5-wg-vorstellen",
+       "type": "writing-guided",
+       "topic": "a1.u1.t1",
+       "prompt": "Presentate en el grupo de WhatsApp del hostel: quién sos, de dónde sos, en qué cuarto estás y cómo estás hoy.",
+       "constraints": [
+        "Usá *sein* al menos 3 veces.",
+        "Entre 3 y 5 oraciones."
+       ],
+       "tips": [
+        "Para el origen alcanza con *aus* + país: *aus Argentinien*, *aus Uruguay*.",
+        "Para cómo estás: *sein* + adjetivo (*müde*, *glücklich*, *nass*…).",
+        "Cada oración con su sujeto: en alemán el pronombre no se cae."
+       ],
+       "checklist": [
+        "Dijiste quién sos, de dónde sos, en qué cuarto estás y cómo estás.",
+        "Usaste *sein* al menos 3 veces.",
+        "Suena a mensaje de grupo: hay saludo y despedida."
+       ],
+       "model": "Hallo zusammen! Ich bin Leo und komme aus Argentinien. Jetzt bin ich in Zimmer 12. Heute bin ich ein bisschen müde, aber sehr glücklich. Bis später!",
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-5-wg-fragen",
+       "type": "writing-guided",
+       "topic": "a1.u1.t1",
+       "prompt": "Dos chicas nuevas entran al grupo. Escribiles un mensaje de bienvenida con preguntas para conocerlas.",
+       "constraints": [
+        "3 W-Fragen con 3 palabras interrogativas distintas.",
+        "Al menos una pregunta con *sein*.",
+        "Hablales en plural de confianza (*ihr*)."
+       ],
+       "tips": [
+        "La palabra interrogativa va primero y el verbo justo después.",
+        "Con *ihr*, *sein* tiene una forma propia; la de los otros verbos suele terminar en *-t*.",
+        "*wie lange* (cuánto tiempo) cuenta como un solo bloque."
+       ],
+       "checklist": [
+        "Hiciste 3 preguntas con 3 palabras interrogativas distintas.",
+        "Les hablaste con *ihr* en todo el mensaje.",
+        "Las preguntas sirven para conocer a alguien (nada de interrogatorios policiales)."
+       ],
+       "model": "Hallo und willkommen! Wie heißt ihr? Woher kommt ihr? Und wie lange seid ihr hier? Heute Abend sind wir in der Bar. Kommt ihr auch?",
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-5-wf-zimmer",
+       "type": "writing-free",
+       "topic": "a1.u1.t1",
+       "prompt": "Contá en el grupo quiénes duermen en tu cuarto, de dónde son y cómo son. Si alguien ronca, es el momento de decirlo (con cariño).",
+       "tips": [
+        "Para cada persona: el nombre, de dónde es y cómo es.",
+        "Cuando ya nombraste a alguien, seguí con *er* o *sie*."
+       ],
+       "checklist": [
+        "Contaste quiénes son, de dónde son y cómo son.",
+        "Usaste al menos dos personas distintas de *sein* (por ejemplo *wir* y *er*).",
+        "El texto se entiende de punta a punta."
+       ],
+       "model": "In Zimmer 12 sind wir zu dritt: Lea, Tom und ich. Lea ist aus Spanien und sehr nett. Tom kommt aus Kanada. Er ist lustig, aber nachts ist er sehr laut. Wer hat Ohrstöpsel für uns?",
+       "reviewed": true,
+       "words": []
+      }
+     ]
+    }
+   ]
   },
   {
    "topic": "a1.u1.t2",

@@ -230,6 +230,36 @@
   "level": "A1"
  },
  {
+  "lemma": "Etagenbett",
+  "pos": "noun",
+  "article": "das",
+  "plural": "Etagenbetten",
+  "es": "cucheta",
+  "field": "hostel",
+  "freq": 3,
+  "level": "A1"
+ },
+ {
+  "lemma": "Schließfach",
+  "pos": "noun",
+  "article": "das",
+  "plural": "Schließfächer",
+  "es": "casillero (con llave)",
+  "field": "hostel",
+  "freq": 3,
+  "level": "A1"
+ },
+ {
+  "lemma": "Ohrstöpsel",
+  "pos": "noun",
+  "article": "der",
+  "plural": "Ohrstöpsel",
+  "es": "tapón para los oídos",
+  "field": "hostel",
+  "freq": 3,
+  "level": "A1"
+ },
+ {
   "lemma": "Wohnung",
   "pos": "noun",
   "article": "die",
