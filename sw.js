@@ -28,6 +28,7 @@ const SHELL = [
   'js/core/generators/articulo-caso.js',
   'js/core/mastery.js',
   'js/core/morph.js',
+  'js/core/progress.js',
   'js/core/normalize.js',
   'js/core/router.js',
   'js/core/scheduler.js',
