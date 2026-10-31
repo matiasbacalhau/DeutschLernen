@@ -142,6 +142,33 @@
 - {lemma: Stadt, pos: noun, article: die, plural: Städte, es: "ciudad", field: laender, freq: 1, level: A1}
 - {lemma: Hauptstadt, pos: noun, article: die, plural: Hauptstädte, es: "capital", field: laender, freq: 2, level: A1}
 - {lemma: Sprache, pos: noun, article: die, plural: Sprachen, es: "idioma", field: laender, freq: 1, level: A1}
+- {lemma: Heizung, pos: noun, article: die, plural: Heizungen, es: "calefacción", field: wohnung, freq: 2, level: A1}
+- {lemma: Hausordnung, pos: noun, article: die, plural: Hausordnungen, es: "reglamento del edificio", field: wohnung, freq: 3, level: A1}
+- {lemma: Briefkasten, pos: noun, article: der, plural: Briefkästen, es: "buzón", field: wohnung, freq: 2, level: A1}
+- {lemma: Keller, pos: noun, article: der, plural: Keller, es: "sótano", field: wohnung, freq: 2, level: A1}
+- {lemma: Flur, pos: noun, article: der, plural: Flure, es: "pasillo", field: wohnung, freq: 2, level: A1}
+- {lemma: Hof, pos: noun, article: der, plural: Höfe, es: "patio", field: wohnung, freq: 3, level: A1}
+- {lemma: Müll, pos: noun, article: der, plural: null, es: "basura", field: wohnung, freq: 2, level: A1}
+- {lemma: Mülltonne, pos: noun, article: die, plural: Mülltonnen, es: "tacho de basura (del edificio)", field: wohnung, freq: 3, level: A1}
+- {lemma: Klingel, pos: noun, article: die, plural: Klingeln, es: "timbre", field: wohnung, freq: 3, level: A1}
+- {lemma: Erdgeschoss, pos: noun, article: das, plural: Erdgeschosse, es: "planta baja", field: wohnung, freq: 3, level: A1}
+- {lemma: Karton, pos: noun, article: der, plural: Kartons, es: "caja (de cartón)", field: wohnung, freq: 2, level: A1}
+- {lemma: Umzug, pos: noun, article: der, plural: Umzüge, es: "mudanza", field: wohnung, freq: 2, level: A1}
+- {lemma: Fahrrad, pos: noun, article: das, plural: Fahrräder, es: "bicicleta", field: wohnung, freq: 1, level: A1}
+- {lemma: Pflanze, pos: noun, article: die, plural: Pflanzen, es: "planta", field: wohnung, freq: 3, level: A1}
+- {lemma: Schreibtisch, pos: noun, article: der, plural: Schreibtische, es: "escritorio", field: wohnung, freq: 2, level: A1}
+- {lemma: Kleiderschrank, pos: noun, article: der, plural: Kleiderschränke, es: "ropero", field: wohnung, freq: 3, level: A1}
+- {lemma: Tischchen, pos: noun, article: das, plural: Tischchen, es: "mesita", field: wohnung, freq: 3, level: A1}
+- {lemma: Spüle, pos: noun, article: die, plural: Spülen, es: "pileta de la cocina", field: kueche, freq: 2, level: A1}
+- {lemma: Mikrowelle, pos: noun, article: die, plural: Mikrowellen, es: "microondas", field: kueche, freq: 2, level: A1}
+- {lemma: Toaster, pos: noun, article: der, plural: Toaster, es: "tostadora", field: kueche, freq: 2, level: A1}
+- {lemma: Besteck, pos: noun, article: das, plural: Bestecke, es: "cubiertos", field: kueche, freq: 2, level: A1}
+- {lemma: Päckchen, pos: noun, article: das, plural: Päckchen, es: "paquetito", field: einkaufen, freq: 3, level: A1}
+- {lemma: Mädchen, pos: noun, article: das, plural: Mädchen, es: "chica, nena", field: personen, freq: 1, level: A1}
+- {lemma: Techniker, pos: noun, article: der, plural: Techniker, es: "técnico", field: personen, freq: 3, level: A1}
+- {lemma: Mieter, pos: noun, article: der, plural: Mieter, es: "inquilino", field: personen, freq: 3, level: A1}
+- {lemma: Katze, pos: noun, article: die, plural: Katzen, es: "gato, gata", field: tiere, freq: 2, level: A1}
+- {lemma: Kätzchen, pos: noun, article: das, plural: Kätzchen, es: "gatito", field: tiere, freq: 3, level: A1}
 - {lemma: sein, pos: verb, es: "ser, estar", field: hostel, freq: 1, level: A1, irregular: {ich: bin, du: bist, er: ist, wir: sind, ihr: seid, sie: sind}}
 - {lemma: haben, pos: verb, es: "tener", field: hostel, freq: 1, level: A1, irregular: {du: hast, er: hat}}
 - {lemma: möchten, pos: verb, es: "querer (cortés), me gustaría", field: hostel, freq: 1, level: A1, irregular: {er: möchte, ich: möchte}}
