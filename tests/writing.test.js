@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gradeWriting, check } from '../js/core/checks/writing.js';
 import { checkExercise } from '../js/core/checks/index.js';
-import { enqueue, processQueue } from '../js/services/languagetool.js';
+import { enqueue, processQueue, check as ltCheck } from '../js/services/languagetool.js';
 
 const realMap = JSON.parse(readFileSync(new URL('../data/lt-map.json', import.meta.url)));
 
@@ -190,4 +190,14 @@ test('processQueue: lo encolado durante la espera no se pierde', async () => {
   const done = await processQueue(s, ltCheck);
   assert.deepEqual(done.map(e => e.key), ['a']);
   assert.deepEqual(s.d.ltQueue.map(e => e.key), ['n']);
+});
+
+test('lt.check corta por timeout: un fetch colgado termina en rechazo', async () => {
+  const orig = globalThis.fetch;
+  globalThis.fetch = (_u, {signal}) => new Promise((_, reject) => signal.addEventListener('abort', () => reject(new Error('abort'))));
+  try {
+    await assert.rejects(ltCheck('Hallo', {timeout: 20}));
+  } finally {
+    globalThis.fetch = orig;
+  }
 });

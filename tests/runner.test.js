@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments} from '../js/core/runner.js';
+import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer} from '../js/core/runner.js';
 
 const curriculum = {
   tags: {
@@ -157,4 +157,30 @@ test('segments: corta el texto en tramos con y sin marca; ignora solapadas', () 
     {text: 'Ich', mark: 1}, {text: ' ', mark: null}, {text: 'habe', mark: 0}, {text: ' zum', mark: null},
   ]);
   assert.deepEqual(segments('abc', []), [{text: 'abc', mark: null}]);
+});
+
+test('closeSaved: grupo a medias con respuesta sin commit → la aplica y lo registra abandonado', () => {
+  const saved = {...group, index: 2, committed: 0};
+  const out = closeSaved({saved, state, quarantine: [], now: 700});
+  assert.equal(out.mastery.tags['a1.sein.praesens'].n, 4);
+  assert.deepEqual(out.log.map(e => e.t), ['a', 'a', 'a', 'a', 'g']);
+  assert.equal(out.log.at(-1).abandoned, true);
+  assert.equal(out.progress.steps['t1/1'].attempts.length, 0);
+  assert.ok('d' in out.progress.steps['t1/1'].seen);
+});
+
+test('closeSaved: grupo con todo respondido pero sin pasar por el fin → intento y groupEntry no abandonado', () => {
+  const saved = {...group, exercises: group.exercises.slice(0, 2), index: 2, committed: 1};
+  const out = closeSaved({saved, state, quarantine: [], now: 700});
+  assert.equal(out.log.at(-1).abandoned, false);
+  assert.equal(out.progress.steps['t1/1'].attempts.length, 1);
+  assert.equal(out.log.filter(e => e.t === 'a').length, 1);
+});
+
+test('recordAnswer: agrega resultados, avanza y borra el borrador', () => {
+  const g = {...group, index: 0, results: [], draft: {id: 'd', text: 'x', at: 1}};
+  const out = recordAnswer(g, [{key: 'd#0', ok: true}]);
+  assert.equal(out.index, 1);
+  assert.equal(out.results.length, 1);
+  assert.equal('draft' in out, false);
 });

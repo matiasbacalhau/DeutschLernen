@@ -4,7 +4,7 @@ import {countItems} from './checks/index.js';
 import {applyResult} from './mastery.js';
 import {pickExample, pickCuriosity} from './feedback.js';
 import {answerEntry, groupEntry, ltEntry, countWords} from './log.js';
-import {stepKey, recordAttempt, scoreGroup} from './progress.js';
+import {stepKey, recordAttempt, scoreGroup, commitNext} from './progress.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
 const idOf = key => String(key).split('#')[0];
@@ -141,4 +141,27 @@ export function segments(text, marks) {
   }
   if (pos < text.length || !out.length) out.push({text: text.slice(pos), mark: null});
   return out;
+}
+
+// Respuesta de un ejercicio: suma los resultados, avanza y borra el borrador de escritura.
+export function recordAnswer(group, results) {
+  const {draft, ...rest} = group;
+  return {...rest, results: [...group.results, ...results], index: group.index + 1};
+}
+
+// Cierra el grupo guardado antes de empezar otro: primero aplica lo respondido sin commit; si estaba todo
+// respondido, registra el intento (no abandonado); si no, lo deja en el log como abandonado.
+export function closeSaved({saved, state, quarantine, now}) {
+  let s = state;
+  let g = saved;
+  if (g.index > g.committed) {
+    const c = commitNext(g);
+    s = applyCommit({group: g, toApply: c.toApply, state: s, quarantine, now});
+    g = c.group;
+  }
+  if (g.index >= g.exercises.length) {
+    const f = finishGroup(g, {progress: s.progress, log: s.log}, now);
+    return {...s, progress: f.progress, log: f.log};
+  }
+  return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true})]};
 }

@@ -2,10 +2,17 @@
 // Límites de la API pública: 20 requests/min, 20 KB por request.
 const API = 'https://api.languagetool.org/v2/check';
 
-export async function check(text, { language = 'de-DE' } = {}) {
-  const res = await fetch(API, { method: 'POST', body: new URLSearchParams({ text, language }) });
-  if (!res.ok) throw new Error(`LanguageTool respondió ${res.status}.`);
-  return (await res.json()).matches;
+// Con mala señal (subte, wifi cautivo) el fetch puede colgarse: a los `timeout` ms se aborta y la escritura queda pendiente.
+export async function check(text, { language = 'de-DE', timeout = 15000 } = {}) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeout);
+  try {
+    const res = await fetch(API, { method: 'POST', body: new URLSearchParams({ text, language }), signal: ctrl.signal });
+    if (!res.ok) throw new Error(`LanguageTool respondió ${res.status}.`);
+    return (await res.json()).matches;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Cola offline: las escrituras sin red quedan en el store (clave ltQueue) hasta que vuelva la conexión.

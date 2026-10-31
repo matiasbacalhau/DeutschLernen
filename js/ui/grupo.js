@@ -9,8 +9,7 @@ import { checkExercise } from '../core/checks/index.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { groupEntry } from '../core/log.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, segments } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, segments, closeSaved, recordAnswer } from '../core/runner.js';
 import * as lt from '../services/languagetool.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
@@ -33,17 +32,19 @@ export default async function grupo(el, { store, content, params }) {
   let group = await store.get('group');
   if (!group || group.topic !== topicId || group.step !== n) {
     const now = Date.now();
-    const [progress, mastery, words, log] = await Promise.all(['progress', 'mastery', 'words', 'log'].map(k => store.get(k)));
-    const fresh = buildGroup(unit, topicId, n, progress ?? { steps: {} }, mastery ?? EMPTY_MASTERY, {
+    const [progress0, mastery0, words0, log0, quarantine] = await Promise.all(['progress', 'mastery', 'words', 'log', 'quarantine'].map(k => store.get(k)));
+    let state = { progress: progress0 ?? { steps: {} }, mastery: mastery0 ?? EMPTY_MASTERY, words: words0 ?? {}, log: log0 ?? [] };
+    // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
+    if (group) state = closeSaved({ saved: group, state, quarantine: quarantine ?? [], now });
+    const { progress, mastery, words } = state;
+    const fresh = buildGroup(unit, topicId, n, progress, mastery, {
       now, rng: Math.random, templates: C.templates, lexicon: C.lexicon,
       otherExercises: reviewCandidates(C.units, topicId), curriculum: C.curriculum,
     });
     if (n === 3) {
-      fresh.glossary = pickGlossary(C.lexicon, words ?? {}, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
+      fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
     }
-    const entries = { group: fresh };
-    if (group) entries.log = [...(log ?? []), groupEntry({ id: group.id, startedAt: group.startedAt, endedAt: now, abandoned: true })];
-    await store.setMany(entries);
+    await store.setMany(group ? { ...state, group: fresh } : { group: fresh });
     group = fresh;
   }
 
@@ -65,7 +66,7 @@ export default async function grupo(el, { store, content, params }) {
     screen.replaceChildren(...nodes.flat(Infinity).filter(Boolean));
     window.scrollTo(0, 0);
   };
-  const ltClient = { check: text => lt.check(text) };
+  const ltClient = { check: text => lt.check(text) }; // con timeout: sin respuesta, la escritura queda pendiente
   const checkCtxFor = ex => ({ curriculum: C.curriculum, topicTitle: titleOf(ex.topic ?? topicId), ltMap: C.ltMap, lt: ltClient });
 
   async function commit() {
@@ -103,7 +104,30 @@ export default async function grupo(el, { store, content, params }) {
       } }, 'Seguir'));
       return;
     }
-    runExercise(group.exercises[group.index]);
+    const ex = group.exercises[group.index];
+    // Escritura enviada que no llegó a corregirse (se cerró la app durante "Corrigiendo…"): se reenvía.
+    if (group.draft?.id === ex.id) {
+      counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
+      show(h('p', {}, 'Corrigiendo tu texto…'));
+      grade(ex, { text: group.draft.text }, group.draft.ms);
+      return;
+    }
+    runExercise(ex);
+  }
+
+  // Corrige, guarda la respuesta (y la escritura pendiente en la cola) en una sola transacción y muestra el feedback.
+  async function grade(ex, answer, ms) {
+    const now = Date.now();
+    const results = (await checkExercise(ex, answer, checkCtxFor(ex))).map(r => ({ ...r, ms, at: now }));
+    const answered = recordAnswer(group, results);
+    const entries = { group: answered };
+    if (results.some(r => r.pending)) {
+      const queue = (await store.get('ltQueue')) ?? [];
+      entries.ltQueue = [...queue, { key: ex.id, topic: topicId, step: n, scene: stepDef.scene.title, text: answer.text, at: now }];
+    }
+    await store.setMany(entries);
+    group = answered;
+    feedback(ex, answer, results);
   }
 
   function runExercise(ex) {
@@ -133,14 +157,13 @@ export default async function grupo(el, { store, content, params }) {
     renderExercise(ex, body, {
       ctx,
       submit: async answer => {
-        const now = Date.now();
-        const results = (await checkExercise(ex, answer, checkCtxFor(ex))).map(r => ({ ...r, ms: now - shownAt, at: now }));
-        group = { ...group, results: [...group.results, ...results], index: group.index + 1 };
-        await save();
-        if (results.some(r => r.pending)) {
-          await lt.enqueue(store, { key: ex.id, topic: topicId, step: n, scene: stepDef.scene.title, text: answer.text, at: now });
+        const ms = Date.now() - shownAt;
+        // El texto de una escritura se guarda antes de mandarlo a LanguageTool: si se cierra la app, se reenvía al volver.
+        if (WRITING.has(ex.type)) {
+          group = { ...group, draft: { id: ex.id, text: answer.text, ms } };
+          await save();
         }
-        feedback(ex, answer, results);
+        await grade(ex, answer, ms);
       },
     });
   }
@@ -154,7 +177,15 @@ export default async function grupo(el, { store, content, params }) {
       if (fichaBox.firstChild) fichaBox.replaceChildren();
       else fichaBox.append(h('div', { class: 'card' }, renderFicha(fichaDef, titleOf(ex.topic ?? topicId))));
     } }, 'Ver ficha');
-    show(nodes, fichaBtn, fichaBox, reportBox(ex, answer), h('button', { type: 'button', onclick: next }, 'Siguiente'));
+    const report = reportBox(ex, answer);
+    // Siguiente se usa una vez y espera a que el ⚑ termine de guardar la cuarentena antes del commit (regla 4).
+    const nextBtn = h('button', { type: 'button', onclick: async () => {
+      if (nextBtn.disabled) return;
+      nextBtn.disabled = true;
+      await report.saving;
+      next();
+    } }, 'Siguiente');
+    show(nodes, fichaBtn, fichaBox, report, nextBtn);
   }
 
   function closedFeedback(ex, answer, results) {
@@ -241,17 +272,21 @@ export default async function grupo(el, { store, content, params }) {
   // ⚑: nota opcional; guarda el reporte y pone el ejercicio en cuarentena antes del commit (regla 4).
   function reportBox(ex, answer) {
     const box = h('div', { class: 'report' });
+    box.saving = Promise.resolve();
     const open = h('button', { type: 'button', class: 'secondary small', onclick: () => {
       const note = h('textarea', { 'aria-label': 'Nota (opcional)', placeholder: 'Nota (opcional)', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false' });
-      const send = h('button', { type: 'button', class: 'secondary', onclick: async () => {
+      const send = h('button', { type: 'button', class: 'secondary', onclick: () => {
+        if (send.disabled) return;
         send.disabled = true;
-        const [reports, quarantine] = await Promise.all([store.get('reports'), store.get('quarantine')]);
-        const q = quarantine ?? [];
-        await store.setMany({
-          reports: [...(reports ?? []), { exerciseId: ex.id, answer, note: note.value.trim(), at: Date.now() }],
-          quarantine: q.includes(ex.id) ? q : [...q, ex.id],
-        });
-        box.replaceChildren(h('p', { class: 'muted' }, 'Gracias: quedó reportado y este ejercicio no cuenta para tu progreso hasta revisarlo.'));
+        box.saving = (async () => {
+          const [reports, quarantine] = await Promise.all([store.get('reports'), store.get('quarantine')]);
+          const q = quarantine ?? [];
+          await store.setMany({
+            reports: [...(reports ?? []), { exerciseId: ex.id, answer, note: note.value.trim(), at: Date.now() }],
+            quarantine: q.includes(ex.id) ? q : [...q, ex.id],
+          });
+          box.replaceChildren(h('p', { class: 'muted' }, 'Gracias: quedó reportado y este ejercicio no cuenta para tu progreso hasta revisarlo.'));
+        })();
       } }, 'Enviar reporte');
       box.replaceChildren(h('div', { class: 'answer' }, note), send);
       note.focus();
