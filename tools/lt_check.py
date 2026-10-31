@@ -43,6 +43,11 @@ def batches(texts, size=50):
     return [texts[i:i + size] for i in range(0, len(texts), size)]
 
 
+def split_multi(texts):
+    """(multi, single): los de varias oraciones se chequean de a uno y con todas las reglas."""
+    return [t for t in texts if t.get('multi')], [t for t in texts if not t.get('multi')]
+
+
 def locate(batch, matches):
     """Asigna cada match al texto del lote que lo contiene (textos unidos con \n\n)."""
     starts, pos = [], 0
@@ -71,9 +76,11 @@ def main():
     if matches:
         sys.exit(f'LanguageTool marcó errores en una frase correcta: {matches}')
     texts = [t for t in content_texts() if 'ignore' not in t]
+    multi, single = split_multi(texts)
     failures = 0
-    for batch in batches(texts):
-        for t, m in locate(batch, check('\n\n'.join(x['text'] for x in batch), BATCH_DISABLED)):
+    runs = [([t], None) for t in multi] + [(b, BATCH_DISABLED) for b in batches(single)]
+    for batch, disabled in runs:
+        for t, m in locate(batch, check('\n\n'.join(x['text'] for x in batch), disabled)):
             failures += 1
             print(f"FAIL {t['where']} [{m['rule']['id']}] {m['message']} -> {t['text']}")
     if failures:

@@ -1,5 +1,6 @@
 // Lista todo el alemán que entra a la app, para que lt_check.py lo pase por LanguageTool.
 // Uso: node tools/german_texts.mjs  →  JSON [{where, text, ignore?}]
+// Los textos de varias oraciones (reading.text, model) llevan multi: true y se chequean de a uno.
 // No se chequean: distractores de choice, la frase con el error de spot-error, ni las
 // cursivas/tablas de la ficha (son fragmentos; el resto de la ficha es castellano).
 import { readFileSync, readdirSync } from 'node:fs';
@@ -11,7 +12,7 @@ const fill = (text, answer) => text.replace('___', answer);
 
 function exerciseTexts(ex) {
   const out = [];
-  const add = (field, text) => out.push({where: `${ex.id}: ${field}`, text});
+  const add = (field, text, multi) => out.push({where: `${ex.id}: ${field}`, text, ...(multi && {multi: true})});
   switch (ex.type) {
     case 'gap':
       add('text', fill(ex.text, ex.answers[0]));
@@ -41,14 +42,23 @@ function exerciseTexts(ex) {
       break;
     }
     case 'reading':
-      add('text', ex.text);
+      add('text', ex.text, true);
+      // Las preguntas se escriben en alemán (prompt, respuestas escritas y opciones); si una
+      // va en castellano, el ejercicio lleva lt_ignore.
+      ex.questions.forEach((q, i) => {
+        add(`questions[${i}].prompt`, q.prompt);
+        (q.answers ?? []).forEach((a, n) => { if (typeof a === 'string') add(`questions[${i}].answers[${n}]`, a); });
+        (q.options ?? []).forEach((o, n) => { if (o.correct) add(`questions[${i}].options[${n}]`, o.text); });
+      });
       break;
     case 'detective':
-      ex.apply.forEach((a, n) => add(`apply[${n}]`, a.text.includes('___') ? fill(a.text, a.answers[0]) : a.answers[0]));
+      ex.sentences.forEach((s, n) => add(`sentences[${n}]`, s.de));
+      ex.apply.forEach((a, i) => a.answers.forEach((ans, n) =>
+        add(`apply[${i}].answers[${n}]`, a.text.includes('___') ? fill(a.text, ans) : ans)));
       break;
     case 'writing-guided':
     case 'writing-free':
-      add('model', ex.model);
+      add('model', ex.model, true);
       break;
   }
   if (ex.lt_ignore) out.forEach(o => { o.ignore = ex.lt_ignore; });

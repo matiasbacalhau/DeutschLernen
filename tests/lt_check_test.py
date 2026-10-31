@@ -3,7 +3,7 @@ import sys
 import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from lt_check import batches, locate  # noqa: E402
+from lt_check import batches, locate, split_multi  # noqa: E402
 
 TEXTS = [{'where': 'a: text', 'text': 'Ich habe ein Hund.'},
          {'where': 'b: text', 'text': 'Das ist gut.'},
@@ -14,6 +14,11 @@ class LtCheckTest(unittest.TestCase):
     def test_batches_de_a_50(self):
         items = [{'where': str(i), 'text': 't'} for i in range(120)]
         self.assertEqual([len(b) for b in batches(items)], [50, 50, 20])
+
+    def test_split_multi(self):
+        items = [{'where': 'a', 'text': 'x', 'multi': True}, {'where': 'b', 'text': 'y'}]
+        multi, single = split_multi(items)
+        self.assertEqual(([t['where'] for t in multi], [t['where'] for t in single]), (['a'], ['b']))
 
     def test_locate_reparte_offsets(self):
         joined = '\n\n'.join(t['text'] for t in TEXTS)
