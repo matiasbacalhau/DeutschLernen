@@ -11,7 +11,8 @@ hides: []
 ficha:
   short:
     - "*sein* (ser/estar) es el verbo más usado del alemán y el más irregular: cada persona tiene su forma y hay que saberla de memoria. Un solo verbo hace de *ser* y de *estar*, como *to be* en inglés."
-    - "El sujeto va siempre. Los *Personalpronomen* (pronombres personales) no se omiten como en español: *Ich bin müde*, nunca *Bin müde*."
+    - "El sujeto va siempre. Los *Personalpronomen* (pronombres personales) no se omiten como en español: *Ich bin müde*; en alemán estándar, nunca *Bin müde* (en el chat a veces se cae, como en *Bin gleich da*)."
+    - "*er*, *sie* y *es* reemplazan también a cosas, y siguen el género gramatical del sustantivo, no el natural: *der Rucksack → er*, *die Dusche → sie*, *das Hostel → es*."
     - "*sie* en minúscula es *ella* o *ellos* (el verbo desempata). *Sie* con mayúscula es *usted* o *ustedes* y conjuga como *ellos*."
     - "En las *W-Fragen* (preguntas con palabra interrogativa) la palabra con *w* va primero y el verbo conjugado enseguida: *Wo ist das Bad?*"
   table:
@@ -19,16 +20,17 @@ ficha:
     rows:
       - ["ich", "bin", "yo soy / estoy"]
       - ["du", "bist", "vos sos / estás"]
-      - ["er · sie · es", "ist", "él · ella · eso es / está"]
+      - ["er · sie · es", "ist", "él · ella · (neutro) es / está"]
       - ["wir", "sind", "nosotros somos / estamos"]
       - ["ihr", "seid", "ustedes (en confianza) son / están"]
       - ["sie", "sind", "ellos · ellas son / están"]
-      - ["Sie", "sind", "usted · ustedes (formal) es / son"]
+      - ["Sie", "sind", "usted · ustedes (formal) es / está, son / están"]
   more:
     - "Por qué es tan raro. *sein* son en realidad tres verbos viejos pegados con cinta: *bin* y *bist* vienen de la misma raíz que el inglés *be*; *ist* y *sind*, de la del latín *est* y el español *es*; y el pasado *war*, de la del inglés *was*. Por eso no se parece a sí mismo. No es que te lo olvidaste: nunca tuvo lógica."
     - "Ser y estar en uno. *Ich bin Leo* (soy Leo) e *Ich bin müde* (estoy cansado) usan el mismo verbo. El español y el portugués separan *ser* y *estar*; el alemán y el inglés no. Un verbo menos para elegir."
     - "La edad no se tiene, se es: *Wie alt bist du?* — *Ich bin 30.* Igual que *I am 30*. El español y el portugués (*tenho 30 anos*) son los raros acá."
     - "Por qué el pronombre no se cae. En español *soy* ya dice quién habla. En alemán *sind* sirve para *wir*, *sie* y *Sie*: sin pronombre no se sabe de quién hablás. Por eso el sujeto va siempre, aunque el verbo parezca alcanzar."
+    - "Género de palabra, no de cosa. En inglés todo objeto es *it*. En español y portugués las cosas ya tienen género y el pronombre lo sigue (*la mochila → la llevo*, *o livro → ele é caro*): el alemán hace lo mismo, con un tercer género, el neutro. Por eso *der Rucksack* es *er* aunque no tenga nada de masculino, y *das Mädchen* (la chica) es *es*: el pronombre mira la palabra, no a la persona."
     - "Tres *sie* en una palabra: *sie ist* (ella), *sie sind* (ellos) y *Sie sind* (usted). Desempatan el verbo y la mayúscula. Al principio de la oración, donde todo va con mayúscula, desempata el contexto."
     - "*Sie* de cortesía es, literalmente, un 'ellos': por eso conjuga en plural, aunque le hables a una sola persona. Es el mismo truco que *usted*, que conjuga en tercera persona porque viene de *vuestra merced*."
     - "du, ihr, Sie. En el hostel todo el mundo se tutea: *du* para una persona, *ihr* para varias. *Sie* queda para la recepción de un hotel serio, la oficina y la policía. Ante la duda con un desconocido mayor, *Sie*."
@@ -52,7 +54,7 @@ steps:
           - {de: "Wir sind endlich da.", highlight: "sind"}
           - {de: "Ihr seid auch neu hier, oder?", highlight: "seid"}
         rules:
-          - {text: "La forma cambia según quién es el sujeto: cada persona tiene la suya.", correct: true}
+          - {text: "La forma cambia según quién es el sujeto.", correct: true}
           - {text: "La forma cambia según si significa *ser* o *estar*."}
           - {text: "La forma cambia según la palabra que viene después."}
           - {text: "La forma cambia cuando la frase es una exclamación."}
@@ -113,34 +115,11 @@ steps:
         prompt: "Un señor de traje llega con tres valijas. Anna, la recepcionista, lo trata de usted. ¿Qué le dice?"
         options:
           - {text: "Sie sind in Zimmer 3.", correct: true}
-          - {text: "Sie ist in Zimmer 3.", rule: "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."}
+          - {text: "Sie ist in Zimmer 3.", rule: "Así sería *ella está*; Anna le habla a él de usted, y con *Sie* de usted *sein* va en la forma de plural."}
           - {text: "Sie bist in Zimmer 3.", rule: "Esa forma es la de *du*; con el trato formal el verbo cambia."}
           - {text: "Sie seid in Zimmer 3.", rule: "Esa forma es la de *ihr* (ustedes, en confianza); el trato formal usa otra."}
         dims: {person: wir}
         curiosities: ["*Sie* de cortesía conjuga en plural, igual que *usted* conjuga en tercera persona: los dos nacieron como una forma indirecta de hablarle a alguien."]
-        reviewed: true
-
-      - id: t1-1-sit-tuer
-        type: situation
-        scene: {title: "Vor der Tür", context: "22:16 · tocás el portero eléctrico, chorreando"}
-        bubbles:
-          - {who: them, text: "Hallo? Wer ist da?"}
-          - {who: me, text: "Hallo! ___ bin Leo. Ich habe eine Reservierung."}
-          - {who: them, text: "Ah, Leo! Komm rein, die Tür ist offen."}
-          - {who: me, text: "Danke! Der Rucksack ___ so schwer."}
-        gaps:
-          - tag: a1.pron.personal
-            answers: ["Ich"]
-            dims: {person: ich}
-            errors:
-              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
-              - {answer: "Du", rule: "*du* es a quién le hablás; acá te presentás vos."}
-          - tag: a1.sein.praesens
-            answers: ["ist"]
-            dims: {person: sie}
-            errors:
-              - {answer: "bin", rule: "El sujeto es *der Rucksack* (él), no vos: va la forma de tercera persona."}
-              - {answer: "sind", rule: "*der Rucksack* es uno solo: la forma de *sein* va en singular."}
         reviewed: true
 
       # Reserva
@@ -162,20 +141,6 @@ steps:
         apply:
           - {text: "Ich ___ jetzt endlich im Bett.", answers: ["bin"], dims: {person: ich}}
           - {text: "Das WLAN hier ___ super schnell.", answers: ["ist"], dims: {person: sie}}
-        reviewed: true
-
-      - id: t1-1-gap-wir
-        type: gap
-        tag: a1.pron.personal
-        reserve: true
-        context: "Le contás a Anna, en la recepción, de dónde son vos y tu amiga."
-        text: "___ sind aus Brasilien."
-        answers: ["Wir"]
-        dims: {person: wir}
-        errors:
-          - {answer: "Ich", rule: "Hablás de vos y tu amiga juntos: el pronombre tiene que incluir a las dos personas."}
-          - {answer: "Sie", rule: "*sie/Sie* habla de otros o trata de usted; acá el sujeto incluye a quien habla."}
-          - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; acá el sujeto incluye a quien habla."}
         reviewed: true
 
   # ───────────────────────────── Escalón 2 ─────────────────────────────
@@ -250,7 +215,7 @@ steps:
         prompt: "Anna te cuenta de las dos chicas que duermen en el sillón del lobby. ¿Qué frase está bien?"
         options:
           - {text: "Sie sind aus Italien.", correct: true}
-          - {text: "Sie ist aus Italien.", rule: "*sie* con esa forma del verbo es una sola persona (ella); para dos personas *sein* cambia."}
+          - {text: "Sie ist aus Italien.", rule: "Así sería *ella* (una sola persona); son dos chicas, y para dos personas *sein* cambia."}
           - {text: "Sie seid aus Italien.", rule: "Esa forma va solo con *ihr* (ustedes, en confianza)."}
           - {text: "Sie bin aus Italien.", rule: "Esa forma va solo con *ich*."}
         dims: {person: wir}
@@ -271,8 +236,8 @@ steps:
         prompt: "Mensaje de Tom sobre la recepción. Tiene un error."
         tokens: ["Die", "Frau", "an", "der", "Rezeption", "ist", "super", "nett.", "Er", "spricht", "Spanisch!"]
         wrong: 8
-        corrections: ["Sie"]
-        rule: "El pronombre tiene que coincidir con la persona de la que se habla: acá es una mujer."
+        corrections: ["Sie", "Die"]
+        rule: "El pronombre sigue el género de la palabra a la que reemplaza: *die Frau* es femenino."
         dims: {person: sie}
         reviewed: true
 
@@ -288,7 +253,7 @@ steps:
       - id: t1-2-se-tom-mia
         type: spot-error
         tag: a1.sein.praesens
-        prompt: "Anna anota quién está en tu cuarto. Tiene un error."
+        prompt: "Anna te cuenta qué le parecen tus compañeros de cuarto. Tiene un error."
         tokens: ["Tom", "und", "Mia", "ist", "sehr", "nett."]
         wrong: 3
         corrections: ["sind"]
@@ -411,8 +376,8 @@ steps:
             answers: ["Er", "Der", "Tom"]
             dims: {person: er}
             errors:
-              - {answer: "Sie", rule: "El pronombre tiene que coincidir con la persona de la que se habla: Tom es un hombre."}
-              - {answer: "Es", rule: "El pronombre tiene que coincidir con la persona de la que se habla: Tom es un hombre, no una cosa."}
+              - {answer: "Sie", rule: "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."}
+              - {answer: "Es", rule: "El pronombre sigue el género de la palabra a la que reemplaza: *Tom* es masculino."}
           - tag: a1.sein.praesens
             answers: ["bin"]
             dims: {person: ich}
@@ -426,7 +391,7 @@ steps:
         tag: a1.sein.praesens
         source: "Ich bin im Etagenbett oben."
         instruction: "Ahora con *Tom* como sujeto."
-        answers: ["Tom ist im Etagenbett oben.", "Tom ist oben im Etagenbett."]
+        answers: ["Tom ist im Etagenbett oben.", "Tom ist oben im Etagenbett.", "Oben im Etagenbett ist Tom.", "Im Etagenbett oben ist Tom."]
         dims: {person: sie}
         reviewed: true
 
@@ -457,7 +422,7 @@ steps:
         tag: a1.sein.praesens
         source: "Das Handtuch ist nass."
         instruction: "Ahora en plural: *die Handtücher*."
-        answers: ["Die Handtücher sind nass."]
+        answers: ["Die Handtücher sind nass.", "Nass sind die Handtücher."]
         dims: {person: wir}
         reviewed: true
 
@@ -501,7 +466,7 @@ steps:
         tag: a1.pron.personal
         source: "Mia ist aus Chile."
         instruction: "Reemplazá *Mia* por un pronombre personal."
-        answers: ["Sie ist aus Chile."]
+        answers: ["Sie ist aus Chile.", "Aus Chile ist sie."]
         dims: {person: sie}
         reviewed: true
 
@@ -531,7 +496,7 @@ steps:
         tag: a1.sein.praesens
         source: "Du bist in Zimmer 12."
         instruction: "Ahora con trato formal (*Sie*)."
-        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12."]
+        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie."]
         dims: {person: wir}
         reviewed: true
 
@@ -580,13 +545,37 @@ steps:
               - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."}
         reviewed: true
 
+      - id: t1-3-sit-tuer
+        reserve: true
+        type: situation
+        scene: {title: "Vor der Tür", context: "22:16 · tocás el portero eléctrico, chorreando"}
+        bubbles:
+          - {who: them, text: "Hallo? Wer ist da?"}
+          - {who: me, text: "Hallo! ___ bin Leo. Ich habe eine Reservierung."}
+          - {who: them, text: "Ah, Leo! Komm rein, die Tür ist offen."}
+          - {who: me, text: "Danke! Der Rucksack ___ so schwer."}
+        gaps:
+          - tag: a1.pron.personal
+            answers: ["Ich"]
+            dims: {person: ich}
+            errors:
+              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
+              - {answer: "Du", rule: "*du* es a quién le hablás; acá te presentás vos."}
+          - tag: a1.sein.praesens
+            answers: ["ist"]
+            dims: {person: sie}
+            errors:
+              - {answer: "bin", rule: "El sujeto es *der Rucksack*, no vos: va la forma de tercera persona del singular."}
+              - {answer: "sind", rule: "*der Rucksack* es uno solo: la forma de *sein* va en singular."}
+        reviewed: true
+
       - id: t1-3-tf-wir
         type: transform
         tag: a1.sein.praesens
         reserve: true
         source: "Ich bin müde."
         instruction: "Ahora con *wir*."
-        answers: ["Wir sind müde."]
+        answers: ["Wir sind müde.", "Müde sind wir."]
         dims: {person: wir}
         reviewed: true
 
@@ -596,7 +585,7 @@ steps:
         reserve: true
         source: "Lea ist aus Spanien."
         instruction: "Convertila en la pregunta por el origen de Lea."
-        answers: ["Woher ist Lea?", "Woher kommt Lea?", "Wo ist Lea her?", "Wo kommt Lea her?"]
+        answers: ["Woher ist Lea?", "Woher kommt Lea?", "Wo ist Lea her?", "Wo kommt Lea her?", "Woher stammt Lea?", "Aus welchem Land kommt Lea?", "Aus welchem Land ist Lea?"]
         dims: {word: woher}
         reviewed: true
 
@@ -604,8 +593,8 @@ steps:
         type: gap
         tag: a1.pron.personal
         reserve: true
-        context: "Anna te señala a dos chicos que entran al cuarto con un Koffer cada uno."
-        text: "Das sind Tom und Jan. ___ sind aus Kanada."
+        context: "Anna te señala a dos chicos que entran al cuarto de al lado con un Koffer cada uno."
+        text: "Das sind Jan und Max. ___ sind aus Kanada."
         answers: ["Sie", "Die", "Beide"]
         dims: {person: sie_pl}
         errors:
@@ -630,7 +619,7 @@ steps:
         questions:
           - tag: a1.wfragen
             prompt: "Wie heißt der Hund?"
-            answers: ["Bruno", "Er heißt Bruno", "Der Hund heißt Bruno"]
+            answers: ["Bruno", "Er heißt Bruno", "Der Hund heißt Bruno", "Bruno heißt er", "Sein Name ist Bruno"]
             dims: {word: wie}
           - tag: a1.wfragen
             prompt: "Wann ist das Frühstück?"
@@ -641,7 +630,7 @@ steps:
             dims: {word: wann}
           - tag: a1.wfragen
             prompt: "Wo ist das Frühstück?"
-            answers: ["In der Küche", "Küche", "Das Frühstück ist in der Küche", "Es ist in der Küche"]
+            answers: ["In der Küche", "Küche", "Das Frühstück ist in der Küche", "Es ist in der Küche", "Das Frühstück ist von 7 bis 10 Uhr in der Küche", "Es ist von 7 bis 10 Uhr in der Küche", "Von 7 bis 10 Uhr in der Küche", "In der Küche, von 7 bis 10 Uhr", "In der Küche von 7 bis 10 Uhr"]
             dims: {word: wo}
           - tag: a1.wfragen
             prompt: "Was ist Bruno nicht?"
@@ -659,7 +648,7 @@ steps:
         tokens: ["Liebe", "Frau", "Berg,", "Sie", "ist", "in", "Zimmer", "3."]
         wrong: 4
         corrections: ["sind"]
-        rule: "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."
+        rule: "Así se leería *ella está*, pero el email le habla a Frau Berg de usted: con *Sie* de usted, *sein* va en la forma de plural."
         dims: {person: wir}
         reviewed: true
 
@@ -729,7 +718,7 @@ steps:
         tag: a1.sein.praesens
         from: es
         source: "Usted está en la habitación 12."
-        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in Zimmer Nummer 12.", "Sie sind im Zimmer Nummer 12."]
+        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in Zimmer Nummer 12.", "Sie sind im Zimmer Nummer 12.", "Sie sind in Zimmer zwölf.", "Sie sind im Zimmer zwölf.", "Sie sind in Zimmer Nummer zwölf.", "Sie sind im Zimmer Nummer zwölf.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In Zimmer zwölf sind Sie.", "Im Zimmer zwölf sind Sie."]
         dims: {person: wir}
         errors:
           - {answer: "Sie ist in Zimmer 12.", rule: "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."}
@@ -753,7 +742,7 @@ steps:
         tag: a1.pron.personal
         from: es
         source: "Estamos en la cocina."
-        answers: ["Wir sind in der Küche."]
+        answers: ["Wir sind in der Küche.", "In der Küche sind wir."]
         dims: {person: wir}
         errors:
           - {answer: "Sind in der Küche.", rule: "En alemán el sujeto no se omite: el pronombre va siempre."}
@@ -803,7 +792,7 @@ steps:
         reserve: true
         from: es
         source: "Somos de Chile."
-        answers: ["Wir sind aus Chile.", "Wir kommen aus Chile.", "Wir stammen aus Chile."]
+        answers: ["Wir sind aus Chile.", "Wir kommen aus Chile.", "Wir stammen aus Chile.", "Aus Chile sind wir.", "Aus Chile kommen wir.", "Aus Chile stammen wir.", "Wir sind Chilenen.", "Wir sind Chileninnen."]
         dims: {person: wir}
         errors:
           - {answer: "Wir sind von Chile.", rule: "Para el origen (país, ciudad) el alemán usa otra preposición, no *von*."}
@@ -816,7 +805,7 @@ steps:
         reserve: true
         from: es
         source: "¿Qué es esto?"
-        answers: ["Was ist das?", "Was ist das hier?", "Was ist dies?", "Was ist denn das?"]
+        answers: ["Was ist das?", "Was ist das hier?", "Was ist dies?", "Was ist denn das?", "Was ist das denn?", "Was ist das da?"]
         dims: {word: was}
         errors:
           - {answer: "Wer ist das?", rule: "*wer* pregunta por personas; para una cosa hace falta otra palabra interrogativa."}
