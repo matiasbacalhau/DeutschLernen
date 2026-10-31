@@ -1,27 +1,36 @@
+/* Identidad A1 "cuaderno sereno": blanco, papel piedra, tinta y un acento verde petróleo (menos del 2 % de la pantalla). */
+@font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSerif-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-400.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-500.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-600.woff2") format("woff2"); }
+
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --text: #1d1d1f;
-  --muted: #5f6368;
-  --brand: #1b3a5c;
-  --accent: #ffce00;
-  --ok: #1e7f3c;
-  --bad: #b3261e;
-  --border: #dedad2;
-  --radius: 14px;
+  --ground: #ffffff;
+  --surface: #f3f1ea;
+  --text: #1f201d;
+  --muted: #636361;
+  --accent: #1b6e66;
+  --accent-tint: #e3efed;
+  --negative: #b42318;
+  --negative-bg: #fdecea;
+  --hair: #e6e3da;
+  --radius: 22px;
+  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121417;
-    --surface: #1d2025;
-    --text: #ececec;
-    --muted: #a0a4ab;
-    --brand: #8fb8e6;
-    --ok: #6fcf8c;
-    --bad: #f28b82;
-    --border: #33373e;
+    --ground: #141513;
+    --surface: #1f201d;
+    --text: #ecebe6;
+    --muted: #a3a29d;
+    --accent: #5fb3a9;
+    --accent-tint: #1e2e2c;
+    --negative: #f2938a;
+    --negative-bg: #3a1d1a;
+    --hair: #2e2f2b;
   }
 }
 
@@ -31,22 +40,23 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: var(--ground);
   color: var(--text);
-  font: 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font: 400 17px/1.5 var(--sans);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-.top {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border);
-}
+.top { padding: 12px 16px; }
 
 .brand {
-  color: var(--brand);
-  font-weight: 700;
+  color: var(--text);
+  font-weight: 600;
   text-decoration: none;
 }
+
+.top { display: flex; justify-content: space-between; align-items: center; }
+.top a { min-height: 44px; display: inline-flex; align-items: center; }
+.top .settings { color: var(--muted); font-size: 0.9rem; text-decoration: none; }
 
 main {
   max-width: 640px;
@@ -55,32 +65,45 @@ main {
   outline: none;
 }
 
-h1 { font-size: 1.5rem; margin: 0 0 12px; }
-h2 { font-size: 1.15rem; margin: 24px 0 8px; }
+h1 { font-size: 1.5rem; font-weight: 600; margin: 0 0 12px; }
+h2 { font-size: 1rem; font-weight: 600; margin: 24px 0 8px; }
 p { margin: 0 0 12px; }
+a { color: var(--accent); }
+
+.greeting { font: 400 2.25rem/1.05 var(--serif); letter-spacing: -0.01em; margin: 8px 0 8px; }
+.curiosity { font: 400 1.15rem/1.3 var(--serif); color: var(--accent); margin: 8px 0 0; }
 
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .card > h2:first-child { margin-top: 0; }
 
 .muted { color: var(--muted); font-size: 0.9rem; }
 
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+}
+
 button, .button {
   display: block;
   width: 100%;
   min-height: 48px;
   margin: 8px 0;
-  padding: 12px 16px;
+  padding: 12px 18px;
   border: 0;
-  border-radius: var(--radius);
-  background: var(--brand);
-  color: var(--bg);
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--ground);
   font: inherit;
   font-weight: 600;
   text-align: center;
@@ -90,15 +113,27 @@ button, .button {
 
 button.secondary, .button.secondary {
   background: transparent;
-  color: var(--brand);
-  border: 2px solid var(--brand);
+  color: var(--text);
+  border: 1.5px solid var(--text);
 }
 
 button:disabled { opacity: 0.5; }
 
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .status { font-weight: 600; }
-.status.ok { color: var(--ok); }
-.status.bad { color: var(--bad); }
+.status.ok { color: var(--accent); }
+.status.bad { color: var(--negative); }
+
+.tag-ok, .tag-bad {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.tag-ok { background: var(--accent-tint); color: var(--accent); }
+.tag-bad { background: var(--negative-bg); color: var(--negative); }
 
 .banner {
   position: fixed;
@@ -106,19 +141,82 @@ button:disabled { opacity: 0.5; }
   right: 16px;
   bottom: calc(16px + env(safe-area-inset-bottom));
   width: auto;
-  background: var(--accent);
-  color: #1d1d1f;
+  background: var(--accent-tint);
+  color: var(--text);
+  border: 1.5px solid var(--accent);
 }
 
 .banner[hidden] { display: none; }
 
 .notice {
-  background: var(--accent);
-  color: #1d1d1f;
+  background: var(--accent-tint);
   border-radius: var(--radius);
   padding: 12px 16px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
+/* Chat de mini-situaciones */
+.bubble { max-width: 85%; margin: 0 0 8px; padding: 10px 14px; }
+.bubble.them { background: var(--surface); border-radius: 18px 18px 18px 4px; margin-right: auto; }
+.bubble.me { background: var(--accent-tint); border-radius: 18px 18px 4px 18px; margin-left: auto; }
+.gap { display: inline-block; min-width: 56px; text-align: center; border-bottom: 2px solid var(--text); }
+.gap.bad { border-bottom-color: var(--negative); color: var(--negative); }
+
+/* Ejercicio de ordenar */
+.chunk {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 0 8px 8px 0;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  width: auto;
+}
+.chunk.used { opacity: 0.35; }
+
+/* Escritura libre */
+.mark.error { text-decoration: underline wavy var(--negative); text-underline-offset: 3px; }
+.mark.notice { background: var(--accent-tint); border-radius: 4px; }
+
+/* Mapa de temas */
+.map-topic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 0;
+  border-top: 1px solid var(--hair);
+}
+.map-topic:first-child { border-top: 0; }
+.map-topic::after { font-size: 0.8rem; border-radius: 999px; padding: 3px 10px; color: var(--muted); }
+.map-topic[data-status="nuevo"]::after { content: "nuevo"; }
+.map-topic[data-status="en-curso"]::after { content: "en curso"; background: var(--ground); color: var(--text); }
+.map-topic[data-status="dominado"]::after { content: "dominado"; background: var(--accent-tint); color: var(--accent); }
+.map-topic[data-status="reforzar"]::after { content: "para reforzar"; background: var(--negative-bg); color: var(--negative); }
+.map-topic[data-status="proximamente"]::after { content: "próximamente"; }
+
+/* Campos de respuesta */
+.answer { margin: 8px 0; }
+.answer label { display: block; color: var(--muted); font-size: 0.9rem; margin-bottom: 4px; }
+.answer input, .answer textarea {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: inherit;
+  color: var(--text);
+  background: var(--ground);
+  border: 1.5px solid var(--hair);
+  border-radius: 14px;
+}
+.answer textarea { min-height: 120px; resize: vertical; }
+.answer input:focus, .answer textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.umlauts { display: flex; gap: 8px; margin-top: 8px; }
+.umlauts button { flex: 1; width: auto; min-width: 44px; margin: 0; padding: 0; background: var(--surface); color: var(--text); font-weight: 500; border-radius: 14px; }
+
 input[type="file"] { width: 100%; font: inherit; margin: 8px 0; }
-select { display: block; width: 100%; min-height: 48px; margin: 8px 0; padding: 0 12px; font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); }
+select { display: block; width: 100%; min-height: 48px; margin: 8px 0; padding: 0 12px; font: inherit; color: inherit; background: var(--ground); border: 1.5px solid var(--hair); border-radius: 14px; }
