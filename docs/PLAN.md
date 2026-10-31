@@ -12,7 +12,7 @@ como extra, en audición con recursos gratuitos. Se usa en **iPhone** como PWA: 
 - Interfaz y explicaciones en español. **Contenido original**: se aprende de las fuentes y se crean ejercicios propios o parafraseados, siempre verificados gramaticalmente.
 - **Test de nivel** inicial y repetible.
 - **Ante un error (ítems cerrados):** se marca como incorrecto, se muestra la regla gramatical a tener en cuenta (sin la solución) y **se pasa al siguiente ejercicio**. No se reintenta el mismo ítem: no vuelve en la misma sesión y, en sesiones posteriores, solo si no queda otro ítem del mismo par. Las tareas abiertas (escritura, dictado) son la excepción explícita: después de enviar se ve el modelo o el texto original y reescribir es opcional. La app registra *qué regla* y *qué tipo de ejercicio* fallaste, y la regla de decisión es **aumentar la probabilidad de que esa combinación aparezca en el futuro**, con ítems distintos.
-- **Sesión de duración variable**: se elige al empezar (5 / 15 / 30 / 45+ min).
+- **Grupos de 10 a 20 min por escalón**; la app sugiere el siguiente (ver `docs/superpowers/specs/2026-10-30-iteracion-1-design.md` §5.3).
 
 ### Cambios de la revisión crítica (respecto del borrador anterior)
 1. **El cuello de botella real es el volumen de contenido** (A1–C1 son unas 70 unidades y miles de ítems). Por eso se agrega un **motor morfológico y generador de ejercicios**: declinaciones, conjugaciones, artículos, preposiciones y transformaciones salen de un léxico verificado, dan práctica casi infinita y son correctos por construcción. Los textos y las tareas comunicativas siguen siendo redactados a mano.
@@ -31,6 +31,17 @@ como extra, en audición con recursos gratuitos. Se usa en **iPhone** como PWA: 
 5. **Contradicciones resueltas:** sesión de 5 min sin material nuevo como única excepción; piso de mantenimiento en el scheduler; excepciones declaradas para tareas abiertas; tolerancia que no borra lo que se evalúa; FSRS solo para vocabulario; orden de iteraciones coherente.
 6. **Reglas operativas nuevas**, numeradas y verificables, en §7.
 7. **Biblioteca personal (uso privado):** los textos que no se pueden publicar (Hesse, Projekt Gutenberg-DE, prensa sin CC) se importan en el iPhone y nunca entran al repo (§1, §3 Lectura, regla 21). Cambiar de host no resolvía la licencia: el límite es publicar, no dónde se publica.
+
+### Cambios de la tercera revisión (2026-10-30)
+Detalle en [`docs/superpowers/specs/2026-10-30-iteracion-1-design.md`](superpowers/specs/2026-10-30-iteracion-1-design.md) §3.
+1. Ya no hay sesión de duración elegida (5/15/30/45 min): la unidad de uso es el **grupo**, un escalón de la escalera de un tema, de 10 a 20 minutos con repaso intercalado. La app sugiere el siguiente y hay un mapa de temas para elegir otro.
+2. **Escalera por tema** de 5 escalones (descubrir, reconocer, producir guiado, detectar y usar, redactar).
+3. **Tipos de ejercicio de la iteración 1:** `detective`, `order`, `choice`, `situation`, `transform`, `translate`, `spot-error`, `reading`, `writing-guided`, `writing-free` y `gap` generado. Salen `image-choice` y `match`.
+4. **Feedback de acierto:** "Bien" y, a veces, un dato curioso.
+5. **Grupo superado** con el 80 % de aciertos o más.
+6. **La corrección de escritura con LanguageTool se adelanta de la iteración 4 a la 1**, con `lt-map` para los 3 temas y los errores frecuentes, y la cola offline. Un error sin entrada en `lt-map` muestra la categoría de LanguageTool traducida al español.
+7. **Glosario 30/40/30** en la producción guiada; el léxico a mano pasa de unos 50 sustantivos a unas 150 palabras.
+8. **Sigue igual:** `curriculum.json` con todos los niveles y su grafo, `morph.js` con artículos y presente, el generador `articulo-caso` y el botón ⚑ con cuarentena (regla 4).
 
 ---
 
@@ -147,7 +158,7 @@ descripción y **`requires`** (prerrequisitos), formando un grafo. Vocabulario a
 **Terminología:** *tag* = id del currículo. Es la unidad que usan mastery, scheduler, test y estadísticas. "Regla" es lo que se le muestra al usuario sobre ese tag.
 
 1. **Contenido = datos** (YAML fuente → JSON generado y commiteado). Agregar contenido no toca el código. Los generadores son código; sus plantillas y ranuras son datos.
-2. **Tipos de ejercicio como plugins:** `js/exercises/<tipo>.js` exporta `{type, render(item, el, ctx)}` (UI) y `js/core/checks/<tipo>.js` exporta `check(item, answer) → Promise<{ok, diagnoses}>` (lógica pura y testeable, que delega en `diagnose.js`). Es asíncrono porque `writing` consulta LanguageTool. Un tipo nuevo son dos archivos más una línea en el registro.
+2. **Tipos de ejercicio como plugins:** `js/exercises/<tipo>.js` exporta `{type, render(item, el, ctx)}` (UI) y `js/core/checks/<tipo>.js` exporta `check(exercise, answer, ctx) → Promise<Result[]>` (lógica pura y testeable, que delega en `diagnose.js`; un `Result` por ítem: `{key, tag, ok, rule, notice, prereq}`). Es asíncrono porque `writing` consulta LanguageTool. Un tipo nuevo son dos archivos más una línea en el registro.
 3. **Todo etiquetado con ids del currículo** (grafo con `requires`). Mastery, test, SRS y estadísticas usan esos mismos ids.
 4. **Lógica pura separada de la UI** (`js/core/*` no toca el DOM), así se puede testear con `node --test`.
 5. **Persistencia con migraciones** (IndexedDB más `schemaVersion`), `navigator.storage.persist()`, export/import JSON y **recordatorio de backup cada 7 días**.
@@ -160,6 +171,10 @@ css/app.css                      # mobile-first, safe-area, modo oscuro, tipogra
 js/app.js                        # arranque, router por hash
 js/ui/*.js                       # home/sesión, mapa, unidad, ficha, lectura, escritura, audición, test, vocab, ajustes
 js/core/store.js                 # IndexedDB, migraciones, export/import
+js/core/progress.js              # estado de la escalera: escalones superados, para reforzar, grupo a medias
+js/core/glossary.js              # glosario 30/40/30 del escalón 3
+js/core/log.js                   # registro de uso local (respuestas, grupos, errores de escritura)
+js/core/feedback.js              # arma el feedback: incorrecto → regla → ejemplo distinto
 js/core/content.js               # carga diferida de packs por nivel
 js/core/morph.js                 # MOTOR MORFOLÓGICO: artículos, declinación (sust./adj./pron.), conjugación, Partizip, comparación
 js/core/generators/*.js          # generadores parametrizados por tag (ver abajo)
@@ -169,12 +184,15 @@ js/core/scheduler.js             # arma la sesión: vocabulario vencido + débil
 js/core/srs.js                   # wrapper sobre ts-fsrs (js/vendor/ts-fsrs.mjs, MIT), solo vocabulario
 js/core/words.js                 # estado por palabra al estilo Lute (nueva/1–5/conocida/ignorar), lemas y multipalabra
 js/core/normalize.js             # tolerancia: ae/oe/ue/ss, espacios, puntuación, sin borrar el rasgo evaluado (§7); alternativas aceptadas
-js/core/checks/*.js              # check() puro por tipo de ejercicio
+js/core/checks/*.js              # check(exercise, answer, ctx) → Promise<Result[]>, puro, por tipo de ejercicio
+js/core/checks.js                # pruebas del iPhone (iteración 0)
 js/services/languagetool.js      # cliente LT: límites, cola offline, mapeo de reglas
 js/services/tts.js               # speechSynthesis de-DE
 js/services/youtube.js           # IFrame API: fragmentos, repetir, 0.75×
-js/exercises/*.js                # gap, choice, order, match, truefalse, image-choice, hotspot, realia, odd-one-out,
-                                 # picture-story, describe, chart, declension, conjugation, transform, dictation, writing, reading
+js/exercises/*.js                # it. 1: detective, order, choice, situation, transform, translate, spot-error, reading,
+                                 #   writing-guided, writing-free, gap
+                                 # futuros: match, truefalse, image-choice, hotspot, realia, odd-one-out,
+                                 #   picture-story, describe, chart, declension, conjugation, dictation
 data/curriculum.json             # grafo de ids
 data/lexicon/{nouns,verbs,adjectives}.json  # léxico curado por nivel (género, plural, formas, traducción, frecuencia)
 data/levels/<nivel>/unit-NN.json # unidad: can-do, fichas, lectura, ítems escritos a mano, generadores habilitados, escritura, media
@@ -188,7 +206,7 @@ tools/build_lexicon.py           # german-nouns + kaikki.org → léxico chico s
 tools/validate.py, tools/lt_check.py, tools/check_media.py, tools/optimize_images.py
 tools/check.sh                   # punto de entrada único: build → validate → lt_check → tests (igual en local y en la CI)
 tools/requirements.txt           # dependencias de las herramientas (PyYAML, Pillow)
-tests/*.test.js                  # morph, diagnose, mastery, scheduler, normalize, srs, checks (node --test)
+tests/*.test.js                  # morph, diagnose, mastery, scheduler, normalize, srs, checks, exercise-checks (node --test)
 .github/workflows/ci.yml         # check.sh con LanguageTool en Docker como servicio → deploy de Pages
 LICENSE, LICENSE-data            # código MIT; datos derivados de Wiktionary CC-BY-SA 4.0
 docs/curriculum.md, docs/content-guide.md
@@ -205,20 +223,17 @@ docs/curriculum.md, docs/content-guide.md
 - **Flujo ante un error (sin reintento):** (1) se marca **"Incorrecto"**; (2) se muestra la **regla** que había que aplicar, sin la solución: `diagnose.js` identifica qué forma usaste ("es Akkusativ masculino", "usaste haben") y la contrasta con la regla ("*helfen* rige Dativ"). Nombra la regla, nunca la forma correcta (*dem*); (3) se muestra un **ejemplo distinto** generado con la misma regla, que difiere en la dimensión evaluada (otro género o número) para no revelar la forma, y un enlace a la ficha; (4) botón **"Siguiente"**. El ítem fallado no vuelve en la misma sesión: lo que vuelve es *la regla en ese tipo de ejercicio*, con otro ítem y más adelante.
 - **Qué se aprende de cada fallo:** se registra el par **(regla, tipo de ejercicio)**. Por ejemplo, fallar Dativ en `gap` no es lo mismo que fallarlo en `writing` o `hotspot`. El mastery se guarda por regla y también por par regla × tipo.
 - Ítems escritos a mano (lectura, realia): el autor anota los distractores con su regla (`errors: [{answer, rule, hint}]`); el resto cae en la regla principal.
-- **Escritura con LanguageTool:** se subraya la zona y **se ocultan las sugerencias de reemplazo** de LT. `lt-map.json` traduce la regla de LT a nuestro tag y explicación; las no mapeadas muestran solo la categoría y no cuentan. Cada error mapeado suma al par (tag, `writing`), con como máximo una penalización por tag por texto. Reescribir el texto es opcional; no es un paso obligatorio.
+- **Escritura con LanguageTool:** se subraya la zona y **se ocultan las sugerencias de reemplazo** de LT. `lt-map.json` traduce la regla de LT a nuestro tag y explicación; cualquier error de gramática, ortografía o puntuación cuenta para el ítem de escritura (la deja incorrecta); las sugerencias de estilo y tipografía son solo aviso. Un error no mapeado muestra la categoría de LanguageTool traducida al español, deja la escritura incorrecta y no toca el mastery. Cada error mapeado suma al par (tag, `writing`), con como máximo una penalización por tag por texto. Reescribir el texto es opcional; no es un paso obligatorio.
 - **Mastery:** por tag, un valor de 0 a 1 tipo media móvil exponencial, con peso según dificultad y fallos recientes con decaimiento temporal. Cuando un error se diagnostica en un prerrequisito (Dativ dentro de un ejercicio de Wechselpräp.), **ese** tag recibe la penalización completa y el tag del ítem una parcial (×0.5), para que también vuelva el contexto. Si un par no tiene datos se usa el mastery del tag; si el tag tampoco tiene, la semilla del test de nivel o 0.
 - **Regla de decisión del scheduler:** el próximo ejercicio se elige por muestreo aleatorio ponderado sobre pares (tag, tipo), con `peso = base × max(0.1, 1 − mastery del par) × factor de olvido`. Los errores recientes ya están dentro del mastery y no se cuentan dos veces. Cada fallo **sube la probabilidad** de ese par y cada acierto la baja de a poco, hasta el piso de mantenimiento (0.1) cuando se domina, así lo dominado nunca desaparece del todo. Solo se samplean pares que tienen ítems o generador, y un tag entra como nuevo recién cuando sus `requires` superan el umbral de mastery. Hay cooldown por ítem (nunca el mismo ítem en la misma sesión), un máximo de 2 seguidos del mismo tag y un mínimo de material nuevo en cada sesión de 15 min o más, para que el refuerzo no tape el avance. Como los generadores crean ítems nuevos, se repite la **regla en ese formato**, no la pregunta.
 
-### Sesión diaria de duración variable
-El usuario elige 5 / 15 / 30 / 45+ min. El scheduler llena el tiempo con un tiempo estimado por tipo de ejercicio:
-- **5 min:** solo repasos (vocabulario vencido en FSRS y tags débiles). Es la única sesión sin material nuevo.
-- **15 min:** repasos, un bloque nuevo de la unidad actual y una micro-escritura (en A1, 1–2 frases), porque el foco es la lectoescritura.
-- **30 min:** lo anterior más lectura o audición, con prioridad a la lectura.
-- **45+ min:** lo anterior más una tarea de escritura completa.
-
-Cada iteración arma la sesión solo con lo que ya existe (ver §5).
-
-Al final se muestra un resumen: reglas trabajadas, reglas débiles, racha y minutos.
+### Grupos y escalera
+Cada tema tiene 5 escalones y cada escalón es un **grupo** de 10 a 20 minutos, con repaso intercalado (detalle en [`docs/superpowers/specs/2026-10-30-iteracion-1-design.md`](superpowers/specs/2026-10-30-iteracion-1-design.md) §5.3).
+- Escalones: descubrir, reconocer, producir guiado (con glosario 30/40/30), detectar y usar, y redactar.
+- Los escalones 1 a 4 se superan con el 80 % de los ítems del tema; el 5, con 2 de 3 escrituras sin ningún error.
+- Un escalón por debajo del 80 % queda "para reforzar" y vuelve con ítems no vistos.
+- La app sugiere el siguiente grupo (primero el "para reforzar" más viejo) y desde el mapa se puede abrir cualquier escalón.
+- Hay autoguardado después de cada respuesta, y no hay cronómetros, metas de minutos ni rachas.
 
 ### Lectura
 - Niveles A1–B1: textos propios (realia, emails, blogs, relatos), con glosario al tocar una palabra (traducción, artículo, plural y partes del compuesto; desde el léxico). El glosario oculta lo que evalúa el ítem actual: en una pregunta de vocabulario no traduce esa palabra. Desde A2 se suma prensa real en lenguaje simple (§1, Prensa y revistas).
@@ -266,10 +281,10 @@ Banco de unos 15 ítems por nivel (gramática generada, lectura, realia, mini-di
 | It. | Entrega |
 |---|---|
 | **0 — Esqueleto** | Repo con LICENSE (código MIT, datos CC-BY-SA), CI (`check.sh` con LanguageTool en Docker) y Pages; PWA instalable; router; store con export/import; prueba en el iPhone de instalación, offline, TTS alemán y CORS de LanguageTool. |
-| **1 — Porción vertical** | `curriculum.json` (todos los niveles, con grafo), `morph.js` (artículos, presente) con tests de tablas propias, léxico mínimo a mano (~50 sustantivos A1), generador `articulo-caso`, tipos gap/choice/order/image-choice, `diagnose` + feedback "incorrecto → regla → siguiente" (sin solución ni reintento), mastery y scheduler básicos, sesión variable de 5/15/30 min (sin SRS ni audición), **A1 unidad 1 completa** (ficha, lectura, ejercicios, escritura corta con checklist y modelo, todavía sin LT). Ya se usa a diario. |
+| **1 — Porción vertical** | `curriculum.json` (todos los niveles, con grafo), `morph.js` (artículos, presente) con tests de tablas propias, léxico a mano (~150 palabras A1), generador `articulo-caso`, los tipos de la iteración 1 (`detective`, `order`, `choice`, `situation`, `transform`, `translate`, `spot-error`, `reading`, `writing-guided`, `writing-free`, `gap`), `diagnose` + feedback "incorrecto → regla → siguiente" (sin solución ni reintento), mastery y scheduler básicos, **3 temas de A1 u. 1 con la escalera completa de 5 escalones** (grupos de 10 a 20 min, glosario 30/40/30, lectura, escritura corregida con LanguageTool y `lt-map`, cola offline), identidad visual A1 y registro de uso local (sin SRS ni audición). Ya se usa a diario. Detalle en `docs/superpowers/specs/2026-10-30-iteracion-1-design.md`. |
 | **2 — Test de nivel + A1 u. 2–4** | Test adaptativo con banco A1–A2, dashboard, SRS de vocabulario (ts-fsrs), léxico A1 desde german-nouns y kaikki (desde acá los tests de morph son contra Wiktionary), glosario con estado de palabras al estilo Lute y divisor de compuestos. |
 | **3 — A1 completo** | Unidades 5–12, hotspot (preposiciones con Akk y chunks de Dativ)/realia/odd-one-out, dictado TTS, reproductor YouTube, primeros videos A1, Perfekt en morph, biblioteca personal A (importar texto, glosario y estado de palabras). |
-| **4 — Escritura + A2 (1.ª mitad)** | Módulo de escritura con LT y `lt-map`, picture-story y describe, declinación adjetival y Dativ en morph, examen de salida de A1. |
+| **4 — Escritura + A2 (1.ª mitad)** | picture-story y describe, declinación adjetival y Dativ en morph, examen de salida de A1. |
 | **5 — A2 completo** | Generadores wechselpraep, verb-praeposition, konj2; examen de salida de A2. |
 | **6–7 — B1** | Präteritum, Passiv y relativas en el generador, lecturas B1, simulacro Goethe B1. |
 | **8–9 — B2** | Textos auténticos (Wikipedia, prensa CC, dominio público; verificar si Thomas Mann ya está en Wikisource-DE), Erörterung, `chart`, Konj. I, simulacro B2, biblioteca personal B (`tools/pack_text.py` e importación de paquetes). |
@@ -295,7 +310,7 @@ Resumen verificable de las reglas que ya están repartidas en el plan. Ante una 
 2. **Cerrado vs abierto.** Ítems cerrados: nunca la solución, nunca reintento. Tareas abiertas (escritura, dictado, resumen): después de enviar se ve el modelo o el texto original, y reescribir es opcional.
 3. **El diagnóstico nombra la regla, nunca la forma.** "*helfen* rige Dativ" vale; "dem" no.
 4. **Cuarentena de reportes.** Un ítem marcado con ⚑ no cuenta para el mastery hasta que se revisa.
-5. **LanguageTool → mastery con tope.** Solo cuentan las reglas mapeadas en `lt-map`, con a lo sumo una penalización por tag por texto.
+5. **LanguageTool → mastery con tope.** Cuentan todos los errores de gramática, ortografía y puntuación para el ítem; solo los mapeados tocan el mastery, con una penalización por tag por texto.
 
 ### Scheduler y mastery
 6. **Piso de mantenimiento:** `peso = base × max(0.1, 1 − mastery) × olvido`. Los errores recientes se cuentan una sola vez, dentro del mastery.
@@ -318,7 +333,7 @@ Resumen verificable de las reglas que ya están repartidas en el plan. Ante una 
 19. **Nada personal en el repo público:** ni progreso, ni reportes, ni textos de la biblioteca personal.
 
 ### Iteraciones
-20. **Cada iteración usa solo lo que ya existe.** La sesión, los tipos de ejercicio y los tests se arman con los componentes entregados hasta esa iteración. En A1 el Dativ va como chunks; se vuelve productivo en A2.
+20. **Cada iteración usa solo lo que ya existe.** El grupo, los tipos de ejercicio y los tests se arman con los componentes entregados hasta esa iteración. En A1 el Dativ va como chunks; se vuelve productivo en A2.
 
 ### Biblioteca personal
 21. **Lo privado vive en el dispositivo.** Los textos de uso privado solo entran por importación (A: archivo suelto, sin revisar, sin ítems cerrados ni efecto en el mastery; B: paquete revisado en la compu con LanguageTool local). Nunca se commitean, nunca se publican y nunca se mandan a la CI.
