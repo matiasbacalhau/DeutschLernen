@@ -78,8 +78,9 @@ export default async function grupo(el, { store, content, params }) {
       group, toApply, now: Date.now(), quarantine: quarantine ?? [],
       state: { mastery: mastery ?? EMPTY_MASTERY, log: log ?? [], words: words ?? {}, progress: progress ?? { steps: {} } },
     });
+    // El grupo en memoria avanza solo si el guardado salió bien: si falla, reintentar Siguiente vuelve a aplicar este commit.
+    await store.setMany({ ...out, group: g });
     group = g;
-    await store.setMany({ ...out, group });
   }
 
   async function next() {
