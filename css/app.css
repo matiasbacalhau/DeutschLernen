@@ -192,7 +192,7 @@ button:disabled { opacity: 0.5; }
   border-top: 1px solid var(--hair);
 }
 .map-topic:first-child { border-top: 0; }
-.map-topic::after { font-size: 0.8rem; border-radius: 999px; padding: 3px 10px; color: var(--muted); }
+.map-topic::after { white-space: nowrap; flex-shrink: 0; margin-left: 12px; font-size: 0.8rem; border-radius: 999px; padding: 3px 10px; color: var(--muted); }
 .map-topic[data-status="nuevo"]::after { content: "nuevo"; }
 .map-topic[data-status="en-curso"]::after { content: "en curso"; background: var(--ground); color: var(--text); }
 .map-topic[data-status="dominado"]::after { content: "dominado"; background: var(--accent-tint); color: var(--accent); }
@@ -268,3 +268,20 @@ fieldset.question legend { font-weight: 500; margin-bottom: 4px; }
 .glossary .lemma { font-weight: 600; }
 .glossary .es { flex-basis: 100%; color: var(--muted); font-size: 0.95rem; }
 [hidden] { display: none !important; }
+
+/* Escalones de un tema */
+.map-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 9px 0;
+  border-top: 1px solid var(--hair);
+  color: var(--text);
+  text-decoration: none;
+}
+.map-step:first-child { border-top: 0; }
+.map-step[data-status="reforzar"] span:last-child { color: var(--negative); }
+.map-step[data-status="superado"] span:last-child { color: var(--accent); }
+.map-topic { color: var(--text); text-decoration: none; }
