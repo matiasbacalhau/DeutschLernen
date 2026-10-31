@@ -1,8 +1,8 @@
 // Lógica del inicio y del tema sin DOM: saludo, línea con humor, escrituras corregidas desde la cola y estado de escalón.
 import {applyResult, masteryOf} from './mastery.js';
-import {resolvePending} from './progress.js';
+import {resolvePending, pendingInGroup, resolveInGroup} from './progress.js';
 import {gradeWriting} from './checks/writing.js';
-import {ltEntry} from './log.js';
+import {answerEntry, ltEntry} from './log.js';
 
 const WEAK = 0.5;
 
@@ -21,16 +21,24 @@ export function humorLine(mastery, tags) {
   return 'Todo en orden. Sigamos subiendo.';
 }
 
-// entry: elemento resuelto de processQueue ({key, topic, step, scene, text, at, matches}).
-// Devuelve el estado nuevo ({progress, mastery, log}) y el aviso para el inicio.
+// entry: elemento resuelto de processQueue ({key, group, type, ms, topic, step, scene, text, at, matches}).
+// state: {progress, mastery, log, group}; `group` es el grupo abierto (o null).
+// Si la escritura está pendiente en el grupo abierto, se resuelve ahí (la cuenta el intento del fin de grupo);
+// si no, en el intento ya registrado. Mastery y log se aplican acá, una sola vez.
+// Devuelve el estado nuevo ({progress, mastery, log, group}) y el aviso para el inicio (con texto y marcas).
 export function applyResolved({state, entry, ltMap, quarantine, now}) {
-  const {ok, penalties} = gradeWriting(entry.matches, ltMap);
-  let mastery = state.mastery;
-  const q = new Set(quarantine);
-  mastery = applyResult(mastery, {tag: null, type: 'writing', ok, penalties, exerciseId: entry.key}, {now, quarantine: q});
-  const log = [...state.log, ...entry.matches.map(mt => ltEntry({rule: mt.rule.id, mapped: !!ltMap.rules?.[mt.rule.id], at: entry.at}))];
-  const progress = resolvePending(state.progress, entry.key, ok);
-  return {progress, mastery, log, notice: {key: entry.key, topic: entry.topic, step: entry.step, scene: entry.scene, ok, at: now}};
+  const {ok, marks, penalties} = gradeWriting(entry.matches, ltMap);
+  const mastery = applyResult(state.mastery, {tag: null, type: 'writing', ok, penalties, exerciseId: entry.key}, {now, quarantine: new Set(quarantine)});
+  const log = [
+    ...state.log,
+    answerEntry({key: entry.key, tag: null, ok}, {type: entry.type ?? 'writing', ms: entry.ms, at: entry.at}),
+    ...entry.matches.map(mt => ltEntry({rule: mt.rule.id, mapped: !!ltMap.rules?.[mt.rule.id], at: entry.at})),
+  ];
+  let {progress, group = null} = state;
+  if (pendingInGroup(group, entry.key, entry.group)) group = resolveInGroup(group, entry.key, {ok, marks, penalties});
+  else progress = resolvePending(progress, entry.key, ok, entry.group);
+  const notice = {key: entry.key, topic: entry.topic, step: entry.step, scene: entry.scene, text: entry.text, marks, ok, at: now};
+  return {progress, mastery, log, group, notice};
 }
 
 export function stepStatus(attempt) {

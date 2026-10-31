@@ -14,7 +14,8 @@ function highlighted({ de, highlight }) {
 export function render(ex, el, { submit, ctx }) {
   const applyBox = h('div');
   let chosen = false;
-  const rules = shuffledIndexes(ex.rules.length).map(i => h('button', {
+  const order = shuffledIndexes(ex.rules.length);
+  const rules = order.map(i => h('button', {
     type: 'button', class: 'secondary option', onclick: async e => {
       if (chosen) return;
       chosen = true;
@@ -44,4 +45,12 @@ export function render(ex, el, { submit, ctx }) {
     h('p', {}, '¿Qué cambia y cuándo?'),
     ...rules, applyBox,
   );
+  // Al retomar con la regla ya elegida (ctx.rule): queda fija y se sigue con la parte de aplicar.
+  const preset = ctx.rule;
+  if (preset != null) {
+    chosen = true;
+    rules.forEach(b => { b.disabled = true; });
+    order.forEach((i, k) => rules[k].setAttribute('aria-pressed', String(i === preset)));
+    showApply(preset);
+  }
 }

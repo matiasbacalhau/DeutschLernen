@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { gradeWriting, check } from '../js/core/checks/writing.js';
 import { checkExercise } from '../js/core/checks/index.js';
-import { enqueue, processQueue, remainingQueue, check as ltCheck } from '../js/services/languagetool.js';
+import { enqueue, processQueue, withoutResolved, check as ltCheck } from '../js/services/languagetool.js';
 
 const realMap = JSON.parse(readFileSync(new URL('../data/lt-map.json', import.meta.url)));
 
@@ -159,7 +159,29 @@ test('processQueue: corta en el primer fallo y deja el resto en la cola', async 
   assert.equal(done[0].key, 'a');
   assert.deepEqual(done[0].matches, SCHULE);
   assert.deepEqual(s.d.ltQueue.map(e => e.key), ['a', 'b'], 'processQueue no modifica la cola');
-  assert.deepEqual((await remainingQueue(s, done)).map(e => e.key), ['b']);
+  assert.deepEqual(withoutResolved(s.d.ltQueue, done).map(e => e.key), ['b']);
+});
+
+test('processQueue: un 4xx (no 429) se saltea y queda en la cola; las siguientes se corrigen', async () => {
+  const s = memStore();
+  await enqueue(s, {key: 'a', text: 'uno', at: 1});
+  await enqueue(s, {key: 'b', text: 'dos', at: 2});
+  await enqueue(s, {key: 'c', text: 'tres', at: 3});
+  const fail = status => Object.assign(new Error('x'), {status});
+  const ltCheck = async text => { if (text === 'uno') throw fail(413); if (text === 'tres') throw fail(429); return []; };
+  const done = await processQueue(s, ltCheck);
+  assert.deepEqual(done.map(e => e.key), ['b']);
+  assert.deepEqual(withoutResolved(s.d.ltQueue, done).map(e => e.key), ['a', 'c']);
+});
+
+test('lt.check: el error lleva el status HTTP', async () => {
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => ({ok: false, status: 413});
+  try {
+    await assert.rejects(ltCheck('Hallo'), e => e.status === 413);
+  } finally {
+    globalThis.fetch = orig;
+  }
 });
 
 test('processQueue: cola vacía o inexistente devuelve []', async () => {
@@ -190,7 +212,7 @@ test('processQueue: lo encolado durante la espera no se pierde', async () => {
   const ltCheck = async () => { await enqueue(s, {key: 'n', groupId: 'g', text: 'nuevo', at: 3}); return []; };
   const done = await processQueue(s, ltCheck);
   assert.deepEqual(done.map(e => e.key), ['a']);
-  assert.deepEqual((await remainingQueue(s, done)).map(e => e.key), ['n']);
+  assert.deepEqual(withoutResolved(s.d.ltQueue, done).map(e => e.key), ['n']);
 });
 
 test('lt.check corta por timeout: un fetch colgado termina en rechazo', async () => {

@@ -11,25 +11,32 @@ export default async function home(el, { store, content }) {
   const titleOf = id => C.curriculum.topics.find(t => t.id === id)?.title ?? id;
   const m = mastery ?? { tags: {}, pairs: {} };
   const next = units[0] && suggestNext(units[0], progress ?? { steps: {} }, Date.now(), m);
-  const def = next && defs.find(t => t.topic === next.topic);
-  const stepDef = def?.steps.find(s => s.n === next.step);
-  const resume = next && group?.topic === next.topic && group?.step === next.step;
-  const dismiss = () => store.set('notices', []);
+  const stepOf = (topic, n) => defs.find(t => t.topic === topic)?.steps.find(s => s.n === n);
+  // Con un grupo a medias, la tarjeta principal es ese grupo (Seguir); la sugerencia queda como secundaria (§5.1).
+  const open = group && stepOf(group.topic, group.step) ? { topic: group.topic, step: group.step } : null;
+  const suggested = next && stepOf(next.topic, next.step) && !(open && open.topic === next.topic && open.step === next.step) ? next : null;
+  const card = (g, heading, primary) => {
+    const s = stepOf(g.topic, g.step);
+    return h('div', { class: 'card' },
+      h('h2', {}, heading),
+      h('p', {}, h('strong', {}, titleOf(g.topic))),
+      h('p', { class: 'muted' }, `Escalón ${g.step} · ${s.name}`),
+      h('p', {}, rich(s.scene.title)),
+      !primary && h('p', { class: 'muted' }, 'Empezarlo cierra el grupo a medias (lo que respondiste queda guardado).'),
+      h('a', { class: primary ? 'button' : 'button secondary', href: `#/grupo/${encodeURIComponent(g.topic)}/${g.step}` }, open && primary ? 'Seguir' : 'Empezar'),
+    );
+  };
 
   el.append(...[
     h('p', { class: 'greeting' }, greeting(new Date().getHours(), settings?.name)),
     h('p', {}, rich(humorLine(m, C.curriculum.tags))),
-    ...(notices ?? []).map(n => h('div', { class: 'notice' }, 'Tu escritura de ', h('em', {}, n.scene), ' ya se corrigió. ',
-      h('a', { href: `#/tema/${encodeURIComponent(n.topic)}`, onclick: dismiss }, 'Ver el tema'))),
+    // Escrituras corregidas desde la cola: el aviso dice cómo salió y abre el resultado (verlo lo descarta).
+    ...(notices ?? []).map(n => h('div', { class: 'notice' }, 'Tu escritura de ', h('em', {}, n.scene), ` ya se corrigió: ${n.ok ? 'sin errores' : 'con errores'}. `,
+      h('a', { href: `#/escritura/${encodeURIComponent(n.key)}` }, 'Ver el resultado'))),
     needsBackupReminder(meta, Date.now()) &&
       h('div', { class: 'notice' }, 'Pasaron 7 días o más sin backup. ', h('a', { href: '#/ajustes' }, 'Exportá uno ahora.')),
-    stepDef && h('div', { class: 'card' },
-      h('h2', {}, 'Siguiente grupo'),
-      h('p', {}, h('strong', {}, titleOf(next.topic))),
-      h('p', { class: 'muted' }, `Escalón ${next.step} · ${stepDef.name}`),
-      h('p', {}, rich(stepDef.scene.title)),
-      h('a', { class: 'button', href: `#/grupo/${encodeURIComponent(next.topic)}/${next.step}` }, resume ? 'Seguir' : 'Empezar'),
-    ),
+    open && card(open, 'Grupo a medias', true),
+    suggested && card(suggested, 'Siguiente grupo', !open),
     h('a', { class: 'button secondary', href: '#/mapa' }, 'Mapa de temas'),
     h('a', { class: 'button secondary', href: '#/ajustes' }, 'Ajustes y backup'),
     !isStandalone() && h('div', { class: 'card' },

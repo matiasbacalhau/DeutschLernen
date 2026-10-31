@@ -104,7 +104,7 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
   for (const r of toApply) {
     const ex = byId.get(idOf(r.key));
     if (!touched.includes(ex)) touched.push(ex);
-    if (r.pending) continue;
+    if (r.pending || r.applied) continue; // pendiente: la aplica la cola; applied: ya la aplicó la cola
     mastery = applyResult(mastery, {...r, type: ex.type, exerciseId: ex.id}, {now, quarantine: q});
     log.push(answerEntry(r, {type: ex.type, ms: r.ms, at: r.at}));
     for (const lt of r.ltRules ?? []) log.push(ltEntry({...lt, at: r.at}));
@@ -141,6 +141,21 @@ export function segments(text, marks) {
   }
   if (pos < text.length || !out.length) out.push({text: text.slice(pos), mark: null});
   return out;
+}
+
+// El grupo en memoria de la vista toma las escrituras que la cola resolvió en el grupo guardado (mismo id),
+// así guardarlo no las vuelve a dejar pendientes.
+export function carryResolved(mem, stored) {
+  if (!stored || stored.id !== mem.id) return mem;
+  let changed = false;
+  const results = mem.results.map(r => {
+    if (!r.pending) return r;
+    const s = stored.results.find(x => x.key === r.key && !x.pending);
+    if (!s) return r;
+    changed = true;
+    return s;
+  });
+  return changed ? {...mem, results} : mem;
 }
 
 // Respuesta de un ejercicio: suma los resultados, avanza y borra el borrador de escritura.

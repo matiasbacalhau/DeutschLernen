@@ -8,10 +8,10 @@ const root = new URL('..', import.meta.url).pathname;
 const sw = readFileSync(join(root, 'sw.js'), 'utf8');
 const shell = JSON.parse(sw.match(/const SHELL = (\[[\s\S]*?\]);/)[1].replaceAll("'", '"').replace(/,\s*\]/, ']'));
 
+// Recorrido a mano: readdirSync({recursive}) pide Node ≥ 18.17 y los tests corren con Node 18 o más nuevo.
 function files(dir) {
-  return readdirSync(join(root, dir), { withFileTypes: true, recursive: true })
-    .filter(d => d.isFile())
-    .map(d => relative(root, join(d.parentPath ?? d.path, d.name)));
+  return readdirSync(join(root, dir), { withFileTypes: true })
+    .flatMap(d => (d.isDirectory() ? files(join(dir, d.name)) : d.isFile() ? [relative(root, join(root, dir, d.name))] : []));
 }
 
 test('SHELL incluye todos los archivos de la app', () => {

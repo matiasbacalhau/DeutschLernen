@@ -13,17 +13,25 @@ function verdict(score) {
 }
 
 export default async function fin(el, { store, content }) {
-  const group = await store.get('group');
+  const { units } = await content();
   const home = h('a', { class: 'button secondary', href: '#/' }, 'Inicio');
-  if (!group || group.index < group.exercises.length || group.committed < group.index) {
+  const now = Date.now();
+  // En una transacción: una escritura que la cola resuelve justo ahora entra en el intento o lo resuelve después, nunca se pierde.
+  let group = null;
+  let score;
+  const { progress } = await store.update(['group', 'progress', 'log'], v => {
+    const g = v.group;
+    if (!g || g.index < g.exercises.length || g.committed < g.index) return {};
+    group = g;
+    const f = finishGroup(g, { progress: v.progress ?? { steps: {} }, log: v.log ?? [] }, now);
+    score = f.score;
+    return { progress: f.progress, log: f.log, group: null };
+  });
+  if (!group) {
     el.append(h('p', {}, 'No hay un grupo terminado para mostrar.'), home);
     return;
   }
-  const { units } = await content();
-  const now = Date.now();
-  const [progress0, log0, mastery] = await Promise.all([store.get('progress'), store.get('log'), store.get('mastery')]);
-  const { progress, log, score } = finishGroup(group, { progress: progress0 ?? { steps: {} }, log: log0 ?? [] }, now);
-  await store.setMany({ progress, log, group: null });
+  const mastery = await store.get('mastery');
 
   const unit = Object.values(units).find(u => u.topics.some(t => t.topic === group.topic));
   const next = suggestNext(unit, progress, now, mastery ?? { tags: {}, pairs: {} });

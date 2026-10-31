@@ -1,6 +1,7 @@
 // Progreso por escalón: armado del grupo, puntaje, siguiente sugerido y estado de tema. Puro: sin DOM ni azar propio.
 //
-// Estado `progress`: {steps: {['topic/n']: {attempts: [{at, pct, passed, pending, ok, bad}], seen: {[exerciseId]: at}}}}
+// Estado `progress`: {steps: {['topic/n']: {attempts: [{at, pct, passed, pending, ok, bad, group}], seen: {[exerciseId]: at}}}}
+//   - `group` es el id del grupo del intento (las escrituras de la cola resuelven el intento de su grupo).
 //   - `ok`/`bad` son las escrituras correctas/falladas del escalón 5; `pending` lista las ids de escrituras sin corregir.
 //   - passed: true | false | null (null = a la espera de una escritura pendiente).
 import {countItems} from './checks/index.js';
@@ -115,14 +116,16 @@ export function recordAttempt(progress, group, now) {
   const prev = progress.steps[key] ?? {attempts: [], seen: {}};
   const seen = {...prev.seen};
   for (const e of group.exercises) if (!e.review) seen[e.id] = now;
-  const at = {at: now, pct: s.pct, passed: s.passed, pending: s.pending, ok: s.ok, bad: s.bad};
+  const at = {at: now, pct: s.pct, passed: s.passed, pending: s.pending, ok: s.ok, bad: s.bad, group: group.id};
   return {...progress, steps: {...progress.steps, [key]: {attempts: [...prev.attempts, at], seen}}};
 }
 
 // Resuelve la escritura `key` (id del ejercicio) en el intento que la tenía pendiente y recalcula su `passed`.
-export function resolvePending(progress, key, ok) {
+// groupId (opcional): el intento de ese grupo; los intentos sin `group` (datos viejos) siempre califican.
+export function resolvePending(progress, key, ok, groupId) {
+  const mine = a => !groupId || !a.group || a.group === groupId;
   for (const [sk, st] of Object.entries(progress.steps)) {
-    const i = st.attempts.findLastIndex(a => a.pending?.includes(key));
+    const i = st.attempts.findLastIndex(a => a.pending?.includes(key) && mine(a));
     if (i < 0) continue;
     const a = st.attempts[i];
     const pending = a.pending.filter(k => k !== key);
@@ -134,6 +137,21 @@ export function resolvePending(progress, key, ok) {
     return {...progress, steps: {...progress.steps, [sk]: {...st, attempts}}};
   }
   return progress;
+}
+
+// ¿El grupo abierto tiene pendiente la escritura `key`? (de ese grupo, si la entrada de la cola dice cuál)
+export const pendingInGroup = (group, key, groupId) =>
+  !!group && (!groupId || group.id === groupId) && group.results.some(r => r.key === key && r.pending);
+
+// La escritura `key` corregida desde la cola con el grupo todavía abierto: su Result pasa de pendiente a ok/fallo
+// con marcas y penalizaciones. `applied` avisa a applyCommit que el mastery y el log ya se aplicaron.
+export function resolveInGroup(group, key, {ok, marks, penalties}) {
+  const results = group.results.map(r => {
+    if (r.key !== key || !r.pending) return r;
+    const {pending, ...rest} = r;
+    return {...rest, ok, marks, penalties, applied: true};
+  });
+  return {...group, results};
 }
 
 // mastery: se usa solo cuando todo está superado (el tema con menor mastery mínimo). Devuelve null si la unidad no tiene contenido.

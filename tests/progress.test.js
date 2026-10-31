@@ -154,6 +154,16 @@ test('escalón 5 con pendiente', () => {
   assert.equal(resolvePending(prog, 'zzz', true), prog);
 });
 
+test('resolvePending: con dos intentos pendientes de la misma escritura, resuelve el de su grupo', () => {
+  const g1 = grp(w, wres(true, false, 'p'), {step: 5, id: 'g1'});
+  const g2 = grp(w, wres(true, false, 'p'), {step: 5, id: 'g2'});
+  const prog = recordAttempt(recordAttempt(empty, g1, NOW), g2, NOW + 1);
+  const [a1, a2] = resolvePending(prog, 'w3', true, 'g1').steps['a1.u1.t1/5'].attempts;
+  assert.deepEqual([a1.passed, a2.passed], [true, null]);
+  const [b1, b2] = resolvePending(prog, 'w3', true).steps['a1.u1.t1/5'].attempts;
+  assert.deepEqual([b1.passed, b2.passed], [null, true], 'sin grupo: el último');
+});
+
 test('resume no duplica', () => {
   const exs = [gap('a'), gap('b'), gap('c'), gap('d')];
   const g = grp(exs, [ok('a'), ok('b'), ok('c')], {index: 3, committed: 2});

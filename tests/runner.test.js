@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer} from '../js/core/runner.js';
+import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved} from '../js/core/runner.js';
 
 const curriculum = {
   tags: {
@@ -183,4 +183,24 @@ test('recordAnswer: agrega resultados, avanza y borra el borrador', () => {
   assert.equal(out.index, 1);
   assert.equal(out.results.length, 1);
   assert.equal('draft' in out, false);
+});
+
+test('carryResolved: el grupo en memoria toma las escrituras que la cola resolvió en el store', () => {
+  const pend = {key: 'w', tag: null, ok: false, pending: true};
+  const done = {key: 'w', tag: null, ok: true, marks: [], penalties: [], applied: true};
+  const mem = {id: 'g', results: [{key: 'a', ok: true}, pend, {key: 'b', ok: true}], index: 3};
+  const stored = {id: 'g', results: [{key: 'a', ok: true}, done], index: 2};
+  assert.deepEqual(carryResolved(mem, stored).results, [{key: 'a', ok: true}, done, {key: 'b', ok: true}]);
+  assert.equal(carryResolved(mem, {...stored, id: 'otro'}), mem);
+  assert.equal(carryResolved(mem, null), mem);
+  assert.equal(carryResolved(mem, {id: 'g', results: [pend]}), mem);
+});
+
+test('applyCommit: una escritura ya aplicada desde la cola no se vuelve a aplicar', () => {
+  const g = {id: 'g', topic: 't', step: 5, exercises: [{id: 'w', type: 'writing-guided', words: ['Hallo']}], results: []};
+  const r = {key: 'w', tag: null, ok: false, penalties: [{tag: 'x'}], marks: [], applied: true, ltRules: [{rule: 'R', mapped: true}]};
+  const out = applyCommit({group: g, toApply: [r], state: {mastery: {tags: {}, pairs: {}}, log: [], words: {}, progress: {steps: {}}}, quarantine: [], now: 1});
+  assert.deepEqual(out.mastery.tags, {});
+  assert.deepEqual(out.log, []);
+  assert.deepEqual(out.words, {Hallo: 1});
 });

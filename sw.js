@@ -53,6 +53,7 @@ const SHELL = [
   'js/services/tts.js',
   'js/ui/ajustes.js',
   'js/ui/dom.js',
+  'js/ui/escritura.js',
   'js/ui/ficha.js',
   'js/ui/fin.js',
   'js/ui/glosario.js',

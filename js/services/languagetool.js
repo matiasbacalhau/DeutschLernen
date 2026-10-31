@@ -8,7 +8,7 @@ export async function check(text, { language = 'de-DE', timeout = 15000 } = {}) 
   const timer = setTimeout(() => ctrl.abort(), timeout);
   try {
     const res = await fetch(API, { method: 'POST', body: new URLSearchParams({ text, language }), signal: ctrl.signal });
-    if (!res.ok) throw new Error(`LanguageTool respondió ${res.status}.`);
+    if (!res.ok) throw Object.assign(new Error(`LanguageTool respondió ${res.status}.`), { status: res.status });
     return (await res.json()).matches;
   } finally {
     clearTimeout(timer);
@@ -23,23 +23,26 @@ export async function enqueue(store, entry) {
   await store.set(QUEUE, [...queue, entry]);
 }
 
-// Corrige en orden; corta en el primer fallo de red. NO toca la cola: el que llama aplica los resultados y guarda
-// remainingQueue(...) en la misma transacción, así un corte no deja un intento pendiente sin penalización ni aviso.
+// Corrige en orden; corta en el primer fallo de red (o 429/5xx). Un 4xx que no es 429 no se va a arreglar
+// reintentando: esa escritura se saltea (queda en la cola) para no trabar a las demás. NO toca la cola: el que llama aplica los resultados y guarda
+// withoutResolved(...) en la misma transacción, así un corte no deja un intento pendiente sin penalización ni aviso.
 export async function processQueue(store, ltCheck) {
   const queue = (await store.get(QUEUE)) ?? [];
   const resolved = [];
   for (const entry of queue) {
     try {
       resolved.push({...entry, matches: await ltCheck(entry.text)});
-    } catch {
+    } catch (e) {
+      if (e.status >= 400 && e.status < 500 && e.status !== 429) continue;
       break;
     }
   }
   return resolved;
 }
 
-// La cola sin las resueltas (por key+at). Relee el store: lo encolado mientras se esperaba a LanguageTool no se pierde.
-export async function remainingQueue(store, resolved) {
+// La cola sin las resueltas (por key+at). Se le pasa la cola releída en la transacción que guarda los resultados:
+// lo encolado mientras se esperaba a LanguageTool no se pierde.
+export function withoutResolved(queue, resolved) {
   const done = new Set(resolved.map(e => `${e.key}\u0000${e.at}`));
-  return ((await store.get(QUEUE)) ?? []).filter(e => !done.has(`${e.key}\u0000${e.at}`));
+  return (queue ?? []).filter(e => !done.has(`${e.key}\u0000${e.at}`));
 }

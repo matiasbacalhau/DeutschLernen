@@ -9,7 +9,8 @@ import { checkExercise } from '../core/checks/index.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, segments, closeSaved, recordAnswer } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved } from '../core/runner.js';
+import { marked, markList, verdict, extras } from './escritura.js';
 import * as lt from '../services/languagetool.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
@@ -32,23 +33,27 @@ export default async function grupo(el, { store, content, params }) {
   let group = await store.get('group');
   if (!group || group.topic !== topicId || group.step !== n) {
     const now = Date.now();
-    const [progress0, mastery0, words0, log0, quarantine] = await Promise.all(['progress', 'mastery', 'words', 'log', 'quarantine'].map(k => store.get(k)));
-    let state = { progress: progress0 ?? { steps: {} }, mastery: mastery0 ?? EMPTY_MASTERY, words: words0 ?? {}, log: log0 ?? [] };
-    // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
-    if (group) state = closeSaved({ saved: group, state, quarantine: quarantine ?? [], now });
-    const { progress, mastery, words } = state;
-    const fresh = buildGroup(unit, topicId, n, progress, mastery, {
-      now, rng: Math.random, templates: C.templates, lexicon: C.lexicon,
-      otherExercises: reviewCandidates(C.units, topicId), curriculum: C.curriculum,
-    });
-    if (n === 3) {
-      fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
-    }
-    await store.setMany(group ? { ...state, group: fresh } : { group: fresh });
-    group = fresh;
+    const candidates = reviewCandidates(C.units, topicId);
+    // En una transacción: la cola de LanguageTool no puede resolver nada en el grupo guardado mientras se cierra.
+    ({ group } = await store.update(['group', 'progress', 'mastery', 'words', 'log', 'quarantine'], v => {
+      let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? EMPTY_MASTERY, words: v.words ?? {}, log: v.log ?? [] };
+      // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
+      if (v.group) state = closeSaved({ saved: v.group, state, quarantine: v.quarantine ?? [], now });
+      const { progress, mastery, words } = state;
+      const fresh = buildGroup(unit, topicId, n, progress, mastery, {
+        now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum,
+      });
+      if (n === 3) {
+        fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
+      }
+      return v.group ? { ...state, group: fresh } : { group: fresh };
+    }));
   }
 
-  const save = () => store.set('group', group);
+  // Todo guardado del grupo conserva las escrituras que la cola resolvió en el store mientras tanto (carryResolved).
+  const save = async () => {
+    ({ group } = await store.update(['group'], v => ({ group: carryResolved(group, v.group) })));
+  };
 
   // Barra del grupo: ✕ (vuelve al inicio sin confirmar; el grupo queda guardado), título y, en el escalón 3, "Glosario".
   const glossaryBox = h('div', { class: 'card', hidden: true });
@@ -73,14 +78,15 @@ export default async function grupo(el, { store, content, params }) {
 
   async function commit() {
     const { group: g, toApply } = commitNext(group);
-    const [mastery, log, words, progress, quarantine] = await Promise.all(['mastery', 'log', 'words', 'progress', 'quarantine'].map(k => store.get(k)));
-    const out = applyCommit({
-      group, toApply, now: Date.now(), quarantine: quarantine ?? [],
-      state: { mastery: mastery ?? EMPTY_MASTERY, log: log ?? [], words: words ?? {}, progress: progress ?? { steps: {} } },
-    });
+    const now = Date.now();
     // El grupo en memoria avanza solo si el guardado salió bien: si falla, reintentar Siguiente vuelve a aplicar este commit.
-    await store.setMany({ ...out, group: g });
-    group = g;
+    ({ group } = await store.update(['mastery', 'log', 'words', 'progress', 'quarantine', 'group'], v => ({
+      ...applyCommit({
+        group, toApply, now, quarantine: v.quarantine ?? [],
+        state: { mastery: v.mastery ?? EMPTY_MASTERY, log: v.log ?? [], words: v.words ?? {}, progress: v.progress ?? { steps: {} } },
+      }),
+      group: carryResolved(g, v.group),
+    })));
   }
 
   async function next() {
@@ -109,7 +115,7 @@ export default async function grupo(el, { store, content, params }) {
     }
     const ex = group.exercises[group.index];
     // Escritura enviada que no llegó a corregirse (se cerró la app durante "Corrigiendo…"): se reenvía.
-    if (group.draft?.id === ex.id) {
+    if (group.draft?.id === ex.id && group.draft.text != null) {
       counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
       show(h('p', {}, 'Corrigiendo tu texto…'));
       grade(ex, { text: group.draft.text }, group.draft.ms);
@@ -123,13 +129,17 @@ export default async function grupo(el, { store, content, params }) {
     const now = Date.now();
     const results = (await checkExercise(ex, answer, checkCtxFor(ex))).map(r => ({ ...r, ms, at: now }));
     const answered = recordAnswer(group, results);
-    const entries = { group: answered };
-    if (results.some(r => r.pending)) {
-      const queue = (await store.get('ltQueue')) ?? [];
-      entries.ltQueue = [...queue, { key: ex.id, topic: topicId, step: n, scene: stepDef.scene.title, text: answer.text, at: now }];
-    }
-    await store.setMany(entries);
-    group = answered;
+    ({ group } = await store.update(['group', 'ltQueue'], v => {
+      // Una vista vieja (✕ durante "Corrigiendo…" y Seguir) ya respondió este ejercicio: no se responde dos veces.
+      if (v.group?.id === answered.id && v.group.results.some(r => String(r.key).split('#')[0] === ex.id)) return { group: v.group };
+      const entries = { group: carryResolved(answered, v.group) };
+      if (results.some(r => r.pending)) {
+        entries.ltQueue = [...(v.ltQueue ?? []), {
+          key: ex.id, group: answered.id, type: ex.type, ms, topic: topicId, step: n, scene: stepDef.scene.title, text: answer.text, at: now,
+        }];
+      }
+      return entries;
+    }));
     feedback(ex, answer, results);
   }
 
@@ -139,11 +149,14 @@ export default async function grupo(el, { store, content, params }) {
     const body = h('div', { class: 'exercise' });
     const ctx = {
       curriculum: C.curriculum,
-      // detective: con la regla elegida mal, la ficha aparece antes de aplicar (§5.5).
+      // detective: la regla elegida se guarda antes de seguir (al retomar no se puede volver a elegir: nunca un reintento).
+      rule: group.draft?.id === ex.id ? group.draft.rule : undefined,
+      // Con la regla elegida mal, la ficha aparece antes de aplicar (§5.5).
       beforeApply: async rule => {
         const [first] = await checkExercise(ex, { rule, apply: [] }, checkCtxFor(ex));
+        group = { ...group, draft: { id: ex.id, rule }, ...(first.showFicha ? { fichaShown: true } : {}) };
+        await save();
         if (!first.showFicha) return;
-        group = { ...group, fichaShown: true };
         await new Promise(resolve => {
           const box = h('div', { class: 'card' }, renderFicha(topic, titleOf(topicId)),
             h('button', { type: 'button', onclick: () => { box.remove(); resolve(); } }, 'Seguir'));
@@ -235,27 +248,16 @@ export default async function grupo(el, { store, content, params }) {
       }))));
   }
 
-  function marked(text, marks) {
-    return h('p', { class: 'written', lang: 'de' }, segments(text, marks).map(s => (s.mark === null
-      ? s.text
-      : [h('span', { class: `mark ${marks[s.mark].kind}` }, s.text), h('sup', {}, String(s.mark + 1))])).flat());
-  }
-  const markList = marks => marks.length
-    ? h('ol', { class: 'marks' }, marks.map(m => h('li', { class: m.kind === 'notice' ? 'muted' : null }, rich(m.text))))
-    : h('p', { class: 'muted' }, 'LanguageTool no marcó nada. Ojo: no ve todo (sentido, estilo, alguna gramática).');
-
   function writingFeedback(ex, answer, r) {
     if (r.pending) {
       return [h('p', { class: 'notice' }, 'Sin conexión: la corregimos cuando vuelva la red.'), h('p', { class: 'muted' }, 'Tu texto quedó guardado. El grupo sigue.')];
     }
-    const result = r.ok ? h('span', { class: 'tag-ok' }, 'Sin errores') : h('span', { class: 'tag-bad' }, 'Con errores');
     const rewrite = h('div');
     return [
-      result,
+      verdict(r.ok),
       marked(answer.text, r.marks),
       markList(r.marks),
-      ex.checklist?.length && [h('h2', {}, 'Lo que LanguageTool no ve'), h('ul', { class: 'checklist' }, ex.checklist.map(c => h('li', {}, h('label', {}, h('input', { type: 'checkbox' }), h('span', {}, rich(c))))))],
-      ex.model && [h('h2', {}, 'Un modelo'), h('p', { class: 'model', lang: 'de' }, ex.model)],
+      extras(ex),
       h('button', { type: 'button', class: 'secondary', onclick: e => { e.currentTarget.remove(); rewriteForm(rewrite, answer.text); } }, 'Reescribir'),
       rewrite,
     ];
@@ -297,7 +299,7 @@ export default async function grupo(el, { store, content, params }) {
             reports: [...(reports ?? []), { exerciseId: ex.id, answer, note: note.value.trim(), at: Date.now() }],
             quarantine: q.includes(ex.id) ? q : [...q, ex.id],
           });
-          box.replaceChildren(h('p', { class: 'muted' }, 'Gracias: quedó reportado y este ejercicio no cuenta para tu progreso hasta revisarlo.'));
+          box.replaceChildren(h('p', { class: 'muted' }, 'Gracias: quedó reportado y este ejercicio no cuenta para tu mastery hasta revisarlo.'));
         })();
         box.saving.catch(() => {
           send.disabled = false;

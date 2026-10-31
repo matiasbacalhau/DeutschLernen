@@ -30,6 +30,36 @@ export const set = (key, value) => run('readwrite', s => { s.put(value, key); })
 // Varias claves en una sola transacción: o se guardan todas o ninguna.
 export const setMany = entries => run('readwrite', s => { for (const [k, v] of Object.entries(entries)) s.put(v, k); });
 
+// Lee `keys`, calcula con fn (síncrona: {clave: valor} → {clave: valor nuevo}) y guarda lo que devuelve,
+// todo en una sola transacción: ninguna otra escritura se mete entre la lectura y el guardado.
+export async function update(keys, fn) {
+  const d = await db();
+  return new Promise((resolve, reject) => {
+    const tx = d.transaction(STORE, 'readwrite');
+    const s = tx.objectStore(STORE);
+    const vals = {};
+    let left = keys.length;
+    let out;
+    for (const k of keys) {
+      const req = s.get(k);
+      req.onsuccess = () => {
+        vals[k] = req.result;
+        if (--left) return;
+        try {
+          out = fn(vals);
+        } catch (e) {
+          tx.abort();
+          reject(e);
+          return;
+        }
+        for (const [key, v] of Object.entries(out)) s.put(v, key);
+      };
+    }
+    tx.oncomplete = () => resolve(out);
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
 async function readAll() {
   const d = await db();
   return new Promise((resolve, reject) => {
