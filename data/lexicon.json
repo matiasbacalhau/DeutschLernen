@@ -655,7 +655,7 @@
   "article": "die",
   "plural": null,
   "es": "leche",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 1,
   "level": "A1"
  },
@@ -665,7 +665,7 @@
   "article": "das",
   "plural": null,
   "es": "agua",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 1,
   "level": "A1"
  },
@@ -675,7 +675,7 @@
   "article": "der",
   "plural": "Kaffees",
   "es": "café",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 1,
   "level": "A1"
  },
@@ -685,7 +685,7 @@
   "article": "der",
   "plural": "Tees",
   "es": "té",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 1,
   "level": "A1"
  },
@@ -695,7 +695,7 @@
   "article": "der",
   "plural": "Säfte",
   "es": "jugo",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 2,
   "level": "A1"
  },
@@ -705,7 +705,7 @@
   "article": "das",
   "plural": "Biere",
   "es": "cerveza",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 2,
   "level": "A1"
  },
@@ -715,7 +715,7 @@
   "article": "der",
   "plural": "Weine",
   "es": "vino",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 2,
   "level": "A1"
  },
@@ -815,7 +815,7 @@
   "article": "der",
   "plural": null,
   "es": "arroz",
-  "field": "essen",
+  "field": "vorrat",
   "freq": 2,
   "level": "A1"
  },
@@ -855,7 +855,7 @@
   "article": "der",
   "plural": null,
   "es": "azúcar",
-  "field": "essen",
+  "field": "vorrat",
   "freq": 2,
   "level": "A1"
  },
@@ -865,7 +865,7 @@
   "article": "das",
   "plural": null,
   "es": "sal",
-  "field": "essen",
+  "field": "vorrat",
   "freq": 2,
   "level": "A1"
  },
@@ -925,7 +925,7 @@
   "article": "das",
   "plural": null,
   "es": "harina",
-  "field": "essen",
+  "field": "vorrat",
   "freq": 3,
   "level": "A1"
  },
@@ -935,7 +935,7 @@
   "article": "das",
   "plural": "Öle",
   "es": "aceite",
-  "field": "essen",
+  "field": "vorrat",
   "freq": 3,
   "level": "A1"
  },
@@ -1825,7 +1825,7 @@
   "lemma": "trinken",
   "pos": "verb",
   "es": "tomar, beber",
-  "field": "essen",
+  "field": "getraenke",
   "freq": 1,
   "level": "A1"
  },

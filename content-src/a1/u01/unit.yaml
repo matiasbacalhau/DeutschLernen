@@ -5,4 +5,4 @@ title: "Ankommen"
 topics:
   - {id: a1.u1.t1, file: t1-sein.yaml}
   - {id: a1.u1.t2, file: t2-genus.yaml}
-  - {id: a1.u1.t3, file: t3.yaml}
+  - {id: a1.u1.t3, file: t3-akkusativ.yaml}

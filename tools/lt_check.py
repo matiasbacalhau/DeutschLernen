@@ -15,8 +15,9 @@ DOCKER = 'docker run -d --rm -p 8010:8010 erikvl87/languagetool'
 
 
 # Reglas de estilo entre oraciones consecutivas: al agrupar textos sueltos en un request
-# dispararían falsos positivos (p. ej. tres frases seguidas que empiezan con "Ich").
-BATCH_DISABLED = 'GERMAN_WORD_REPEAT_BEGINNING_RULE'
+# dispararían falsos positivos (p. ej. tres frases seguidas que empiezan con "Ich", o una respuesta con
+# "gern" y su variante con "gerne" en el mismo lote, que DE_WORD_COHERENCY toma como un mismo texto).
+BATCH_DISABLED = 'GERMAN_WORD_REPEAT_BEGINNING_RULE,DE_WORD_COHERENCY'
 
 
 def check(text, disabled=None):

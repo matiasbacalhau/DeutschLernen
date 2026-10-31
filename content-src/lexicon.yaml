@@ -63,13 +63,13 @@
 - {lemma: Brötchen, pos: noun, article: das, plural: Brötchen, es: "panecillo", field: essen, freq: 1, level: A1}
 - {lemma: Butter, pos: noun, article: die, plural: null, es: "manteca", field: essen, freq: 1, level: A1}
 - {lemma: Käse, pos: noun, article: der, plural: null, es: "queso", field: essen, freq: 1, level: A1}
-- {lemma: Milch, pos: noun, article: die, plural: null, es: "leche", field: essen, freq: 1, level: A1}
-- {lemma: Wasser, pos: noun, article: das, plural: null, es: "agua", field: essen, freq: 1, level: A1}
-- {lemma: Kaffee, pos: noun, article: der, plural: Kaffees, es: "café", field: essen, freq: 1, level: A1}
-- {lemma: Tee, pos: noun, article: der, plural: Tees, es: "té", field: essen, freq: 1, level: A1}
-- {lemma: Saft, pos: noun, article: der, plural: Säfte, es: "jugo", field: essen, freq: 2, level: A1}
-- {lemma: Bier, pos: noun, article: das, plural: Biere, es: "cerveza", field: essen, freq: 2, level: A1}
-- {lemma: Wein, pos: noun, article: der, plural: Weine, es: "vino", field: essen, freq: 2, level: A1}
+- {lemma: Milch, pos: noun, article: die, plural: null, es: "leche", field: getraenke, freq: 1, level: A1}
+- {lemma: Wasser, pos: noun, article: das, plural: null, es: "agua", field: getraenke, freq: 1, level: A1}
+- {lemma: Kaffee, pos: noun, article: der, plural: Kaffees, es: "café", field: getraenke, freq: 1, level: A1}
+- {lemma: Tee, pos: noun, article: der, plural: Tees, es: "té", field: getraenke, freq: 1, level: A1}
+- {lemma: Saft, pos: noun, article: der, plural: Säfte, es: "jugo", field: getraenke, freq: 2, level: A1}
+- {lemma: Bier, pos: noun, article: das, plural: Biere, es: "cerveza", field: getraenke, freq: 2, level: A1}
+- {lemma: Wein, pos: noun, article: der, plural: Weine, es: "vino", field: getraenke, freq: 2, level: A1}
 - {lemma: Apfel, pos: noun, article: der, plural: Äpfel, es: "manzana", field: essen, freq: 1, level: A1}
 - {lemma: Banane, pos: noun, article: die, plural: Bananen, es: "banana", field: essen, freq: 2, level: A1}
 - {lemma: Orange, pos: noun, article: die, plural: Orangen, es: "naranja", field: essen, freq: 2, level: A1}
@@ -79,19 +79,19 @@
 - {lemma: Ei, pos: noun, article: das, plural: Eier, es: "huevo", field: essen, freq: 1, level: A1}
 - {lemma: Fleisch, pos: noun, article: das, plural: null, es: "carne", field: essen, freq: 1, level: A1}
 - {lemma: Fisch, pos: noun, article: der, plural: Fische, es: "pescado", field: essen, freq: 2, level: A1}
-- {lemma: Reis, pos: noun, article: der, plural: null, es: "arroz", field: essen, freq: 2, level: A1}
+- {lemma: Reis, pos: noun, article: der, plural: null, es: "arroz", field: vorrat, freq: 2, level: A1}
 - {lemma: Suppe, pos: noun, article: die, plural: Suppen, es: "sopa", field: essen, freq: 2, level: A1}
 - {lemma: Salat, pos: noun, article: der, plural: Salate, es: "ensalada", field: essen, freq: 2, level: A1}
 - {lemma: Kuchen, pos: noun, article: der, plural: Kuchen, es: "torta", field: essen, freq: 2, level: A1}
-- {lemma: Zucker, pos: noun, article: der, plural: null, es: "azúcar", field: essen, freq: 2, level: A1}
-- {lemma: Salz, pos: noun, article: das, plural: null, es: "sal", field: essen, freq: 2, level: A1}
+- {lemma: Zucker, pos: noun, article: der, plural: null, es: "azúcar", field: vorrat, freq: 2, level: A1}
+- {lemma: Salz, pos: noun, article: das, plural: null, es: "sal", field: vorrat, freq: 2, level: A1}
 - {lemma: Wurst, pos: noun, article: die, plural: Würste, es: "salchicha, fiambre", field: essen, freq: 2, level: A1}
 - {lemma: Schokolade, pos: noun, article: die, plural: Schokoladen, es: "chocolate", field: essen, freq: 2, level: A1}
 - {lemma: Marmelade, pos: noun, article: die, plural: Marmeladen, es: "mermelada", field: essen, freq: 3, level: A1}
 - {lemma: Gemüse, pos: noun, article: das, plural: null, es: "verdura", field: essen, freq: 2, level: A1}
 - {lemma: Obst, pos: noun, article: das, plural: null, es: "fruta", field: essen, freq: 2, level: A1}
-- {lemma: Mehl, pos: noun, article: das, plural: null, es: "harina", field: essen, freq: 3, level: A1}
-- {lemma: Öl, pos: noun, article: das, plural: Öle, es: "aceite", field: essen, freq: 3, level: A1}
+- {lemma: Mehl, pos: noun, article: das, plural: null, es: "harina", field: vorrat, freq: 3, level: A1}
+- {lemma: Öl, pos: noun, article: das, plural: Öle, es: "aceite", field: vorrat, freq: 3, level: A1}
 - {lemma: Supermarkt, pos: noun, article: der, plural: Supermärkte, es: "supermercado", field: einkaufen, freq: 1, level: A1}
 - {lemma: Bäckerei, pos: noun, article: die, plural: Bäckereien, es: "panadería", field: einkaufen, freq: 1, level: A1}
 - {lemma: Kiosk, pos: noun, article: der, plural: Kioske, es: "kiosco", field: einkaufen, freq: 2, level: A1}
@@ -180,7 +180,7 @@
 - {lemma: lernen, pos: verb, es: "aprender, estudiar", field: personen, freq: 1, level: A1}
 - {lemma: sprechen, pos: verb, es: "hablar", field: personen, freq: 1, level: A1, irregular: {du: sprichst, er: spricht}}
 - {lemma: essen, pos: verb, es: "comer", field: essen, freq: 1, level: A1, irregular: {du: isst, er: isst}}
-- {lemma: trinken, pos: verb, es: "tomar, beber", field: essen, freq: 1, level: A1}
+- {lemma: trinken, pos: verb, es: "tomar, beber", field: getraenke, freq: 1, level: A1}
 - {lemma: kaufen, pos: verb, es: "comprar", field: einkaufen, freq: 1, level: A1}
 - {lemma: nehmen, pos: verb, es: "llevar, tomar", field: einkaufen, freq: 2, level: A1, irregular: {du: nimmst, er: nimmt}}
 - {lemma: machen, pos: verb, es: "hacer", field: wohnung, freq: 1, level: A1}

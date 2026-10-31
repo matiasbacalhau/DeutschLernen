@@ -4807,8 +4807,2428 @@
   },
   {
    "topic": "a1.u1.t3",
-   "draft": true,
-   "steps": []
+   "tags": [
+    "a1.akk.mask",
+    "a1.akk.fem",
+    "a1.akk.neut",
+    "a1.akk.plural"
+   ],
+   "arbitrary": false,
+   "hides": [],
+   "ficha": {
+    "short": [
+     "Con *haben*, *möchten* y *brauchen*, lo que tenés, querés o necesitás es el objeto directo y va en *Akkusativ* (objeto directo). Quien tiene o quiere es el sujeto y sigue en *Nominativ*.",
+     "La buena noticia: solo cambia el masculino. *der → den*, *ein → einen*, *kein → keinen*. Femenino, neutro y plural quedan igual: *Ich brauche einen Löffel, eine Tasse und ein Glas.*",
+     "Manda la función, no el lugar: *Der Kuchen ist warm* (sujeto), pero *Ich möchte den Kuchen* (objeto). Aunque vaya primero, *Den Kuchen möchte ich* sigue siendo el objeto: la *-n* lo marca esté donde esté.",
+     "*sein* no tiene objeto: en *Das ist der Kuchen* todo va en *Nominativ*.",
+     "Sin artículo también vale, como en español: *Ich brauche Milch* (leche) frente a *Ich möchte einen Kaffee* (un café, una taza). En plural no hay *ein*: *Ich brauche Eier*, *Ich habe keine Eier*."
+    ],
+    "table": {
+     "head": [
+      "",
+      "masculino",
+      "femenino",
+      "neutro",
+      "plural"
+     ],
+     "rows": [
+      [
+       "Nominativ (sujeto)",
+       "der · ein · kein Kuchen",
+       "die · eine · keine Tasse",
+       "das · ein · kein Brot",
+       "die · – · keine Eier"
+      ],
+      [
+       "Akkusativ (objeto)",
+       "den · einen · keinen Kuchen",
+       "die · eine · keine Tasse",
+       "das · ein · kein Brot",
+       "die · – · keine Eier"
+      ],
+      [
+       "¿cambia?",
+       "sí",
+       "no",
+       "no",
+       "no"
+      ]
+     ]
+    },
+    "more": [
+     "Por qué existe. El alemán marca en el artículo quién hace y quién recibe. Por eso puede mover las piezas: *Der Hund beißt den Mann* y *Den Hund beißt der Mann* tienen el mismo orden de palabras, pero en la segunda el que muerde es el hombre. El orden no decide; decide el artículo.",
+     "El español también lo tiene, escondido en los pronombres: *él* es el sujeto, pero *lo quiero*. El portugués igual: *ele* frente a *eu o quero*. El alemán hace con el artículo masculino lo que nosotros hacemos con el pronombre.",
+     "El inglés lo tuvo y lo perdió. En inglés antiguo el artículo masculino era *se* como sujeto y *þone* como objeto, pariente directo de *den*. Sobrevive solo en los pronombres: *he → him*, *who → whom*. El alemán conservó el sistema entero.",
+     "Por qué solo el masculino. En el indoeuropeo el femenino y el neutro ya usaban la misma forma para sujeto y objeto (y el neutro, en latín, también: *templum* es igual en los dos casos). Al alemán le quedó una sola terminación distinta, la *-n* del masculino. Una sola regla para aprender, y es esa.",
+     "*kein* es *k* + *ein* y se declina igual: *einen → keinen*, *eine → keine*, *ein → kein*. En plural, donde no hay *ein*, *kein* sí existe: *keine Eier*.",
+     "*möchten* es la forma cortés de *mögen* (gustar): literalmente 'me gustaría'. Es el *quisiera* alemán, y es lo que se dice en una panadería. *Ich will einen Kaffee* (quiero un café) suena a nene caprichoso.",
+     "Con o sin artículo, como en español: *Ich brauche Milch* (leche, sin cantidad) o *Ich möchte eine Milch* (un vaso, un cartón). *Ich möchte Kaffee* es 'quiero café'; *Ich möchte einen Kaffee* es 'quiero un café'. Si no hay artículo, no hay nada que declinar.",
+     "Otros verbos con *Akkusativ*: casi todos los que tienen un objeto directo. *kaufen* (comprar), *essen* (comer), *trinken* (tomar), *nehmen* (llevar, tomar), *suchen* (buscar) y *es gibt* (hay): *Es gibt einen Kiosk an der Ecke*.",
+     "*sein* es la excepción famosa: no tiene objeto, lo que viene después es otra forma de nombrar al sujeto. *Das ist ein Kiosk* (Nominativ) frente a *Ich suche einen Kiosk* (Akkusativ).",
+     "Truco para el masculino: la *-n* de *den* y *einen* es la misma de *ihn* (a él) y *wen* (a quién). Si dudás, preguntá *wen?*: *Wen brauchst du? — Den Bäcker.* Si la respuesta sale con *wen*, es *Akkusativ*."
+    ]
+   },
+   "steps": [
+    {
+     "n": 1,
+     "name": "Descubrir",
+     "scene": {
+      "title": "In der Bäckerei",
+      "context": "Sábado · 7:40 · con hambre, el abrigo arriba del pijama y una fila que llega a la puerta"
+     },
+     "exercises": [
+      {
+       "id": "t3-1-det-einen",
+       "type": "detective",
+       "tag": "a1.akk.mask",
+       "sentences": [
+        {
+         "de": "Ein Kuchen kostet heute nur zwei Euro.",
+         "highlight": "Ein"
+        },
+        {
+         "de": "Dann möchte ich einen Kuchen, bitte.",
+         "highlight": "einen"
+        },
+        {
+         "de": "Heute ist ein Kaffee gratis.",
+         "highlight": "ein"
+        },
+        {
+         "de": "Super, ich habe sogar einen Becher dabei!",
+         "highlight": "einen"
+        },
+        {
+         "de": "Hinter mir steht ein Mann im Schlafanzug.",
+         "highlight": "ein"
+        },
+        {
+         "de": "Der Mann braucht dringend einen Kaffee.",
+         "highlight": "einen"
+        }
+       ],
+       "rules": [
+        {
+         "text": "Cambia cuando el sustantivo es lo que alguien tiene, quiere o necesita (el objeto directo); cuando es el sujeto, no cambia.",
+         "correct": true
+        },
+        {
+         "text": "Cambia cuando el sustantivo va después del verbo."
+        },
+        {
+         "text": "Cambia en las frases con *ich*."
+        },
+        {
+         "text": "Cambia con las cosas de comer y de tomar."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Paul ist noch total müde. Er braucht ___ Kaffee.",
+         "answers": [
+          "einen",
+          "seinen"
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "text": "Hinter dir wartet ein Kind. Es möchte ___ Keks.",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "text": "Ich möchte auch ___ Brot mit Käse.",
+         "answers": [
+          "ein",
+          "das",
+          "dieses"
+         ],
+         "dims": {
+          "gender": "n"
+         }
+        }
+       ],
+       "curiosities": [
+        "*möchten* es el *quisiera* alemán: la forma cortés de *mögen* (gustar). Es lo que se dice en una panadería."
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Käse",
+        "Kaffee",
+        "Kuchen",
+        "Euro",
+        "Mann",
+        "Kind"
+       ]
+      },
+      {
+       "id": "t3-1-ch-kaffee",
+       "type": "choice",
+       "tag": "a1.akk.mask",
+       "prompt": "Te toca. Frau Becker te mira por arriba de los anteojos. Querés un café para llevar.",
+       "options": [
+        {
+         "text": "Ich möchte einen Kaffee zum Mitnehmen, bitte.",
+         "correct": true
+        },
+        {
+         "text": "Ich möchte ein Kaffee zum Mitnehmen, bitte.",
+         "rule": "Con *möchten*, el café es lo que querés: el objeto directo, que va en *Akkusativ*. El artículo del sujeto no sirve en todos los géneros."
+        },
+        {
+         "text": "Ich möchte eine Kaffee zum Mitnehmen, bitte.",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Kaffee*."
+        }
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "curiosities": [
+        "*zum Mitnehmen* es 'para llevar' (literalmente 'para el llevarse'); 'para comer acá' es *zum Hieressen*."
+       ],
+       "reviewed": true,
+       "words": [
+        "Kaffee"
+       ]
+      },
+      {
+       "id": "t3-1-det-den",
+       "type": "detective",
+       "tag": "a1.akk.mask",
+       "sentences": [
+        {
+         "de": "Der Apfelkuchen ist noch warm.",
+         "highlight": "Der"
+        },
+        {
+         "de": "Ich möchte den Apfelkuchen, bitte.",
+         "highlight": "den"
+        },
+        {
+         "de": "Die Torte sieht fantastisch aus.",
+         "highlight": "Die"
+        },
+        {
+         "de": "Paul möchte die Torte mit Erdbeeren.",
+         "highlight": "die"
+        },
+        {
+         "de": "Das Brot ist von heute Morgen.",
+         "highlight": "Das"
+        },
+        {
+         "de": "Jana braucht das Brot für morgen.",
+         "highlight": "das"
+        }
+       ],
+       "rules": [
+        {
+         "text": "Cuando el sustantivo es el objeto, cambia un solo género; los otros dos quedan igual que como sujeto.",
+         "correct": true
+        },
+        {
+         "text": "Cuando el sustantivo es el objeto, cambian los tres géneros."
+        },
+        {
+         "text": "No cambia nada: el artículo depende solo del género."
+        },
+        {
+         "text": "El artículo cambia cuando el sustantivo es lo último de la frase."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Der Käsekuchen ist super. Ich möchte ___ Käsekuchen.",
+         "answers": [
+          "den",
+          "diesen",
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "text": "Die Schokolade sieht gut aus. Jana möchte ___ Schokolade.",
+         "answers": [
+          "die",
+          "diese",
+          "eine"
+         ],
+         "dims": {
+          "gender": "f"
+         }
+        },
+        {
+         "text": "Das Vollkornbrot ist von heute. Ich möchte ___ Vollkornbrot.",
+         "answers": [
+          "das",
+          "dieses",
+          "ein"
+         ],
+         "dims": {
+          "gender": "n"
+         }
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-1-ch-brot",
+       "type": "choice",
+       "tag": "a1.akk.neut",
+       "prompt": "Frau Becker: '¿Algo más?'. Falta el pan para el desayuno de la casa.",
+       "options": [
+        {
+         "text": "Ja, ich brauche noch ein Brot.",
+         "correct": true
+        },
+        {
+         "text": "Ja, ich brauche noch einen Brot.",
+         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
+        },
+        {
+         "text": "Ja, ich brauche noch eine Brot.",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
+        }
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Brot"
+       ]
+      },
+      {
+       "id": "t3-1-ch-sein",
+       "type": "choice",
+       "tag": "a1.akk.mask",
+       "prompt": "En el mostrador quedó un café abandonado. ¿Será el de Paul, que salió corriendo? Preguntale a Frau Becker.",
+       "options": [
+        {
+         "text": "Ist das der Kaffee von Paul?",
+         "correct": true
+        },
+        {
+         "text": "Ist das den Kaffee von Paul?",
+         "rule": "*sein* no tiene objeto directo: lo que va con *sein* es otra forma de nombrar al sujeto y queda en *Nominativ*."
+        },
+        {
+         "text": "Ist das die Kaffee von Paul?",
+         "rule": "*die* acompaña a otro género (o al plural): el de *Kaffee* se aprende con la palabra."
+        }
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "curiosities": [
+        "*sein* es como un signo igual: *Das = der Kaffee*. Por eso los dos lados van en *Nominativ*."
+       ],
+       "reviewed": true,
+       "words": [
+        "Kaffee"
+       ]
+      },
+      {
+       "id": "t3-1-det-kein",
+       "type": "detective",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "sentences": [
+        {
+         "de": "Frau Becker hat heute keinen Apfelkuchen.",
+         "highlight": "keinen"
+        },
+        {
+         "de": "Kein Kuchen ist so gut wie ihr Apfelkuchen.",
+         "highlight": "Kein"
+        },
+        {
+         "de": "Ich brauche keinen Zucker im Kaffee.",
+         "highlight": "keinen"
+        },
+        {
+         "de": "Paul möchte keine Milch.",
+         "highlight": "keine"
+        },
+        {
+         "de": "Jana möchte heute kein Brötchen.",
+         "highlight": "kein"
+        },
+        {
+         "de": "Das ist kein Problem.",
+         "highlight": "kein"
+        }
+       ],
+       "rules": [
+        {
+         "text": "*kein* cambia igual que *ein*: en un solo género, y solo cuando el sustantivo es el objeto.",
+         "correct": true
+        },
+        {
+         "text": "*kein* cambia en los tres géneros cuando el sustantivo es el objeto."
+        },
+        {
+         "text": "*kein* cambia porque la frase es negativa."
+        },
+        {
+         "text": "*kein* no cambia nunca."
+        }
+       ],
+       "apply": [
+        {
+         "text": "Frau Becker hat heute ___ Käsekuchen. Schade!",
+         "answers": [
+          "keinen"
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "text": "Jana macht Diät. Sie möchte ___ Keks.",
+         "answers": [
+          "keinen"
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "text": "Paul trinkt den Kaffee schwarz. Er braucht ___ Milch.",
+         "answers": [
+          "keine"
+         ],
+         "dims": {
+          "gender": "f"
+         }
+        }
+       ],
+       "curiosities": [
+        "*kein* es *k* + *ein*, y por eso se declina igual que *ein*: aprendés uno y te llevás el otro."
+       ],
+       "reviewed": true,
+       "words": [
+        "Brötchen",
+        "Milch",
+        "Kaffee",
+        "Kuchen",
+        "Zucker",
+        "Frau"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "name": "Reconocer",
+     "scene": {
+      "title": "Im Supermarkt",
+      "context": "Sábado · 11:00 · la lista de Jana, un changuito con una rueda rebelde y Paul, que 'solo viene a mirar'"
+     },
+     "exercises": [
+      {
+       "id": "t3-2-ord-salat",
+       "type": "order",
+       "tag": "a1.akk.mask",
+       "prompt": "Jana escribe: '¿Qué falta para la cena?'. Contestale.",
+       "chunks": [
+        "Zwiebel",
+        "einen",
+        "brauchen",
+        "und",
+        "wir",
+        "eine",
+        "Salat"
+       ],
+       "answers": [
+        [
+         "wir",
+         "brauchen",
+         "einen",
+         "Salat",
+         "und",
+         "eine",
+         "Zwiebel"
+        ],
+        [
+         "wir",
+         "brauchen",
+         "eine",
+         "Zwiebel",
+         "und",
+         "einen",
+         "Salat"
+        ],
+        [
+         "einen",
+         "Salat",
+         "und",
+         "eine",
+         "Zwiebel",
+         "brauchen",
+         "wir"
+        ],
+        [
+         "eine",
+         "Zwiebel",
+         "und",
+         "einen",
+         "Salat",
+         "brauchen",
+         "wir"
+        ]
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Zwiebel",
+        "Salat",
+        "brauchen"
+       ]
+      },
+      {
+       "id": "t3-2-se-wein",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Mensaje de Jana. Tiene un error.",
+       "tokens": [
+        "Wir",
+        "brauchen",
+        "noch",
+        "ein",
+        "Wein",
+        "für",
+        "heute",
+        "Abend!"
+       ],
+       "wrong": 3,
+       "corrections": [
+        "einen"
+       ],
+       "rule": "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que se necesita, no el sujeto.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Wein",
+        "brauchen"
+       ]
+      },
+      {
+       "id": "t3-2-ord-geldbeutel",
+       "type": "order",
+       "tag": "a1.akk.mask",
+       "prompt": "Paul perdió la billetera en el súper. Avisale que la tiene el cajero.",
+       "chunks": [
+        "den",
+        "Geldbeutel",
+        "hat",
+        "Kassierer",
+        "der"
+       ],
+       "answers": [
+        [
+         "der",
+         "Kassierer",
+         "hat",
+         "den",
+         "Geldbeutel"
+        ],
+        [
+         "den",
+         "Geldbeutel",
+         "hat",
+         "der",
+         "Kassierer"
+        ]
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "curiosities": [
+        "*Der Kassierer hat den Geldbeutel* y *Den Geldbeutel hat der Kassierer* dicen lo mismo. *Der Geldbeutel hat den Kassierer* también es gramatical: una billetera con un cajero adentro."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-2-se-brot",
+       "type": "spot-error",
+       "tag": "a1.akk.neut",
+       "prompt": "Le contás a Jana qué tenés. Tiene un error.",
+       "tokens": [
+        "Ich",
+        "habe",
+        "einen",
+        "Brot",
+        "im",
+        "Korb."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "ein",
+        "das"
+       ],
+       "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género.",
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Korb"
+       ]
+      },
+      {
+       "id": "t3-2-ch-hund",
+       "type": "choice",
+       "tag": "a1.akk.mask",
+       "prompt": "En la puerta del súper hay un perro atado y un señor con cara de pocos amigos. Paul exagera: 'El señor muerde al perro'. ¿Qué frase dice eso?",
+       "options": [
+        {
+         "text": "Den Hund beißt der Mann.",
+         "correct": true
+        },
+        {
+         "text": "Der Hund beißt den Mann.",
+         "rule": "En esta frase muerde el perro. El que hace la acción va en *Nominativ* y el que la recibe, en *Akkusativ*, esté donde esté en la frase."
+        },
+        {
+         "text": "Der Hund beißt der Mann.",
+         "rule": "Así quedan dos sujetos y ningún objeto: el que recibe la mordida es el objeto directo y va en *Akkusativ*."
+        }
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "curiosities": [
+        "*Den Hund beißt der Mann* es el ejemplo clásico de las gramáticas alemanas: el orden de las palabras es el de 'el perro muerde al hombre', pero el artículo da vuelta la noticia."
+       ],
+       "reviewed": true,
+       "words": [
+        "Mann"
+       ]
+      },
+      {
+       "id": "t3-2-se-supermarkt",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Paul llega tarde y protesta. Tiene un error.",
+       "tokens": [
+        "Den",
+        "Supermarkt",
+        "ist",
+        "heute",
+        "total",
+        "voll!"
+       ],
+       "wrong": 0,
+       "corrections": [
+        "Der",
+        "Dieser",
+        "Unser"
+       ],
+       "rule": "*sein* no tiene objeto directo: lo que va con *sein* es el sujeto y queda en *Nominativ*.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Supermarkt"
+       ]
+      },
+      {
+       "id": "t3-2-ord-brot",
+       "type": "order",
+       "tag": "a1.akk.neut",
+       "prompt": "En la panadería del súper, señalás lo que querés.",
+       "chunks": [
+        "Kuchen",
+        "das",
+        "möchte",
+        "und",
+        "Brot",
+        "den",
+        "ich"
+       ],
+       "answers": [
+        [
+         "ich",
+         "möchte",
+         "das",
+         "Brot",
+         "und",
+         "den",
+         "Kuchen"
+        ],
+        [
+         "ich",
+         "möchte",
+         "den",
+         "Kuchen",
+         "und",
+         "das",
+         "Brot"
+        ],
+        [
+         "das",
+         "Brot",
+         "und",
+         "den",
+         "Kuchen",
+         "möchte",
+         "ich"
+        ],
+        [
+         "den",
+         "Kuchen",
+         "und",
+         "das",
+         "Brot",
+         "möchte",
+         "ich"
+        ]
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Kuchen"
+       ]
+      },
+      {
+       "id": "t3-2-se-tuete",
+       "type": "spot-error",
+       "tag": "a1.akk.fem",
+       "prompt": "Paul se olvidó las bolsas de tela. Le habla a la cajera. Tiene un error.",
+       "tokens": [
+        "Ich",
+        "brauche",
+        "einen",
+        "Tüte,",
+        "bitte."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "eine"
+       ],
+       "rule": "*einen* acompaña a un solo género, y no es el de *Tüte*.",
+       "dims": {
+        "gender": "f"
+       },
+       "reviewed": true,
+       "words": [
+        "Tüte"
+       ]
+      },
+      {
+       "id": "t3-2-ch-wasser",
+       "type": "choice",
+       "tag": "a1.akk.neut",
+       "prompt": "Jana pregunta por chat si ya agarraste el agua.",
+       "options": [
+        {
+         "text": "Ja, ich habe das Wasser schon.",
+         "correct": true
+        },
+        {
+         "text": "Ja, ich habe den Wasser schon.",
+         "rule": "En *Akkusativ* cambia un solo género, y *Wasser* no es de ese: revisá su género."
+        },
+        {
+         "text": "Ja, ich habe die Wasser schon.",
+         "rule": "*die* acompaña a otro género (o al plural): el de *Wasser* se aprende con la palabra."
+        }
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Wasser"
+       ]
+      },
+      {
+       "id": "t3-2-se-kaese",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Jana agrega algo a la lista. Tiene un error.",
+       "tokens": [
+        "Paul",
+        "möchte",
+        "nur",
+        "der",
+        "Käse",
+        "aus",
+        "Holland."
+       ],
+       "wrong": 3,
+       "corrections": [
+        "den",
+        "diesen",
+        "einen"
+       ],
+       "rule": "Con *möchten*, el queso es lo que Paul quiere: el objeto directo, que va en *Akkusativ*.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Käse"
+       ]
+      },
+      {
+       "id": "t3-2-ord-milch",
+       "type": "order",
+       "tag": "a1.akk.fem",
+       "prompt": "Abrís la heladera de la casa antes de salir. Avisale a Jana.",
+       "chunks": [
+        "Käse",
+        "keine",
+        "haben",
+        "keinen",
+        "Milch",
+        "wir",
+        "und"
+       ],
+       "answers": [
+        [
+         "wir",
+         "haben",
+         "keine",
+         "Milch",
+         "und",
+         "keinen",
+         "Käse"
+        ],
+        [
+         "wir",
+         "haben",
+         "keinen",
+         "Käse",
+         "und",
+         "keine",
+         "Milch"
+        ],
+        [
+         "keine",
+         "Milch",
+         "und",
+         "keinen",
+         "Käse",
+         "haben",
+         "wir"
+        ],
+        [
+         "keinen",
+         "Käse",
+         "und",
+         "keine",
+         "Milch",
+         "haben",
+         "wir"
+        ]
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "reviewed": true,
+       "words": [
+        "Käse",
+        "Milch",
+        "haben"
+       ]
+      },
+      {
+       "id": "t3-2-se-tomaten",
+       "type": "spot-error",
+       "tag": "a1.akk.plural",
+       "prompt": "Le contás a Jana lo que ya está en el changuito. Tiene un error.",
+       "tokens": [
+        "Ich",
+        "habe",
+        "den",
+        "Tomaten",
+        "schon",
+        "im",
+        "Korb."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "die",
+        "deine",
+        "diese"
+       ],
+       "rule": "*Tomaten* es plural, y el plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros.",
+       "dims": {
+        "gender": "pl"
+       },
+       "reviewed": true,
+       "words": [
+        "Tomate",
+        "Korb"
+       ]
+      },
+      {
+       "id": "t3-2-ord-eier",
+       "type": "order",
+       "tag": "a1.akk.plural",
+       "prompt": "Jana pregunta si ya tenés los huevos y el queso.",
+       "chunks": [
+        "schon",
+        "Käse",
+        "die",
+        "habe",
+        "und",
+        "Eier",
+        "den",
+        "ich"
+       ],
+       "answers": [
+        [
+         "ich",
+         "habe",
+         "die",
+         "Eier",
+         "und",
+         "den",
+         "Käse",
+         "schon"
+        ],
+        [
+         "ich",
+         "habe",
+         "den",
+         "Käse",
+         "und",
+         "die",
+         "Eier",
+         "schon"
+        ],
+        [
+         "ich",
+         "habe",
+         "schon",
+         "die",
+         "Eier",
+         "und",
+         "den",
+         "Käse"
+        ],
+        [
+         "ich",
+         "habe",
+         "schon",
+         "den",
+         "Käse",
+         "und",
+         "die",
+         "Eier"
+        ],
+        [
+         "die",
+         "Eier",
+         "und",
+         "den",
+         "Käse",
+         "habe",
+         "ich",
+         "schon"
+        ],
+        [
+         "den",
+         "Käse",
+         "und",
+         "die",
+         "Eier",
+         "habe",
+         "ich",
+         "schon"
+        ]
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "reviewed": true,
+       "words": [
+        "Käse",
+        "Ei"
+       ]
+      },
+      {
+       "id": "t3-2-se-schokolade",
+       "type": "spot-error",
+       "tag": "a1.akk.fem",
+       "prompt": "Paul, en la fila de la caja, con cara de nene. Tiene un error.",
+       "tokens": [
+        "Leo,",
+        "ich",
+        "möchte",
+        "einen",
+        "Schokolade!",
+        "Bitte!"
+       ],
+       "wrong": 3,
+       "corrections": [
+        "eine",
+        "die",
+        "diese"
+       ],
+       "rule": "*einen* acompaña a un solo género, y no es el de *Schokolade*.",
+       "dims": {
+        "gender": "f"
+       },
+       "reviewed": true,
+       "words": [
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-2-ch-aepfel",
+       "type": "choice",
+       "tag": "a1.akk.plural",
+       "prompt": "La lista de Jana dice: 'Äpfel (¡varios!)'. Ya están en el changuito. ¿Qué le contestás?",
+       "options": [
+        {
+         "text": "Ich habe die Äpfel schon.",
+         "correct": true
+        },
+        {
+         "text": "Ich habe den Äpfel schon.",
+         "rule": "*Äpfel* es plural, y el plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros."
+        },
+        {
+         "text": "Ich habe einen Äpfel schon.",
+         "rule": "*Äpfel* es plural, y en plural no hay artículo indefinido."
+        }
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "reviewed": true,
+       "words": [
+        "Apfel"
+       ]
+      },
+      {
+       "id": "t3-2-ord-hund",
+       "type": "order",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "prompt": "En la góndola de comida para mascotas, Paul se pone sentimental. Contale a Jana qué quiere.",
+       "chunks": [
+        "eine",
+        "Katze",
+        "möchte",
+        "Hund",
+        "Paul",
+        "und",
+        "einen"
+       ],
+       "answers": [
+        [
+         "Paul",
+         "möchte",
+         "einen",
+         "Hund",
+         "und",
+         "eine",
+         "Katze"
+        ],
+        [
+         "Paul",
+         "möchte",
+         "eine",
+         "Katze",
+         "und",
+         "einen",
+         "Hund"
+        ],
+        [
+         "einen",
+         "Hund",
+         "und",
+         "eine",
+         "Katze",
+         "möchte",
+         "Paul"
+        ],
+        [
+         "eine",
+         "Katze",
+         "und",
+         "einen",
+         "Hund",
+         "möchte",
+         "Paul"
+        ]
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Katze"
+       ]
+      },
+      {
+       "id": "t3-2-ord-tuete",
+       "type": "order",
+       "tag": "a1.akk.fem",
+       "reserve": true,
+       "prompt": "En la caja, la cajera pregunta si querés algo más. Querés una bolsa y el ticket.",
+       "chunks": [
+        "Kassenbon",
+        "eine",
+        "und",
+        "ich",
+        "den",
+        "Tüte",
+        "möchte"
+       ],
+       "answers": [
+        [
+         "ich",
+         "möchte",
+         "eine",
+         "Tüte",
+         "und",
+         "den",
+         "Kassenbon"
+        ],
+        [
+         "ich",
+         "möchte",
+         "den",
+         "Kassenbon",
+         "und",
+         "eine",
+         "Tüte"
+        ],
+        [
+         "eine",
+         "Tüte",
+         "und",
+         "den",
+         "Kassenbon",
+         "möchte",
+         "ich"
+        ],
+        [
+         "den",
+         "Kassenbon",
+         "und",
+         "eine",
+         "Tüte",
+         "möchte",
+         "ich"
+        ]
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "reviewed": true,
+       "words": [
+        "Tüte"
+       ]
+      },
+      {
+       "id": "t3-2-se-zucker",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "prompt": "Paul, perdido en la góndola 7. Tiene un error.",
+       "tokens": [
+        "Hilfe!",
+        "Wo",
+        "ist",
+        "den",
+        "Zucker?"
+       ],
+       "wrong": 3,
+       "corrections": [
+        "der"
+       ],
+       "rule": "*sein* no tiene objeto directo: lo que va con *sein* es el sujeto y queda en *Nominativ*.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Zucker"
+       ]
+      },
+      {
+       "id": "t3-2-se-ei",
+       "type": "spot-error",
+       "tag": "a1.akk.neut",
+       "prompt": "Jana, desde la cocina. Tiene un error.",
+       "reserve": true,
+       "tokens": [
+        "Wir",
+        "haben",
+        "keinen",
+        "Ei",
+        "mehr!"
+       ],
+       "wrong": 2,
+       "corrections": [
+        "kein"
+       ],
+       "rule": "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género.",
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Ei",
+        "haben"
+       ]
+      },
+      {
+       "id": "t3-2-se-apfel",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "prompt": "Paul, en la verdulería del súper, a dieta desde hace veinte minutos. Tiene un error.",
+       "tokens": [
+        "Ich",
+        "möchte",
+        "nur",
+        "ein",
+        "Apfel."
+       ],
+       "wrong": 3,
+       "corrections": [
+        "einen"
+       ],
+       "rule": "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Apfel"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "name": "Producir guiado",
+     "scene": {
+      "title": "Am Kiosk",
+      "context": "Martes · 23:10 · el súper cerró, en casa no hay nada y el kiosco de la esquina es la última esperanza"
+     },
+     "field": "essen",
+     "generated": 4,
+     "exercises": [
+      {
+       "id": "t3-3-sit-wurst",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:12 · Herr Yilmaz levanta la vista del celular"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Na, Nachtschicht? Was brauchst du?"
+        },
+        {
+         "who": "me",
+         "text": "Paul hat Hunger. Er möchte ___ Wurst und ___ Apfel."
+        },
+        {
+         "who": "them",
+         "text": "Wurst habe ich leider keine mehr. Aber Äpfel habe ich!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Wurst*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Apfel",
+        "Wurst"
+       ]
+      },
+      {
+       "id": "t3-3-tf-apfel",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "source": "Ich möchte ein Brötchen.",
+       "instruction": "Cambiá *Brötchen* por *Apfel*.",
+       "answers": [
+        "Ich möchte einen Apfel.",
+        "Einen Apfel möchte ich."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte ein Apfel.",
+         "rule": "El sustantivo nuevo trae su género: el artículo no se hereda de *Brötchen*. Y con *möchten* va en *Akkusativ*."
+        },
+        {
+         "answer": "Ich möchte eine Apfel.",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brötchen",
+        "Apfel"
+       ]
+      },
+      {
+       "id": "t3-3-sit-wein",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:20 · Leo vuelve: se olvidó lo más importante"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Du schon wieder! Was fehlt?"
+        },
+        {
+         "who": "me",
+         "text": "Jana hat morgen Geburtstag. Ich brauche ___ Wein für sie."
+        },
+        {
+         "who": "them",
+         "text": "Rot oder weiß?"
+        },
+        {
+         "who": "me",
+         "text": "Rot. Und hast du ___ Kerze? Sie wird dreißig!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que necesitás, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Wein*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine",
+          "keine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Kerze*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Kerze* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "curiosities": [
+        "*Sie wird dreißig*: los cumpleaños se dicen con *werden* (volverse): 'se vuelve treinta'."
+       ],
+       "reviewed": true,
+       "words": [
+        "Wein"
+       ]
+      },
+      {
+       "id": "t3-3-gap-brot",
+       "type": "gap",
+       "tag": "a1.akk.neut",
+       "context": "En la caja, Leo le muestra a Herr Yilmaz lo que eligió.",
+       "text": "Ich möchte ___ Brot und zwei Bananen.",
+       "answers": [
+        "ein",
+        "das",
+        "dieses"
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
+        },
+        {
+         "answer": "eine",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Banane"
+       ]
+      },
+      {
+       "id": "t3-3-tf-kein",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "source": "Herr Yilmaz hat einen Apfelsaft.",
+       "instruction": "Ahora negá con *kein*: se le terminó.",
+       "answers": [
+        "Herr Yilmaz hat keinen Apfelsaft.",
+        "Herr Yilmaz hat keinen Apfelsaft mehr.",
+        "Keinen Apfelsaft hat Herr Yilmaz.",
+        "Keinen Apfelsaft hat Herr Yilmaz mehr."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Herr Yilmaz hat kein Apfelsaft.",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "Herr Yilmaz hat kein Apfelsaft mehr.",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "Herr Yilmaz hat nicht einen Apfelsaft.",
+         "rule": "Un sustantivo con *ein* se niega con *kein*, que se declina igual que *ein*."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-3-sit-banane",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:35 · en la puerta aparece Paul, en pantuflas"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo! Ich habe Hunger. Hast du was für mich?"
+        },
+        {
+         "who": "me",
+         "text": "Ich habe ___ Banane und ___ Ei. Mehr nicht."
+        },
+        {
+         "who": "them",
+         "text": "Und Schokolade? Bitte!"
+        },
+        {
+         "who": "me",
+         "text": "Nein, ich habe ___ Schokolade. Sorry!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.neut",
+         "answers": [
+          "ein"
+         ],
+         "dims": {
+          "gender": "n"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Ei*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "keine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "keinen",
+           "rule": "*keinen* acompaña a un solo género, y no es el de *Schokolade*."
+          },
+          {
+           "answer": "kein",
+           "rule": "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Banane",
+        "Ei",
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-3-gap-apfelsaft",
+       "type": "gap",
+       "tag": "a1.akk.mask",
+       "context": "Herr Yilmaz señala la heladera vacía.",
+       "text": "Sorry, ich habe heute ___ Apfelsaft mehr.",
+       "answers": [
+        "keinen"
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "kein",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "keine",
+         "rule": "*keine* acompaña a otro género (o al plural): en las compuestas manda la última parte, *Apfel-saft*."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-3-tf-plural",
+       "type": "transform",
+       "tag": "a1.akk.plural",
+       "source": "Ich brauche das Ei.",
+       "instruction": "Ahora en plural.",
+       "answers": [
+        "Ich brauche die Eier.",
+        "Die Eier brauche ich."
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "errors": [
+        {
+         "answer": "Ich brauche den Eier.",
+         "rule": "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros, el mismo que como sujeto."
+        },
+        {
+         "answer": "Ich brauche das Eier.",
+         "rule": "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Ei"
+       ]
+      },
+      {
+       "id": "t3-3-gap-schokolade",
+       "type": "gap",
+       "tag": "a1.akk.fem",
+       "context": "Leo le escribe a Jana desde el kiosco.",
+       "text": "Brauchst du auch ___ Schokolade? Hier gibt es zwölf Sorten!",
+       "answers": [
+        "eine"
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "*einen* acompaña a un solo género, y no es el de *Schokolade*."
+        },
+        {
+         "answer": "ein",
+         "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-3-sit-salat",
+       "type": "situation",
+       "reserve": true,
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:55 · Herr Yilmaz ya bajó media persiana"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Noch etwas? Ich mache gleich zu."
+        },
+        {
+         "who": "me",
+         "text": "Ja! Ich brauche noch ___ Salat für morgen."
+        },
+        {
+         "who": "them",
+         "text": "Salat? Hier? Das ist ein Kiosk, kein Supermarkt!"
+        },
+        {
+         "who": "me",
+         "text": "Okay, okay. Dann nehme ich ___ Banane."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*brauchen* pide *Akkusativ* (objeto directo): la ensalada es lo que necesitás, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Salat*: que *ensalada* sea femenino en español no cuenta."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine",
+          "die"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "curiosities": [
+        "*nehmen* (llevar, tomar) también pide *Akkusativ*: casi todo verbo con objeto directo lo pide."
+       ],
+       "reviewed": true,
+       "words": [
+        "Banane",
+        "Salat",
+        "Supermarkt",
+        "Kiosk"
+       ]
+      },
+      {
+       "id": "t3-3-tf-kaese",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "source": "Der Käse ist lecker.",
+       "instruction": "Usá el mismo artículo definido, pero empezá con *Ich möchte…*",
+       "answers": [
+        "Ich möchte den Käse.",
+        "Den Käse möchte ich."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte der Käse.",
+         "rule": "Ahora el queso no es el sujeto sino lo que querés: con *möchten* va en *Akkusativ*."
+        },
+        {
+         "answer": "Ich möchte die Käse.",
+         "rule": "*die* acompaña a otro género (o al plural): el de *Käse* se aprende con la palabra, aunque termine en *-e*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Käse"
+       ]
+      },
+      {
+       "id": "t3-3-gap-brot-gratis",
+       "type": "gap",
+       "tag": "a1.akk.neut",
+       "reserve": true,
+       "context": "Herr Yilmaz, orgulloso, te muestra algo envuelto en papel.",
+       "text": "Meine Frau backt jeden Tag. Möchtest du ___ Brot von heute? Gratis!",
+       "answers": [
+        "ein",
+        "das"
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
+        },
+        {
+         "answer": "eine",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Frau"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "name": "Detectar y usar",
+     "scene": {
+      "title": "Janas Einkaufsliste",
+      "context": "Viernes · 18:00 · mañana hay cena en casa y Jana dejó una lista en la heladera, con instrucciones"
+     },
+     "exercises": [
+      {
+       "id": "t3-4-read-liste",
+       "type": "reading",
+       "title": "Für morgen!",
+       "text": "Hallo Leo,\nmorgen kommen Mia und zwei Freunde zum Abendessen! Ich koche eine Kürbissuppe, und Paul macht einen Salat. Den Reis und das Öl haben wir schon. Wir brauchen aber noch einen Kürbis, zwei Zwiebeln, ein Brot und eine Flasche Rotwein. Mia isst kein Fleisch, also bitte keine Wurst! Paul möchte unbedingt einen Nachtisch. Ich habe keine Zeit mehr, also kaufst du bitte einen Kuchen?\nDanke!\nJana\n",
+       "questions": [
+        {
+         "tag": "a1.akk.fem",
+         "prompt": "Was kocht Jana?",
+         "answers": [
+          "Eine Kürbissuppe",
+          "Kürbissuppe",
+          "Sie kocht eine Kürbissuppe",
+          "Jana kocht eine Kürbissuppe",
+          "Eine Suppe",
+          "Suppe",
+          "Sie kocht eine Suppe",
+          "Jana kocht eine Suppe",
+          "Eine Kürbissuppe kocht sie",
+          "Eine Kürbissuppe kocht Jana"
+         ],
+         "dims": {
+          "gender": "f"
+         }
+        },
+        {
+         "tag": "a1.akk.mask",
+         "prompt": "Was haben sie schon?",
+         "options": [
+          {
+           "text": "Den Reis und das Öl.",
+           "correct": true
+          },
+          {
+           "text": "Der Reis und das Öl.",
+           "rule": "La pregunta usa *haben*: lo que se tiene es el objeto directo y va en *Akkusativ*, también en una respuesta corta."
+          },
+          {
+           "text": "Einen Kürbis und ein Brot.",
+           "rule": "Eso todavía hay que comprarlo: releé qué tienen ya."
+          }
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "tag": "a1.akk.mask",
+         "prompt": "Was möchte Paul unbedingt?",
+         "answers": [
+          "Einen Nachtisch",
+          "Nachtisch",
+          "Er möchte einen Nachtisch",
+          "Paul möchte einen Nachtisch",
+          "Er möchte unbedingt einen Nachtisch",
+          "Paul möchte unbedingt einen Nachtisch",
+          "Einen Nachtisch möchte er",
+          "Einen Kuchen",
+          "Kuchen",
+          "Er möchte einen Kuchen",
+          "Paul möchte einen Kuchen",
+          "Er möchte unbedingt einen Kuchen",
+          "Paul möchte unbedingt einen Kuchen",
+          "Einen Kuchen als Nachtisch",
+          "Er möchte einen Kuchen als Nachtisch",
+          "Paul möchte einen Kuchen als Nachtisch"
+         ],
+         "errors": [
+          {
+           "answer": "Ein Nachtisch",
+           "rule": "*möchten* pide *Akkusativ*: aunque la respuesta sea corta, lo que Paul quiere sigue siendo el objeto directo."
+          },
+          {
+           "answer": "Ein Kuchen",
+           "rule": "*möchten* pide *Akkusativ*: aunque la respuesta sea corta, lo que Paul quiere sigue siendo el objeto directo."
+          },
+          {
+           "answer": "Er möchte ein Nachtisch",
+           "rule": "*möchten* pide *Akkusativ* (objeto directo): el postre es lo que Paul quiere, no el sujeto."
+          }
+         ],
+         "dims": {
+          "gender": "m"
+         }
+        },
+        {
+         "tag": "a1.akk.fem",
+         "prompt": "Was soll Leo nicht kaufen?",
+         "options": [
+          {
+           "text": "Keine Wurst.",
+           "correct": true
+          },
+          {
+           "text": "Keinen Wurst.",
+           "rule": "*keinen* acompaña a un solo género, y no es el de *Wurst*."
+          },
+          {
+           "text": "Kein Wurst.",
+           "rule": "*kein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."
+          }
+         ],
+         "dims": {
+          "gender": "f"
+         }
+        }
+       ],
+       "curiosities": [
+        "*Nachtisch* es 'lo que va después de la mesa': *nach* (después) + *der Tisch*. Por eso es masculino, como *Tisch*."
+       ],
+       "reviewed": true,
+       "words": [
+        "Flasche",
+        "Brot",
+        "Zwiebel",
+        "Fleisch",
+        "Reis",
+        "Suppe",
+        "Salat",
+        "Kuchen",
+        "Wurst",
+        "Öl",
+        "Freund",
+        "haben",
+        "brauchen",
+        "kommen"
+       ]
+      },
+      {
+       "id": "t3-4-se-kuerbis",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Leo, desde la verdulería. Tiene un error.",
+       "tokens": [
+        "Der",
+        "Laden",
+        "hat",
+        "nur",
+        "noch",
+        "ein",
+        "Kürbis.",
+        "Reicht",
+        "das?"
+       ],
+       "wrong": 5,
+       "corrections": [
+        "einen"
+       ],
+       "rule": "*haben* pide *Akkusativ*: el zapallo es lo que el negocio tiene, no el sujeto.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Laden"
+       ]
+      },
+      {
+       "id": "t3-4-tr-kaffee",
+       "type": "translate",
+       "tag": "a1.akk.mask",
+       "from": "es",
+       "source": "Quisiera un café, por favor.",
+       "answers": [
+        "Ich möchte einen Kaffee, bitte.",
+        "Ich möchte einen Kaffee bitte.",
+        "Ich möchte bitte einen Kaffee.",
+        "Ich möchte gern einen Kaffee, bitte.",
+        "Ich möchte gerne einen Kaffee, bitte.",
+        "Ich hätte gern einen Kaffee, bitte.",
+        "Ich hätte gerne einen Kaffee, bitte.",
+        "Ich hätte gern einen Kaffee bitte.",
+        "Ich hätte gerne einen Kaffee bitte.",
+        "Ich hätte bitte gern einen Kaffee.",
+        "Ich hätte bitte gerne einen Kaffee.",
+        "Ich hätte gern einen Kaffee.",
+        "Ich hätte gerne einen Kaffee.",
+        "Einen Kaffee, bitte.",
+        "Einen Kaffee bitte.",
+        "Ich möchte einen Kaffee."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte ein Kaffee, bitte.",
+         "rule": "*möchten* pide *Akkusativ* (objeto directo): el café es lo que querés, no el sujeto."
+        },
+        {
+         "answer": "Ich möchte ein Kaffee bitte.",
+         "rule": "*möchten* pide *Akkusativ* (objeto directo): el café es lo que querés, no el sujeto."
+        },
+        {
+         "answer": "Ich möchte Kaffee, bitte.",
+         "rule": "Sin artículo es 'café' en general; *un* café (una taza) lleva artículo indefinido, en *Akkusativ* porque es lo que querés."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Kaffee"
+       ]
+      },
+      {
+       "id": "t3-4-se-rotwein",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Paul, muy orgulloso, en el grupo de la casa. Tiene un error (además del vino tinto en la heladera).",
+       "tokens": [
+        "Den",
+        "Rotwein",
+        "ist",
+        "schon",
+        "im",
+        "Kühlschrank.",
+        "Alles",
+        "gut?"
+       ],
+       "wrong": 0,
+       "corrections": [
+        "Der",
+        "Unser"
+       ],
+       "rule": "*sein* no tiene objeto directo: lo que va con *sein* es el sujeto y queda en *Nominativ*.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": [
+        "Kühlschrank"
+       ]
+      },
+      {
+       "id": "t3-4-tr-ofen",
+       "type": "translate",
+       "tag": "a1.akk.mask",
+       "from": "es",
+       "source": "No tenemos horno.",
+       "answers": [
+        "Wir haben keinen Ofen.",
+        "Einen Ofen haben wir nicht.",
+        "Wir haben keinen Backofen.",
+        "Einen Backofen haben wir nicht."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Wir haben kein Ofen.",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "Wir haben nicht Ofen.",
+         "rule": "En alemán, un sustantivo sin artículo se niega con *kein*, que se declina como *ein*."
+        },
+        {
+         "answer": "Wir haben keine Ofen.",
+         "rule": "*keine* acompaña a otro género (o al plural): el de *Ofen* se aprende con la palabra."
+        }
+       ],
+       "curiosities": [
+        "En español 'no tenemos horno' va sin artículo; en alemán la negación de un sustantivo es una palabra aparte, *kein*, y lleva la marca del caso."
+       ],
+       "reviewed": true,
+       "words": [
+        "Ofen",
+        "haben"
+       ]
+      },
+      {
+       "id": "t3-4-se-nachtisch",
+       "type": "spot-error",
+       "tag": "a1.akk.mask",
+       "prompt": "Respuesta de Jana en el grupo. Tiene un error.",
+       "tokens": [
+        "Paul",
+        "möchte",
+        "immer",
+        "der",
+        "Nachtisch",
+        "zuerst.",
+        "Typisch!"
+       ],
+       "wrong": 3,
+       "corrections": [
+        "den",
+        "einen"
+       ],
+       "rule": "Con *möchten*, el postre es lo que Paul quiere: el objeto directo, que va en *Akkusativ*.",
+       "dims": {
+        "gender": "m"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-4-tr-messer",
+       "type": "translate",
+       "tag": "a1.akk.neut",
+       "from": "en",
+       "source": "I need a knife.",
+       "answers": [
+        "Ich brauche ein Messer.",
+        "Ein Messer brauche ich.",
+        "Ich benötige ein Messer."
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "Ich brauche einen Messer.",
+         "rule": "En *Akkusativ* cambia un solo género, y *Messer* no es de ese: revisá su género."
+        },
+        {
+         "answer": "Ich brauche eine Messer.",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Messer*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Messer"
+       ]
+      },
+      {
+       "id": "t3-4-se-messer",
+       "type": "spot-error",
+       "tag": "a1.akk.neut",
+       "prompt": "Paul, frente al zapallo. Tiene un error.",
+       "tokens": [
+        "Wir",
+        "brauchen",
+        "einen",
+        "Messer",
+        "für",
+        "den",
+        "Kürbis!"
+       ],
+       "wrong": 2,
+       "corrections": [
+        "ein",
+        "das"
+       ],
+       "rule": "En *Akkusativ* cambia un solo género, y *Messer* no es de ese: revisá su género.",
+       "dims": {
+        "gender": "n"
+       },
+       "reviewed": true,
+       "words": [
+        "Messer",
+        "brauchen"
+       ]
+      },
+      {
+       "id": "t3-4-tr-salat",
+       "type": "translate",
+       "tag": "a1.akk.mask",
+       "from": "es",
+       "source": "Paul hace la ensalada.",
+       "answers": [
+        "Paul macht den Salat.",
+        "Den Salat macht Paul.",
+        "Paul bereitet den Salat zu.",
+        "Den Salat bereitet Paul zu."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Paul macht die Salat.",
+         "rule": "El género alemán no se copia del español: que *ensalada* sea femenino no dice nada de *Salat*."
+        },
+        {
+         "answer": "Paul macht der Salat.",
+         "rule": "El que hace es Paul; la ensalada es el objeto directo y va en *Akkusativ*."
+        },
+        {
+         "answer": "Paul macht das Salat.",
+         "rule": "En *Akkusativ* el artículo depende del género, y el de *Salat* se aprende con la palabra."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Salat"
+       ]
+      },
+      {
+       "id": "t3-4-tr-zwiebeln",
+       "type": "translate",
+       "tag": "a1.akk.plural",
+       "from": "en",
+       "source": "We already have the onions.",
+       "answers": [
+        "Wir haben die Zwiebeln schon.",
+        "Wir haben schon die Zwiebeln.",
+        "Die Zwiebeln haben wir schon.",
+        "Wir haben die Zwiebeln bereits.",
+        "Wir haben bereits die Zwiebeln.",
+        "Die Zwiebeln haben wir bereits."
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "errors": [
+        {
+         "answer": "Wir haben den Zwiebeln schon.",
+         "rule": "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros."
+        },
+        {
+         "answer": "Wir haben schon den Zwiebeln.",
+         "rule": "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Zwiebel",
+        "haben"
+       ]
+      },
+      {
+       "id": "t3-4-se-flasche",
+       "type": "spot-error",
+       "tag": "a1.akk.fem",
+       "reserve": true,
+       "prompt": "Leo le manda a Jana lo que ya compró. Tiene un error.",
+       "tokens": [
+        "Ich",
+        "habe",
+        "einen",
+        "Flasche",
+        "Rotwein",
+        "und",
+        "ein",
+        "Brot."
+       ],
+       "wrong": 2,
+       "corrections": [
+        "eine",
+        "die"
+       ],
+       "rule": "Lo que compraste es la *Flasche*: el artículo mira a *Flasche*, no a *Rotwein*, y *einen* no es de su género.",
+       "dims": {
+        "gender": "f"
+       },
+       "reviewed": true,
+       "words": [
+        "Flasche",
+        "Brot"
+       ]
+      },
+      {
+       "id": "t3-4-se-zwiebeln",
+       "type": "spot-error",
+       "tag": "a1.akk.plural",
+       "reserve": true,
+       "prompt": "Jana, desde el trabajo. Tiene un error.",
+       "tokens": [
+        "Hast",
+        "du",
+        "den",
+        "Zwiebeln",
+        "schon?"
+       ],
+       "wrong": 2,
+       "corrections": [
+        "die"
+       ],
+       "rule": "*Zwiebeln* es plural, y el plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros.",
+       "dims": {
+        "gender": "pl"
+       },
+       "reviewed": true,
+       "words": [
+        "Zwiebel"
+       ]
+      },
+      {
+       "id": "t3-4-tr-flasche",
+       "type": "translate",
+       "tag": "a1.akk.fem",
+       "reserve": true,
+       "from": "en",
+       "source": "I'd like a bottle of wine.",
+       "answers": [
+        "Ich möchte eine Flasche Wein.",
+        "Ich hätte gern eine Flasche Wein.",
+        "Ich hätte gerne eine Flasche Wein.",
+        "Ich möchte gern eine Flasche Wein.",
+        "Ich möchte gerne eine Flasche Wein.",
+        "Eine Flasche Wein möchte ich.",
+        "Ich möchte eine Flasche Wein, bitte.",
+        "Ich möchte eine Flasche Wein bitte."
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte einen Flasche Wein.",
+         "rule": "Lo que pedís es la *Flasche*: el artículo mira a *Flasche*, no a *Wein*, y *einen* no es de su género."
+        },
+        {
+         "answer": "Ich möchte ein Flasche Wein.",
+         "rule": "El artículo mira a *Flasche*, no a *Wein*, y *ein* sin terminación no es de su género."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Flasche",
+        "Wein"
+       ]
+      },
+      {
+       "id": "t3-4-tr-tuete",
+       "type": "translate",
+       "tag": "a1.akk.fem",
+       "reserve": true,
+       "from": "es",
+       "source": "No necesito bolsa, gracias.",
+       "answers": [
+        "Ich brauche keine Tüte, danke.",
+        "Ich brauche keine Tüte danke.",
+        "Danke, ich brauche keine Tüte.",
+        "Danke ich brauche keine Tüte.",
+        "Ich brauche keine Tasche, danke.",
+        "Ich brauche keine Tasche danke.",
+        "Danke, ich brauche keine Tasche.",
+        "Ich brauche keine Plastiktüte, danke.",
+        "Ich brauche keine Plastiktüte danke.",
+        "Keine Tüte, danke.",
+        "Keine Tüte danke.",
+        "Ich brauche keine Tüte, vielen Dank.",
+        "Nein danke, ich brauche keine Tüte.",
+        "Nein, danke, ich brauche keine Tüte."
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Ich brauche keinen Tüte, danke.",
+         "rule": "*keinen* acompaña a un solo género, y no es el de *Tüte*."
+        },
+        {
+         "answer": "Ich brauche kein Tüte, danke.",
+         "rule": "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Tüte* y qué género tienen casi todas las palabras así."
+        },
+        {
+         "answer": "Ich brauche nicht Tüte, danke.",
+         "rule": "En alemán, un sustantivo sin artículo se niega con *kein*, que se declina como *ein*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Tasche",
+        "Tüte"
+       ]
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "name": "Redactar",
+     "scene": {
+      "title": "Bestellung für das Abendessen",
+      "context": "Sábado · 19:30 · la sopa de Jana se quemó, hay seis personas con hambre y la pizzería cierra a las 21"
+     },
+     "exercises": [
+      {
+       "id": "t3-5-wg-pizzeria",
+       "type": "writing-guided",
+       "topic": "a1.u1.t3",
+       "prompt": "La sopa se quemó. Escribí el pedido por chat a la pizzería *Da Gino*: qué quieren para seis personas.",
+       "constraints": [
+        "Usá *möchten* al menos dos veces.",
+        "Pedí al menos 3 cosas con artículo indefinido, y que una sea masculina.",
+        "Entre 3 y 5 oraciones."
+       ],
+       "tips": [
+        "*möchten* pide *Akkusativ* (objeto directo): solo cambia el masculino, *ein → einen*: *einen Salat*, pero *eine Pizza* y *ein Tiramisu*.",
+        "Con un número no va artículo: *zwei Pizzas* (o *Pizzen*), *drei Salate*.",
+        "*brauchen* también sirve para pedir: *Wir brauchen auch eine Flasche Wasser.*"
+       ],
+       "checklist": [
+        "Revisé cada artículo después de *möchten* y *brauchen*: si el sustantivo es masculino, lleva *-en* (*einen*); femenino, neutro y plural quedan igual. LanguageTool casi nunca marca este error.",
+        "Pedí comida para seis personas, con cantidades claras.",
+        "Dejé la dirección o cómo encontrarnos."
+       ],
+       "model": "Hallo, hier ist Leo aus der Gartenstraße 12. Wir möchten drei Pizzas Margherita und eine Pizza Salami. Wir möchten auch einen Salat und ein Tiramisu. Und wir brauchen eine Flasche Wasser. Vielen Dank!",
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-5-wg-paul",
+       "type": "writing-guided",
+       "topic": "a1.u1.t3",
+       "prompt": "Paul baja al súper de la esquina por lo que falta. Escribile qué necesitan, qué ya hay en casa y qué no tiene que comprar.",
+       "constraints": [
+        "Al menos 2 oraciones con *brauchen*, 1 con *haben* y 1 con *kein*.",
+        "Que aparezcan al menos un sustantivo masculino y uno femenino con artículo."
+       ],
+       "tips": [
+        "*kein* se declina igual que *ein*: *keinen Käse*, *keine Milch*, *kein Brot*.",
+        "Lo que no se cuenta también va sin artículo: *Wir brauchen Milch.* Pero así no se ve el *Akkusativ*: para practicar, usá al menos dos con artículo.",
+        "Podés empezar por el objeto para destacarlo: *Den Wein habe ich schon.*"
+       ],
+       "checklist": [
+        "Revisé cada artículo después de *brauchen* y *haben*: si el sustantivo es masculino, va *einen*, *den* o *keinen*. LanguageTool casi nunca marca este error.",
+        "Paul sabe qué comprar y qué no.",
+        "Usé *kein* para lo que no hace falta."
+       ],
+       "model": "Hallo Paul! Wir brauchen noch einen Salat und eine Flasche Wasser. Den Wein und das Brot haben wir schon. Mia isst kein Fleisch, also bitte keine Wurst! Und wir brauchen auch keinen Kuchen, denn Mia bringt einen mit. Danke!",
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-5-wf-gruppe",
+       "type": "writing-free",
+       "topic": "a1.u1.t3",
+       "prompt": "Mia es vegetariana, Paul no come nada verde y Jana no quiere nada dulce. Escribí en el grupo de la casa qué pedís para cada uno y qué no, para que nadie se quede sin cenar.",
+       "tips": [
+        "*möchten* para lo que cada uno quiere, *brauchen* para lo que falta, *kein* para lo que no.",
+        "Poné al menos un masculino en cada oración: es la mejor forma de que la *-en* te salga sola."
+       ],
+       "checklist": [
+        "Revisé cada artículo después de *haben*, *möchten* y *brauchen*, sobre todo los masculinos (*einen*, *den*, *keinen*). LanguageTool casi nunca marca este error.",
+        "Cada uno tiene algo para comer.",
+        "Dije qué pido y qué no."
+       ],
+       "model": "Hallo zusammen! Ich bestelle jetzt das Essen. Mia möchte eine Pizza mit Gemüse. Paul möchte kein Gemüse, also bekommt er eine Pizza Salami. Jana möchte keinen Nachtisch, aber sie möchte einen Salat. Und wir brauchen noch einen Rotwein. Alles klar?",
+       "reviewed": true,
+       "words": []
+      }
+     ]
+    }
+   ]
   }
  ]
 }
