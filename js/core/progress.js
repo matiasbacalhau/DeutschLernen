@@ -87,7 +87,8 @@ export function commitNext(group) {
   return {group: {...group, committed: Math.max(group.committed, group.index)}, toApply};
 }
 
-const reasons = r => [r.rule, ...(r.ltRules ?? []).map(x => x.rule)].filter(Boolean);
+// Escritura: el texto en español de sus marcas de error (de lt-map); nunca el id ni el nombre de la regla de LanguageTool.
+const reasons = r => [r.rule, ...(r.marks ?? []).filter(m => m.kind === 'error').map(m => m.text)].filter(Boolean);
 
 // {pct, passed, pending, failedRules, ok, bad}. Solo cuentan los ejercicios sin `review`.
 export function scoreGroup(group) {

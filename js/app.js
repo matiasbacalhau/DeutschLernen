@@ -3,14 +3,20 @@ import * as store from './core/store.js';
 import home from './ui/home.js';
 import ajustes from './ui/ajustes.js';
 import pruebas from './ui/pruebas.js';
+import grupo from './ui/grupo.js';
+import fin from './ui/fin.js';
+import ficha from './ui/ficha.js';
+import { loadContent } from './core/content.js';
 
-const views = { home, ajustes, pruebas };
+const views = { home, ajustes, pruebas, grupo, fin, ficha };
+let contentPromise;
+const content = () => (contentPromise ??= loadContent());
 const main = document.getElementById('view');
 
 async function render() {
-  const { view } = parseHash(location.hash);
+  const { view, params } = parseHash(location.hash);
   main.replaceChildren();
-  await (views[view] ?? home)(main, { store });
+  await (views[view] ?? home)(main, { store, content, params });
   main.focus();
 }
 

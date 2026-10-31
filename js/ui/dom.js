@@ -12,3 +12,6 @@ export function h(tag, props = {}, ...children) {
 
 export const isStandalone = () =>
   window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+
+// Texto del contenido con *énfasis* → nodos (texto y <em>).
+export const rich = text => String(text ?? '').split(/\*([^*]+)\*/).map((part, i) => (i % 2 ? h('em', {}, part) : part));

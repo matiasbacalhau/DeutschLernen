@@ -27,6 +27,8 @@ async function run(mode, fn) {
 
 export const get = key => run('readonly', s => s.get(key));
 export const set = (key, value) => run('readwrite', s => { s.put(value, key); });
+// Varias claves en una sola transacción: o se guardan todas o ninguna.
+export const setMany = entries => run('readwrite', s => { for (const [k, v] of Object.entries(entries)) s.put(v, k); });
 
 async function readAll() {
   const d = await db();

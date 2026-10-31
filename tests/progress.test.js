@@ -127,6 +127,14 @@ test('79 % no pasa, 80 % sí; ítems con clave id#n', () => {
 const w = ['w1', 'w2', 'w3'].map(writing);
 const wres = (a, b, c) => [a, b, c].map((v, i) => ({key: `w${i + 1}`, tag: null, ok: v === true, ...(v === 'p' ? {pending: true} : {}), penalties: [], marks: []}));
 
+test('failedRules de una escritura: el texto en español de sus marcas de error, nunca el id de LanguageTool', () => {
+  const r = {key: 'w1', tag: null, ok: false, penalties: [], marks: [
+    {offset: 0, length: 1, text: 'Regla en español', kind: 'error'},
+    {offset: 2, length: 1, text: 'estilo', kind: 'notice'},
+  ], ltRules: [{rule: 'DAS_DASS', mapped: false}]};
+  assert.deepEqual(scoreGroup(grp(w, [r], {step: 5})).failedRules, ['Regla en español']);
+});
+
 test('escalón 5 con pendiente', () => {
   const g = grp(w, wres(true, false, 'p'), {step: 5});
   const s = scoreGroup(g);
