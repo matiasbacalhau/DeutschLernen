@@ -8,7 +8,8 @@ export function result(key, tag, ok, {rule = null, notice = null, prereq = null,
   return {key, tag, ok, rule: ok ? null : rule, notice, prereq, review: false, ...extra};
 }
 
-export const keyFor = (ex, n, total) => (total > 1 ? `${ex.id}#${n}` : ex.id);
+// Los tipos multi-ítem siempre usan `id#n`, aun con un solo ítem.
+export const keyFor = (ex, n) => `${ex.id}#${n}`;
 
 // item: ejercicio o hueco con {tag, answers, errors?, dims?, generated?}.
 export function checkWritten(key, item, answer, ctx) {

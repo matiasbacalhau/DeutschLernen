@@ -1,10 +1,11 @@
 // Ayudas de feedback: ejemplo que difiere en la dimensión evaluada y curiosidad ocasional.
 const pick = (list, rng) => list[Math.floor(rng() * list.length)];
 
-// Solo ejemplos cuyos `dims` difieren en todas las claves que comparten con `dims`.
+// Sin `dims` (o vacío) vale cualquier ejemplo; con `dims`, solo los que tienen esas claves y difieren en todas.
 export function pickExample(tag, dims, curriculum, rng) {
+  const keys = Object.keys(dims ?? {});
   const options = (curriculum.tags[tag]?.examples ?? []).filter((e) =>
-    Object.keys(dims).filter((k) => k in (e.dims ?? {})).every((k) => e.dims[k] !== dims[k]));
+    keys.every((k) => k in (e.dims ?? {}) && e.dims[k] !== dims[k]));
   if (!options.length) return null;
   const {de, es} = pick(options, rng);
   return {de, es};

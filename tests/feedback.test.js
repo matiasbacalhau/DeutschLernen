@@ -30,3 +30,12 @@ test('pickCuriosity: null con rng alto; ejercicio antes que tag', () => {
   assert.equal(pickCuriosity({curiosities: ['del ejercicio']}, 't', cur, () => 0.1), 'del ejercicio');
   assert.equal(pickCuriosity({}, 'solo', cur, () => 0.1), null);
 });
+
+test('pickExample sin dims del ítem: no falla y vale cualquier ejemplo', () => {
+  for (const d of [undefined, {}]) assert.deepEqual(pickExample('t', d, cur, () => 0), {de: 'A', es: 'a'});
+});
+
+test('pickExample con dims: excluye ejemplos que no tienen esas claves', () => {
+  const c = {tags: {x: {examples: [{de: 'sin', es: 's'}, {de: 'otro', es: 'o', dims: {kase: 'nom'}}, {de: 'ok', es: 'k', dims: {gender: 'f'}}]}}};
+  for (const r of [0, 0.5, 0.99]) assert.equal(pickExample('x', {gender: 'm'}, c, () => r).de, 'ok');
+});

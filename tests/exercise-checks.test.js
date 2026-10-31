@@ -77,12 +77,17 @@ test('order: acepta cualquier orden válido, compara por texto', async () => {
 test('chunks repetidos', async () => {
   const ex = {id: 'o', type: 'order', tag: 't', chunks: ['Die', 'Katze', 'sieht', 'die', 'Maus'],
     answers: [['Die', 'Katze', 'sieht', 'die', 'Maus']]};
-  // el usuario tocó primero el chunk índice 3 ("die") y luego el índice 0 ("Die"): mismo texto en cada posición
-  const byIndex = [3, 1, 2, 0, 4].map((i) => ex.chunks[i]);
-  assert.deepEqual(byIndex, ['die', 'Katze', 'sieht', 'Die', 'Maus']);
-  assert.equal((await run(ex, byIndex))[0].ok, false);
-  const swapped = [0, 1, 2, 3, 4].map((i) => ex.chunks[i]);
-  assert.equal((await run(ex, swapped))[0].ok, true);
+  // Orden por índice con los dos chunks "die" intercambiados en la bandeja: el texto resultante es el aceptado.
+  const swapped = [3, 1, 2, 0, 4].map((i) => ex.chunks[i]);
+  assert.deepEqual(swapped, ['die', 'Katze', 'sieht', 'Die', 'Maus']);
+  assert.equal((await run(ex, ['Die', 'Katze', 'sieht', 'die', 'Maus']))[0].ok, true);
+  // Chunks idénticos intercambiados por índice: mismo texto, ok.
+  const twin = {...ex, chunks: ['die', 'Katze', 'sieht', 'die', 'Maus'], answers: [['die', 'Katze', 'sieht', 'die', 'Maus']]};
+  const twinSwapped = [3, 1, 2, 0, 4].map((i) => twin.chunks[i]);
+  assert.equal((await run(twin, twinSwapped))[0].ok, true);
+  // Negativos: orden equivocado y mayúsculas intercambiadas (se evalúa el orden, no se pliega).
+  assert.equal((await run(ex, ['Die', 'Maus', 'sieht', 'die', 'Katze']))[0].ok, false);
+  assert.equal((await run(twin, ['Maus', 'sieht', 'die', 'Katze', 'die']))[0].ok, false);
 });
 
 test('spot-error: palabra correcta tocada, corrección mal escrita, ok', async () => {
@@ -118,6 +123,41 @@ test('detective: regla incorrecta lleva showFicha; apply se evalúa', async () =
 test('countItems coincide con count_items de Python (fixture compartido)', () => {
   const cases = JSON.parse(readFileSync(new URL('./fixtures/count-items.json', import.meta.url)));
   for (const c of cases) assert.equal(countItems(c.exercise), c.items, c.exercise.type);
+});
+
+test('multi-ítem siempre usa id#n, aun con un ítem; los de un ítem usan id', async () => {
+  const sit = {id: 's1', type: 'situation', scene: {}, bubbles: [], gaps: [{tag: 't', answers: ['der']}]};
+  assert.deepEqual((await run(sit, ['der'])).map((r) => r.key), ['s1#0']);
+  const rd = {id: 'r1', type: 'reading', title: 't', text: 'x', questions: [{tag: 't', prompt: '?', answers: ['der']}]};
+  assert.deepEqual((await run(rd, ['der'])).map((r) => r.key), ['r1#0']);
+  const gp = {id: 'g1', type: 'gap', tag: 't', text: '___', answers: ['der']};
+  assert.deepEqual((await run(gp, 'der')).map((r) => r.key), ['g1']);
+});
+
+const tpl = {id: 'tpl', tag_prefix: 'a1.akk', det: 'indef', kase: 'akk', verb: 'brauchen', context: 'x', text: 'Ich brauche ___ {noun}.', slot: {pos: 'noun', fields: ['casa'], countable: false}};
+const generated = instances(tpl, [{lemma: 'Löffel', article: 'der', pos: 'noun', field: 'casa', plural: 'Löffel'}])[0];
+const SWEEP = [
+  [{id: 'c', type: 'choice', tag: 't', prompt: '?', options: [{text: 'der', correct: true}, {text: 'die'}]}, 1, ['der']],
+  [{id: 'g', type: 'gap', tag: 't', text: '___', answers: ['der'], errors: [{answer: 'die', rule: 'No es femenino.'}]}, 'die', ['der']],
+  [{id: 'g2', type: 'gap', tag: 't', text: '___', answers: ['der']}, 'xyz', ['der']],
+  [generated, 'eine', ['einen']],
+  [generated, 'ein', ['einen']],
+  [{id: 's', type: 'situation', scene: {}, bubbles: [], gaps: [{tag: 't', answers: ['der']}, {tag: 't', answers: ['die']}]}, ['x', 'y'], ['der', 'die']],
+  [{id: 'tf', type: 'transform', tag: 't', source: 's', instruction: 'i', answers: ['Ich habe einen Hund']}, 'x', ['Ich habe einen Hund']],
+  [{id: 'tl', type: 'translate', tag: 't', from: 'es', source: 's', answers: ['Ich brauche einen Löffel']}, 'x', ['Ich brauche einen Löffel']],
+  [{id: 'o', type: 'order', tag: 't', chunks: ['Die', 'Katze'], answers: [['Die', 'Katze']]}, ['Katze', 'Die'], ['Die Katze']],
+  [{id: 'se', type: 'spot-error', tag: 't', tokens: ['a', 'b'], wrong: 1, corrections: ['einen'], rule: 'Akkusativ.'}, {index: 1, text: 'x'}, ['einen']],
+  [{id: 'se2', type: 'spot-error', tag: 't', tokens: ['a', 'b'], wrong: 1, corrections: ['einen'], rule: 'Akkusativ.'}, {index: 0, text: 'x'}, ['einen']],
+  [{id: 'r', type: 'reading', title: 't', text: 'x', questions: [{tag: 't', prompt: '?', options: [{text: 'a', correct: true}, {text: 'b'}]}, {tag: 't', prompt: '?', answers: ['Löffel']}]}, [1, 'x'], ['Löffel']],
+  [{id: 'd', type: 'detective', tag: 't', sentences: [], rules: [{text: 'a'}, {text: 'b', correct: true}], apply: [{text: '___', answers: ['einen']}]}, {rule: 0, apply: ['x']}, ['einen']],
+];
+
+test('ninguna regla contiene una respuesta aceptada (todos los tipos)', async () => {
+  for (const [ex, wrong, accepted] of SWEEP) {
+    const rs = await run(ex, wrong);
+    assert.ok(rs.some((r) => !r.ok), `${ex.id}: la respuesta mala debe fallar`);
+    for (const r of rs) for (const a of accepted) assert.ok(!r.rule?.includes(a), `${ex.id}/${r.key} filtra "${a}": ${r.rule}`);
+  }
 });
 
 test('tipo desconocido rechaza', async () => {
