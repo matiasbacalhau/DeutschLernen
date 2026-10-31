@@ -1,0 +1,25 @@
+# Ids reales de LanguageTool 6.8 (de-DE), tomados de respuestas del servidor local.
+# Cada `es` nombra la regla y nunca la forma correcta (regla 3). Sin `tag` = la regla se muestra pero no toca el mastery.
+rules:
+  HILFSVERB_HABEN_SEIN: {tag: a1.perfekt.hilfsverb, es: "El Perfekt lleva un verbo auxiliar que depende del verbo principal: los de movimiento o cambio de estado usan el otro."}
+  ZUM_FEM_NOMEN: {tag: a1.nom.fem, es: "El sustantivo es femenino: la contracción de preposición y artículo es otra."}
+  DE_AGREEMENT: {es: "El artículo tiene que concordar en género y caso con el sustantivo: revisá el género de la palabra."}
+  DE_VERBAGREEMENT: {es: "El verbo cambia con cada persona: tiene que concordar con el sujeto."}
+  GERMAN_SPELLER_RULE: {es: "Hay una palabra mal escrita: revisá su ortografía."}
+  UPPERCASE_SENTENCE_START: {es: "La oración empieza con mayúscula."}
+  FRAGEZEICHEN_STATT_PUNKT: {es: "Una pregunta se cierra con signo de interrogación, y en alemán solo va al final."}
+  DE_DOUBLE_PUNCTUATION: {es: "Hay un signo de puntuación repetido."}
+  KOMMA_VOR_UND_ODER: {es: "Regla de la coma antes de und/oder: revisá si lo que sigue es una oración con sujeto propio."}
+  KOMMA_ZWISCHEN_HAUPT_UND_NEBENSATZ_2: {es: "Entre la oración principal y la subordinada va una coma."}
+categories:
+  CONFUSED_WORDS: "palabras fáciles de confundir"
+  TYPOS: "ortografía"
+  GRAMMAR: "gramática"
+  CASING: "mayúsculas y minúsculas"
+  PUNCTUATION: "puntuación"
+  HILFESTELLUNG_KOMMASETZUNG: "puntuación"
+  TYPOGRAPHY: "tipografía"
+  REDUNDANCY: "palabra repetida"
+  COLLOQUIALISMS: "lenguaje coloquial"
+  REPETITIONS_STYLE: "estilo"
+notice_categories: [TYPOGRAPHY, REDUNDANCY, COLLOQUIALISMS, REPETITIONS_STYLE]

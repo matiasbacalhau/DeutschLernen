@@ -1,4 +1,4 @@
-// Despacha por tipo. Los tipos de escritura (writing-*) los resuelve LanguageTool, no este módulo.
+// Despacha por tipo. Las escrituras (writing-*) se corrigen con LanguageTool, inyectado en ctx.lt.
 import { check as choice } from './choice.js';
 import { check as gap } from './gap.js';
 import { check as situation } from './situation.js';
@@ -8,8 +8,9 @@ import { check as order } from './order.js';
 import { check as spotError } from './spot-error.js';
 import { check as reading } from './reading.js';
 import { check as detective } from './detective.js';
+import { check as writing } from './writing.js';
 
-const CHECKS = {choice, gap, situation, transform, translate, order, 'spot-error': spotError, reading, detective};
+const CHECKS = {choice, gap, situation, transform, translate, order, 'spot-error': spotError, reading, detective, 'writing-guided': writing, 'writing-free': writing};
 
 export async function checkExercise(exercise, answer, ctx) {
   const fn = CHECKS[exercise.type];

@@ -20,6 +20,7 @@ const SHELL = [
   'js/core/checks/spot-error.js',
   'js/core/checks/transform.js',
   'js/core/checks/translate.js',
+  'js/core/checks/writing.js',
   'js/core/checks.js',
   'js/core/content.js',
   'js/core/diagnose.js',

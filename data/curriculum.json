@@ -629,7 +629,38 @@
    "requires": [
     "a1.sein.praesens"
    ],
-   "orthographic": false
+   "orthographic": false,
+   "rule": "El *Perfekt* (pretérito perfecto) lleva un verbo auxiliar que depende del verbo principal: los de movimiento o cambio de estado usan uno y la mayoría del resto usa el otro.",
+   "examples": [
+    {
+     "de": "Ich habe ein Brot gekauft.",
+     "es": "Compré un pan.",
+     "dims": {
+      "aux": "haben"
+     }
+    },
+    {
+     "de": "Ich bin nach Berlin gefahren.",
+     "es": "Viajé a Berlín.",
+     "dims": {
+      "aux": "sein"
+     }
+    },
+    {
+     "de": "Wir sind in Berlin geblieben.",
+     "es": "Nos quedamos en Berlín.",
+     "dims": {
+      "aux": "sein"
+     }
+    },
+    {
+     "de": "Ich habe gut geschlafen.",
+     "es": "Dormí bien.",
+     "dims": {
+      "aux": "haben"
+     }
+    }
+   ]
   },
   "a1.praesens.regular": {
    "title": "Presente regular y V2",
