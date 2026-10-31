@@ -11,6 +11,7 @@ const SHELL = [
   'js/core/backup.js',
   'js/core/checks.js',
   'js/core/content.js',
+  'js/core/morph.js',
   'js/core/normalize.js',
   'js/core/router.js',
   'js/core/store.js',
