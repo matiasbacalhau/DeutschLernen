@@ -23,3 +23,7 @@ test('tag ortográfico exige ß, umlaut y mayúscula', () => {
   assert.equal(matchAnswer('ich brauche einen löffel', ['Ich brauche einen Löffel'], {orthographic: true}).ok, false);
 });
 test('nunca borra el rasgo evaluado: einen ≠ ein', () => assert.equal(matchAnswer('ein', ['einen'], {orthographic: false}).ok, false));
+test('ortográfico: palabra suelta exige mayúscula inicial', () =>
+  assert.equal(matchAnswer('löffel', ['Löffel'], {orthographic: true}).ok, false));
+test('ortográfico: frase tolera mayúscula de inicio de oración', () =>
+  assert.equal(matchAnswer('ich brauche einen Löffel', ['Ich brauche einen Löffel'], {orthographic: true}).ok, true));

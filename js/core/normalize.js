@@ -29,7 +29,9 @@ const sameButFirstCase = (a, b) => a.slice(1) === b.slice(1) && lower(a[0]) === 
 export function matchAnswer(answer, accepted, {orthographic}) {
   const a = clean(answer);
   const targets = accepted.map(clean);
-  if (targets.some((t) => t === a || (a && sameButFirstCase(a, t)))) return {ok: true, notice: null};
+  // En modo ortográfico, la mayúscula inicial solo se tolera en frases (inicio de oración).
+  const firstCaseOk = (t) => !orthographic || t.includes(' ');
+  if (targets.some((t) => t === a || (a && firstCaseOk(t) && sameButFirstCase(a, t)))) return {ok: true, notice: null};
   if (orthographic) return {ok: false, notice: null};
   for (const t of targets) {
     if ([0, 1].some((i) => fold(a, i) === fold(t, i))) return {ok: true, notice: notice(a, t)};
