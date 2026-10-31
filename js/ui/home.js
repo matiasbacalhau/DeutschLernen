@@ -18,7 +18,7 @@ export default async function home(el, { store, content }) {
 
   el.append(...[
     h('p', { class: 'greeting' }, greeting(new Date().getHours(), settings?.name)),
-    h('p', {}, rich(humorLine(m, defs.map(t => ({ title: titleOf(t.topic), tags: t.tags }))))),
+    h('p', {}, rich(humorLine(m, C.curriculum.tags))),
     ...(notices ?? []).map(n => h('div', { class: 'notice' }, 'Tu escritura de ', h('em', {}, n.scene), ' ya se corrigió. ',
       h('a', { href: `#/tema/${encodeURIComponent(n.topic)}`, onclick: dismiss }, 'Ver el tema'))),
     needsBackupReminder(meta, Date.now()) &&

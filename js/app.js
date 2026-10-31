@@ -67,7 +67,8 @@ async function processLtQueue() {
       state = next;
       fresh.push(notice);
     }
-    await store.setMany({ ...state, notices: [...(notices ?? []), ...fresh] });
+    // Una sola transacción: resultados, avisos y salida de la cola (si algo falla antes, las escrituras siguen en la cola).
+    await store.setMany({ ...state, notices: [...(notices ?? []), ...fresh], ltQueue: await lt.remainingQueue(store, resolved) });
     if (['', '#/'].includes(location.hash)) render();
   } catch (e) {
     console.warn('cola de LanguageTool', e);

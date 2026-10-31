@@ -23,8 +23,8 @@ export async function enqueue(store, entry) {
   await store.set(QUEUE, [...queue, entry]);
 }
 
-// Corrige en orden; corta en el primer fallo de red y deja el resto en la cola.
-// Al terminar relee la cola: lo encolado mientras se esperaba a LanguageTool no se pierde.
+// Corrige en orden; corta en el primer fallo de red. NO toca la cola: el que llama aplica los resultados y guarda
+// remainingQueue(...) en la misma transacción, así un corte no deja un intento pendiente sin penalización ni aviso.
 export async function processQueue(store, ltCheck) {
   const queue = (await store.get(QUEUE)) ?? [];
   const resolved = [];
@@ -35,8 +35,11 @@ export async function processQueue(store, ltCheck) {
       break;
     }
   }
-  const done = new Set(resolved.map(e => `${e.key}\u0000${e.at}`));
-  const current = (await store.get(QUEUE)) ?? [];
-  await store.set(QUEUE, current.filter(e => !done.has(`${e.key}\u0000${e.at}`)));
   return resolved;
+}
+
+// La cola sin las resueltas (por key+at). Relee el store: lo encolado mientras se esperaba a LanguageTool no se pierde.
+export async function remainingQueue(store, resolved) {
+  const done = new Set(resolved.map(e => `${e.key}\u0000${e.at}`));
+  return ((await store.get(QUEUE)) ?? []).filter(e => !done.has(`${e.key}\u0000${e.at}`));
 }

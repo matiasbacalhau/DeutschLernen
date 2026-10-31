@@ -13,20 +13,17 @@ test('saludo según la hora, con nombre opcional', () => {
   assert.equal(greeting(9, '  '), 'Guten Morgen');
 });
 
-const topics = [
-  {title: 'Akkusativ', tags: ['a1.akk']},
-  {title: 'sein', tags: ['a1.sein']},
-];
+const topics = {'a1.akk': {title: 'Akkusativ'}, 'a1.sein': {title: 'sein en presente'}};
 const m = (tags) => ({tags: Object.fromEntries(Object.entries(tags).map(([k, v]) => [k, {m: v, n: 1, last: 0}])), pairs: {}});
 
 test('línea con humor: sin datos, tag flojo, todo bien', () => {
   assert.match(humorLine({tags: {}, pairs: {}}, topics), /Primer día.*\*sein\*/);
-  assert.equal(humorLine(m({'a1.akk': 0.3, 'a1.sein': 0.9}), topics), 'El *Akkusativ* te viene esquivando.');
+  assert.equal(humorLine(m({'a1.akk': 0.3, 'a1.sein': 0.9}), topics), 'El Akkusativ te viene esquivando.');
   assert.equal(humorLine(m({'a1.akk': 0.7, 'a1.sein': 0.9}), topics), 'Todo en orden. Sigamos subiendo.');
 });
 
 test('humor: elige el tag más bajo', () => {
-  assert.match(humorLine(m({'a1.akk': 0.4, 'a1.sein': 0.1}), topics), /sein/);
+  assert.match(humorLine(m({'a1.akk': 0.4, 'a1.sein': 0.1}), topics), /sein en presente/);
 });
 
 const progress = {steps: {'t/5': {attempts: [{at: 1, pct: 0, passed: null, pending: ['w1'], ok: 0, bad: 0}], seen: {}}}};
