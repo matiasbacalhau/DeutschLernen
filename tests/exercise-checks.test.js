@@ -65,6 +65,14 @@ test('transform y translate comparan con matchAnswer', async () => {
   assert.equal((await run(tl, 'Ich brauche einen Tisch'))[0].ok, false);
 });
 
+test('transform y translate: una frase mal escrita lleva las palabras que difieren, sin la forma correcta', async () => {
+  const tl = {id: 'tl', type: 'translate', tag: 't', from: 'es', source: 's', answers: ['Sie sind in Zimmer 12.', 'Sie sind im Zimmer 12.']};
+  const [r] = await run(tl, 'Sie ist in das Zimmer 12.');
+  assert.deepEqual(r.wrong, [{offset: 4, length: 3}, {offset: 11, length: 3}]);
+  assert.equal(r.rule, RULE);
+  assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].wrong, undefined);
+});
+
 test('order: acepta cualquier orden válido, compara por texto', async () => {
   const ex = {id: 'o', type: 'order', tag: 't', chunks: ['Die', 'Katze', 'sieht', 'die', 'Maus'],
     answers: [['Die', 'Katze', 'sieht', 'die', 'Maus']]};

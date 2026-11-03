@@ -99,7 +99,11 @@
   },
   "AKK_AFTER_SEIN": {
    "es": "*sein* no tiene objeto directo: lo que va con *sein* es otra forma de nombrar al sujeto y queda en *Nominativ*.",
-   "hint": "A noun after the verb 'sein' is wrongly put in the accusative (for example 'Das ist den Kaffee' or 'Er ist einen Freund')."
+   "hint": "A noun after the verb 'sein' is wrongly put in the accusative (for example 'Das ist den Kaffee' or 'Er ist einen Freund'). Not for a noun after a preposition (for example 'in das Zimmer'): use DAT_AFTER_PREP there."
+  },
+  "DAT_AFTER_PREP": {
+   "es": "Con esta preposición el sustantivo va en *Dativ*, un caso que todavía no viste: el artículo no es el de *Nominativ* ni el de *Akkusativ*.",
+   "hint": "After a preposition that takes the dative, the article or contraction is not dative: aus, bei, mit, nach, seit, von, zu always; in, an, auf, unter, neben, hinter, vor, über, zwischen when they say where something is (answering 'wo?'). Examples: 'Sie ist in das Zimmer', 'mit der Freund', 'Ich wohne bei die Oma'."
   },
   "SEIN_FORM": {
    "tag": "a1.sein.praesens",

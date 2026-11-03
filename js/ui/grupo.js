@@ -9,7 +9,7 @@ import { checkExercise } from '../core/checks/index.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import * as lt from '../services/languagetool.js';
 import { withGrammar } from '../services/grammar.js';
@@ -226,6 +226,7 @@ export default async function grupo(el, { store, content, params }) {
       return h('div', { class: 'item' },
         multi && info.label && h('p', { class: 'item-label', lang: 'de' }, rich(info.label)),
         r.ok ? h('span', { class: 'tag-ok' }, 'Bien') : h('span', { class: 'tag-bad' }, 'Incorrecto'),
+        r.wrong && typeof answer === 'string' && underlined(answer, r.wrong),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
         example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es})`),
         r.notice && h('p', { class: 'muted' }, r.notice),
@@ -236,6 +237,14 @@ export default async function grupo(el, { store, content, params }) {
       ex.type === 'situation' && situationReplay(ex, answer, results),
       allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
       curiosity && h('p', { class: 'curiosity' }, rich(curiosity)),
+    ];
+  }
+
+  // La frase del usuario con las palabras que no coinciden con ninguna respuesta válida, subrayadas sin corregirlas.
+  function underlined(text, wrong) {
+    return [
+      h('p', { class: 'written', lang: 'de' }, segments(text, wrong).map(x => (x.mark === null ? x.text : h('span', { class: 'mark error' }, x.text)))),
+      h('p', { class: 'muted' }, wrong.length > 1 ? 'Revisá las palabras subrayadas.' : 'Revisá la palabra subrayada.'),
     ];
   }
 
