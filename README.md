@@ -3,8 +3,7 @@
 App privada (PWA para iPhone) para aprender alemán de A1 a C1, con foco en lectoescritura y, como extra, audición.
 
 - Plan completo: [docs/PLAN.md](docs/PLAN.md)
-- Estado: **iteración 0 cerrada** (2026-10-30): PWA instalable, router, backup export/import, pantalla de pruebas del iPhone y CI. Probada en el iPhone: instalación, almacenamiento persistente, offline, voz alemana y LanguageTool.
-- Próximo paso: **iteración 1** (porción vertical A1 u. 1).
+- Estado, qué está probado y qué no: [PROGRESS.md](PROGRESS.md)
 
 ## Correr en local
 ```bash
