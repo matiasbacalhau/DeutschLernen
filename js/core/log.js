@@ -1,7 +1,9 @@
 // Entradas del registro de uso (spec §8). Compactas: cada respuesta ocupa ~100 bytes.
 
+// Las respuestas escritas falladas guardan además lo que se escribió (`text`), solo en el registro local.
 export const answerEntry = (result, {exerciseId, type, ms, at}) => ({
   t: 'a', item: result.key, tag: result.tag ?? null, type, ok: !!result.ok, diag: result.rule ?? null, ms, at,
+  ...(result.given != null ? {text: result.given} : {}),
 });
 
 export const groupEntry = ({id, startedAt, endedAt, abandoned}) => ({

@@ -23,7 +23,8 @@ export function checkWritten(key, item, answer, ctx) {
   const hit = (item.errors ?? []).find((e) => matchAnswer(answer, [e.answer], {orthographic: !!info.orthographic}).ok);
   // En una frase, además de la regla, las palabras que difieren: así se ve también un segundo error.
   const wrong = wrongWords(String(answer), item.answers, {orthographic: !!info.orthographic});
-  return result(key, item.tag, false, {rule: hit?.rule ?? info.rule, ...(wrong.length ? {wrong} : {})});
+  // `given`: el texto tal como llegó, para el registro local (así se puede ver por qué una respuesta no se aceptó).
+  return result(key, item.tag, false, {rule: hit?.rule ?? info.rule, given: String(answer), ...(wrong.length ? {wrong} : {})});
 }
 
 // options: [{text, correct?, rule?}]; answer: índice elegido.

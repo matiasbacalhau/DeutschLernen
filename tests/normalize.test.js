@@ -44,3 +44,14 @@ test('wrongWords: tolera mayúscula, puntuación y, si el tag no es ortográfico
 });
 test('wrongWords: una palabra suelta no se subraya', () =>
   assert.deepEqual(wrongWords('die', ['der'], {orthographic: false}), []));
+
+// Un umlaut puede llegar como una letra (ü) o como u + diéresis combinante; se ven igual y tienen que contar igual.
+const NFD = s => s.normalize('NFD');
+test('umlauts descompuestos (NFD) cuentan igual que los compuestos', () => {
+  assert.deepEqual(matchAnswer(NFD('Das Frühstück ist in der Küche'), ['Das Frühstück ist in der Küche'], {orthographic: true}), {ok: true, notice: null});
+  assert.equal(matchAnswer('Küche', [NFD('Küche')], {orthographic: true}).ok, true);
+});
+test('wrongWords: con umlauts descompuestos no subraya de más y los offsets caen en el texto escrito', () => {
+  const t = NFD('Die Küche ist groß');
+  assert.deepEqual(words(t, wrongWords(t, ['Die Küche ist klein'], {orthographic: true})), [NFD('groß')]);
+});
