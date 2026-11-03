@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { matchAnswer, clean } from '../js/core/normalize.js';
+import { matchAnswer, clean, wrongWords } from '../js/core/normalize.js';
 
 test('exacto', () => assert.deepEqual(matchAnswer('den', ['den'], {orthographic: false}), {ok: true, notice: null}));
 test('variantes del teclado iOS', () => {
@@ -27,3 +27,20 @@ test('ortográfico: palabra suelta exige mayúscula inicial', () =>
   assert.equal(matchAnswer('löffel', ['Löffel'], {orthographic: true}).ok, false));
 test('ortográfico: frase tolera mayúscula de inicio de oración', () =>
   assert.equal(matchAnswer('ich brauche einen Löffel', ['Ich brauche einen Löffel'], {orthographic: true}).ok, true));
+
+const words = (text, ws) => ws.map(w => text.slice(w.offset, w.offset + w.length));
+test('wrongWords: subraya las palabras que no están en la respuesta más parecida', () => {
+  const t = 'Sie ist in das Zimmer 12.';
+  assert.deepEqual(words(t, wrongWords(t, ['Sie sind in Zimmer 12.', 'Sie sind im Zimmer 12.', 'Im Zimmer 12 sind Sie.'], {orthographic: false})), ['ist', 'das']);
+});
+test('wrongWords: el orden cuenta (otra posición es otra palabra)', () => {
+  const t = 'Sie in Zimmer 12 sind.';
+  assert.deepEqual(words(t, wrongWords(t, ['Sie sind in Zimmer 12.'], {orthographic: false})), ['sind']);
+});
+test('wrongWords: tolera mayúscula, puntuación y, si el tag no es ortográfico, umlauts', () => {
+  const t = 'ich brauche ein Loeffel';
+  assert.deepEqual(words(t, wrongWords(t, ['Ich brauche einen Löffel.'], {orthographic: false})), ['ein']);
+  assert.deepEqual(words(t, wrongWords(t, ['Ich brauche einen Löffel.'], {orthographic: true})), ['ein', 'Loeffel']);
+});
+test('wrongWords: una palabra suelta no se subraya', () =>
+  assert.deepEqual(wrongWords('die', ['der'], {orthographic: false}), []));

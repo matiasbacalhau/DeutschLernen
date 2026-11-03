@@ -1,5 +1,5 @@
 // Piezas compartidas por los checks: armado del Result y evaluación de respuestas escritas.
-import { matchAnswer } from '../normalize.js';
+import { matchAnswer, wrongWords } from '../normalize.js';
 import { diagnose } from '../diagnose.js';
 
 export const tagInfo = (ctx, tag) => ctx.curriculum.tags[tag] ?? {};
@@ -21,7 +21,9 @@ export function checkWritten(key, item, answer, ctx) {
     return result(key, item.tag, false, d);
   }
   const hit = (item.errors ?? []).find((e) => matchAnswer(answer, [e.answer], {orthographic: !!info.orthographic}).ok);
-  return result(key, item.tag, false, {rule: hit?.rule ?? info.rule});
+  // En una frase, además de la regla, las palabras que difieren: así se ve también un segundo error.
+  const wrong = wrongWords(String(answer), item.answers, {orthographic: !!info.orthographic});
+  return result(key, item.tag, false, {rule: hit?.rule ?? info.rule, ...(wrong.length ? {wrong} : {})});
 }
 
 // options: [{text, correct?, rule?}]; answer: índice elegido.

@@ -22,7 +22,10 @@
     "Seid ihr im Hostel? Wir sind im Park.",
     "Ich habe keinen Hund, aber ich habe eine Katze.",
     "Das Fenster ist offen. Der Schrank ist leer.",
-    "Ich trinke gern Tee. Hast du Milch?"
+    "Ich trinke gern Tee. Hast du Milch?",
+    "Ich bin im Zimmer 12. Wo bist du?",
+    "Ich gehe in das Zimmer und suche den Schlüssel.",
+    "Lea wohnt bei der Oma und fährt mit dem Bus."
   ],
   "wrong": [
     {"text": "Ich habe ein Hund.", "quote": "ein", "category": "AKK_MASK"},
@@ -45,6 +48,8 @@
     {"text": "Du kommt aus Brasilien.", "quote": "kommt", "category": "VERB_PERSON"},
     {"text": "Ich brauchst einen Löffel.", "quote": "brauchst", "category": "VERB_PERSON"},
     {"text": "Heute ich bin müde.", "quote": "bin", "category": "VERB_POSITION"},
-    {"text": "Wo du wohnst?", "quote": "wohnst", "category": "VERB_POSITION"}
+    {"text": "Wo du wohnst?", "quote": "wohnst", "category": "VERB_POSITION"},
+    {"text": "Wir sind in das Zimmer 12.", "quote": "das", "category": "DAT_AFTER_PREP"},
+    {"text": "Ich fahre mit der Bus zur Arbeit.", "quote": "der", "category": "DAT_AFTER_PREP"}
   ]
 }

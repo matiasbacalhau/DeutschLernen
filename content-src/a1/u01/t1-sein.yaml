@@ -496,7 +496,7 @@ steps:
         tag: a1.sein.praesens
         source: "Du bist in Zimmer 12."
         instruction: "Ahora con trato formal (*Sie*)."
-        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie."]
+        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in dem Zimmer 12.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In dem Zimmer 12 sind Sie."]
         dims: {person: wir}
         reviewed: true
 
@@ -718,7 +718,7 @@ steps:
         tag: a1.sein.praesens
         from: es
         source: "Usted está en la habitación 12."
-        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in Zimmer Nummer 12.", "Sie sind im Zimmer Nummer 12.", "Sie sind in Zimmer zwölf.", "Sie sind im Zimmer zwölf.", "Sie sind in Zimmer Nummer zwölf.", "Sie sind im Zimmer Nummer zwölf.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In Zimmer zwölf sind Sie.", "Im Zimmer zwölf sind Sie."]
+        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in Zimmer Nummer 12.", "Sie sind im Zimmer Nummer 12.", "Sie sind in Zimmer zwölf.", "Sie sind im Zimmer zwölf.", "Sie sind in Zimmer Nummer zwölf.", "Sie sind im Zimmer Nummer zwölf.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In Zimmer zwölf sind Sie.", "Im Zimmer zwölf sind Sie.", "Sie sind in dem Zimmer 12.", "Sie sind in dem Zimmer Nummer 12.", "Sie sind in dem Zimmer zwölf.", "Sie sind in dem Zimmer Nummer zwölf.", "In dem Zimmer 12 sind Sie.", "In dem Zimmer zwölf sind Sie."]
         dims: {person: wir}
         errors:
           - {answer: "Sie ist in Zimmer 12.", rule: "Con *Sie* de usted, *sein* va en la forma de plural, aunque sea una sola persona."}
