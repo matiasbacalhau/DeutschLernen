@@ -1,0 +1,189 @@
+- {lemma: Hostel, pos: noun, article: das, plural: Hostels, es: "hostel", field: hostel, freq: 1, level: A1}
+- {lemma: Zimmer, pos: noun, article: das, plural: Zimmer, es: "cuarto, habitación", field: hostel, freq: 1, level: A1}
+- {lemma: Bett, pos: noun, article: das, plural: Betten, es: "cama", field: hostel, freq: 1, level: A1}
+- {lemma: Schlüssel, pos: noun, article: der, plural: Schlüssel, es: "llave", field: hostel, freq: 1, level: A1}
+- {lemma: Rezeption, pos: noun, article: die, plural: Rezeptionen, es: "recepción", field: hostel, freq: 1, level: A1}
+- {lemma: Gast, pos: noun, article: der, plural: Gäste, es: "huésped", field: hostel, freq: 2, level: A1}
+- {lemma: Rucksack, pos: noun, article: der, plural: Rucksäcke, es: "mochila", field: hostel, freq: 1, level: A1}
+- {lemma: Koffer, pos: noun, article: der, plural: Koffer, es: "valija", field: hostel, freq: 2, level: A1}
+- {lemma: Handtuch, pos: noun, article: das, plural: Handtücher, es: "toalla", field: hostel, freq: 2, level: A1}
+- {lemma: Dusche, pos: noun, article: die, plural: Duschen, es: "ducha", field: hostel, freq: 2, level: A1}
+- {lemma: Bad, pos: noun, article: das, plural: Bäder, es: "baño", field: hostel, freq: 2, level: A1}
+- {lemma: Schrank, pos: noun, article: der, plural: Schränke, es: "armario, placard", field: hostel, freq: 2, level: A1}
+- {lemma: Tasche, pos: noun, article: die, plural: Taschen, es: "bolso, bolsa", field: hostel, freq: 1, level: A1}
+- {lemma: Pass, pos: noun, article: der, plural: Pässe, es: "pasaporte", field: hostel, freq: 2, level: A1}
+- {lemma: Ausweis, pos: noun, article: der, plural: Ausweise, es: "documento de identidad", field: hostel, freq: 2, level: A1}
+- {lemma: Reservierung, pos: noun, article: die, plural: Reservierungen, es: "reserva", field: hostel, freq: 2, level: A1}
+- {lemma: Nacht, pos: noun, article: die, plural: Nächte, es: "noche", field: hostel, freq: 2, level: A1}
+- {lemma: Frühstück, pos: noun, article: das, plural: null, es: "desayuno", field: hostel, freq: 1, level: A1}
+- {lemma: Passwort, pos: noun, article: das, plural: Passwörter, es: "contraseña", field: hostel, freq: 2, level: A1}
+- {lemma: WLAN, pos: noun, article: das, plural: null, es: "wifi", field: hostel, freq: 1, level: A1}
+- {lemma: Steckdose, pos: noun, article: die, plural: Steckdosen, es: "enchufe", field: hostel, freq: 3, level: A1}
+- {lemma: Decke, pos: noun, article: die, plural: Decken, es: "manta", field: hostel, freq: 3, level: A1}
+- {lemma: Kissen, pos: noun, article: das, plural: Kissen, es: "almohada", field: hostel, freq: 3, level: A1}
+- {lemma: Etagenbett, pos: noun, article: das, plural: Etagenbetten, es: "cucheta", field: hostel, freq: 3, level: A1}
+- {lemma: Schließfach, pos: noun, article: das, plural: Schließfächer, es: "casillero (con llave)", field: hostel, freq: 3, level: A1}
+- {lemma: Ohrstöpsel, pos: noun, article: der, plural: Ohrstöpsel, es: "tapón para los oídos", field: hostel, freq: 3, level: A1}
+- {lemma: Wohnung, pos: noun, article: die, plural: Wohnungen, es: "departamento", field: wohnung, freq: 1, level: A1}
+- {lemma: Küche, pos: noun, article: die, plural: Küchen, es: "cocina (el ambiente)", field: wohnung, freq: 1, level: A1}
+- {lemma: Wohnzimmer, pos: noun, article: das, plural: Wohnzimmer, es: "living", field: wohnung, freq: 2, level: A1}
+- {lemma: Schlafzimmer, pos: noun, article: das, plural: Schlafzimmer, es: "dormitorio", field: wohnung, freq: 2, level: A1}
+- {lemma: Balkon, pos: noun, article: der, plural: Balkone, es: "balcón", field: wohnung, freq: 2, level: A1}
+- {lemma: Tür, pos: noun, article: die, plural: Türen, es: "puerta", field: wohnung, freq: 1, level: A1}
+- {lemma: Fenster, pos: noun, article: das, plural: Fenster, es: "ventana", field: wohnung, freq: 1, level: A1}
+- {lemma: Tisch, pos: noun, article: der, plural: Tische, es: "mesa", field: wohnung, freq: 1, level: A1}
+- {lemma: Stuhl, pos: noun, article: der, plural: Stühle, es: "silla", field: wohnung, freq: 1, level: A1}
+- {lemma: Sofa, pos: noun, article: das, plural: Sofas, es: "sofá", field: wohnung, freq: 2, level: A1}
+- {lemma: Regal, pos: noun, article: das, plural: Regale, es: "estante", field: wohnung, freq: 2, level: A1}
+- {lemma: Teppich, pos: noun, article: der, plural: Teppiche, es: "alfombra", field: wohnung, freq: 3, level: A1}
+- {lemma: Spiegel, pos: noun, article: der, plural: Spiegel, es: "espejo", field: wohnung, freq: 3, level: A1}
+- {lemma: Lampe, pos: noun, article: die, plural: Lampen, es: "lámpara", field: wohnung, freq: 2, level: A1}
+- {lemma: Waschmaschine, pos: noun, article: die, plural: Waschmaschinen, es: "lavarropas", field: wohnung, freq: 2, level: A1}
+- {lemma: Bild, pos: noun, article: das, plural: Bilder, es: "cuadro, imagen", field: wohnung, freq: 2, level: A1}
+- {lemma: Uhr, pos: noun, article: die, plural: Uhren, es: "reloj", field: wohnung, freq: 2, level: A1}
+- {lemma: Garten, pos: noun, article: der, plural: Gärten, es: "jardín", field: wohnung, freq: 3, level: A1}
+- {lemma: Treppe, pos: noun, article: die, plural: Treppen, es: "escalera", field: wohnung, freq: 3, level: A1}
+- {lemma: Aufzug, pos: noun, article: der, plural: Aufzüge, es: "ascensor", field: wohnung, freq: 3, level: A1}
+- {lemma: Löffel, pos: noun, article: der, plural: Löffel, es: "cuchara", field: kueche, freq: 1, level: A1}
+- {lemma: Gabel, pos: noun, article: die, plural: Gabeln, es: "tenedor", field: kueche, freq: 1, level: A1}
+- {lemma: Messer, pos: noun, article: das, plural: Messer, es: "cuchillo", field: kueche, freq: 1, level: A1}
+- {lemma: Teller, pos: noun, article: der, plural: Teller, es: "plato", field: kueche, freq: 1, level: A1}
+- {lemma: Tasse, pos: noun, article: die, plural: Tassen, es: "taza", field: kueche, freq: 1, level: A1}
+- {lemma: Glas, pos: noun, article: das, plural: Gläser, es: "vaso", field: kueche, freq: 1, level: A1}
+- {lemma: Flasche, pos: noun, article: die, plural: Flaschen, es: "botella", field: kueche, freq: 1, level: A1}
+- {lemma: Topf, pos: noun, article: der, plural: Töpfe, es: "olla", field: kueche, freq: 2, level: A1}
+- {lemma: Pfanne, pos: noun, article: die, plural: Pfannen, es: "sartén", field: kueche, freq: 2, level: A1}
+- {lemma: Schüssel, pos: noun, article: die, plural: Schüsseln, es: "bol, fuente", field: kueche, freq: 3, level: A1}
+- {lemma: Kühlschrank, pos: noun, article: der, plural: Kühlschränke, es: "heladera", field: kueche, freq: 1, level: A1}
+- {lemma: Herd, pos: noun, article: der, plural: Herde, es: "cocina (artefacto)", field: kueche, freq: 2, level: A1}
+- {lemma: Ofen, pos: noun, article: der, plural: Öfen, es: "horno", field: kueche, freq: 2, level: A1}
+- {lemma: Kaffeemaschine, pos: noun, article: die, plural: Kaffeemaschinen, es: "cafetera", field: kueche, freq: 3, level: A1}
+- {lemma: Wasserkocher, pos: noun, article: der, plural: Wasserkocher, es: "pava eléctrica", field: kueche, freq: 3, level: A1}
+- {lemma: Brot, pos: noun, article: das, plural: Brote, es: "pan", field: essen, freq: 1, level: A1}
+- {lemma: Brötchen, pos: noun, article: das, plural: Brötchen, es: "panecillo", field: essen, freq: 1, level: A1}
+- {lemma: Butter, pos: noun, article: die, plural: null, es: "manteca", field: essen, freq: 1, level: A1}
+- {lemma: Käse, pos: noun, article: der, plural: null, es: "queso", field: essen, freq: 1, level: A1}
+- {lemma: Milch, pos: noun, article: die, plural: null, es: "leche", field: getraenke, freq: 1, level: A1}
+- {lemma: Wasser, pos: noun, article: das, plural: null, es: "agua", field: getraenke, freq: 1, level: A1}
+- {lemma: Kaffee, pos: noun, article: der, plural: Kaffees, es: "café", field: getraenke, freq: 1, level: A1}
+- {lemma: Tee, pos: noun, article: der, plural: Tees, es: "té", field: getraenke, freq: 1, level: A1}
+- {lemma: Saft, pos: noun, article: der, plural: Säfte, es: "jugo", field: getraenke, freq: 2, level: A1}
+- {lemma: Bier, pos: noun, article: das, plural: Biere, es: "cerveza", field: getraenke, freq: 2, level: A1}
+- {lemma: Wein, pos: noun, article: der, plural: Weine, es: "vino", field: getraenke, freq: 2, level: A1}
+- {lemma: Apfel, pos: noun, article: der, plural: Äpfel, es: "manzana", field: essen, freq: 1, level: A1}
+- {lemma: Banane, pos: noun, article: die, plural: Bananen, es: "banana", field: essen, freq: 2, level: A1}
+- {lemma: Orange, pos: noun, article: die, plural: Orangen, es: "naranja", field: essen, freq: 2, level: A1}
+- {lemma: Tomate, pos: noun, article: die, plural: Tomaten, es: "tomate", field: essen, freq: 2, level: A1}
+- {lemma: Kartoffel, pos: noun, article: die, plural: Kartoffeln, es: "papa", field: essen, freq: 2, level: A1}
+- {lemma: Zwiebel, pos: noun, article: die, plural: Zwiebeln, es: "cebolla", field: essen, freq: 2, level: A1}
+- {lemma: Ei, pos: noun, article: das, plural: Eier, es: "huevo", field: essen, freq: 1, level: A1}
+- {lemma: Fleisch, pos: noun, article: das, plural: null, es: "carne", field: essen, freq: 1, level: A1}
+- {lemma: Fisch, pos: noun, article: der, plural: Fische, es: "pescado", field: essen, freq: 2, level: A1}
+- {lemma: Reis, pos: noun, article: der, plural: null, es: "arroz", field: vorrat, freq: 2, level: A1}
+- {lemma: Suppe, pos: noun, article: die, plural: Suppen, es: "sopa", field: gerichte, freq: 2, level: A1}
+- {lemma: Salat, pos: noun, article: der, plural: Salate, es: "ensalada", field: essen, freq: 2, level: A1}
+- {lemma: Kuchen, pos: noun, article: der, plural: Kuchen, es: "torta", field: essen, freq: 2, level: A1}
+- {lemma: Zucker, pos: noun, article: der, plural: null, es: "azúcar", field: vorrat, freq: 2, level: A1}
+- {lemma: Salz, pos: noun, article: das, plural: null, es: "sal", field: vorrat, freq: 2, level: A1}
+- {lemma: Wurst, pos: noun, article: die, plural: Würste, es: "salchicha, fiambre", field: essen, freq: 2, level: A1}
+- {lemma: Schokolade, pos: noun, article: die, plural: Schokoladen, es: "chocolate", field: essen, freq: 2, level: A1}
+- {lemma: Marmelade, pos: noun, article: die, plural: Marmeladen, es: "mermelada", field: essen, freq: 3, level: A1}
+- {lemma: Gemüse, pos: noun, article: das, plural: null, es: "verdura", field: essen, freq: 2, level: A1}
+- {lemma: Obst, pos: noun, article: das, plural: null, es: "fruta", field: essen, freq: 2, level: A1}
+- {lemma: Mehl, pos: noun, article: das, plural: null, es: "harina", field: vorrat, freq: 3, level: A1}
+- {lemma: Öl, pos: noun, article: das, plural: Öle, es: "aceite", field: vorrat, freq: 3, level: A1}
+- {lemma: Supermarkt, pos: noun, article: der, plural: Supermärkte, es: "supermercado", field: einkaufen, freq: 1, level: A1}
+- {lemma: Bäckerei, pos: noun, article: die, plural: Bäckereien, es: "panadería", field: einkaufen, freq: 1, level: A1}
+- {lemma: Kiosk, pos: noun, article: der, plural: Kioske, es: "kiosco", field: einkaufen, freq: 2, level: A1}
+- {lemma: Markt, pos: noun, article: der, plural: Märkte, es: "mercado, feria", field: einkaufen, freq: 2, level: A1}
+- {lemma: Laden, pos: noun, article: der, plural: Läden, es: "negocio, tienda", field: einkaufen, freq: 2, level: A1}
+- {lemma: Geld, pos: noun, article: das, plural: null, es: "plata", field: einkaufen, freq: 1, level: A1}
+- {lemma: Euro, pos: noun, article: der, plural: Euro, es: "euro", field: einkaufen, freq: 1, level: A1}
+- {lemma: Preis, pos: noun, article: der, plural: Preise, es: "precio", field: einkaufen, freq: 2, level: A1}
+- {lemma: Kasse, pos: noun, article: die, plural: Kassen, es: "caja", field: einkaufen, freq: 2, level: A1}
+- {lemma: Tüte, pos: noun, article: die, plural: Tüten, es: "bolsita", field: einkaufen, freq: 2, level: A1}
+- {lemma: Korb, pos: noun, article: der, plural: Körbe, es: "canasto", field: einkaufen, freq: 3, level: A1}
+- {lemma: Liste, pos: noun, article: die, plural: Listen, es: "lista", field: einkaufen, freq: 2, level: A1}
+- {lemma: Rechnung, pos: noun, article: die, plural: Rechnungen, es: "cuenta, factura", field: einkaufen, freq: 2, level: A1}
+- {lemma: Quittung, pos: noun, article: die, plural: Quittungen, es: "recibo", field: einkaufen, freq: 3, level: A1}
+- {lemma: Zeitung, pos: noun, article: die, plural: Zeitungen, es: "diario", field: einkaufen, freq: 2, level: A1}
+- {lemma: Briefmarke, pos: noun, article: die, plural: Briefmarken, es: "estampilla", field: einkaufen, freq: 3, level: A1}
+- {lemma: Packung, pos: noun, article: die, plural: Packungen, es: "paquete", field: einkaufen, freq: 3, level: A1}
+- {lemma: Karte, pos: noun, article: die, plural: Karten, es: "tarjeta, mapa", field: einkaufen, freq: 1, level: A1}
+- {lemma: Mann, pos: noun, article: der, plural: Männer, es: "hombre", field: personen, freq: 1, level: A1}
+- {lemma: Frau, pos: noun, article: die, plural: Frauen, es: "mujer, señora", field: personen, freq: 1, level: A1}
+- {lemma: Kind, pos: noun, article: das, plural: Kinder, es: "niño", field: personen, freq: 1, level: A1}
+- {lemma: Freund, pos: noun, article: der, plural: Freunde, es: "amigo", field: personen, freq: 1, level: A1}
+- {lemma: Freundin, pos: noun, article: die, plural: Freundinnen, es: "amiga", field: personen, freq: 1, level: A1}
+- {lemma: Vermieter, pos: noun, article: der, plural: Vermieter, es: "dueño (del departamento)", field: personen, freq: 2, level: A1}
+- {lemma: Mitbewohner, pos: noun, article: der, plural: Mitbewohner, es: "compañero de casa", field: personen, freq: 2, level: A1}
+- {lemma: Name, pos: noun, article: der, plural: Namen, es: "nombre", field: personen, freq: 1, level: A1}
+- {lemma: Mensch, pos: noun, article: der, plural: Menschen, es: "persona", field: personen, freq: 2, level: A1}
+- {lemma: Lehrer, pos: noun, article: der, plural: Lehrer, es: "docente", field: personen, freq: 2, level: A1}
+- {lemma: Familie, pos: noun, article: die, plural: Familien, es: "familia", field: personen, freq: 1, level: A1}
+- {lemma: Bruder, pos: noun, article: der, plural: Brüder, es: "hermano", field: personen, freq: 2, level: A1}
+- {lemma: Schwester, pos: noun, article: die, plural: Schwestern, es: "hermana", field: personen, freq: 2, level: A1}
+- {lemma: Student, pos: noun, article: der, plural: Studenten, es: "estudiante", field: personen, freq: 2, level: A1}
+- {lemma: Arzt, pos: noun, article: der, plural: Ärzte, es: "médico", field: personen, freq: 2, level: A1}
+- {lemma: Kollege, pos: noun, article: der, plural: Kollegen, es: "colega", field: personen, freq: 2, level: A1}
+- {lemma: Nachbar, pos: noun, article: der, plural: Nachbarn, es: "vecino", field: personen, freq: 2, level: A1}
+- {lemma: Deutschland, pos: noun, article: null, plural: null, es: "Alemania", field: laender, freq: 1, level: A1}
+- {lemma: Österreich, pos: noun, article: null, plural: null, es: "Austria", field: laender, freq: 2, level: A1}
+- {lemma: Schweiz, pos: noun, article: die, plural: null, es: "Suiza", field: laender, freq: 2, level: A1}
+- {lemma: Brasilien, pos: noun, article: null, plural: null, es: "Brasil", field: laender, freq: 1, level: A1}
+- {lemma: Argentinien, pos: noun, article: null, plural: null, es: "Argentina", field: laender, freq: 1, level: A1}
+- {lemma: Uruguay, pos: noun, article: null, plural: null, es: "Uruguay", field: laender, freq: 2, level: A1}
+- {lemma: Chile, pos: noun, article: null, plural: null, es: "Chile", field: laender, freq: 2, level: A1}
+- {lemma: Mexiko, pos: noun, article: null, plural: null, es: "México", field: laender, freq: 2, level: A1}
+- {lemma: Spanien, pos: noun, article: null, plural: null, es: "España", field: laender, freq: 2, level: A1}
+- {lemma: Italien, pos: noun, article: null, plural: null, es: "Italia", field: laender, freq: 2, level: A1}
+- {lemma: Frankreich, pos: noun, article: null, plural: null, es: "Francia", field: laender, freq: 2, level: A1}
+- {lemma: Land, pos: noun, article: das, plural: Länder, es: "país", field: laender, freq: 1, level: A1}
+- {lemma: Stadt, pos: noun, article: die, plural: Städte, es: "ciudad", field: laender, freq: 1, level: A1}
+- {lemma: Hauptstadt, pos: noun, article: die, plural: Hauptstädte, es: "capital", field: laender, freq: 2, level: A1}
+- {lemma: Sprache, pos: noun, article: die, plural: Sprachen, es: "idioma", field: laender, freq: 1, level: A1}
+- {lemma: Heizung, pos: noun, article: die, plural: Heizungen, es: "calefacción", field: wohnung, freq: 2, level: A1}
+- {lemma: Hausordnung, pos: noun, article: die, plural: Hausordnungen, es: "reglamento del edificio", field: wohnung, freq: 3, level: A1}
+- {lemma: Briefkasten, pos: noun, article: der, plural: Briefkästen, es: "buzón", field: wohnung, freq: 2, level: A1}
+- {lemma: Keller, pos: noun, article: der, plural: Keller, es: "sótano", field: wohnung, freq: 2, level: A1}
+- {lemma: Flur, pos: noun, article: der, plural: Flure, es: "pasillo", field: wohnung, freq: 2, level: A1}
+- {lemma: Hof, pos: noun, article: der, plural: Höfe, es: "patio", field: wohnung, freq: 3, level: A1}
+- {lemma: Müll, pos: noun, article: der, plural: null, es: "basura", field: wohnung, freq: 2, level: A1}
+- {lemma: Mülltonne, pos: noun, article: die, plural: Mülltonnen, es: "tacho de basura (del edificio)", field: wohnung, freq: 3, level: A1}
+- {lemma: Klingel, pos: noun, article: die, plural: Klingeln, es: "timbre", field: wohnung, freq: 3, level: A1}
+- {lemma: Erdgeschoss, pos: noun, article: das, plural: Erdgeschosse, es: "planta baja", field: wohnung, freq: 3, level: A1}
+- {lemma: Karton, pos: noun, article: der, plural: Kartons, es: "caja (de cartón)", field: wohnung, freq: 2, level: A1}
+- {lemma: Umzug, pos: noun, article: der, plural: Umzüge, es: "mudanza", field: wohnung, freq: 2, level: A1}
+- {lemma: Fahrrad, pos: noun, article: das, plural: Fahrräder, es: "bicicleta", field: wohnung, freq: 1, level: A1}
+- {lemma: Pflanze, pos: noun, article: die, plural: Pflanzen, es: "planta", field: wohnung, freq: 3, level: A1}
+- {lemma: Schreibtisch, pos: noun, article: der, plural: Schreibtische, es: "escritorio", field: wohnung, freq: 2, level: A1}
+- {lemma: Kleiderschrank, pos: noun, article: der, plural: Kleiderschränke, es: "ropero", field: wohnung, freq: 3, level: A1}
+- {lemma: Tischchen, pos: noun, article: das, plural: Tischchen, es: "mesita", field: wohnung, freq: 3, level: A1}
+- {lemma: Spüle, pos: noun, article: die, plural: Spülen, es: "pileta de la cocina", field: kueche, freq: 2, level: A1}
+- {lemma: Mikrowelle, pos: noun, article: die, plural: Mikrowellen, es: "microondas", field: kueche, freq: 2, level: A1}
+- {lemma: Toaster, pos: noun, article: der, plural: Toaster, es: "tostadora", field: kueche, freq: 2, level: A1}
+- {lemma: Besteck, pos: noun, article: das, plural: Bestecke, es: "cubiertos", field: kueche, freq: 2, level: A1}
+- {lemma: Päckchen, pos: noun, article: das, plural: Päckchen, es: "paquetito", field: einkaufen, freq: 3, level: A1}
+- {lemma: Mädchen, pos: noun, article: das, plural: Mädchen, es: "chica, nena", field: personen, freq: 1, level: A1}
+- {lemma: Techniker, pos: noun, article: der, plural: Techniker, es: "técnico", field: personen, freq: 3, level: A1}
+- {lemma: Mieter, pos: noun, article: der, plural: Mieter, es: "inquilino", field: personen, freq: 3, level: A1}
+- {lemma: Katze, pos: noun, article: die, plural: Katzen, es: "gato, gata", field: tiere, freq: 2, level: A1}
+- {lemma: Kätzchen, pos: noun, article: das, plural: Kätzchen, es: "gatito", field: tiere, freq: 3, level: A1}
+- {lemma: sein, pos: verb, es: "ser, estar", field: hostel, freq: 1, level: A1, irregular: {ich: bin, du: bist, er: ist, wir: sind, ihr: seid, sie: sind}}
+- {lemma: haben, pos: verb, es: "tener", field: hostel, freq: 1, level: A1, irregular: {du: hast, er: hat}}
+- {lemma: möchten, pos: verb, es: "querer (cortés), me gustaría", field: hostel, freq: 1, level: A1, irregular: {er: möchte, ich: möchte}}
+- {lemma: brauchen, pos: verb, es: "necesitar", field: einkaufen, freq: 1, level: A1}
+- {lemma: wohnen, pos: verb, es: "vivir, residir", field: laender, freq: 1, level: A1}
+- {lemma: kommen, pos: verb, es: "venir, ser de", field: laender, freq: 1, level: A1}
+- {lemma: heißen, pos: verb, es: "llamarse", field: personen, freq: 1, level: A1}
+- {lemma: arbeiten, pos: verb, es: "trabajar", field: personen, freq: 1, level: A1}
+- {lemma: lernen, pos: verb, es: "aprender, estudiar", field: personen, freq: 1, level: A1}
+- {lemma: sprechen, pos: verb, es: "hablar", field: personen, freq: 1, level: A1, irregular: {du: sprichst, er: spricht}}
+- {lemma: essen, pos: verb, es: "comer", field: essen, freq: 1, level: A1, irregular: {du: isst, er: isst}}
+- {lemma: trinken, pos: verb, es: "tomar, beber", field: getraenke, freq: 1, level: A1}
+- {lemma: kaufen, pos: verb, es: "comprar", field: einkaufen, freq: 1, level: A1}
+- {lemma: nehmen, pos: verb, es: "llevar, tomar", field: einkaufen, freq: 2, level: A1, irregular: {du: nimmst, er: nimmt}}
+- {lemma: machen, pos: verb, es: "hacer", field: wohnung, freq: 1, level: A1}
+- {lemma: gehen, pos: verb, es: "ir", field: wohnung, freq: 1, level: A1}
+- {lemma: suchen, pos: verb, es: "buscar", field: wohnung, freq: 2, level: A1}
+- {lemma: bezahlen, pos: verb, es: "pagar", field: hostel, freq: 2, level: A1}

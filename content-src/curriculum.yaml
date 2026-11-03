@@ -1,0 +1,315 @@
+levels: [A1, A2, B1, B2, C1]
+topics:
+  - {id: a1.u1.t1, level: A1, unit: a1.u01, title: "Personalpronomen + sein + W-Fragen"}
+  - {id: a1.u1.t2, level: A1, unit: a1.u01, title: "Artikel und Genus (Nominativ)"}
+  - {id: a1.u1.t3, level: A1, unit: a1.u01, title: "Akkusativ con haben, möchten y brauchen"}
+  - {id: a1.u2.t1, level: A1, title: "Präsens regular y V2"}
+  - {id: a1.u2.t2, level: A1, title: "Präsens irregular (e→i, a→ä)"}
+  - {id: a1.u3.t1, level: A1, title: "Pregunta sí/no, nicht y kein"}
+  - {id: a1.u3.t2, level: A1, title: "Posesivos"}
+  - {id: a1.u4.t1, level: A1, title: "Modales: können, müssen, wollen, dürfen"}
+  - {id: a1.u4.t2, level: A1, title: "Verbos separables"}
+  - {id: a1.u5.t1, level: A1, title: "Imperativ"}
+  - {id: a1.u5.t2, level: A1, title: "Preposiciones de tiempo y lugar"}
+  - {id: a1.u6.t1, level: A1, title: "Conectores und/aber/oder/denn"}
+  - {id: a1.u6.t2, level: A1, title: "Perfekt de verbos frecuentes (introducción)"}
+  - {id: a2.t1, level: A2, title: "Perfekt completo"}
+  - {id: a2.t2, level: A2, title: "Präteritum de sein, haben y modales"}
+  - {id: a2.t3, level: A2, title: "Dativ"}
+  - {id: a2.t4, level: A2, title: "Preposiciones con Akk/Dat"}
+  - {id: a2.t5, level: A2, title: "Reflexivos"}
+  - {id: a2.t6, level: A2, title: "Comparativo y superlativo"}
+  - {id: a2.t7, level: A2, title: "Adjetivo tras artículo"}
+  - {id: a2.t8, level: A2, title: "Subordinadas con weil/dass/wenn"}
+  - {id: b1.t1, level: B1, title: "Präteritum y Plusquamperfekt"}
+  - {id: b1.t2, level: B1, title: "Konjunktiv II"}
+  - {id: b1.t3, level: B1, title: "Passiv"}
+  - {id: b1.t4, level: B1, title: "Relativas"}
+  - {id: b1.t5, level: B1, title: "Declinación adjetival completa"}
+  - {id: b1.t6, level: B1, title: "Genitiv"}
+  - {id: b1.t7, level: B1, title: "zu + Infinitiv"}
+  - {id: b1.t8, level: B1, title: "Conectores dobles"}
+  - {id: b2.t1, level: B2, title: "Passiv en todos los tiempos"}
+  - {id: b2.t2, level: B2, title: "Konjunktiv I"}
+  - {id: b2.t3, level: B2, title: "Subordinadas avanzadas"}
+  - {id: b2.t4, level: B2, title: "n-Deklination"}
+  - {id: b2.t5, level: B2, title: "Participios como adjetivo"}
+  - {id: b2.t6, level: B2, title: "Partículas modales"}
+  - {id: c1.t1, level: C1, title: "Nominalstil y Verbalstil"}
+  - {id: c1.t2, level: C1, title: "Partizipialattribute"}
+  - {id: c1.t3, level: C1, title: "Discurso indirecto"}
+  - {id: c1.t4, level: C1, title: "Funktionsverbgefüge"}
+  - {id: c1.t5, level: C1, title: "Orden del Mittelfeld"}
+tags:
+  a1.pron.personal:
+    title: "Pronombres personales"
+    requires: []
+    orthographic: false
+    rule: "Los *Personalpronomen* (pronombres personales) reemplazan al sujeto y hay uno distinto para cada persona; el trato formal se escribe con mayúscula."
+    examples:
+      - {de: "Ich bin müde.", es: "Estoy cansado.", dims: {"person": "ich"}}
+      - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
+      - {de: "Er kommt aus Brasilien.", es: "Él viene de Brasil.", dims: {"person": "er"}}
+      - {de: "Wir sind im Zimmer.", es: "Estamos en el cuarto.", dims: {"person": "wir"}}
+    curiosities: ["*du* y el inglés antiguo *thou* vienen de la misma raíz germánica."]
+  a1.sein.praesens:
+    title: "sein en presente"
+    requires: [a1.pron.personal]
+    orthographic: false
+    rule: "El verbo *sein* (ser/estar) es irregular: cambia con cada persona y sirve tanto para ser como para estar."
+    examples:
+      - {de: "Ich bin neu hier.", es: "Soy nuevo acá.", dims: {"person": "ich"}}
+      - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
+      - {de: "Wir sind in der Küche.", es: "Estamos en la cocina.", dims: {"person": "wir"}}
+      - {de: "Sie ist an der Rezeption.", es: "Ella está en la recepción.", dims: {"person": "sie"}}
+    curiosities: ["*sein* es irregular, igual que *to be* en inglés y *ser* en español y portugués."]
+  a1.wfragen:
+    title: "W-Fragen"
+    requires: []
+    orthographic: false
+    rule: "Las *W-Fragen* (preguntas con palabra interrogativa) empiezan con esa palabra y el verbo conjugado va enseguida, en segunda posición."
+    examples:
+      - {de: "Wer ist das?", es: "¿Quién es?", dims: {"word": "wer"}}
+      - {de: "Was ist das?", es: "¿Qué es esto?", dims: {"word": "was"}}
+      - {de: "Wo ist die Küche?", es: "¿Dónde está la cocina?", dims: {"word": "wo"}}
+      - {de: "Woher kommst du?", es: "¿De dónde sos?", dims: {"word": "woher"}}
+      - {de: "Wie heißt du?", es: "¿Cómo te llamás?", dims: {"word": "wie"}}
+    curiosities: ["Casi todas las palabras interrogativas alemanas empiezan con *w*, como *who*, *what* y *where* en inglés."]
+  a1.nom.mask:
+    title: "Nominativ masculino"
+    requires: []
+    orthographic: false
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    examples:
+      - {de: "Der Löffel ist neu.", es: "La cuchara es nueva.", dims: {"gender": "m"}}
+      - {de: "Die Lampe ist im Zimmer.", es: "La lámpara está en el cuarto.", dims: {"gender": "f"}}
+      - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
+  a1.nom.fem:
+    title: "Nominativ femenino"
+    requires: []
+    orthographic: false
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    examples:
+      - {de: "Die Lampe ist neu.", es: "La lámpara es nueva.", dims: {"gender": "f"}}
+      - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
+      - {de: "Das Fenster ist offen.", es: "La ventana está abierta.", dims: {"gender": "n"}}
+  a1.nom.neut:
+    title: "Nominativ neutro"
+    requires: []
+    orthographic: false
+    rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    examples:
+      - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
+      - {de: "Der Schrank ist leer.", es: "El armario está vacío.", dims: {"gender": "m"}}
+      - {de: "Die Küche ist klein.", es: "La cocina es chica.", dims: {"gender": "f"}}
+  a1.nom.plural:
+    title: "Nominativ plural"
+    requires: []
+    orthographic: false
+    rule: "En *Nominativ* (el sujeto) el plural comparte un único artículo para todos los géneros."
+    examples:
+      - {de: "Die Betten sind groß.", es: "Las camas son grandes.", dims: {"gender": "pl"}}
+      - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
+      - {de: "Die Lampen sind neu.", es: "Las lámparas son nuevas.", dims: {"gender": "pl"}}
+      - {de: "Das Fenster ist offen.", es: "La ventana está abierta.", dims: {"gender": "n"}}
+  a1.akk.mask:
+    title: "Akkusativ masculino"
+    requires: [a1.nom.mask]
+    orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    examples:
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+  a1.akk.fem:
+    title: "Akkusativ femenino"
+    requires: [a1.nom.fem]
+    orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    examples:
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+  a1.akk.neut:
+    title: "Akkusativ neutro"
+    requires: [a1.nom.neut]
+    orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    examples:
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Lampe.", es: "Tengo una lámpara.", dims: {"gender": "f"}}
+  a1.akk.plural:
+    title: "Akkusativ plural"
+    requires: [a1.nom.plural]
+    orthographic: false
+    rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el plural no cambia: queda igual que en Nominativ."
+    examples:
+      - {de: "Wir brauchen Teller.", es: "Necesitamos platos.", dims: {"gender": "pl"}}
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+  a1.ortho.nomen:
+    title: "Sustantivos con mayúscula"
+    requires: []
+    orthographic: true
+    rule: "En alemán todos los sustantivos se escriben con mayúscula inicial, también en medio de la oración."
+    examples:
+      - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
+      - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
+      - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
+    curiosities: ["Hasta el siglo XVIII el inglés también escribía muchos sustantivos con mayúscula."]
+  a1.perfekt.hilfsverb:
+    title: "Perfekt: haben o sein"
+    requires: [a1.sein.praesens]
+    orthographic: false
+    rule: "El *Perfekt* (pretérito perfecto) lleva un verbo auxiliar que depende del verbo principal: los de movimiento o cambio de estado usan uno y la mayoría del resto usa el otro."
+    examples:
+      - {de: "Ich habe ein Brot gekauft.", es: "Compré un pan.", dims: {"aux": "haben"}}
+      - {de: "Ich bin nach Berlin gefahren.", es: "Viajé a Berlín.", dims: {"aux": "sein"}}
+      - {de: "Wir sind in Berlin geblieben.", es: "Nos quedamos en Berlín.", dims: {"aux": "sein"}}
+      - {de: "Ich habe gut geschlafen.", es: "Dormí bien.", dims: {"aux": "haben"}}
+  a1.praesens.regular:
+    title: "Presente regular y V2"
+    requires: [a1.pron.personal]
+    orthographic: false
+  a1.praesens.irregular:
+    title: "Presente irregular"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a1.satz.ja-nein:
+    title: "Pregunta sí/no, nicht y kein"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a1.possessiv:
+    title: "Posesivos"
+    requires: [a1.nom.mask]
+    orthographic: false
+  a1.modal:
+    title: "Modales"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a1.trennbar:
+    title: "Verbos separables"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a1.imperativ:
+    title: "Imperativ"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a1.praep:
+    title: "Preposiciones de tiempo y lugar"
+    requires: [a1.nom.mask]
+    orthographic: false
+  a1.konnektor:
+    title: "und/aber/oder/denn"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.perfekt:
+    title: "Perfekt completo"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.praet:
+    title: "Präteritum de sein, haben y modales"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.dativ:
+    title: "Dativ"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.praep:
+    title: "Preposiciones con Akk/Dat"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.reflexiv:
+    title: "Reflexivos"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.komparativ:
+    title: "Comparativo y superlativo"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.adjektiv:
+    title: "Adjetivo tras artículo"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  a2.nebensatz:
+    title: "Subordinadas con weil/dass/wenn"
+    requires: [a1.praesens.regular]
+    orthographic: false
+  b1.praet:
+    title: "Präteritum y Plusquamperfekt"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.konj2:
+    title: "Konjunktiv II"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.passiv:
+    title: "Passiv"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.relativ:
+    title: "Relativas"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.adjektiv:
+    title: "Declinación adjetival completa"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.genitiv:
+    title: "Genitiv"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.infinitiv:
+    title: "zu + Infinitiv"
+    requires: [a2.perfekt]
+    orthographic: false
+  b1.konnektor:
+    title: "Conectores dobles"
+    requires: [a2.perfekt]
+    orthographic: false
+  b2.passiv:
+    title: "Passiv en todos los tiempos"
+    requires: [b1.praet]
+    orthographic: false
+  b2.konj1:
+    title: "Konjunktiv I"
+    requires: [b1.praet]
+    orthographic: false
+  b2.nebensatz:
+    title: "Subordinadas avanzadas"
+    requires: [b1.praet]
+    orthographic: false
+  b2.ndekl:
+    title: "n-Deklination"
+    requires: [b1.praet]
+    orthographic: false
+  b2.partizip:
+    title: "Participios como adjetivo"
+    requires: [b1.praet]
+    orthographic: false
+  b2.partikel:
+    title: "Partículas modales"
+    requires: [b1.praet]
+    orthographic: false
+  c1.nominal:
+    title: "Nominalstil y Verbalstil"
+    requires: [b2.passiv]
+    orthographic: false
+  c1.partizip:
+    title: "Partizipialattribute"
+    requires: [b2.passiv]
+    orthographic: false
+  c1.konj1:
+    title: "Discurso indirecto"
+    requires: [b2.passiv]
+    orthographic: false
+  c1.funktion:
+    title: "Funktionsverbgefüge"
+    requires: [b2.passiv]
+    orthographic: false
+  c1.mittelfeld:
+    title: "Orden del Mittelfeld"
+    requires: [b2.passiv]
+    orthographic: false

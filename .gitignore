@@ -9,3 +9,5 @@ reports/
 __pycache__/
 node_modules/
 privado/
+.superpowers/
+.taste-skill/

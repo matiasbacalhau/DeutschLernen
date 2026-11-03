@@ -1,0 +1,13 @@
+[
+  {"exercise": {"type": "choice"}, "items": 1},
+  {"exercise": {"type": "gap"}, "items": 1},
+  {"exercise": {"type": "situation", "gaps": [{}, {}]}, "items": 2},
+  {"exercise": {"type": "transform"}, "items": 1},
+  {"exercise": {"type": "translate"}, "items": 1},
+  {"exercise": {"type": "order"}, "items": 1},
+  {"exercise": {"type": "spot-error"}, "items": 1},
+  {"exercise": {"type": "reading", "questions": [{}, {}, {}]}, "items": 3},
+  {"exercise": {"type": "detective", "apply": [{}, {}]}, "items": 3},
+  {"exercise": {"type": "writing-guided"}, "items": 1},
+  {"exercise": {"type": "writing-free"}, "items": 1}
+]

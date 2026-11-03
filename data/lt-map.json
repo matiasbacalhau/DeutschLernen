@@ -1,0 +1,118 @@
+{
+ "rules": {
+  "HILFSVERB_HABEN_SEIN": {
+   "tag": "a1.perfekt.hilfsverb",
+   "es": "El Perfekt lleva un verbo auxiliar que depende del verbo principal: los de movimiento o cambio de estado usan el otro."
+  },
+  "ZUM_FEM_NOMEN": {
+   "tag": "a1.nom.fem",
+   "es": "El sustantivo es femenino: la contracción de preposición y artículo es otra."
+  },
+  "DE_AGREEMENT": {
+   "es": "El artículo tiene que concordar en género y caso con el sustantivo: revisá el género de la palabra."
+  },
+  "OBJECT_AGREEMENT": {
+   "es": "Regla del objeto directo e indirecto: el caso del artículo no es el que pide el verbo."
+  },
+  "DE_VERBAGREEMENT": {
+   "es": "El verbo cambia con cada persona: tiene que concordar con el sujeto."
+  },
+  "GERMAN_SPELLER_RULE": {
+   "es": "Hay una palabra mal escrita: revisá su ortografía."
+  },
+  "UPPERCASE_SENTENCE_START": {
+   "es": "Regla del comienzo de oración: la primera palabra se escribe de una manera especial."
+  },
+  "FRAGEZEICHEN_STATT_PUNKT": {
+   "es": "El tipo de oración (aquí, una pregunta) pide un signo de cierre distinto del que usaste."
+  },
+  "DE_DOUBLE_PUNCTUATION": {
+   "es": "Hay un signo de puntuación repetido."
+  },
+  "KOMMA_VOR_UND_ODER": {
+   "es": "Regla de la coma antes de und/oder: revisá si lo que sigue es una oración con sujeto propio."
+  },
+  "KOMMA_ZWISCHEN_HAUPT_UND_NEBENSATZ_2": {
+   "es": "Regla de la puntuación entre la oración principal y la subordinada: falta un signo que las separe."
+  }
+ },
+ "categories": {
+  "CONFUSED_WORDS": "palabras fáciles de confundir",
+  "TYPOS": "ortografía",
+  "GRAMMAR": "gramática",
+  "CASING": "mayúsculas y minúsculas",
+  "PUNCTUATION": "puntuación",
+  "HILFESTELLUNG_KOMMASETZUNG": "puntuación",
+  "TYPOGRAPHY": "tipografía",
+  "REDUNDANCY": "palabra repetida",
+  "COLLOQUIALISMS": "lenguaje coloquial",
+  "REPETITIONS_STYLE": "estilo",
+  "STYLE": "estilo"
+ },
+ "notice_categories": [
+  "STYLE",
+  "TYPOGRAPHY",
+  "REDUNDANCY",
+  "COLLOQUIALISMS",
+  "REPETITIONS_STYLE"
+ ],
+ "llm_categories": {
+  "AKK_MASK": {
+   "tag": "a1.akk.mask",
+   "es": "Con este verbo, la palabra es el objeto directo y va en *Akkusativ*: revisá si su género es el que cambia.",
+   "hint": "A masculine noun is the direct (accusative) object, but its article or ending is not the accusative masculine form (for example 'ein Hund' or 'der Mann' as the object of haben, brauchen, möchten, sehen, kaufen)."
+  },
+  "AKK_FEM": {
+   "tag": "a1.akk.fem",
+   "es": "El artículo del objeto directo no es el del género de esta palabra: en *Akkusativ* cambia un solo género, y no es el de ella.",
+   "hint": "A feminine noun is the direct (accusative) object, but its article is not feminine (for example 'einen Tasche')."
+  },
+  "AKK_NEUT": {
+   "tag": "a1.akk.neut",
+   "es": "El artículo del objeto directo no es el del género de esta palabra: en *Akkusativ* cambia un solo género, y no es el de ella.",
+   "hint": "A neuter noun is the direct (accusative) object, but its article is not neuter (for example 'einen Brot' or 'eine Bett')."
+  },
+  "AKK_PLURAL": {
+   "tag": "a1.akk.plural",
+   "es": "En plural, el artículo del objeto directo queda igual que en *Nominativ*.",
+   "hint": "A plural noun is the direct (accusative) object, but its article is not the plural form (for example 'den Betten' as the object)."
+  },
+  "NOM_MASK": {
+   "tag": "a1.nom.mask",
+   "es": "El artículo no corresponde al género de esta palabra: el género se aprende con cada sustantivo.",
+   "hint": "A masculine noun is the subject or follows 'sein', but its article is not masculine nominative (for example 'Die Tisch ist alt')."
+  },
+  "NOM_FEM": {
+   "tag": "a1.nom.fem",
+   "es": "El artículo no corresponde al género de esta palabra: el género se aprende con cada sustantivo.",
+   "hint": "A feminine noun is the subject or follows 'sein', but its article is not feminine nominative (for example 'Der Lampe ist neu')."
+  },
+  "NOM_NEUT": {
+   "tag": "a1.nom.neut",
+   "es": "El artículo no corresponde al género de esta palabra: el género se aprende con cada sustantivo.",
+   "hint": "A neuter noun is the subject or follows 'sein', but its article is not neuter nominative (for example 'Der Bett ist groß')."
+  },
+  "NOM_PLURAL": {
+   "tag": "a1.nom.plural",
+   "es": "En plural el artículo es uno solo para los tres géneros.",
+   "hint": "A plural noun is the subject or follows 'sein', but its article is not the plural nominative form (for example 'Das Betten sind groß')."
+  },
+  "AKK_AFTER_SEIN": {
+   "es": "*sein* no tiene objeto directo: lo que va con *sein* es otra forma de nombrar al sujeto y queda en *Nominativ*.",
+   "hint": "A noun after the verb 'sein' is wrongly put in the accusative (for example 'Das ist den Kaffee' or 'Er ist einen Freund')."
+  },
+  "SEIN_FORM": {
+   "tag": "a1.sein.praesens",
+   "es": "*sein* es irregular: cada persona tiene su forma. Revisá cuál pide el sujeto.",
+   "hint": "The form of 'sein' does not match the subject (for example 'ich ist', 'du bin', 'wir seid')."
+  },
+  "VERB_PERSON": {
+   "es": "El verbo cambia con cada persona: tiene que concordar con el sujeto.",
+   "hint": "A verb other than 'sein' has an ending that does not match the subject (for example 'du kommt', 'ich brauchst')."
+  },
+  "VERB_POSITION": {
+   "es": "Regla de la posición del verbo: en la oración afirmativa y en la pregunta con W, el verbo conjugado va en segundo lugar.",
+   "hint": "In a statement or a W-question the conjugated verb is not in second position (for example 'Heute ich bin müde', 'Wo du wohnst?'). Quote the conjugated verb."
+  }
+ }
+}

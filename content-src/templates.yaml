@@ -1,0 +1,37 @@
+# Plantillas de `articulo-caso` (gaps generados). Cada instancia es "plantilla × lema que entra en la ranura".
+# Criterio: TODA instancia tiene que ser algo que una persona diría (se leen todas al cambiar una plantilla o el léxico:
+# `node tools/german_texts.mjs | grep tpl-`). El generador no admite exclusiones por lema, así que la ranura se ajusta
+# con los campos del léxico (essen = comidas, getraenke = bebidas, vorrat = alacena, kueche = utensilios y aparatos).
+# Los contables de `essen` (Ei, Tomate, Brötchen…) quedan fuera de las plantillas de lista y de *kein … mehr*: ahí irían en plural
+# (*keine Kartoffeln mehr*). *Suppe* va en `gerichte` (platos), fuera del changuito de `haben-indef`.
+# La frase fuerza el determinante (regla 11: la consigna fija la restricción):
+# - indef: "noch … bitte" (otro más), "nur … im Korb, wir brauchen aber zwei", "noch … für die Küche";
+# - kein: "… mehr" (ya no);
+# - def: una referencia conocida ("von deiner Liste") o el contexto lo dice ("con artículo definido").
+- {id: tpl-brauchen-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: brauchen,
+   context: "Departamento nuevo: anotás lo que todavía falta en la cocina.",
+   text: "Ich brauche noch ___ {noun} für die Küche.", slot: {pos: noun, fields: [kueche], countable: true}}
+- {id: tpl-brauchen-def, tag_prefix: a1.akk, det: def, kase: akk, verb: brauchen,
+   context: "Cocinando: Paul está justo delante de lo que buscás (con artículo definido).",
+   text: "Paul, ich brauche mal ___ {noun}!", slot: {pos: noun, fields: [kueche, vorrat]}}
+- {id: tpl-brauchen-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: brauchen,
+   context: "En el súper: Jana te avisa que eso ya lo compró ella.",
+   text: "Wir brauchen ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke, vorrat]}}
+- {id: tpl-haben-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: haben,
+   context: "En el súper: en la lista de Jana, todo dice «2×».",
+   text: "Ich habe nur ___ {noun} im Korb, wir brauchen aber zwei.", slot: {pos: noun, fields: [essen], countable: true}}
+- {id: tpl-haben-def, tag_prefix: a1.akk, det: def, kase: akk, verb: haben,
+   context: "En el súper, le contás a Jana qué ya está en el changuito.",
+   text: "Von deiner Liste habe ich ___ {noun} schon.", slot: {pos: noun, fields: [getraenke, vorrat]}}
+- {id: tpl-haben-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: haben,
+   context: "Revisando la heladera y la alacena antes de ir al súper.",
+   text: "Wir haben ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke, vorrat]}}
+- {id: tpl-moechten-indef, tag_prefix: a1.akk, det: indef, kase: akk, verb: möchten,
+   context: "En el bar: el primero ya se terminó y pedís otro.",
+   text: "Ich möchte noch ___ {noun}, bitte.", slot: {pos: noun, fields: [getraenke], countable: true}}
+- {id: tpl-moechten-def, tag_prefix: a1.akk, det: def, kase: akk, verb: möchten,
+   context: "En el bar, la moza pregunta qué cobra y señalás lo que está en la mesa (con artículo definido).",
+   text: "Ich möchte ___ {noun} bezahlen, bitte.", slot: {pos: noun, fields: [getraenke]}}
+- {id: tpl-moechten-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: möchten,
+   context: "En una cena: el anfitrión te quiere servir otra vez y ya no podés más.",
+   text: "Danke, ich möchte ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke]}}

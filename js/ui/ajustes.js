@@ -51,8 +51,28 @@ export default async function ajustes(el, { store }) {
     e.target.value = '';
   };
 
+  const settings = (await store.get('settings')) ?? {};
+  const name = h('input', { id: 'name', type: 'text', value: settings.name ?? '', autocomplete: 'off', autocapitalize: 'words', spellcheck: 'false',
+    onchange: async e => store.set('settings', { ...((await store.get('settings')) ?? {}), name: e.target.value.trim() }) });
+
+  const exportarReportes = async () => {
+    try {
+      const date = new Date().toISOString().slice(0, 10);
+      await saveFile(`aleman-reportes-${date}.json`, JSON.stringify({ reports: (await store.get('reports')) ?? [] }, null, 2));
+      status.className = 'status ok';
+      status.textContent = 'Reportes exportados.';
+    } catch (e) {
+      status.className = 'status bad';
+      status.textContent = e.name === 'AbortError' ? 'Exportación cancelada.' : `No se pudo exportar: ${e.message}`;
+    }
+  };
+
   el.append(
     h('h1', {}, 'Ajustes'),
+    h('div', { class: 'card' },
+      h('label', { for: 'name' }, 'Tu nombre'),
+      name,
+    ),
     h('div', { class: 'card' },
       h('h2', {}, 'Backup'),
       h('p', { class: 'muted' }, `Último backup: ${last}. El progreso vive solo en este dispositivo.`),
@@ -61,5 +81,11 @@ export default async function ajustes(el, { store }) {
       h('input', { id: 'import', type: 'file', accept: 'application/json,.json', onchange: importar }),
       status,
     ),
+    h('div', { class: 'card' },
+      h('h2', {}, 'Reportes'),
+      h('p', { class: 'muted' }, 'Los ejercicios que marcaste con ⚑. El archivo no incluye tu progreso.'),
+      h('button', { onclick: exportarReportes }, 'Exportar reportes ⚑'),
+    ),
+    h('a', { class: 'button secondary', href: '#/pruebas' }, 'Pruebas del iPhone'),
   );
 }
