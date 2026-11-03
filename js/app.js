@@ -10,6 +10,7 @@ import mapa from './ui/mapa.js';
 import tema from './ui/tema.js';
 import escritura from './ui/escritura.js';
 import * as lt from './services/languagetool.js';
+import { withGrammar } from './services/grammar.js';
 import { applyResolved } from './core/inicio.js';
 import { loadContent } from './core/content.js';
 
@@ -58,7 +59,7 @@ async function processLtQueue() {
   processing = true;
   try {
     if (!((await store.get('ltQueue')) ?? []).length) return;
-    const resolved = await lt.processQueue(store, text => lt.check(text));
+    const resolved = await lt.processQueue(store, withGrammar(text => lt.check(text)));
     if (!resolved.length) return;
     const { ltMap } = await content();
     // Una sola transacción (lectura incluida): resultados, grupo abierto, avisos y salida de la cola.

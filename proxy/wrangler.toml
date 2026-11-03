@@ -1,0 +1,20 @@
+# Worker del corrector de gramática. Las claves NO van acá: se cargan con `npx wrangler secret put`.
+name = "deutschlernen-grammar"
+main = "index.js"
+compatibility_date = "2026-10-01"
+# URL pública: https://deutschlernen-grammar.matiasbacalhau.workers.dev. Sin Preview URLs: un solo punto de entrada.
+workers_dev = true
+preview_urls = false
+
+[vars]
+PROVIDER = "claude"
+ALLOWED_ORIGINS = "https://matiasbacalhau.github.io"
+# Opcionales: CLAUDE_MODEL, GEMINI_MODEL, EFFORT (low | medium | high).
+
+# Logs con búsqueda por campo (traceId, provider, reason) en el panel de Cloudflare.
+[observability]
+enabled = true
+
+# `version` en cada respuesta: confirma qué deploy corrigió.
+[version_metadata]
+binding = "CF_VERSION_METADATA"

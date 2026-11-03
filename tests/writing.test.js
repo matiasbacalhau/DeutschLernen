@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { gradeWriting, check } from '../js/core/checks/writing.js';
 import { checkExercise } from '../js/core/checks/index.js';
 import { enqueue, processQueue, withoutResolved, check as ltCheck } from '../js/services/languagetool.js';
+import { check as grammarCheck, withGrammar } from '../js/services/grammar.js';
 
 const realMap = JSON.parse(readFileSync(new URL('../data/lt-map.json', import.meta.url)));
 
@@ -220,6 +221,91 @@ test('lt.check corta por timeout: un fetch colgado termina en rechazo', async ()
   globalThis.fetch = (_u, {signal}) => new Promise((_, reject) => signal.addEventListener('abort', () => reject(new Error('abort'))));
   try {
     await assert.rejects(ltCheck('Hallo', {timeout: 20}));
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+// Corrector de gramática (proxy/): sus marcas llegan como {offset, length, llm: categoría, src}.
+
+const src = {provider: 'claude', model: 'claude-haiku-5-5', trace: 't-1'};
+const llm = (category, offset, length) => ({offset, length, llm: category, src});
+
+test('marca del corrector: texto del catálogo, error y penalización con su tag', () => {
+  const g = gradeWriting([llm('AKK_MASK', 9, 3)], realMap);
+  assert.equal(g.ok, false);
+  assert.deepEqual(g.marks, [{offset: 9, length: 3, text: realMap.llm_categories.AKK_MASK.es, kind: 'error'}]);
+  assert.deepEqual(g.penalties, [{tag: 'a1.akk.mask'}]);
+});
+
+test('el corrector reemplaza la marca de gramática de LT que se superpone; la de ortografía queda', () => {
+  // "Ich möchte ein Kaffee." con OBJECT_AGREEMENT (11-21) y una falta de ortografía inventada en "Kaffee"
+  const g = gradeWriting([
+    m('OBJECT_AGREEMENT', 'GRAMMAR', 11, 10),
+    m('GERMAN_SPELLER_RULE', 'TYPOS', 15, 6),
+    llm('AKK_MASK', 11, 3),
+  ], realMap);
+  assert.deepEqual(g.marks.map(x => [x.offset, x.length]), [[15, 6], [11, 3]]);
+  assert.deepEqual(g.penalties, [{tag: 'a1.akk.mask'}]);
+});
+
+test('categoría del corrector desconocida para la app: "gramática", sin penalización', () => {
+  const g = gradeWriting([llm('NUEVA', 0, 3)], realMap);
+  assert.deepEqual(g.marks.map(x => [x.kind, x.text]), [['error', 'gramática']]);
+  assert.deepEqual(g.penalties, []);
+});
+
+test('ningún texto del catálogo del corrector trae un artículo alemán (regla 3)', () => {
+  for (const c of Object.values(realMap.llm_categories)) assert.ok(!/\b(einen|eine|ein|den|der|die|das)\b/.test(c.es), c.es);
+});
+
+test('check: ltRules registra las marcas del corrector con proveedor, modelo y traceId', async () => {
+  const lt = {check: async () => [m('GERMAN_SPELLER_RULE', 'TYPOS', 0, 3), llm('AKK_MASK', 9, 3)]};
+  const [r] = await check({id: 'w4', type: 'writing-free'}, {text: 'Ich habe ein Hund.'}, {lt, ltMap: realMap});
+  assert.deepEqual(r.ltRules, [
+    {rule: 'GERMAN_SPELLER_RULE', mapped: true},
+    {rule: 'llm:AKK_MASK', mapped: true, src},
+  ]);
+});
+
+test('withGrammar: une LT y el corrector; si el corrector falla, falla todo (la escritura queda pendiente)', async () => {
+  const lt = async () => [m('GERMAN_SPELLER_RULE', 'TYPOS', 0, 3)];
+  const ok = await withGrammar(lt, async () => [llm('AKK_MASK', 9, 3)])('Ich habe ein Hund.');
+  assert.deepEqual(ok.map(x => x.llm ?? x.rule.id), ['GERMAN_SPELLER_RULE', 'AKK_MASK']);
+  await assert.rejects(withGrammar(lt, async () => { throw Object.assign(new Error('x'), {status: 502}); })('Hallo.'), e => e.status === 502);
+});
+
+test('grammar.check sin URL configurada: sin marcas y sin red', async () => {
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => { throw new Error('no debería llamar'); };
+  try {
+    assert.deepEqual(await grammarCheck('Hallo.', {url: ''}), []);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test('grammar.check: POST al proxy y marcas con su origen', async () => {
+  const orig = globalThis.fetch;
+  let sent;
+  globalThis.fetch = async (url, init) => {
+    sent = {url, body: JSON.parse(init.body)};
+    return new Response(JSON.stringify({provider: 'claude', model: 'claude-haiku-5-5', version: 'v1', traceId: 't-1', marks: [{offset: 9, length: 3, category: 'AKK_MASK'}]}));
+  };
+  try {
+    const marks = await grammarCheck('Ich habe ein Hund.', {url: 'https://proxy.example/'});
+    assert.deepEqual(sent, {url: 'https://proxy.example/', body: {text: 'Ich habe ein Hund.'}});
+    assert.deepEqual(marks, [llm('AKK_MASK', 9, 3)]);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test('grammar.check: un error del proxy lleva el status', async () => {
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => new Response('{}', {status: 502});
+  try {
+    await assert.rejects(grammarCheck('Hallo.', {url: 'https://proxy.example/'}), e => e.status === 502);
   } finally {
     globalThis.fetch = orig;
   }

@@ -8,7 +8,8 @@ export const groupEntry = ({id, startedAt, endedAt, abandoned}) => ({
   t: 'g', id, start: startedAt, end: endedAt, abandoned: !!abandoned, ms: endedAt - startedAt,
 });
 
-export const ltEntry = ({rule, mapped, at}) => ({t: 'lt', rule, mapped: !!mapped, at});
+// src: {provider, model, trace} en las marcas del corrector de gramática (para comparar proveedores y encontrar la línea del Worker).
+export const ltEntry = ({rule, mapped, at, src}) => ({t: 'lt', rule, mapped: !!mapped, at, ...(src ? {src} : {})});
 
 export function countWords(seenCounts, words) {
   const out = {...seenCounts};

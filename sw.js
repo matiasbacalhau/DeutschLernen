@@ -49,6 +49,7 @@ const SHELL = [
   'js/exercises/transform.js',
   'js/exercises/translate.js',
   'js/exercises/writing.js',
+  'js/services/grammar.js',
   'js/services/languagetool.js',
   'js/services/tts.js',
   'js/ui/ajustes.js',

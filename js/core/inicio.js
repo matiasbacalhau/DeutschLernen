@@ -1,7 +1,7 @@
 // Lógica del inicio y del tema sin DOM: saludo, línea con humor, escrituras corregidas desde la cola y estado de escalón.
 import {applyResult, masteryOf} from './mastery.js';
 import {resolvePending, pendingInGroup, resolveInGroup} from './progress.js';
-import {gradeWriting} from './checks/writing.js';
+import {gradeWriting, ltRulesOf} from './checks/writing.js';
 import {answerEntry, ltEntry} from './log.js';
 
 const WEAK = 0.5;
@@ -32,7 +32,7 @@ export function applyResolved({state, entry, ltMap, quarantine, now}) {
   const log = [
     ...state.log,
     answerEntry({key: entry.key, tag: null, ok}, {type: entry.type ?? 'writing', ms: entry.ms, at: entry.at}),
-    ...entry.matches.map(mt => ltEntry({rule: mt.rule.id, mapped: !!ltMap.rules?.[mt.rule.id], at: entry.at})),
+    ...ltRulesOf(entry.matches, ltMap).map(lt => ltEntry({...lt, at: entry.at})),
   ];
   let {progress, group = null} = state;
   if (pendingInGroup(group, entry.key, entry.group)) group = resolveInGroup(group, entry.key, {ok, marks, penalties});

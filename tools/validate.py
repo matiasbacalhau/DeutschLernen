@@ -69,6 +69,12 @@ def validar_ltmap(lt, tags, errs):
     for rid, r in lt.get('rules', {}).items():
         if r.get('tag') and r['tag'] not in tags:
             errs.append(f'lt-map: la regla {rid} usa un tag inexistente: {r["tag"]}')
+    for cid, c in lt.get('llm_categories', {}).items():
+        if c.get('tag') and c['tag'] not in tags:
+            errs.append(f'lt-map: la categoría {cid} usa un tag inexistente: {c["tag"]}')
+        for campo in ('es', 'hint'):
+            if not c.get(campo):
+                errs.append(f'lt-map: la categoría {cid} no tiene {campo}')
 
 
 def validar_ejercicio(ex, tags, ids, errs):

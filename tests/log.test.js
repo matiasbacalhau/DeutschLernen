@@ -39,3 +39,8 @@ test('countWords suma', () => {
   assert.deepEqual(out, {Tisch: 2, Haus: 2});
   assert.deepEqual(seen, {Tisch: 1}, 'no muta la entrada');
 });
+
+test('ltEntry con origen del corrector', () => {
+  assert.deepEqual(ltEntry({rule: 'llm:AKK_MASK', mapped: true, at: 5, src: {provider: 'claude', model: 'm', trace: 't'}}),
+    {t: 'lt', rule: 'llm:AKK_MASK', mapped: true, at: 5, src: {provider: 'claude', model: 'm', trace: 't'}});
+});

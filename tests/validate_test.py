@@ -115,6 +115,12 @@ class ValidateTest(unittest.TestCase):
         d['ltMap']['rules']['R']['tag'] = 'a1.nada'
         self.assertError(d, 'a1.nada')
 
+    def test_ltmap_categoria_llm(self):
+        d = minimo()
+        d['ltMap']['llm_categories'] = {'X': {'tag': 'a1.nada', 'es': 'x', 'hint': 'h'}, 'Y': {'es': 'y'}}
+        self.assertError(d, 'a1.nada')
+        self.assertError(d, 'Y no tiene hint')
+
     def test_lexico_sin_campo(self):
         d = minimo()
         del d['lexicon'][0]['field']

@@ -76,7 +76,7 @@ def main():
     escribir('curriculum.json', cur)
     escribir('lexicon.json', lexico)
     escribir('templates.json', leer('templates.yaml', []))
-    escribir('lt-map.json', leer('lt-map.yaml', {'rules': {}, 'categories': {}, 'notice_categories': []}))
+    escribir('lt-map.json', leer('lt-map.yaml', {'rules': {}, 'categories': {}, 'notice_categories': [], 'llm_categories': {}}))
     for u in sorted({t['unit'] for t in cur['topics'] if t.get('unit')}):
         nivel, num = u.split('.')
         unit = cargar_unidad(f'{nivel}/{num}', lexico)

@@ -12,6 +12,7 @@ import { pickGlossary } from '../core/glossary.js';
 import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import * as lt from '../services/languagetool.js';
+import { withGrammar } from '../services/grammar.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
 const EMPTY_MASTERY = { tags: {}, pairs: {} };
@@ -73,7 +74,9 @@ export default async function grupo(el, { store, content, params }) {
     screen.replaceChildren(...nodes.flat(Infinity).filter(Boolean));
     window.scrollTo(0, 0);
   };
-  const ltClient = { check: text => lt.check(text) }; // con timeout: sin respuesta, la escritura queda pendiente
+  // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
+  const correct = withGrammar(text => lt.check(text));
+  const ltClient = { check: correct };
   const checkCtxFor = ex => ({ curriculum: C.curriculum, topicTitle: titleOf(ex.topic ?? topicId), ltMap: C.ltMap, lt: ltClient });
 
   async function commit() {
@@ -273,7 +276,7 @@ export default async function grupo(el, { store, content, params }) {
       btn.disabled = true;
       try {
         const t = input.value();
-        const { marks } = gradeWriting(await lt.check(t), C.ltMap);
+        const { marks } = gradeWriting(await correct(t), C.ltMap);
         out.replaceChildren(marked(t, marks), markList(marks));
       } catch {
         out.replaceChildren(h('p', { class: 'muted' }, 'Sin conexión: no se pudo corregir la reescritura.'));
