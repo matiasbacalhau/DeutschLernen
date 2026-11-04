@@ -1,4 +1,5 @@
 import { h } from './dom.js';
+import * as tts from '../services/tts.js';
 
 let seq = 0;
 
@@ -26,4 +27,12 @@ export function answerInput({ multiline = false, label } = {}) {
   root.value = () => field.value;
   root.focus = () => field.focus();
   return root;
+}
+
+// Botón 🔊 que lee `text` con la voz alemana predeterminada (en iOS, forzar una voz de la lista falla).
+// Sin síntesis de voz no se muestra. Con el iPhone en silencio no suena: no hay forma de detectarlo.
+export function listenButton(text) {
+  if (!tts.supported()) return null;
+  // speak() rechaza si otra frase la interrumpe: no es un error para el usuario.
+  return h('button', { type: 'button', class: 'listen', 'aria-label': 'Escuchar', lang: 'es', onclick: () => tts.speak(text, { rate: 0.9 }).catch(() => {}) }, '🔊');
 }

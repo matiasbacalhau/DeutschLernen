@@ -1,7 +1,7 @@
 // Runner de un grupo (un escalón de un tema): arma o retoma el grupo, corre cada ejercicio, corrige, autoguarda,
 // muestra el feedback (§5.6), el ⚑ y la escritura con LanguageTool; al terminar va a #/fin.
 import { h, rich } from './dom.js';
-import { answerInput } from './inputs.js';
+import { answerInput, listenButton } from './inputs.js';
 import { renderFicha } from './ficha.js';
 import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
@@ -234,7 +234,7 @@ export default async function grupo(el, { store, content, params }) {
         r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
           : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
-        example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es})`),
+        example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es}) `, listenButton(example.de)),
         r.notice && h('p', { class: 'muted' }, r.notice),
       );
     });
