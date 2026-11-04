@@ -1,8 +1,8 @@
 // Comparación de respuestas: tolera teclado y ortografía solo cuando el tag no es ortográfico.
 
-// Limpia comillas tipográficas, espacios y puntuación final.
+// Limpia comillas tipográficas, espacios y puntuación final, y compone los umlauts (u + ¨ → ü, forma NFC).
 export function clean(s) {
-  return s.trim().replace(/\s+/g, ' ')
+  return s.normalize('NFC').trim().replace(/\s+/g, ' ')
     .replace(/[’‘]/g, "'").replace(/[„“”]/g, '"')
     .replace(/[.!?]+$/, '').trim();
 }
@@ -39,14 +39,14 @@ export function matchAnswer(answer, accepted, {orthographic}) {
   return {ok: false, notice: null};
 }
 
-const tokens = (s) => [...s.matchAll(/[\p{L}\p{N}]+/gu)].map((m) => ({w: m[0], offset: m.index, length: m[0].length}));
+const tokens = (s) => [...s.matchAll(/[\p{L}\p{M}\p{N}]+/gu)].map((m) => ({w: m[0], offset: m.index, length: m[0].length}));
 
 // Las palabras de una frase que no están en la respuesta aceptada más parecida (por subsecuencia común más larga),
 // como [{offset, length}] sobre `answer`. Solo subraya: nunca dice cuál es la forma correcta (regla 3).
 export function wrongWords(answer, accepted, {orthographic}) {
   const a = tokens(answer);
   if (a.length < 2) return [];
-  const same = (x, y) => lower(x) === lower(y) || (!orthographic && [0, 1].some((i) => fold(x, i) === fold(y, i)));
+  const same = (x, y) => (x = x.normalize('NFC'), y = y.normalize('NFC'), lower(x) === lower(y)) || (!orthographic && [0, 1].some((i) => fold(x, i) === fold(y, i)));
   let best = null;
   for (const target of accepted) {
     const t = tokens(target).map((x) => x.w);

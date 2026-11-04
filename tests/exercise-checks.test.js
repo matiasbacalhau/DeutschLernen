@@ -70,7 +70,8 @@ test('transform y translate: una frase mal escrita lleva las palabras que difier
   const [r] = await run(tl, 'Sie ist in das Zimmer 12.');
   assert.deepEqual(r.wrong, [{offset: 4, length: 3}, {offset: 11, length: 3}]);
   assert.equal(r.rule, RULE);
-  assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].wrong, undefined);
+  assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].wrong, undefined);  assert.equal(r.given, 'Sie ist in das Zimmer 12.');
+  assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].given, undefined);
 });
 
 test('order: acepta cualquier orden válido, compara por texto', async () => {

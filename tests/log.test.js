@@ -44,3 +44,9 @@ test('ltEntry con origen del corrector', () => {
   assert.deepEqual(ltEntry({rule: 'llm:AKK_MASK', mapped: true, at: 5, src: {provider: 'claude', model: 'm', trace: 't'}}),
     {t: 'lt', rule: 'llm:AKK_MASK', mapped: true, at: 5, src: {provider: 'claude', model: 'm', trace: 't'}});
 });
+
+test('answerEntry: una respuesta escrita fallada guarda el texto; las demás no', () => {
+  const e = answerEntry({...result, given: 'Sie ist in das Zimmer 12.'}, {type: 'translate', ms: 1, at: 2});
+  assert.equal(e.text, 'Sie ist in das Zimmer 12.');
+  assert.equal('text' in answerEntry(result, {type: 'gap', ms: 1, at: 2}), false);
+});
