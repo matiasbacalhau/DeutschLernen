@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { checkExercise, countItems } from '../js/core/checks/index.js';
+import { EVALUATED_OK } from '../js/core/checks/common.js';
 import { instances } from '../js/core/generators/articulo-caso.js';
 
 const RULE = 'Regla del tag.';
@@ -11,6 +12,8 @@ const ctx = {
     t: {rule: RULE, orthographic: false},
     o: {rule: RULE, orthographic: true},
     'a1.akk.mask': {rule: 'Regla akk.', orthographic: false},
+    'a1.sein.praesens': {rule: 'Regla sein.', orthographic: false},
+    'a1.pron.personal': {rule: 'Regla pronombres.', orthographic: false},
   }},
 };
 const run = (ex, answer) => checkExercise(ex, answer, ctx);
@@ -72,6 +75,24 @@ test('transform y translate: una frase mal escrita lleva las palabras que difier
   assert.equal(r.rule, RULE);
   assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].wrong, undefined);  assert.equal(r.given, 'Sie ist in das Zimmer 12.');
   assert.equal((await run(tl, 'Sie sind im Zimmer 12.'))[0].given, undefined);
+});
+
+test('frase con lo evaluado bien y el error en otra palabra: no culpa al tema', async () => {
+  const tl = {id: 'tl', type: 'translate', tag: 'a1.sein.praesens', from: 'es', source: 's', answers: ['Wir sind in der Küche.', 'In der Küche sind wir.']};
+  const [r] = await run(tl, 'Wir sind in die Küche.');
+  assert.equal(r.ok, false);
+  assert.equal(r.rule, EVALUATED_OK);
+  assert.equal(r.wrong.length, 1);
+  // Si la forma de sein también difiere, la regla es la del tema.
+  assert.equal((await run(tl, 'Wir ist in die Küche.'))[0].rule, 'Regla sein.');
+  // Falta el pronombre: lo evaluado (pronombres) no está bien, aunque lo subrayado no lo muestre.
+  const pr = {...tl, tag: 'a1.pron.personal'};
+  assert.equal((await run(pr, 'Sind in der Küche.'))[0].rule, 'Regla pronombres.');
+  assert.equal((await run(pr, 'Wir sind in die Küche.'))[0].rule, EVALUATED_OK);
+  // Un tag sin palabras clave conocidas (W-Fragen evalúa el orden) siempre muestra su regla.
+  assert.equal((await run({...tl, tag: 't'}, 'Wir sind in die Küche.'))[0].rule, RULE);
+  // Un error anotado gana.
+  assert.equal((await run({...tl, errors: [{answer: 'Wir sind in die Küche.', rule: 'Anotada.'}]}, 'Wir sind in die Küche.'))[0].rule, 'Anotada.');
 });
 
 test('order: acepta cualquier orden válido, compara por texto', async () => {

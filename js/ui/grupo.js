@@ -6,6 +6,7 @@ import { renderFicha } from './ficha.js';
 import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
 import { checkExercise } from '../core/checks/index.js';
+import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
@@ -226,7 +227,9 @@ export default async function grupo(el, { store, content, params }) {
       return h('div', { class: 'item' },
         multi && info.label && h('p', { class: 'item-label', lang: 'de' }, rich(info.label)),
         r.ok ? h('span', { class: 'tag-ok' }, 'Bien') : h('span', { class: 'tag-bad' }, 'Incorrecto'),
-        r.wrong && typeof answer === 'string' && underlined(answer, r.wrong),
+        // Lo que escribió el usuario: la frase con lo que difiere subrayado, o la palabra suelta (la situación ya la muestra).
+        r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
+          : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
         example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es})`),
         r.notice && h('p', { class: 'muted' }, r.notice),
@@ -241,10 +244,11 @@ export default async function grupo(el, { store, content, params }) {
   }
 
   // La frase del usuario con las palabras que no coinciden con ninguna respuesta válida, subrayadas sin corregirlas.
-  function underlined(text, wrong) {
+  // hint: false cuando la regla ya habla de lo subrayado.
+  function underlined(text, wrong, hint) {
     return [
       h('p', { class: 'written', lang: 'de' }, segments(text, wrong).map(x => (x.mark === null ? x.text : h('span', { class: 'mark error' }, x.text)))),
-      h('p', { class: 'muted' }, wrong.length > 1 ? 'Revisá las palabras subrayadas.' : 'Revisá la palabra subrayada.'),
+      hint && h('p', { class: 'muted' }, wrong.length > 1 ? 'Revisá las palabras subrayadas.' : 'Revisá la palabra subrayada.'),
     ];
   }
 
