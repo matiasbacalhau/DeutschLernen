@@ -180,3 +180,14 @@ export function closeSaved({saved, state, quarantine, now}) {
   }
   return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true})]};
 }
+
+// Cronómetro de un ejercicio que no cuenta el tiempo con la app en segundo plano (el usuario se fue a otra cosa).
+export function stopwatch(start) {
+  let total = 0;
+  let from = start;
+  return {
+    pause(t) { if (from !== null) { total += t - from; from = null; } },
+    resume(t) { if (from === null) from = t; },
+    elapsed: t => total + (from === null ? 0 : t - from),
+  };
+}

@@ -952,6 +952,7 @@
       "context": "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"
      },
      "field": "hostel",
+     "generated": 3,
      "exercises": [
       {
        "id": "t1-3-sit-schnarchen",
@@ -1600,6 +1601,7 @@
       "title": "Eine E-Mail vom Hostel",
       "context": "Al día siguiente · 9:30 · llegó un email con las reglas de la casa"
      },
+     "generated": 3,
      "exercises": [
       {
        "id": "t1-4-read-hausregeln",

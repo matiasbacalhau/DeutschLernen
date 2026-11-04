@@ -7,7 +7,6 @@ import { instances } from '../js/core/generators/articulo-caso.js';
 
 const RULE = 'Regla del tag.';
 const ctx = {
-  topicTitle: 'Artículos',
   curriculum: {tags: {
     t: {rule: RULE, orthographic: false},
     o: {rule: RULE, orthographic: true},
@@ -139,7 +138,9 @@ test('spot-error: palabra correcta tocada, corrección mal escrita, ok', async (
   const ex = {id: 's', type: 'spot-error', tag: 't', tokens: ['Ich', 'habe', 'ein', 'Hund'], wrong: 2, corrections: ['einen'], rule: 'Akkusativ.'};
   const touched = await run(ex, {index: 1, text: 'x'});
   assert.equal(touched[0].ok, false);
-  assert.ok(touched[0].rule.includes('Artículos'));
+  // Tocar una palabra correcta muestra la regla del ítem (la pista que hace falta), no el título del tema.
+  assert.equal(touched[0].rule, 'Esa palabra está bien. Akkusativ.');
+  assert.equal((await run({...ex, rule: undefined}, {index: 1, text: 'x'}))[0].rule, 'Esa palabra está bien. ' + RULE);
   assert.equal((await run(ex, {index: 2, text: 'eine'}))[0].ok, false);
   noLeak(await run(ex, {index: 2, text: 'eine'}), ex.corrections);
   assert.equal((await run(ex, {index: 2, text: 'einen'}))[0].ok, true);

@@ -1,7 +1,7 @@
 // Runner de un grupo (un escalón de un tema): arma o retoma el grupo, corre cada ejercicio, corrige, autoguarda,
 // muestra el feedback (§5.6), el ⚑ y la escritura con LanguageTool; al terminar va a #/fin.
 import { h, rich } from './dom.js';
-import { answerInput } from './inputs.js';
+import { answerInput, listenButton } from './inputs.js';
 import { renderFicha } from './ficha.js';
 import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
@@ -10,7 +10,7 @@ import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import * as lt from '../services/languagetool.js';
 import { withGrammar } from '../services/grammar.js';
@@ -78,7 +78,7 @@ export default async function grupo(el, { store, content, params }) {
   // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
   const correct = withGrammar(text => lt.check(text));
   const ltClient = { check: correct };
-  const checkCtxFor = ex => ({ curriculum: C.curriculum, topicTitle: titleOf(ex.topic ?? topicId), ltMap: C.ltMap, lt: ltClient });
+  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lt: ltClient });
 
   async function commit() {
     const { group: g, toApply } = commitNext(group);
@@ -148,7 +148,9 @@ export default async function grupo(el, { store, content, params }) {
   }
 
   function runExercise(ex) {
-    const shownAt = Date.now();
+    const watch = stopwatch(Date.now());
+    const onVisibility = () => (document.hidden ? watch.pause(Date.now()) : watch.resume(Date.now()));
+    document.addEventListener('visibilitychange', onVisibility);
     counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
     const body = h('div', { class: 'exercise' });
     const ctx = {
@@ -177,7 +179,8 @@ export default async function grupo(el, { store, content, params }) {
     renderExercise(ex, body, {
       ctx,
       submit: async answer => {
-        const ms = Date.now() - shownAt;
+        const ms = watch.elapsed(Date.now());
+        document.removeEventListener('visibilitychange', onVisibility);
         // El texto de una escritura se guarda antes de mandarlo a LanguageTool: si se cierra la app, se reenvía al volver.
         if (WRITING.has(ex.type)) {
           group = { ...group, draft: { id: ex.id, text: answer.text, ms } };
@@ -231,7 +234,7 @@ export default async function grupo(el, { store, content, params }) {
         r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
           : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
-        example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es})`),
+        example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es}) `, listenButton(example.de)),
         r.notice && h('p', { class: 'muted' }, r.notice),
       );
     });

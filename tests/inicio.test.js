@@ -20,7 +20,9 @@ const m = (tags) => ({tags: Object.fromEntries(Object.entries(tags).map(([k, v])
 
 test('línea con humor: sin datos, tag flojo, todo bien', () => {
   assert.match(humorLine({tags: {}, pairs: {}}, topics), /Primer día.*\*sein\*/);
-  assert.equal(humorLine(m({'a1.akk': 0.3, 'a1.sein': 0.9}), topics), 'El Akkusativ te viene esquivando.');
+  assert.equal(humorLine(m({'a1.akk': 0.3, 'a1.sein': 0.9}), topics), 'Lo que más te viene costando: *Akkusativ*.');
+  // Sin artículo ni verbo que concuerde con el título: sirve para títulos en plural ("Pronombres personales").
+  assert.equal(humorLine(m({'a1.akk': 0.3}), {'a1.akk': {title: 'Pronombres personales'}}), 'Lo que más te viene costando: *Pronombres personales*.');
   assert.equal(humorLine(m({'a1.akk': 0.7, 'a1.sein': 0.9}), topics), 'Todo en orden. Sigamos subiendo.');
 });
 

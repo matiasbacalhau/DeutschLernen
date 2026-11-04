@@ -1,4 +1,5 @@
-# Plantillas de `articulo-caso` (gaps generados). Cada instancia es "plantilla × lema que entra en la ranura".
+# Plantillas de gaps generados. Sin `kind`: `articulo-caso`, cada instancia es "plantilla × lema que entra en la ranura".
+# `kind: sein`: cada instancia es "plantilla × sujeto" (Ich, Du, Tom, Wir, Ihr, Tom und Lea); la frase tiene que servir para todos.
 # Criterio: TODA instancia tiene que ser algo que una persona diría (se leen todas al cambiar una plantilla o el léxico:
 # `node tools/german_texts.mjs | grep tpl-`). El generador no admite exclusiones por lema, así que la ranura se ajusta
 # con los campos del léxico (essen = comidas, getraenke = bebidas, vorrat = alacena, kueche = utensilios y aparatos).
@@ -35,3 +36,17 @@
 - {id: tpl-moechten-kein, tag_prefix: a1.akk, det: kein, kase: akk, verb: möchten,
    context: "En una cena: el anfitrión te quiere servir otra vez y ya no podés más.",
    text: "Danke, ich möchte ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke]}}
+
+# sein en presente (tema 1). {subject} va al comienzo; el resto de la frase no puede depender de la persona.
+- {id: tpl-sein-muede, kind: sein, tag_prefix: a1.sein.praesens,
+   context: "23:00 en el hostel: después del viaje, nadie da más.",
+   text: "{subject} ___ heute total müde."}
+- {id: tpl-sein-zimmer, kind: sein, tag_prefix: a1.sein.praesens,
+   context: "Anna, la recepcionista, repasa quién ya subió a la habitación.",
+   text: "{subject} ___ schon im Zimmer."}
+- {id: tpl-sein-berlin, kind: sein, tag_prefix: a1.sein.praesens,
+   context: "Ronda de presentaciones en la cocina del hostel.",
+   text: "{subject} ___ zum ersten Mal in Berlin."}
+- {id: tpl-sein-gleich, kind: sein, tag_prefix: a1.sein.praesens,
+   context: "Alguien sale un momento del hostel y avisa que vuelve enseguida.",
+   text: "{subject} ___ gleich wieder da."}

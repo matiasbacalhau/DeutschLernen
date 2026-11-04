@@ -140,5 +140,33 @@
     "getraenke"
    ]
   }
+ },
+ {
+  "id": "tpl-sein-muede",
+  "kind": "sein",
+  "tag_prefix": "a1.sein.praesens",
+  "context": "23:00 en el hostel: después del viaje, nadie da más.",
+  "text": "{subject} ___ heute total müde."
+ },
+ {
+  "id": "tpl-sein-zimmer",
+  "kind": "sein",
+  "tag_prefix": "a1.sein.praesens",
+  "context": "Anna, la recepcionista, repasa quién ya subió a la habitación.",
+  "text": "{subject} ___ schon im Zimmer."
+ },
+ {
+  "id": "tpl-sein-berlin",
+  "kind": "sein",
+  "tag_prefix": "a1.sein.praesens",
+  "context": "Ronda de presentaciones en la cocina del hostel.",
+  "text": "{subject} ___ zum ersten Mal in Berlin."
+ },
+ {
+  "id": "tpl-sein-gleich",
+  "kind": "sein",
+  "tag_prefix": "a1.sein.praesens",
+  "context": "Alguien sale un momento del hostel y avisa que vuelve enseguida.",
+  "text": "{subject} ___ gleich wieder da."
  }
 ]

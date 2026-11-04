@@ -26,6 +26,8 @@ const SHELL = [
   'js/core/diagnose.js',
   'js/core/feedback.js',
   'js/core/generators/articulo-caso.js',
+  'js/core/generators/index.js',
+  'js/core/generators/sein-praesens.js',
   'js/core/glossary.js',
   'js/core/inicio.js',
   'js/core/log.js',

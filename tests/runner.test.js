@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved} from '../js/core/runner.js';
+import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch} from '../js/core/runner.js';
 
 const curriculum = {
   tags: {
@@ -203,4 +203,16 @@ test('applyCommit: una escritura ya aplicada desde la cola no se vuelve a aplica
   assert.deepEqual(out.mastery.tags, {});
   assert.deepEqual(out.log, []);
   assert.deepEqual(out.words, {Hallo: 1});
+});
+
+test('stopwatch: el tiempo con la app en segundo plano no cuenta', () => {
+  const w = stopwatch(1000);
+  w.pause(3000);
+  w.pause(4000); // una segunda pausa no reinicia nada
+  w.resume(63000);
+  w.resume(64000); // reanudar sin pausa no suma
+  assert.equal(w.elapsed(65000), 4000); // 2 s antes de la pausa + 2 s después
+  const p = stopwatch(0);
+  p.pause(10);
+  assert.equal(p.elapsed(500), 10); // en pausa, no avanza
 });
