@@ -27,7 +27,7 @@ export function checkWritten(key, item, answer, ctx) {
   if (m.ok) return result(key, item.tag, true, {notice: m.notice});
   if (item.generated) {
     const d = diagnose(item, answer, ctx.curriculum.tags);
-    return result(key, item.tag, false, d);
+    return result(key, item.tag, false, {...d, given: String(answer)});
   }
   const hit = (item.errors ?? []).find((e) => matchAnswer(answer, [e.answer], {orthographic: !!info.orthographic}).ok);
   // En una frase, además de la regla, las palabras que difieren: así se ve también un segundo error.

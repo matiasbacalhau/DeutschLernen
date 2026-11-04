@@ -5,7 +5,7 @@
 //   - `ok`/`bad` son las escrituras correctas/falladas del escalón 5; `pending` lista las ids de escrituras sin corregir.
 //   - passed: true | false | null (null = a la espera de una escritura pendiente).
 import {countItems} from './checks/index.js';
-import {instances} from './generators/articulo-caso.js';
+import {instancesOf} from './generators/index.js';
 import {pickReview, interleave} from './scheduler.js';
 import {masteryOf} from './mastery.js';
 
@@ -35,7 +35,7 @@ function shuffle(arr, rng) {
 function generated(topic, templates, lexicon, rng, skip) {
   const tpls = (templates ?? []).filter(t => topic.tags.some(tag => tag.startsWith(t.tag_prefix)));
   const pool = new Map();
-  for (const t of tpls) for (const e of instances(t, lexicon ?? [])) if (!skip.has(e.id)) pool.set(e.id, e);
+  for (const t of tpls) for (const e of instancesOf(t, lexicon ?? [])) if (!skip.has(e.id)) pool.set(e.id, e);
   return shuffle([...pool.values()], rng);
 }
 

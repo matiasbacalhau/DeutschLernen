@@ -1,5 +1,16 @@
-// Diagnóstico de un hueco de artículo. El texto nombra la regla y nunca la forma esperada.
+// Diagnóstico de un hueco generado (artículo o *sein*). El texto nombra la regla y nunca la forma esperada.
 import { findArticle } from './morph.js';
+import { SEIN } from './generators/sein-praesens.js';
+
+const PERSON_NAME = {ich: '*ich*', du: '*du*', er: '*er*, *sie* (ella) y *es*', wir: '*wir*', ihr: '*ihr*', sie: '*sie* (ellos) y *Sie*'};
+
+// *sein*: si escribió la forma de otra persona, nombra esa persona (lo que escribió), no la forma que va.
+function diagnoseSein(item, answer, tags) {
+  const persons = Object.keys(SEIN).filter(p => SEIN[p] === String(answer).trim().toLowerCase());
+  if (!persons.length) return {rule: tags[item.tag]?.rule ?? 'Repasá la regla de este tema.', prereq: null};
+  const names = persons.map(p => PERSON_NAME[p]);
+  return {rule: `Esa forma es la de ${names.join(', ')}: fijate quién es el sujeto.`, prereq: null};
+}
 
 const GENDER_NAME = {m: 'masculino', f: 'femenino', n: 'neutro', pl: 'plural'};
 const TAG_SUFFIX = {m: 'mask', f: 'fem', n: 'neut', pl: 'plural'};
@@ -7,6 +18,7 @@ const KASE_NAME = {nom: 'Nominativ (sujeto)', akk: 'Akkusativ (objeto directo)'}
 
 // item: {tag, dims: {gender, kase, det}, noun, verb}; tags: curriculum.tags (para la regla del tag).
 export function diagnose(item, answer, tags = {}) {
+  if (item.dims?.person) return diagnoseSein(item, answer, tags);
   const {gender, kase, det} = item.dims;
   const cells = findArticle(String(answer).trim().toLowerCase()).filter(c => c.det === det);
   if (cells.some(c => c.gender === gender && c.kase !== kase))

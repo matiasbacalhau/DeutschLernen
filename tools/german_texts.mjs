@@ -6,7 +6,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { instances } from '../js/core/generators/articulo-caso.js';
+import { instancesOf } from '../js/core/generators/index.js';
 
 const fill = (text, answer) => text.replace('___', answer);
 
@@ -73,7 +73,7 @@ export function germanTexts({curriculum, lexicon, templates, units}) {
   for (const [tag, t] of Object.entries(curriculum.tags ?? {}))
     (t.examples ?? []).forEach((e, n) => out.push({where: `curriculum ${tag}: examples[${n}]`, text: e.de}));
   for (const tpl of templates)
-    for (const ex of instances(tpl, lexicon)) out.push({where: `${ex.id}: text`, text: fill(ex.text, ex.answers[0])});
+    for (const ex of instancesOf(tpl, lexicon)) out.push({where: `${ex.id}: text`, text: fill(ex.text, ex.answers[0])});
   for (const u of units)
     for (const topic of u.topics)
       for (const step of topic.steps ?? [])
