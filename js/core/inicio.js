@@ -17,7 +17,7 @@ export function humorLine(mastery, tags) {
   const withData = Object.entries(tags).map(([tag, t]) => ({title: t.title, m: masteryOf(mastery, tag)})).filter(x => x.m !== null);
   if (!withData.length) return 'Primer día. Arrancamos por lo básico: *sein*.';
   const worst = withData.reduce((a, b) => (b.m < a.m ? b : a));
-  if (worst.m < WEAK) return `El ${worst.title} te viene esquivando.`;
+  if (worst.m < WEAK) return `Lo que más te viene costando: *${worst.title}*.`;
   return 'Todo en orden. Sigamos subiendo.';
 }
 
