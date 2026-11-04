@@ -10,7 +10,7 @@ import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import * as lt from '../services/languagetool.js';
 import { withGrammar } from '../services/grammar.js';
@@ -148,7 +148,9 @@ export default async function grupo(el, { store, content, params }) {
   }
 
   function runExercise(ex) {
-    const shownAt = Date.now();
+    const watch = stopwatch(Date.now());
+    const onVisibility = () => (document.hidden ? watch.pause(Date.now()) : watch.resume(Date.now()));
+    document.addEventListener('visibilitychange', onVisibility);
     counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
     const body = h('div', { class: 'exercise' });
     const ctx = {
@@ -177,7 +179,8 @@ export default async function grupo(el, { store, content, params }) {
     renderExercise(ex, body, {
       ctx,
       submit: async answer => {
-        const ms = Date.now() - shownAt;
+        const ms = watch.elapsed(Date.now());
+        document.removeEventListener('visibilitychange', onVisibility);
         // El texto de una escritura se guarda antes de mandarlo a LanguageTool: si se cierra la app, se reenvía al volver.
         if (WRITING.has(ex.type)) {
           group = { ...group, draft: { id: ex.id, text: answer.text, ms } };
