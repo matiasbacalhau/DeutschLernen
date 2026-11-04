@@ -78,7 +78,7 @@ export default async function grupo(el, { store, content, params }) {
   // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
   const correct = withGrammar(text => lt.check(text));
   const ltClient = { check: correct };
-  const checkCtxFor = ex => ({ curriculum: C.curriculum, topicTitle: titleOf(ex.topic ?? topicId), ltMap: C.ltMap, lt: ltClient });
+  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lt: ltClient });
 
   async function commit() {
     const { group: g, toApply } = commitNext(group);
