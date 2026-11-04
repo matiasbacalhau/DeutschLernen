@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { matchAnswer, clean, wrongWords } from '../js/core/normalize.js';
+import { matchAnswer, clean, wrongWords, closestAnswer } from '../js/core/normalize.js';
 
 test('exacto', () => assert.deepEqual(matchAnswer('den', ['den'], {orthographic: false}), {ok: true, notice: null}));
 test('variantes del teclado iOS', () => {
@@ -55,3 +55,6 @@ test('wrongWords: con umlauts descompuestos no subraya de más y los offsets cae
   const t = NFD('Die Küche ist groß');
   assert.deepEqual(words(t, wrongWords(t, ['Die Küche ist klein'], {orthographic: true})), [NFD('groß')]);
 });
+
+test('closestAnswer: la respuesta aceptada más parecida', () =>
+  assert.equal(closestAnswer('Sie ist in das Zimmer 12.', ['Im Zimmer 12 sind Sie.', 'Sie sind in Zimmer 12.'], {orthographic: false}), 'Sie sind in Zimmer 12.'));

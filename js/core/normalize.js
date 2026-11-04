@@ -41,12 +41,11 @@ export function matchAnswer(answer, accepted, {orthographic}) {
 
 const tokens = (s) => [...s.matchAll(/[\p{L}\p{M}\p{N}]+/gu)].map((m) => ({w: m[0], offset: m.index, length: m[0].length}));
 
-// Las palabras de una frase que no están en la respuesta aceptada más parecida (por subsecuencia común más larga),
-// como [{offset, length}] sobre `answer`. Solo subraya: nunca dice cuál es la forma correcta (regla 3).
-export function wrongWords(answer, accepted, {orthographic}) {
+const same = (x, y, orthographic) => (x = x.normalize('NFC'), y = y.normalize('NFC'), lower(x) === lower(y)) || (!orthographic && [0, 1].some((i) => fold(x, i) === fold(y, i)));
+
+// Alinea una frase con la respuesta aceptada más parecida (por subsecuencia común más larga).
+function align(answer, accepted, {orthographic}) {
   const a = tokens(answer);
-  if (a.length < 2) return [];
-  const same = (x, y) => (x = x.normalize('NFC'), y = y.normalize('NFC'), lower(x) === lower(y)) || (!orthographic && [0, 1].some((i) => fold(x, i) === fold(y, i)));
   let best = null;
   for (const target of accepted) {
     const t = tokens(target).map((x) => x.w);
@@ -54,17 +53,30 @@ export function wrongWords(answer, accepted, {orthographic}) {
     const L = Array.from({length: a.length + 1}, () => new Array(t.length + 1).fill(0));
     for (let i = a.length - 1; i >= 0; i--) {
       for (let j = t.length - 1; j >= 0; j--) {
-        L[i][j] = same(a[i].w, t[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+        L[i][j] = same(a[i].w, t[j], orthographic) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
       }
     }
     if (best && L[0][0] <= best.L[0][0]) continue;
-    best = {L, t};
+    best = {L, t, target};
   }
+  return {a, best};
+}
+
+export const closestAnswer = (answer, accepted, opts) => align(answer, accepted, opts).best?.target ?? null;
+
+// Las palabras de una frase que no están en la respuesta aceptada más parecida, como [{offset, length}] sobre `answer`.
+// Solo subraya: nunca dice cuál es la forma correcta (regla 3).
+export function wrongWords(answer, accepted, {orthographic}) {
+  const {a, best} = align(answer, accepted, {orthographic});
+  if (a.length < 2) return [];
   const wrong = [];
   for (let i = 0, j = 0; i < a.length;) {
-    if (j < best.t.length && same(a[i].w, best.t[j])) { i++; j++; }
+    if (j < best.t.length && same(a[i].w, best.t[j], orthographic)) { i++; j++; }
     else if (j < best.t.length && best.L[i][j + 1] >= best.L[i + 1][j]) j++;
     else wrong.push({offset: a[i].offset, length: a[i].length}), i++;
   }
   return wrong;
 }
+
+// Las palabras de `words` (en minúscula) que aparecen en la frase, en orden.
+export const keyWords = (s, words) => tokens(s.normalize('NFC')).map((x) => lower(x.w)).filter((w) => words.has(w));
