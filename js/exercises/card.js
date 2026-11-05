@@ -13,7 +13,8 @@ export function render(ex, el, { submit, onNoAudio }) {
     : ex.rung === 1
       ? [h('p', { class: 'muted' }, '¿Qué significa?'), h('p', { class: 'sentence', lang: 'de' }, word.pos === 'noun' ? `${word.article} ${word.lemma}` : word.lemma)]
       : [h('p', { class: 'muted' }, 'Escribila en alemán, con su artículo si es un sustantivo.'), h('p', { class: 'sentence', lang: 'es' }, word.es)];
-  el.append(...prompt);
+  // listenButton() es null sin síntesis de voz: no se agrega.
+  el.append(...prompt.filter(Boolean));
 
   if (ex.rung === 1) {
     let sent = false;

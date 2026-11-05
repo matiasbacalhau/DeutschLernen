@@ -71,3 +71,15 @@ test('nivel 2: un lema con der y die acepta las dos; el verbo, el infinitivo', a
   assert.ok((await run(verb, 'gehen')).ok);
   assert.ok(!(await run(verb, 'geht')).ok);
 });
+
+test('UI: sin síntesis de voz el modo listen no agrega nodos null', async () => {
+  // DOM mínimo: alcanza para que h() arme elementos y registre los hijos que recibe append.
+  const mk = (tag) => ({tag, children: [], append(...c) { this.children.push(...c); }, setAttribute() {}, addEventListener() {}, querySelectorAll: () => []});
+  globalThis.document = {createElement: mk};
+  globalThis.window = {};
+  const {render} = await import('../js/exercises/card.js');
+  const el = mk('div');
+  render(card('Schlüssel', 1, 'listen'), el, {submit() {}});
+  assert.ok(el.children.length > 0 && el.children.every((c) => c !== null && typeof c === 'object'));
+  delete globalThis.document; delete globalThis.window;
+});
