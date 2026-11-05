@@ -22,6 +22,6 @@ export function render(ex, el, { submit, onNoAudio }) {
     h('p', { class: 'scene' }, h('strong', {}, ex.scene.title), ' · ', rich(ex.scene.context)),
     h('div', { class: 'chat' }, bubbles),
     ...inputs, btn,
-    ex.listen && onNoAudio && h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio() }, 'Ahora no puedo escuchar'),
+    ...(ex.listen && onNoAudio ? [h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio() }, 'Ahora no puedo escuchar')] : []),
   );
 }
