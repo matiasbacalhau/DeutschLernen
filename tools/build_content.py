@@ -58,6 +58,12 @@ def agregar_words(ex, lexico):
                    if w['lemma'].lower() in ws or (w.get('plural') and w['plural'].lower() in ws)]
 
 
+def creditos(lexico):
+    """Un crédito por SVG de OpenMoji usado en el léxico (CC BY-SA 4.0 pide atribución)."""
+    return [{'file': f'{c}.svg', 'source': 'OpenMoji', 'license': 'CC BY-SA 4.0', 'url': f'https://openmoji.org/library/emoji-{c}/'}
+            for c in sorted({w['image'] for w in lexico if w.get('image')})]
+
+
 def cargar_unidad(dir_unidad, lexico):
     unit = leer(f'{dir_unidad}/unit.yaml', {})
     topics = []
@@ -75,6 +81,7 @@ def main():
     lexico = leer('lexicon.yaml', [])
     escribir('curriculum.json', cur)
     escribir('lexicon.json', lexico)
+    escribir('credits.json', creditos(lexico))
     escribir('templates.json', leer('templates.yaml', []))
     escribir('lt-map.json', leer('lt-map.yaml', {'rules': {}, 'categories': {}, 'notice_categories': [], 'llm_categories': {}}))
     for u in sorted({t['unit'] for t in cur['topics'] if t.get('unit')}):

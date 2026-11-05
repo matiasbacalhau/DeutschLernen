@@ -3,6 +3,7 @@
 import { h, rich } from './dom.js';
 import { answerInput, listenButton } from './inputs.js';
 import { renderFicha } from './ficha.js';
+import { wordPicture } from './imagen.js';
 import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
 import { checkExercise } from '../core/checks/index.js';
@@ -300,6 +301,8 @@ export default async function grupo(el, { store, content, params }) {
     const sentence = correctSentence(ex, answer, results);
     const listen = sentence && listenButton(sentence);
     return [
+      // Tarjeta: la imagen aparece recién ahora (antes revelaría el significado del nivel 1 o del audio).
+      ex.type === 'card' && wordPicture(ex.word, 'card'),
       ex.type === 'situation' && situationReplay(ex, answer, results),
       allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
       !(allOk && multi) && listen,

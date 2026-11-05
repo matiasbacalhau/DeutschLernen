@@ -65,6 +65,16 @@ def validar_lexico(lex, errs):
                 errs.append(f'lexicon: {nombre} no tiene {c}')
 
 
+def validar_imagenes(lex, images, credits, errs):
+    """Cada `image` del léxico tiene su SVG, y cada SVG copiado tiene su crédito (OpenMoji pide atribución)."""
+    for w in lex:
+        if w.get('image') and f'{w["image"]}.svg' not in images:
+            errs.append(f'lexicon: {w["lemma"]} usa la imagen {w["image"]}, pero falta images/openmoji/{w["image"]}.svg')
+    creditados = {c.get('file') for c in credits}
+    for f in sorted(set(images) - creditados):
+        errs.append(f'images/openmoji/{f} no tiene entrada en credits.json')
+
+
 def validar_ltmap(lt, tags, errs):
     for rid, r in lt.get('rules', {}).items():
         if r.get('tag') and r['tag'] not in tags:
@@ -135,6 +145,8 @@ def validate(data):
     tags = cur.get('tags', {})
     validar_curriculum(cur, errs)
     validar_lexico(data.get('lexicon', []), errs)
+    if 'images' in data:
+        validar_imagenes(data.get('lexicon', []), data['images'], data.get('credits', []), errs)
     validar_ltmap(data.get('ltMap', {}), tags, errs)
     validar_unidades(data.get('units', {}), tags, errs)
     return errs
@@ -154,7 +166,8 @@ def main():
             nivel, num = u.split('.')
             units[u] = cargar(f'levels/{nivel}/unit-{num[1:]}.json')
     errs = validate({'curriculum': cur, 'lexicon': cargar('lexicon.json'), 'ltMap': cargar('lt-map.json'),
-                     'templates': cargar('templates.json'), 'units': units})
+                     'templates': cargar('templates.json'), 'units': units,
+                     'credits': cargar('credits.json'), 'images': sorted(os.listdir(os.path.join(ROOT, 'images', 'openmoji')))})
     for e in errs:
         print(e)
     if errs:

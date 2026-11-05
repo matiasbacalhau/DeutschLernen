@@ -17,6 +17,7 @@
   --radius: 22px;
   --radius-sm: 14px;
   --pill: 999px;
+  --pic-tile: #f3f1ea; /* ficha de las imágenes: la misma para toda palabra, también en oscuro, para que el color nunca indique género */
   --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --serif: "Instrument Serif", Georgia, serif;
   color-scheme: light dark;
@@ -268,10 +269,16 @@ fieldset.question legend { font-weight: 500; margin-bottom: 4px; }
 .ficha th, .ficha td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--hair); vertical-align: top; }
 .ficha summary { min-height: 44px; display: flex; align-items: center; font-weight: 600; cursor: pointer; }
 .glossary { list-style: none; padding: 0; margin: 0; }
-.glossary li { display: flex; flex-wrap: wrap; column-gap: 6px; padding: 8px 0; border-top: 1px solid var(--hair); }
+.glossary li { display: flex; column-gap: 10px; padding: 8px 0; border-top: 1px solid var(--hair); }
+.gl-body { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: 6px; }
 .glossary li:first-child { border-top: 0; }
 .glossary .lemma { font-weight: 600; }
 .glossary li { align-items: center; }
+.pic { display: flex; align-items: center; justify-content: center; flex: none; background: var(--pic-tile); box-sizing: border-box; }
+.pic img { display: block; width: 100%; height: 100%; }
+.pic-card { width: 112px; height: 112px; padding: 12px; border-radius: 18px; margin-bottom: 16px; }
+.pic-gl { width: 44px; height: 44px; padding: 4px; border-radius: 10px; }
+span.pic-gl:empty { background: none; }
 .glossary .listen { margin-left: auto; }
 .glossary .es { flex-basis: 100%; color: var(--muted); font-size: 0.95rem; }
 [hidden] { display: none !important; }

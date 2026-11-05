@@ -1,7 +1,9 @@
 // card: tarjeta de vocabulario. Nivel 1: elegir la traducción (answer = índice). Nivel 2: escribir la palabra con artículo (answer = texto).
+// La imagen (si la palabra tiene) es la pista del nivel 2 leyendo; en el nivel 1 y en 'listen' recién aparece al responder (grupo.js).
 // 'listen' muestra solo 🔊 (suena al tocarlo, nunca sola); 'read' muestra la palabra (nivel 1) o la traducción (nivel 2).
 import { h } from '../ui/dom.js';
 import { answerInput, listenButton } from '../ui/inputs.js';
+import { wordPicture } from '../ui/imagen.js';
 import { onceButton, onEnter } from './common.js';
 
 export function render(ex, el, { submit, onNoAudio }) {
@@ -12,7 +14,7 @@ export function render(ex, el, { submit, onNoAudio }) {
     ? [h('p', { class: 'muted' }, ex.rung === 1 ? 'Escuchá y elegí qué significa.' : 'Escuchá y escribila con su artículo.'), speaker]
     : ex.rung === 1
       ? [h('p', { class: 'muted' }, '¿Qué significa?'), h('p', { class: 'sentence', lang: 'de' }, word.pos === 'noun' ? `${word.article} ${word.lemma}` : word.lemma)]
-      : [h('p', { class: 'muted' }, 'Escribila en alemán, con su artículo si es un sustantivo.'), h('p', { class: 'sentence', lang: 'es' }, word.es)];
+      : [h('p', { class: 'muted' }, 'Escribila en alemán, con su artículo si es un sustantivo.'), wordPicture(word, 'card'), h('p', { class: 'sentence', lang: 'es' }, word.es)];
   // listenButton() es null sin síntesis de voz: no se agrega.
   el.append(...prompt.filter(Boolean));
 
