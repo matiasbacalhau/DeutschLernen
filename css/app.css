@@ -292,3 +292,4 @@ fieldset.question legend { font-weight: 500; margin-bottom: 4px; }
 .map-step[data-status="reforzar"] span:last-child { color: var(--negative); }
 .map-step[data-status="superado"] span:last-child { color: var(--accent); }
 .map-topic { color: var(--text); text-decoration: none; }
+.no-audio { margin-top: 12px; }
