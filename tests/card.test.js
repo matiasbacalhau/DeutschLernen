@@ -72,6 +72,15 @@ test('nivel 2: un lema con der y die acepta las dos; el verbo, el infinitivo', a
   assert.ok(!(await run(verb, 'geht')).ok);
 });
 
+test('nivel 2: un sustantivo sin artículo en el léxico (países) acepta el lema solo', async () => {
+  const w = lexicon.find((x) => x.lemma === 'Deutschland');
+  assert.equal(w.article, null);
+  const ex = makeCard(w, {rung: 2, mode: 'read', lexicon, rng: seeded()});
+  const r = (answer) => checkExercise(ex, answer, {curriculum: {tags: {}}, lexicon}).then(([x]) => x);
+  assert.ok((await r('Deutschland')).ok);
+  assert.ok(!(await r('das Deutschland')).ok);
+});
+
 test('UI: sin síntesis de voz el modo listen no agrega nodos null', async () => {
   // DOM mínimo: alcanza para que h() arme elementos y registre los hijos que recibe append.
   const mk = (tag) => ({tag, children: [], append(...c) { this.children.push(...c); }, setAttribute() {}, addEventListener() {}, querySelectorAll: () => []});

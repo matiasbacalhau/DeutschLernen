@@ -55,21 +55,25 @@ function nounGap(word, templates, usable, rng) {
   return pool.length ? asLevel3(pick(pool, rng), word.lemma) : null;
 }
 
-const PRONOUNS = {ich: 'Ich', du: 'Du', er: 'Er', wir: 'Wir', ihr: 'Ihr', sie: 'Sie'};
+// Sin *sie*/*Sie* sueltos: serían ambiguos (ella, ellos o usted), como en sein-praesens.js.
+const SUBJECTS = {ich: 'Ich', du: 'Du', er: 'Er', wir: 'Wir', ihr: 'Ihr', sie: 'Tom und Lea'};
+const PERSONS = Object.keys(SUBJECTS);
 
-// Verbo: forma conjugada en contexto (spec §4). La persona con forma irregular cuenta para a1.praesens.irregular.
+// Verbo: forma conjugada en contexto (spec §4). *sein* cuenta para a1.sein.praesens; en los demás, la persona con
+// forma irregular cuenta para a1.praesens.irregular.
 function verbGap(word, usable, rng) {
-  const tagOf = (p) => (word.irregular?.[p] !== undefined ? 'a1.praesens.irregular' : 'a1.praesens.regular');
-  const persons = Object.keys(PRONOUNS).filter((p) => usable(tagOf(p)));
+  const tagOf = (p) => (word.lemma === 'sein' ? 'a1.sein.praesens'
+    : word.irregular?.[p] !== undefined ? 'a1.praesens.irregular' : 'a1.praesens.regular');
+  const persons = PERSONS.filter((p) => usable(tagOf(p)));
   if (!persons.length) return null;
   const person = pick(persons, rng);
   return asLevel3({
     id: `verb:${word.lemma}`, type: 'gap', tag: tagOf(person), context: 'Conjugá el verbo entre paréntesis.',
-    text: `${PRONOUNS[person]} ___ (${word.lemma}) …`, answers: present(word, person), dims: {person}, verb: word.lemma,
+    text: `${SUBJECTS[person]} ___ (${word.lemma}) …`, answers: present(word, person), dims: {person}, verb: word.lemma,
   }, word.lemma);
 }
 
-// ¿Algún ítem de `exercises` evalúa el artículo o la forma de `lemma`? (regla 1)
+// ¿Algún ítem de `exercises` evalúa el artículo o la forma de `word`? (regla 1) Un verbo, también por sus formas conjugadas.
 function evaluatedBy(exercises) {
   const nouns = new Set();
   const answers = [];
@@ -77,7 +81,9 @@ function evaluatedBy(exercises) {
     for (const x of [ex, ...(ex.gaps ?? [])]) if (x.noun) nouns.add(x.noun);
     for (let n = 0; n < countItems(ex); n++) answers.push(...(itemInfo(ex, `${ex.id}#${n}`).answers ?? []));
   }
-  return (lemma) => nouns.has(lemma) || answers.some((a) => typeof a === 'string' && containsAnswer(a, lemma));
+  const forms = (word) => (word.pos === 'verb' ? [word.lemma, ...PERSONS.flatMap((p) => present(word, p))] : [word.lemma]);
+  return (word) => nouns.has(word.lemma)
+    || forms(word).some((f) => answers.some((a) => typeof a === 'string' && containsAnswer(a, f)));
 }
 
 // Tarjetas para un grupo (spec §5.2): las vencidas, la más atrasada primero, hasta `max`.
@@ -94,7 +100,7 @@ export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExerci
   for (const lemma of dueLemmas(srs, now)) {
     if (out.length >= max) break;
     const word = lexicon.find((w) => w.lemma === lemma);
-    if (!word || (word.pos === 'noun' && hidesArticle) || evaluated(lemma)) continue;
+    if (!word || (word.pos === 'noun' && hidesArticle) || evaluated(word)) continue;
     const entry = srs[lemma];
     let rung = entry.rung;
     if (rung === 3 && word.pos === 'verb' && !tagUnlocked('a1.praesens.regular', mastery, curriculum)) rung = 2;

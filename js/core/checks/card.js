@@ -6,12 +6,14 @@ import { result } from './common.js';
 const RULE_1 = 'Esa no es la traducción. Fijate en la palabra y probá de nuevo la próxima vez.';
 const RULE_2 = 'Eso no coincide con la palabra. Revisá cómo se escribe, con su artículo si es un sustantivo.';
 
-// Formas aceptadas: "<artículo> <lema>" por cada artículo del léxico con ese lema; los verbos, el infinitivo.
+// Formas aceptadas: "<artículo> <lema>" por cada artículo del léxico con ese lema; los verbos y los sustantivos sin
+// artículo, el lema.
 export function forms(ex, lexicon) {
   const w = ex.word;
   if (w.pos !== 'noun') return [w.lemma];
   const articles = new Set([w.article, ...lexicon.filter((x) => x.lemma === w.lemma && x.pos === 'noun').map((x) => x.article)]);
-  return [...articles].filter(Boolean).map((a) => `${a} ${w.lemma}`);
+  const out = [...articles].filter(Boolean).map((a) => `${a} ${w.lemma}`);
+  return out.length ? out : [w.lemma]; // sin artículo en el léxico (países como *Deutschland*): el lema solo
 }
 
 export async function check(ex, answer, ctx) {

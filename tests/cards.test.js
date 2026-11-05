@@ -83,7 +83,7 @@ test('pickCards nivel 3 de un verbo: hueco con present() si el presente está de
   const [gap] = pickCards(srs, opts({mastery: m}));
   assert.equal(gap.type, 'gap');
   assert.equal(gap.tag, 'a1.praesens.regular');
-  assert.match(gap.text, /^(Ich|Du|Er|Wir|Ihr|Sie) ___ \(wohnen\) …$/);
+  assert.match(gap.text, /^(Ich|Du|Er|Wir|Ihr|Tom und Lea) ___ \(wohnen\) …$/);
   assert.ok(['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(gap.answers[0]));
   assert.deepEqual(gap.vocab, {lemma: 'wohnen', rung: 3, mode: 'read'});
   const [card] = pickCards(srs, opts());
@@ -99,4 +99,31 @@ test('pickCards: sin audio nunca escuchando; con audio, solo en niveles con la e
   assert.ok(withAudio.some((e) => e.vocab.mode === 'listen'));
   assert.ok(withAudio.some((e) => e.vocab.lemma === 'Bett' && e.vocab.mode === 'read'));
   assert.ok(withAudio.filter((e) => e.vocab.lemma === 'Schlüssel').every((e) => e.vocab.mode === 'read'));
+});
+
+test('pickCards nivel 3 de un verbo: nunca un "Sie" suelto (ambiguo); la tercera del plural es "Tom und Lea"', () => {
+  const srs = srsOf(['wohnen'], {wohnen: {rung: 3}});
+  const m = mastery({'a1.pron.personal': 0.8, 'a1.praesens.regular': 0.5});
+  const gaps = Array.from({length: 60}, (_, s) => pickCards(srs, opts({mastery: m, rng: seeded(s * 7919 + 13)}))[0]);
+  assert.ok(gaps.every((g) => !g.text.startsWith('Sie ')));
+  const plural = gaps.find((g) => g.dims.person === 'sie');
+  assert.ok(plural);
+  assert.equal(plural.text, 'Tom und Lea ___ (wohnen) …');
+  assert.deepEqual(plural.answers, ['wohnen']);
+});
+
+test('pickCards nivel 3 de sein: tag a1.sein.praesens, que queda afuera en los grupos de ese tema', () => {
+  const srs = srsOf(['sein'], {sein: {rung: 3}});
+  const m = mastery({'a1.pron.personal': 0.8, 'a1.praesens.regular': 0.5, 'a1.sein.praesens': 0.5});
+  const [gap] = pickCards(srs, opts({mastery: m, topic: {...topic, tags: []}}));
+  assert.equal(gap.tag, 'a1.sein.praesens');
+  assert.deepEqual(pickCards(srs, opts({mastery: m, topic: {...topic, tags: ['a1.sein.praesens']}})), []);
+});
+
+test('pickCards: un verbo cuya forma conjugada evalúa otro ítem del grupo queda afuera', () => {
+  const srs = srsOf(['sein', 'wohnen']);
+  const groupExercises = [{id: 'g1', type: 'gap', tag: 'a1.sein.praesens', answers: ['bin']}];
+  assert.deepEqual(pickCards(srs, opts({groupExercises})).map((e) => e.vocab.lemma), ['wohnen']);
+  const wohnt = [{id: 's1', type: 'situation', gaps: [{tag: 'x', answers: ['wohnt']}]}];
+  assert.deepEqual(pickCards(srs, opts({groupExercises: wohnt})).map((e) => e.vocab.lemma), ['sein']);
 });
