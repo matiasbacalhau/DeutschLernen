@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { buildExtras, pickListening } from '../js/core/extras.js';
 import { buildGroup } from '../js/core/progress.js';
+import { dictationPool } from '../js/core/dictation.js';
 import { addWords } from '../js/core/srs.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../data/${p}`, import.meta.url)));
@@ -77,6 +78,43 @@ test('buildExtras: el dictado no contiene la respuesta de otro ítem ni una pala
   for (let s = 1; s < 15; s++) {
     const g = buildExtras({...groupAt(3), exercises: withAnswer}, opts({rng: seeded(s), pool: p}));
     assert.deepEqual(g.exercises.filter((e) => e.type === 'dictation').map((e) => e.text), ['Das ist gut.']);
+  }
+});
+
+test('buildExtras: el dictado suelto nunca es de una plantilla card_only', () => {
+  const p = [{text: 'Schau mal, hier ist der Stuhl!', lemmas: ['Stuhl'], cardOnly: true}, {text: 'Das ist gut.', lemmas: []}];
+  for (let s = 1; s < 15; s++) {
+    const g = buildExtras(groupAt(3), opts({srs: {}, rng: seeded(s), pool: p}));
+    assert.deepEqual(g.exercises.filter((e) => e.type === 'dictation').map((e) => e.text), ['Das ist gut.']);
+  }
+  assert.equal(extrasOf(buildExtras(groupAt(3), opts({srs: {}, pool: [p[0]]}))).length, 0);
+  // Con el pool real y palabras en aprendizaje, ninguna frase de tpl-nom-hier.
+  const real = dictationPool(units, templates, lexicon, curriculum);
+  for (let s = 1; s < 40; s++) {
+    const g = buildExtras(groupAt(3), opts({srs: srsOf(['Stuhl', 'Dusche', 'Kissen', 'Heizung'], {card: {...srsOf(['x']).x.card, due: NOW + 1}}), rng: seeded(s), pool: real}));
+    for (const e of g.exercises.filter((x) => x.type === 'dictation')) assert.doesNotMatch(e.text, /^Schau mal, hier ist/);
+  }
+});
+
+test('buildExtras: la situación de escucha no muestra lo que evalúa otro ítem ni las palabras de las tarjetas (regla 1)', () => {
+  const sitOf = (g) => g.exercises.filter((e) => e.type === 'situation').map((e) => e.id);
+  const seen = (a, b) => ({steps: {'a1.u1.t1/3': {attempts: [], seen: {[a]: 10, [b]: 50}}}});
+  const t3 = (exercises) => ({...groupAt(2, 'a1.u1.t3'), exercises});
+  // Sin conflicto, la vista hace más tiempo.
+  assert.deepEqual(sitOf(buildExtras(t3(main), opts({srs: {}, pool: [], progress: seen('t1-3-sit-schnarchen', 't1-3-sit-mia')}))), ['t1-3-sit-schnarchen']);
+  // Una burbuja contiene la respuesta de otro ítem del grupo (*Hast du Ohrstöpsel?*).
+  const answer = [{...main[0], answers: ['Ohrstöpsel']}];
+  assert.deepEqual(sitOf(buildExtras(t3(answer), opts({srs: {}, pool: [], progress: seen('t1-3-sit-schnarchen', 't1-3-sit-mia')}))), ['t1-3-sit-mia']);
+  // Una burbuja muestra la palabra de una tarjeta (*Bett*).
+  for (let s = 1; s < 10; s++) {
+    const g = buildExtras(t3(main), opts({srs: srsOf(['Bett']), rng: seeded(s), pool: [], progress: seen('t1-3-sit-mia', 't1-3-sit-schnarchen')}));
+    assert.deepEqual(sitOf(g), ['t1-3-sit-schnarchen']);
+  }
+  // Un hueco evalúa una forma del verbo de una tarjeta (*bin*, de *sein*).
+  for (let s = 1; s < 10; s++) {
+    const g = buildExtras(t3(main), opts({srs: srsOf(['sein']), rng: seeded(s), pool: [], progress: seen('t1-3-sit-schnarchen', 't1-3-sit-mia')}));
+    assert.ok(g.exercises.some((e) => e.vocab?.lemma === 'sein'));
+    assert.deepEqual(sitOf(g), ['t1-3-sit-mia']);
   }
 });
 

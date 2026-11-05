@@ -25,7 +25,7 @@ const EMPTY_MASTERY = { tags: {}, pairs: {} };
 // Frases para dictar: se arman una vez por contenido cargado.
 const pools = new WeakMap();
 const poolOf = C => {
-  if (!pools.has(C)) pools.set(C, dictationPool(C.units, C.templates, C.lexicon));
+  if (!pools.has(C)) pools.set(C, dictationPool(C.units, C.templates, C.lexicon, C.curriculum));
   return pools.get(C);
 };
 

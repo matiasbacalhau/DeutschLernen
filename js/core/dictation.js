@@ -10,8 +10,8 @@ const words = (s) => String(s).toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
 // Las frases de cada ejercicio que pueden dictarse tal cual: sin huecos.
 function sentencesOf(ex) {
   switch (ex.type) {
-    case 'transform': return ex.answers.slice(0, 1);
-    case 'translate': return ex.from === 'de' ? [] : ex.answers.slice(0, 1); // desde el alemán, la respuesta no es alemán
+    case 'transform': return ex.answers;
+    case 'translate': return ex.from === 'de' ? [] : ex.answers; // desde el alemán, la respuesta no es alemán
     case 'detective': return ex.sentences.map((s) => s.de);
     case 'situation': return ex.bubbles.map((b) => b.text);
     default: return [];
@@ -21,9 +21,17 @@ function sentencesOf(ex) {
 // Una instancia de generador con el hueco relleno con su primera respuesta.
 const filled = (e) => e.text.replace('___', e.answers[0]);
 
-// [{text, lemmas}]: frases de hasta 8 palabras sin `___`, sin repetir. `lemmas`: los del léxico cuyo lema o plural
-// aparece como palabra (sin distinguir mayúsculas).
-export function dictationPool(units, templates, lexicon) {
+// Los lemas del léxico cuyo lema o plural aparece como palabra en `text` (sin distinguir mayúsculas).
+export function lemmasIn(text, lexicon) {
+  const set = new Set(words(text));
+  return [...new Set(lexicon.filter((w) => set.has(w.lemma.toLowerCase()) || (w.plural && set.has(w.plural.toLowerCase()))).map((w) => w.lemma))];
+}
+
+// [{text, lemmas, cardOnly?}]: frases de hasta 8 palabras sin `___`, sin repetir: todas las respuestas aceptadas de
+// `transform`/`translate`, frases del detective, burbujas, ejemplos del currículo (si se pasa) e instancias de los
+// generadores rellenadas. `cardOnly`: la frase sale solo de una plantilla `card_only` (sirve para el dictado de
+// nivel 3 de su palabra, no para el dictado suelto).
+export function dictationPool(units, templates, lexicon, curriculum) {
   const texts = [];
   for (const unit of Object.values(units)) {
     for (const t of unit.topics) {
@@ -31,17 +39,20 @@ export function dictationPool(units, templates, lexicon) {
       for (const s of t.steps ?? []) for (const ex of s.exercises) texts.push(...sentencesOf(ex));
     }
   }
-  for (const tpl of templates) texts.push(...instancesOf(tpl, lexicon).map(filled));
+  for (const tag of Object.values(curriculum?.tags ?? {})) texts.push(...(tag.examples ?? []).map((e) => e.de));
+  for (const tpl of templates.filter((t) => !t.card_only)) texts.push(...instancesOf(tpl, lexicon).map(filled));
+  const cardOnly = templates.filter((t) => t.card_only).flatMap((tpl) => instancesOf(tpl, lexicon).map(filled));
   const out = [];
   const seen = new Set();
-  for (const text of texts) {
+  const add = (text, extra) => {
+    if (typeof text !== 'string' || text.includes('___') || seen.has(text)) return;
     const ws = words(text);
-    if (text.includes('___') || !ws.length || ws.length > MAX_WORDS || seen.has(text)) continue;
+    if (!ws.length || ws.length > MAX_WORDS) return;
     seen.add(text);
-    const set = new Set(ws);
-    const lemmas = [...new Set(lexicon.filter((w) => set.has(w.lemma.toLowerCase()) || (w.plural && set.has(w.plural.toLowerCase()))).map((w) => w.lemma))];
-    out.push({text, lemmas});
-  }
+    out.push({text, lemmas: lemmasIn(text, lexicon), ...extra});
+  };
+  for (const text of texts) add(text, {});
+  for (const text of cardOnly) add(text, {cardOnly: true});
   return out;
 }
 

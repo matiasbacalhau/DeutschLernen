@@ -75,7 +75,7 @@ function verbGap(word, usable, rng) {
 }
 
 // ¿Algún ítem de `exercises` evalúa el artículo o la forma de `word`? (regla 1) Un verbo, también por sus formas conjugadas.
-function evaluatedBy(exercises) {
+export function evaluatedBy(exercises) {
   const nouns = new Set();
   const answers = [];
   for (const ex of exercises) {

@@ -1,6 +1,6 @@
 // Extras de un grupo (spec §5.2 y §6): tarjetas vencidas y el lugar de escucha. Puro: azar y reloj inyectados.
-import { pickCards } from './cards.js';
-import { pickDictation, revealing } from './dictation.js';
+import { pickCards, evaluatedBy } from './cards.js';
+import { pickDictation, revealing, lemmasIn } from './dictation.js';
 import { interleave } from './scheduler.js';
 import { stepKey } from './progress.js';
 
@@ -11,8 +11,9 @@ function lastSeen(progress, topic, id) {
 }
 
 // Una situación ya vista del tema o de uno anterior de su unidad, la vista hace más tiempo, en modo escucha
-// (spec §6.2), salvo las de `skip` (ids ya en el grupo). La de otro tema va como repaso, con su `topic`.
-export function pickListening(units, progress, topicId, {skip = new Set()} = {}) {
+// (spec §6.2), salvo las de `skip` (ids ya en el grupo) y las que `exclude(situación)` descarta (regla 1). La de otro
+// tema va como repaso, con su `topic`. (No recibe `now`: elegir la vista hace más tiempo no lo necesita.)
+export function pickListening(units, progress, topicId, {skip = new Set(), exclude = () => false} = {}) {
   const unit = Object.values(units).find((u) => u.topics.some((t) => t.topic === topicId));
   if (!unit) return null;
   const upTo = unit.topics.slice(0, unit.topics.findIndex((t) => t.topic === topicId) + 1);
@@ -21,7 +22,7 @@ export function pickListening(units, progress, topicId, {skip = new Set()} = {})
     if (t.draft) continue;
     for (const s of t.steps ?? []) {
       for (const ex of s.exercises) {
-        if (ex.type !== 'situation' || skip.has(ex.id)) continue;
+        if (ex.type !== 'situation' || skip.has(ex.id) || exclude(ex)) continue;
         const at = lastSeen(progress, t, ex.id);
         if (at !== undefined && (!best || at < best.at)) best = {ex, at, topic: t.topic};
       }
@@ -44,8 +45,19 @@ export function buildExtras(group, {srs, now, rng, unit, units, progress, lexico
   const extras = [...cards];
   if (n >= 2 && audio) {
     const reveals = revealing([...group.exercises, ...cards]);
-    const dictation = () => pickDictation(pool, srs, {rng, exclude: reveals});
-    const listening = () => pickListening(units, progress, group.topic, {skip: new Set(group.exercises.map((e) => e.id))});
+    // El dictado suelto no usa las frases de plantillas `card_only` (quedan para el nivel 3 de su palabra).
+    const dictation = () => pickDictation(pool, srs, {rng, exclude: (e) => e.cardOnly || reveals(e)});
+    // Regla 1 para la situación: sus burbujas y respuestas no muestran lo que evalúa otro ítem ni una palabra de las
+    // tarjetas, y sus huecos no evalúan la palabra (artículo o forma) de ninguna tarjeta.
+    const cardWords = cards.map((c) => lexicon.find((w) => w.lemma === c.vocab.lemma)).filter(Boolean);
+    const situationReveals = (sit) => {
+      const texts = [...sit.bubbles.map((b) => b.text), ...sit.gaps.flatMap((g) => g.answers)].filter((t) => typeof t === 'string');
+      if (texts.some((text) => reveals({text, lemmas: lemmasIn(text, lexicon)}))) return true;
+      return cardWords.some(evaluatedBy([sit]));
+    };
+    const listening = () => pickListening(units, progress, group.topic, {
+      skip: new Set(group.exercises.map((e) => e.id)), exclude: situationReveals,
+    });
     const order = rng() < 0.5 ? [dictation, listening] : [listening, dictation];
     const item = order[0]() ?? order[1]();
     if (item) extras.push(item);

@@ -34,6 +34,16 @@ test('dictationPool: frases de hasta 8 palabras, sin huecos, con los lemas que c
   assert.ok(plural.lemmas.includes('Stuhl'), plural.text);
 });
 
+test('dictationPool: todas las respuestas aceptadas, ejemplos del currículo y card_only marcadas', () => {
+  const pool = dictationPool(units, templates, lexicon, curriculum);
+  const texts = pool.map((e) => e.text);
+  for (const t of ['Tom ist im Etagenbett oben.', 'Tom ist oben im Etagenbett.', 'Oben im Etagenbett ist Tom.', 'Du bist im Hostel.']) assert.ok(texts.includes(t), t);
+  assert.equal(new Set(texts).size, texts.length);
+  assert.equal(pool.find((e) => e.text === 'Schau mal, hier ist der Schlüssel!').cardOnly, true);
+  assert.ok(!pool.find((e) => e.text === 'Ich brauche noch einen Löffel für die Küche.').cardOnly);
+  assert.ok(pool.filter((e) => /^Schau mal, hier ist/.test(e.text)).every((e) => e.cardOnly));
+});
+
 test('pickDictation: prefiere frases con lemas en nivel 1 o 2; null sin frases', () => {
   const pool = [
     {text: 'Das ist gut.', lemmas: []},
