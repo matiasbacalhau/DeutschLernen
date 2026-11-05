@@ -181,6 +181,17 @@ proyecto). La velocidad 0,8× y 1× se pasa por `rate`.
   Incluye: color o monocromo de OpenMoji sobre el fondo oscuro de "cuaderno sereno", tamaño, marco y cómo se ve la tarjeta.
 - Offline: los SVG van en el SHELL del service worker.
 
+**Estilo elegido (2026-11-05)** **[usuario]**: propuesta B, "recortes sobre la mesa". OpenMoji **a color** (versión 15.1.0) sobre una
+ficha clara `#f3f1ea`, sin borde ni sombra, la misma ficha para todas las palabras (el color nunca indica género):
+- tarjeta: ficha de 112 px con el ícono de 88 px, radio 18 px;
+- glosario: ficha de 44 px con el ícono de 36 px, radio 10 px, en una columna fija.
+
+**Nivel 1: la imagen aparece después de responder** **[usuario]**, no antes: con la imagen a la vista, el nivel 1 no exigiría
+leer la palabra. En el nivel 2 la imagen sigue siendo la pista. Por lo mismo, el `alt` de la imagen del nivel 1 recién existe
+después de responder.
+
+OpenMoji no tiene un pictograma claro para *Handtuch*, *Kissen*, *Pass*, *Decke* ni *Schrank*: esas palabras van sin imagen.
+
 ## 8. Datos
 
 - **Store:** nueva clave `srs: {[lemma]: {card, rung, listenUnlocked: {1?: true, 2?: true, 3?: true}, addedAt}}`, con `card` en
