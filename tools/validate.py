@@ -71,7 +71,7 @@ def validar_imagenes(lex, images, credits, errs):
         if w.get('image') and f'{w["image"]}.svg' not in images:
             errs.append(f'lexicon: {w["lemma"]} usa la imagen {w["image"]}, pero falta images/openmoji/{w["image"]}.svg')
     creditados = {c.get('file') for c in credits}
-    for f in sorted(set(images) - creditados):
+    for f in sorted(f for f in set(images) - creditados if f.endswith('.svg')):  # LICENSE.txt no es una imagen
         errs.append(f'images/openmoji/{f} no tiene entrada en credits.json')
 
 

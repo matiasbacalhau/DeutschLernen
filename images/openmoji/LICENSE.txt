@@ -1,0 +1,3 @@
+Los pictogramas de esta carpeta son de OpenMoji (https://openmoji.org), el proyecto de emojis abiertos.
+Licencia: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), https://creativecommons.org/licenses/by-sa/4.0/
+Cada archivo SVG figura en data/credits.json con su enlace de origen.

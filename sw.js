@@ -77,6 +77,7 @@ const SHELL = [
   'js/ui/tema.js',
   'js/vendor/ts-fsrs.js',
   'js/vendor/ts-fsrs.LICENSE',
+  'images/openmoji/LICENSE.txt',
   'images/openmoji/1F345.svg',
   'images/openmoji/1F34A.svg',
   'images/openmoji/1F34C.svg',

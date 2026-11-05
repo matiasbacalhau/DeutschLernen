@@ -151,6 +151,12 @@ class ValidateTest(unittest.TestCase):
         d['credits'] = []
         self.assertError(d, '1F944.svg', 'credits')
 
+    def test_licencia_no_es_un_svg_sin_credito(self):
+        d = minimo()
+        d['images'] = ['LICENSE.txt']
+        d['credits'] = []
+        self.assertEqual(validate(d), [])
+
     def test_mas_de_3_choice(self):
         d = minimo()
         for i in range(4):
