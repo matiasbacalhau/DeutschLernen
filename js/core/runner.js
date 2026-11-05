@@ -37,7 +37,10 @@ export function correctSentence(ex, answer, results) {
       const text = ex.options?.[answer]?.text;
       return text && text.trim().split(/\s+/).length >= 2 ? text : null;
     }
-    case 'gap': return typeof answer === 'string' && ex.text?.includes('___') ? ex.text.replace('___', answer.trim()) : null;
+    case 'gap':
+      // El hueco de verbo de nivel 3 (cards.js) lleva el infinitivo entre paréntesis: no es una frase para escuchar.
+      if (String(ex.id).startsWith('card3:verb:')) return null;
+      return typeof answer === 'string' && ex.text?.includes('___') ? ex.text.replace('___', answer.trim()) : null;
     default: return null;
   }
 }
@@ -134,7 +137,12 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
       srs = reviewWord(srs, lemma, ok, {now: r.at, rung, mode});
       log.push(vocabEntry({lemma, rung, mode, ok, ms: r.ms, at: r.at}));
     } else if (ex.type === 'dictation') {
-      for (const [lemma, ok] of Object.entries(r.lemmaOk ?? {})) srs = reviewDue(srs, lemma, ok, {now: r.at});
+      for (const [lemma, ok] of Object.entries(r.lemmaOk ?? {})) {
+        const before = srs;
+        srs = reviewDue(srs, lemma, ok, {now: r.at});
+        // Entrada v solo si la palabra se repasó (estaba en la SRS y vencida), con su nivel de ahora (no cambia).
+        if (srs !== before) log.push(vocabEntry({lemma, rung: srs[lemma].rung, mode: 'listen', ok, ms: r.ms, at: r.at}));
+      }
     }
   }
   for (const ex of touched) words = countWords(words, ex.words ?? []);

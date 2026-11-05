@@ -14,7 +14,7 @@ import { pickGlossary } from '../core/glossary.js';
 import { reviewCandidates, itemInfo, exampleFor, curiosityFor, correctSentence, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import { addWords } from '../core/srs.js';
-import { withoutAudio } from '../core/cards.js';
+import { withoutAudio, cardReveal } from '../core/cards.js';
 import { skipEntry } from '../core/log.js';
 import { buildExtras } from '../core/extras.js';
 import { dictationPool } from '../core/dictation.js';
@@ -67,10 +67,11 @@ export default async function grupo(el, { store, content, params }) {
       }
       // Las palabras del glosario entran a la SRS en nivel 1 (spec §5.1); las que ya están no se tocan.
       const srs = fresh.glossary ? addWords(state.srs, fresh.glossary.map(w => w.lemma), now) : undefined;
-      // Tarjetas y lugar de escucha después del glosario: una palabra que entra hoy ya puede volver en este grupo.
+      // Tarjetas y lugar de escucha después del glosario: sus palabras no salen en las tarjetas ni en el dictado de este
+      // grupo (el glosario las muestra; regla 1) y vuelven desde el siguiente.
       fresh = buildExtras(fresh, {
         srs: srs ?? state.srs, now, rng: Math.random, unit, units: C.units, progress, lexicon: C.lexicon, templates: C.templates,
-        mastery, curriculum: C.curriculum, pool: poolOf(C), audio: tts.supported(),
+        mastery, curriculum: C.curriculum, pool: poolOf(C), audio: tts.supported(), glossary: (fresh.glossary ?? []).map(w => w.lemma),
       });
       return { ...(v.group ? state : {}), group: fresh, ...(srs && { srs }) };
     }));
@@ -222,13 +223,17 @@ export default async function grupo(el, { store, content, params }) {
       store.update(['meta'], v => ({ meta: { ...v.meta, audioHintSeen: true } })).catch(() => {});
     }
     show(head, body);
+    let noAudio = false;
     renderExercise(ex, body, {
       ctx,
       // "Ahora no puedo escuchar": sin audio por el resto del grupo; este ejercicio sale en su variante sin audio.
       onNoAudio: async () => {
+        if (noAudio) return; // doble toque: una sola vez
+        noAudio = true;
         document.removeEventListener('visibilitychange', onVisibility);
         group = { ...group, audioOff: true };
-        if (ex.type !== 'dictation') {
+        // La tarjeta pasa a lectura: el log lo anota acá. El dictado y la situación se saltean: lo anota skipExercise.
+        if (ex.type === 'card') {
           const entry = skipEntry({ item: ex.id, at: Date.now() });
           await store.update(['log'], v => ({ log: [...(v.log ?? []), entry] }));
         }
@@ -300,9 +305,11 @@ export default async function grupo(el, { store, content, params }) {
     const curiosity = curiosityFor(ex, results, C.curriculum, rng);
     const sentence = correctSentence(ex, answer, results);
     const listen = sentence && listenButton(sentence);
+    // Tarjeta: imagen y "der Schlüssel · llave" con 🔊 solo tras acertar (antes del acierto revelarían la respuesta).
+    const reveal = ex.type === 'card' && cardReveal(ex, results);
     return [
-      // Tarjeta: la imagen aparece recién ahora (antes revelaría el significado del nivel 1 o del audio).
-      ex.type === 'card' && wordPicture(ex.word, 'card'),
+      reveal?.picture && wordPicture(ex.word, 'card'),
+      reveal?.label && h('p', { class: 'sentence' }, reveal.label, ' ', listenButton(reveal.de)),
       ex.type === 'situation' && situationReplay(ex, answer, results),
       allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
       !(allOk && multi) && listen,

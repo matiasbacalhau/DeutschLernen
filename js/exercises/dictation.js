@@ -14,9 +14,8 @@ export function render(ex, el, { submit, onNoAudio }) {
   onEnter(input, () => btn.click());
   el.append(
     h('p', { class: 'muted' }, 'Escuchá y escribí la frase.'),
-    h('p', {},
+    h('p', { class: 'listen-row' },
       h('button', { type: 'button', class: 'listen', 'aria-label': 'Escuchar más despacio', lang: 'es', onclick: play(0.8) }, '🔊'),
-      ' ',
       h('button', { type: 'button', class: 'secondary small', 'aria-label': 'Escuchar a velocidad normal', lang: 'es', onclick: play(1) }, '1×'),
     ),
     input, btn,

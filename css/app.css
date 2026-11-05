@@ -221,6 +221,8 @@ button:not(:disabled):active, .button:active { opacity: 0.75; }
 .answer textarea { min-height: 120px; resize: vertical; }
 .answer input:focus, .answer textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
 .umlauts { display: flex; gap: 8px; margin-top: 8px; }
+/* Dictado: 🔊 y 1× en una línea */
+.listen-row { display: flex; align-items: center; gap: 8px; }
 .umlauts button { flex: 1; width: auto; min-width: 44px; margin: 0; padding: 0; background: var(--surface); color: var(--text); font-weight: 500; border-radius: var(--radius-sm); }
 
 input[type="file"] { width: 100%; font: inherit; margin: 8px 0; }

@@ -142,3 +142,11 @@ test('pickCards nivel 3 escuchando: dictado con la palabra; sin frase, sale leye
   for (let s = 1; s < 10; s++) assert.equal(pickCards(srs, {...opts, rng: seeded(s), pool: []})[0].vocab.mode, 'read');
   for (let s = 1; s < 10; s++) assert.equal(pickCards(srs, {...opts, rng: seeded(s), pool, audio: false})[0].vocab.mode, 'read');
 });
+
+test('check dictation: una sola pista; con palabras subrayadas, sin la regla (la da el subrayado)', async () => {
+  const [marked] = await checkExercise(dict, 'Wir sind im Zimer', ctx);
+  assert.equal(marked.rule, null);
+  const [missing] = await checkExercise(dict, 'Wir sind', ctx);
+  assert.equal(missing.wrong, undefined);
+  assert.equal(missing.rule, 'Compará tu frase con la original.');
+});

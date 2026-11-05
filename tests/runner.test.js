@@ -291,7 +291,7 @@ test('skipExercise: avanza sin resultado, sin cambiar puntaje, mastery ni SRS', 
   assert.deepEqual(out.log.filter(e => e.t === 'v'), []);
 });
 
-test('withoutAudio: tarjeta a lectura, situación con texto, dictado se saltea', () => {
+test('withoutAudio: tarjeta a lectura; situación de escucha y dictado se saltean', () => {
   const w = {lemma: 'Bett', pos: 'noun', article: 'das', es: 'cama'};
   const lexicon = [w, {lemma: 'Tisch', pos: 'noun', article: 'der', es: 'mesa'}, {lemma: 'Haus', pos: 'noun', article: 'das', es: 'casa'}, {lemma: 'Buch', pos: 'noun', article: 'das', es: 'libro'}];
   const card = {id: 'card:Bett:1:listen', type: 'card', rung: 1, mode: 'listen', word: w, vocab: {lemma: 'Bett', rung: 1, mode: 'listen'}};
@@ -299,7 +299,7 @@ test('withoutAudio: tarjeta a lectura, situación con texto, dictado se saltea',
   assert.equal(r.mode, 'read');
   assert.equal(r.id, 'card:Bett:1:read');
   assert.deepEqual(r.vocab, {lemma: 'Bett', rung: 1, mode: 'read'});
-  assert.equal(withoutAudio({id: 's', type: 'situation', listen: true}, {lexicon}).listen, false);
+  assert.equal(withoutAudio({id: 's', type: 'situation', listen: true}, {lexicon}), null);
   assert.equal(withoutAudio({id: 'd', type: 'dictation'}, {lexicon}), null);
   const plain = {id: 'x', type: 'gap'};
   assert.equal(withoutAudio(plain, {lexicon}), plain);
@@ -316,4 +316,28 @@ test('correctSentence: la frase correcta solo tras acertar', () => {
   assert.equal(correctSentence(choice, 0, ok), 'Ich bin neu.');
   assert.equal(correctSentence(choice, 1, ok), null);
   assert.equal(correctSentence({type: 'dictation'}, 'x y', ok), null);
+});
+
+test('correctSentence: el hueco de verbo de nivel 3 no da frase (su texto es "Ich ___ (wohnen) …")', () => {
+  const ok = [{key: 'card3:verb:wohnen', ok: true}];
+  const verb = {id: 'card3:verb:wohnen', type: 'gap', text: 'Ich ___ (wohnen) …'};
+  assert.equal(correctSentence(verb, 'wohne', ok), null);
+  const noun = {id: 'card3:tpl-nom-hier:Schlüssel', type: 'gap', text: 'Schau mal, hier ist ___ Schlüssel!'};
+  assert.equal(correctSentence(noun, 'der', ok), 'Schau mal, hier ist der Schlüssel!');
+});
+
+test('applyCommit: el dictado suelto deja una entrada v por cada palabra cuyo repaso cambió la SRS', () => {
+  const dict = {id: 'dict:3', type: 'dictation', text: 'Das Bett und der Schlüssel.', lemmas: ['Bett', 'Schlüssel', 'Zimmer'], review: true};
+  const g = {id: 'g', topic: 't1', step: 2, index: 1, committed: 0, exercises: [dict],
+    results: [{key: 'dict:3', tag: null, ok: false, lemmaOk: {Bett: true, Schlüssel: false, Zimmer: true}, ms: 7, at: 2000}]};
+  // Bett vencida (nivel 2), Schlüssel no vencida, Zimmer fuera de la SRS.
+  const srs = addWords({}, ['Bett', 'Schlüssel'], 0);
+  srs.Bett = {...srs.Bett, rung: 2};
+  srs.Schlüssel = {...srs.Schlüssel, card: {...srs.Schlüssel.card, due: 5000}};
+  const {group: c, toApply} = commitNext(g);
+  const out = applyCommit({group: c, toApply, state: {...state, srs}, quarantine: [], now: 3000});
+  assert.equal(out.srs.Bett.card.reps, 1);
+  assert.equal(out.srs.Bett.rung, 2);
+  assert.deepEqual(out.srs.Schlüssel, srs.Schlüssel);
+  assert.deepEqual(out.log.filter(e => e.t === 'v'), [{t: 'v', lemma: 'Bett', rung: 2, mode: 'listen', ok: true, ms: 7, at: 2000}]);
 });

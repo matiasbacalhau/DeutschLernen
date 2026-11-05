@@ -23,5 +23,6 @@ export async function check(ex, answer, ctx) {
     const forms = plural ? [l, plural] : [l];
     lemmaOk[l] = written.some((w) => matchAnswer(w, forms, {orthographic: false}).ok);
   }
-  return [result(ex.id, null, false, {rule: RULE, given, lemmaOk, ...(wrong.length ? {wrong} : {})})];
+  // Una sola pista: con palabras subrayadas, la del subrayado (grupo.js); sin ellas, la regla.
+  return [result(ex.id, null, false, {given, lemmaOk, ...(wrong.length ? {wrong} : {rule: RULE})})];
 }

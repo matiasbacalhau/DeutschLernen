@@ -9,7 +9,7 @@ function shuffled(list, rng) {
   return a;
 }
 
-// Devuelve [{lemma, article|null, plural, es, group: 'vista'|'cercana'|'nivel'}].
+// Devuelve [{lemma, article|null, plural, es, image|null, group: 'vista'|'cercana'|'nivel'}].
 // Si falta en un grupo, se completa con no vistas (primero del campo, después del nivel, después cualquiera).
 export function pickGlossary(lexicon, seenCounts, {field, level, hide = [], rng, n = 10} = {}) {
   const seen = w => (seenCounts[w.lemma] ?? 0) > 0;
@@ -45,6 +45,7 @@ export function pickGlossary(lexicon, seenCounts, {field, level, hide = [], rng,
     article: hideArticle ? null : (w.article ?? null),
     plural: w.plural ?? null,
     es: w.es,
+    image: w.image ?? null,
     group: w.group,
   }));
 }

@@ -16,12 +16,14 @@ function shuffled(list, rng) {
   return a;
 }
 
-// 3 traducciones distintas de otras palabras: primero del mismo campo, luego de la misma clase, luego cualquiera.
+// 3 traducciones distintas de otras palabras: primero del mismo campo y clase, luego de la misma clase, luego del mismo
+// campo, luego cualquiera (así un sustantivo no lleva un verbo de distractor si hay sustantivos de sobra).
 function distractors(word, lexicon, rng) {
   const others = lexicon.filter((w) => w.lemma !== word.lemma);
   const seen = new Set([word.es]);
   const out = [];
-  for (const pool of [others.filter((w) => w.field === word.field), others.filter((w) => w.pos === word.pos), others]) {
+  const samePos = others.filter((w) => w.pos === word.pos);
+  for (const pool of [samePos.filter((w) => w.field === word.field), samePos, others.filter((w) => w.field === word.field), others]) {
     for (const w of shuffled(pool, rng)) {
       if (out.length === 3) return out;
       if (!seen.has(w.es)) { seen.add(w.es); out.push(w.es); }
@@ -91,16 +93,19 @@ export function evaluatedBy(exercises) {
 // - Nivel 1–2: `card`. Nivel 3: hueco generado con `vocab`; un verbo sin el presente desbloqueado sigue en nivel 2.
 // - Ningún sustantivo si el tema esconde el artículo; ningún lema que evalúe otro ítem del grupo; ningún nivel 3
 //   con tag bloqueado o del tema del grupo.
+// - Ninguna palabra de `glossary` (el glosario del grupo ya la muestra; regla 1): vuelve en el grupo siguiente.
 // - Escuchando solo con `audio` y la escucha habilitada en ese nivel, alternando al azar con leyendo. Nivel 3
 //   escuchando es un dictado de `pool` con la palabra (sin ninguno que sirva, sale leyendo); ninguna tarjeta
 //   posterior repasa otra palabra de esa frase (regla 1).
-export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExercises = [], mastery, curriculum, audio, pool = [], max = 3}) {
+export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExercises = [], glossary = [], mastery, curriculum, audio, pool = [], max = 3}) {
   const hidesArticle = (topic.hides ?? []).includes('article');
   const evaluated = evaluatedBy(groupExercises);
   const usable = (tag) => !topic.tags.includes(tag) && tagUnlocked(tag, mastery, curriculum);
+  const shown = new Set(glossary);
   const out = [];
   for (const lemma of dueLemmas(srs, now)) {
     if (out.length >= max) break;
+    if (shown.has(lemma)) continue;
     const word = lexicon.find((w) => w.lemma === lemma);
     if (!word || (word.pos === 'noun' && hidesArticle) || evaluated(word)) continue;
     if (out.some((c) => c.type === 'dictation' && c.lemmas.includes(lemma))) continue;
@@ -110,7 +115,7 @@ export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExerci
     let ex = null;
     if (rung === 3 && audio && entry.listenUnlocked?.[3] && rng() < 0.5) {
       const reveals = revealing([...groupExercises, ...out]);
-      const d = pickDictation(pool, srs, {rng, exclude: (e) => !e.lemmas.includes(lemma) || reveals(e)});
+      const d = pickDictation(pool, srs, {rng, exclude: (e) => !e.lemmas.includes(lemma) || reveals(e) || e.lemmas.some((l) => shown.has(l))});
       if (d) ex = {...d, vocab: {lemma, rung: 3, mode: 'listen'}};
     }
     if (!ex && rung === 3) ex = word.pos === 'verb' ? verbGap(word, usable, rng) : nounGap(word, templates, usable, rng);
@@ -123,11 +128,20 @@ export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExerci
   return out;
 }
 
-// Un ejercicio con audio sin audio (spec §6.3): la tarjeta de escucha pasa a su variante de lectura, la situación se ve
-// con texto; el dictado (suelto o de nivel 3) no tiene variante barata: null = saltearlo. Sin audio, el mismo ejercicio.
+// Un ejercicio con audio sin audio (spec §6.3): la tarjeta de escucha pasa a su variante de lectura; el dictado (suelto o
+// de nivel 3) y la situación de escucha (ya vista: con texto contaría como una situación más) se saltean: null. Sin
+// audio, el mismo ejercicio.
 export function withoutAudio(ex, {lexicon, rng}) {
   if (ex.type === 'card' && ex.mode === 'listen') return makeCard(ex.word, {rung: ex.rung, mode: 'read', lexicon, rng});
-  if (ex.type === 'situation' && ex.listen) return {...ex, listen: false};
-  if (ex.type === 'dictation') return null;
+  if (ex.type === 'dictation' || (ex.type === 'situation' && ex.listen)) return null;
   return ex;
+}
+
+// Después de responder una tarjeta (reglas 2 y 3): imagen y "der Schlüssel · llave" (con 🔊 de `de`) solo si acertó. Tras
+// un error, nada: en el nivel 1 la imagen es el significado; en el nivel 2, la palabra es la respuesta.
+export function cardReveal(ex, results) {
+  if (!results.length || !results.every((r) => r.ok)) return {picture: false, de: null, label: null};
+  const {word} = ex;
+  const de = word.article ? `${word.article} ${word.lemma}` : word.lemma;
+  return {picture: true, de, label: `${de} · ${word.es}`};
 }

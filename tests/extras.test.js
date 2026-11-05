@@ -150,3 +150,17 @@ test('buildGroup: con preferLemmas, los huecos generados de esos lemas van prime
   assert.ok(gen.length > 0);
   assert.ok(gen.every((e) => e.noun === 'Wein'), gen.map((e) => e.noun).join(','));
 });
+
+test('buildExtras: las palabras del glosario no salen en las tarjetas ni en el dictado de ese grupo (regla 1)', () => {
+  const p = [{text: 'Das Bett ist gut.', lemmas: ['Bett']}, {text: 'Das ist gut.', lemmas: []}];
+  const glossary = ['Bett', 'Zimmer', 'Schlüssel'];
+  for (let s = 1; s < 15; s++) {
+    const g = buildExtras(groupAt(3), opts({rng: seeded(s), pool: p, glossary}));
+    const extra = extrasOf(g);
+    assert.deepEqual(extra.filter((e) => e.type === 'card').map((e) => e.vocab.lemma), ['Dusche', 'Gast']);
+    assert.deepEqual(extra.filter((e) => e.type === 'dictation').map((e) => e.text), ['Das ist gut.']);
+  }
+  // En el grupo siguiente (sin glosario) vuelven.
+  const next = extrasOf(buildExtras(groupAt(2), opts({pool: p})));
+  assert.deepEqual(next.filter((e) => e.type === 'card').map((e) => e.vocab.lemma), ['Bett', 'Zimmer', 'Schlüssel']);
+});

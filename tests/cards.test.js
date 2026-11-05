@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pickCards } from '../js/core/cards.js';
+import { pickCards, makeCard, cardReveal, withoutAudio } from '../js/core/cards.js';
 import { addWords } from '../js/core/srs.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../data/${p}`, import.meta.url)));
@@ -126,4 +126,44 @@ test('pickCards: un verbo cuya forma conjugada evalúa otro ítem del grupo qued
   assert.deepEqual(pickCards(srs, opts({groupExercises})).map((e) => e.vocab.lemma), ['wohnen']);
   const wohnt = [{id: 's1', type: 'situation', gaps: [{tag: 'x', answers: ['wohnt']}]}];
   assert.deepEqual(pickCards(srs, opts({groupExercises: wohnt})).map((e) => e.vocab.lemma), ['sein']);
+});
+
+test('pickCards: una palabra del glosario no sale, ni en el dictado de nivel 3 de otra palabra', () => {
+  const srs = srsOf(['Bett', 'Zimmer', 'Dusche']);
+  assert.deepEqual(pickCards(srs, opts({glossary: ['Bett']})).map((e) => e.vocab.lemma), ['Zimmer', 'Dusche']);
+  const s3 = srsOf(['Dusche'], {Dusche: {rung: 3, listenUnlocked: {3: true}}});
+  const pool = [{text: 'Das Bett und die Dusche.', lemmas: ['Bett', 'Dusche']}];
+  for (let s = 1; s < 20; s++) {
+    const [ex] = pickCards(s3, opts({glossary: ['Bett'], pool, rng: seeded(s)}));
+    assert.notEqual(ex?.type, 'dictation');
+  }
+});
+
+test('makeCard nivel 1: un sustantivo nunca lleva distractores de verbos si hay sustantivos de sobra', () => {
+  const posOf = new Map();
+  for (const w of lexicon) posOf.set(w.es, [...(posOf.get(w.es) ?? []), w.pos]);
+  const nouns = lexicon.filter((w) => w.pos === 'noun');
+  for (const word of nouns) {
+    for (let s = 1; s < 6; s++) {
+      const ex = makeCard(word, {rung: 1, mode: 'read', lexicon, rng: seeded(s)});
+      for (const o of ex.options.filter((x) => !x.correct)) assert.ok(posOf.get(o.text).includes('noun'), `${word.lemma}: ${o.text}`);
+    }
+  }
+});
+
+test('cardReveal: imagen y etiqueta solo tras acertar, en los dos niveles', () => {
+  const noun = {lemma: 'Schlüssel', article: 'der', es: 'llave', pos: 'noun', image: '1F511'};
+  const verb = {lemma: 'wohnen', es: 'vivir', pos: 'verb'};
+  const ok = [{ok: true}];
+  const bad = [{ok: false}];
+  assert.deepEqual(cardReveal({type: 'card', rung: 1, word: noun}, ok), {picture: true, de: 'der Schlüssel', label: 'der Schlüssel · llave'});
+  assert.deepEqual(cardReveal({type: 'card', rung: 2, word: noun}, ok), {picture: true, de: 'der Schlüssel', label: 'der Schlüssel · llave'});
+  assert.deepEqual(cardReveal({type: 'card', rung: 1, word: verb}, ok), {picture: true, de: 'wohnen', label: 'wohnen · vivir'});
+  for (const rung of [1, 2]) assert.deepEqual(cardReveal({type: 'card', rung, word: noun}, bad), {picture: false, de: null, label: null});
+});
+
+test('withoutAudio: la situación de escucha se saltea (null), como el dictado', () => {
+  assert.equal(withoutAudio({id: 's', type: 'situation', listen: true}, {lexicon}), null);
+  const seen = {id: 's', type: 'situation'};
+  assert.equal(withoutAudio(seen, {lexicon}), seen);
 });
