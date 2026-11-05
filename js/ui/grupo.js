@@ -13,11 +13,21 @@ import { pickGlossary } from '../core/glossary.js';
 import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import { addWords } from '../core/srs.js';
+import { buildExtras } from '../core/extras.js';
+import { dictationPool } from '../core/dictation.js';
+import * as tts from '../services/tts.js';
 import * as lt from '../services/languagetool.js';
 import { withGrammar } from '../services/grammar.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
 const EMPTY_MASTERY = { tags: {}, pairs: {} };
+
+// Frases para dictar: se arman una vez por contenido cargado.
+const pools = new WeakMap();
+const poolOf = C => {
+  if (!pools.has(C)) pools.set(C, dictationPool(C.units, C.templates, C.lexicon));
+  return pools.get(C);
+};
 
 export default async function grupo(el, { store, content, params }) {
   const C = await content();
@@ -43,14 +53,21 @@ export default async function grupo(el, { store, content, params }) {
       // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
       if (v.group) state = closeSaved({ saved: v.group, state, quarantine: v.quarantine ?? [], now });
       const { progress, mastery, words } = state;
-      const fresh = buildGroup(unit, topicId, n, progress, mastery, {
-        now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum,
+      // Los generadores eligen primero palabras en aprendizaje (spec §5.3).
+      const preferLemmas = new Set(Object.keys(state.srs).filter(l => [1, 2].includes(state.srs[l].rung)));
+      let fresh = buildGroup(unit, topicId, n, progress, mastery, {
+        now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum, preferLemmas,
       });
       if (n === 3) {
         fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
       }
       // Las palabras del glosario entran a la SRS en nivel 1 (spec §5.1); las que ya están no se tocan.
       const srs = fresh.glossary ? addWords(state.srs, fresh.glossary.map(w => w.lemma), now) : undefined;
+      // Tarjetas y lugar de escucha después del glosario: una palabra que entra hoy ya puede volver en este grupo.
+      fresh = buildExtras(fresh, {
+        srs: srs ?? state.srs, now, rng: Math.random, unit, units: C.units, progress, lexicon: C.lexicon, templates: C.templates,
+        mastery, curriculum: C.curriculum, pool: poolOf(C), audio: tts.supported(),
+      });
       return { ...(v.group ? state : {}), group: fresh, ...(srs && { srs }) };
     }));
   }
@@ -236,6 +253,8 @@ export default async function grupo(el, { store, content, params }) {
         // Lo que escribió el usuario: la frase con lo que difiere subrayado, o la palabra suelta (la situación ya la muestra).
         r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
           : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
+        // El dictado es una tarea abierta: después de responder se muestra la frase original (regla 2).
+        ex.type === 'dictation' && h('p', {}, 'La frase: ', h('em', { lang: 'de' }, ex.text)),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
         example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es}) `, listenButton(example.de)),
         r.notice && h('p', { class: 'muted' }, r.notice),

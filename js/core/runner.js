@@ -4,7 +4,7 @@ import {countItems} from './checks/index.js';
 import {applyResult} from './mastery.js';
 import {pickExample, pickCuriosity} from './feedback.js';
 import {answerEntry, groupEntry, ltEntry, vocabEntry, countWords} from './log.js';
-import {reviewWord} from './srs.js';
+import {reviewWord, reviewDue} from './srs.js';
 import {stepKey, recordAttempt, scoreGroup, commitNext} from './progress.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
@@ -95,8 +95,9 @@ export function needsFicha(group, topic) {
 }
 
 // Aplica los resultados confirmados. state: {mastery, log, words, progress, srs}; quarantine: ids (array).
-// Cada resultado lleva `ms` y `at` (los pone la UI al responder). Los ejercicios con `vocab` (tarjetas y huecos de
-// nivel 3) además repasan su palabra en la SRS.
+// Cada resultado lleva `ms` y `at` (los pone la UI al responder). Los ejercicios con `vocab` (tarjetas, huecos y
+// dictados de nivel 3) además repasan su palabra en la SRS; el dictado, por lo que dice `lemmaOk` de esa palabra.
+// Un dictado suelto repasa solo FSRS de cada palabra suya que esté vencida, sin cambiar su nivel (spec §6.1).
 export function applyCommit({group, toApply, state, quarantine, now}) {
   const byId = new Map(group.exercises.map(e => [e.id, e]));
   const q = new Set(quarantine);
@@ -113,8 +114,11 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
     for (const lt of r.ltRules ?? []) log.push(ltEntry({...lt, at: r.at}));
     if (ex.vocab) {
       const {lemma, rung, mode} = ex.vocab;
-      srs = reviewWord(srs, lemma, r.ok, {now: r.at, rung, mode});
-      log.push(vocabEntry({lemma, rung, mode, ok: r.ok, ms: r.ms, at: r.at}));
+      const ok = ex.type === 'dictation' ? !!r.lemmaOk?.[lemma] : r.ok;
+      srs = reviewWord(srs, lemma, ok, {now: r.at, rung, mode});
+      log.push(vocabEntry({lemma, rung, mode, ok, ms: r.ms, at: r.at}));
+    } else if (ex.type === 'dictation') {
+      for (const [lemma, ok] of Object.entries(r.lemmaOk ?? {})) srs = reviewDue(srs, lemma, ok, {now: r.at});
     }
   }
   for (const ex of touched) words = countWords(words, ex.words ?? []);

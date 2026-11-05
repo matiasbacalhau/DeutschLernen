@@ -5,6 +5,7 @@ import { instancesOf } from './generators/index.js';
 import { present } from './morph.js';
 import { countItems } from './checks/index.js';
 import { itemInfo, containsAnswer } from './runner.js';
+import { pickDictation, revealing } from './dictation.js';
 
 function shuffled(list, rng) {
   const a = [...list];
@@ -90,9 +91,10 @@ function evaluatedBy(exercises) {
 // - Nivel 1–2: `card`. Nivel 3: hueco generado con `vocab`; un verbo sin el presente desbloqueado sigue en nivel 2.
 // - Ningún sustantivo si el tema esconde el artículo; ningún lema que evalúe otro ítem del grupo; ningún nivel 3
 //   con tag bloqueado o del tema del grupo.
-// - Escuchando solo con `audio` y la escucha habilitada en ese nivel, alternando al azar con leyendo.
-//   (Nivel 3 escuchando es el dictado, que todavía no existe: sale leyendo.)
-export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExercises = [], mastery, curriculum, audio, max = 3}) {
+// - Escuchando solo con `audio` y la escucha habilitada en ese nivel, alternando al azar con leyendo. Nivel 3
+//   escuchando es un dictado de `pool` con la palabra (sin ninguno que sirva, sale leyendo); ninguna tarjeta
+//   posterior repasa otra palabra de esa frase (regla 1).
+export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExercises = [], mastery, curriculum, audio, pool = [], max = 3}) {
   const hidesArticle = (topic.hides ?? []).includes('article');
   const evaluated = evaluatedBy(groupExercises);
   const usable = (tag) => !topic.tags.includes(tag) && tagUnlocked(tag, mastery, curriculum);
@@ -101,12 +103,18 @@ export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExerci
     if (out.length >= max) break;
     const word = lexicon.find((w) => w.lemma === lemma);
     if (!word || (word.pos === 'noun' && hidesArticle) || evaluated(word)) continue;
+    if (out.some((c) => c.type === 'dictation' && c.lemmas.includes(lemma))) continue;
     const entry = srs[lemma];
     let rung = entry.rung;
     if (rung === 3 && word.pos === 'verb' && !tagUnlocked('a1.praesens.regular', mastery, curriculum)) rung = 2;
-    let ex;
-    if (rung === 3) ex = word.pos === 'verb' ? verbGap(word, usable, rng) : nounGap(word, templates, usable, rng);
-    else {
+    let ex = null;
+    if (rung === 3 && audio && entry.listenUnlocked?.[3] && rng() < 0.5) {
+      const reveals = revealing([...groupExercises, ...out]);
+      const d = pickDictation(pool, srs, {rng, exclude: (e) => !e.lemmas.includes(lemma) || reveals(e)});
+      if (d) ex = {...d, vocab: {lemma, rung: 3, mode: 'listen'}};
+    }
+    if (!ex && rung === 3) ex = word.pos === 'verb' ? verbGap(word, usable, rng) : nounGap(word, templates, usable, rng);
+    else if (!ex) {
       const mode = audio && entry.listenUnlocked?.[rung] && rng() < 0.5 ? 'listen' : 'read';
       ex = makeCard(word, {rung, mode, lexicon, rng});
     }

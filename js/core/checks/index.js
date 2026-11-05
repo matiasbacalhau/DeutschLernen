@@ -10,8 +10,9 @@ import { check as reading } from './reading.js';
 import { check as detective } from './detective.js';
 import { check as writing } from './writing.js';
 import { check as card } from './card.js';
+import { check as dictation } from './dictation.js';
 
-const CHECKS = {choice, gap, situation, transform, translate, order, 'spot-error': spotError, reading, detective, 'writing-guided': writing, 'writing-free': writing, card};
+const CHECKS = {choice, gap, situation, transform, translate, order, 'spot-error': spotError, reading, detective, 'writing-guided': writing, 'writing-free': writing, card, dictation};
 
 export async function checkExercise(exercise, answer, ctx) {
   const fn = CHECKS[exercise.type];
