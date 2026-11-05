@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {commitNext} from '../js/core/progress.js';
+import {addWords} from '../js/core/srs.js';
 import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch} from '../js/core/runner.js';
 
 const curriculum = {
@@ -215,4 +217,55 @@ test('stopwatch: el tiempo con la app en segundo plano no cuenta', () => {
   const p = stopwatch(0);
   p.pause(10);
   assert.equal(p.elapsed(500), 10); // en pausa, no avanza
+});
+
+// Grupo armado a mano con una tarjeta de nivel 1 y un hueco de nivel 3 (las tarjetas todavía no entran en buildGroup).
+const word = {lemma: 'Bett', pos: 'noun', article: 'das', es: 'cama', field: 'hostel'};
+const vocabGroup = {
+  id: 't1/2@0', topic: 't1', step: 2, startedAt: 0, index: 2, committed: 0,
+  exercises: [
+    {id: 'card:Bett:1:read', type: 'card', rung: 1, mode: 'read', lemma: 'Bett', word, review: true, vocab: {lemma: 'Bett', rung: 1, mode: 'read'}},
+    {id: 'card3:tpl-nom-hier:Schlüssel', type: 'gap', tag: 'a1.nom.mask', answers: ['der'], noun: 'Schlüssel', generated: true,
+      review: true, vocab: {lemma: 'Schlüssel', rung: 3, mode: 'read'}},
+    {id: 'x', type: 'gap', tag: 'a1.sein.praesens', answers: ['bin']},
+  ],
+  results: [
+    {key: 'card:Bett:1:read', tag: null, ok: true, ms: 4, at: 1000},
+    {key: 'card3:tpl-nom-hier:Schlüssel', tag: 'a1.nom.mask', ok: false, ms: 6, at: 2000},
+  ],
+};
+const vocabState = () => ({...state, srs: {...addWords({}, ['Bett', 'Schlüssel'], 0), Schlüssel: {...addWords({}, ['Schlüssel'], 0).Schlüssel, rung: 3}}});
+
+test('applyCommit: una tarjeta mueve la SRS y no el mastery; el hueco de nivel 3 mueve las dos', () => {
+  const s = vocabState();
+  const {group: g, toApply} = commitNext(vocabGroup);
+  const out = applyCommit({group: g, toApply, state: s, quarantine: [], now: 3000});
+  assert.equal(out.srs.Bett.card.reps, 1);
+  assert.equal(out.srs.Bett.listenUnlocked[1], true);
+  assert.equal(out.srs.Schlüssel.card.reps, 1);
+  assert.equal(out.srs.Schlüssel.rung, 2);
+  assert.deepEqual(Object.keys(out.mastery.tags), ['a1.nom.mask']);
+  assert.deepEqual(out.log.filter(e => e.t === 'v'), [
+    {t: 'v', lemma: 'Bett', rung: 1, mode: 'read', ok: true, ms: 4, at: 1000},
+    {t: 'v', lemma: 'Schlüssel', rung: 3, mode: 'read', ok: false, ms: 6, at: 2000},
+  ]);
+  assert.deepEqual(out.progress.steps['t1/2'].seen, {});
+});
+
+test('applyCommit: el mismo grupo otra vez (committed ya avanzado) no vuelve a repasar la palabra', () => {
+  const first = commitNext(vocabGroup);
+  const out = applyCommit({group: first.group, toApply: first.toApply, state: vocabState(), quarantine: [], now: 3000});
+  const again = commitNext(first.group);
+  assert.deepEqual(again.toApply, []);
+  const out2 = applyCommit({group: again.group, toApply: again.toApply, state: out, quarantine: [], now: 4000});
+  assert.equal(out2.srs.Bett.card.reps, 1);
+  // Cerrar el grupo guardado tampoco la vuelve a aplicar.
+  const closed = closeSaved({saved: first.group, state: out, quarantine: [], now: 5000});
+  assert.equal(closed.srs.Bett.card.reps, 1);
+  assert.equal(closed.log.filter(e => e.t === 'v').length, 2);
+});
+
+test('closeSaved: aplica a la SRS lo respondido sin commit', () => {
+  const out = closeSaved({saved: vocabGroup, state: vocabState(), quarantine: [], now: 5000});
+  assert.equal(out.srs.Bett.card.reps, 1);
 });

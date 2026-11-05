@@ -3,7 +3,8 @@
 import {countItems} from './checks/index.js';
 import {applyResult} from './mastery.js';
 import {pickExample, pickCuriosity} from './feedback.js';
-import {answerEntry, groupEntry, ltEntry, countWords} from './log.js';
+import {answerEntry, groupEntry, ltEntry, vocabEntry, countWords} from './log.js';
+import {reviewWord} from './srs.js';
 import {stepKey, recordAttempt, scoreGroup, commitNext} from './progress.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
@@ -93,12 +94,14 @@ export function needsFicha(group, topic) {
   return group.exercises.slice(0, group.index).some(e => e.type === 'detective');
 }
 
-// Aplica los resultados confirmados. state: {mastery, log, words, progress}; quarantine: ids (array).
-// Cada resultado lleva `ms` y `at` (los pone la UI al responder).
+// Aplica los resultados confirmados. state: {mastery, log, words, progress, srs}; quarantine: ids (array).
+// Cada resultado lleva `ms` y `at` (los pone la UI al responder). Los ejercicios con `vocab` (tarjetas y huecos de
+// nivel 3) además repasan su palabra en la SRS.
 export function applyCommit({group, toApply, state, quarantine, now}) {
   const byId = new Map(group.exercises.map(e => [e.id, e]));
   const q = new Set(quarantine);
   let {mastery, words} = state;
+  let srs = state.srs ?? {};
   const log = [...state.log];
   const touched = [];
   for (const r of toApply) {
@@ -108,6 +111,11 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
     mastery = applyResult(mastery, {...r, type: ex.type, exerciseId: ex.id}, {now, quarantine: q});
     log.push(answerEntry(r, {type: ex.type, ms: r.ms, at: r.at}));
     for (const lt of r.ltRules ?? []) log.push(ltEntry({...lt, at: r.at}));
+    if (ex.vocab) {
+      const {lemma, rung, mode} = ex.vocab;
+      srs = reviewWord(srs, lemma, r.ok, {now: r.at, rung, mode});
+      log.push(vocabEntry({lemma, rung, mode, ok: r.ok, ms: r.ms, at: r.at}));
+    }
   }
   for (const ex of touched) words = countWords(words, ex.words ?? []);
   const key = stepKey(group.topic, group.step);
@@ -115,7 +123,7 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
   const seen = {...prev.seen};
   for (const ex of touched) if (!ex.review) seen[ex.id] = now;
   const progress = {...state.progress, steps: {...state.progress.steps, [key]: {...prev, seen}}};
-  return {mastery, log, words, progress};
+  return {mastery, log, words, progress, srs};
 }
 
 // Cierre del grupo: intento en progress, entrada de grupo en el log y puntaje.

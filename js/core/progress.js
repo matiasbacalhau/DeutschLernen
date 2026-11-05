@@ -32,8 +32,9 @@ function shuffle(arr, rng) {
 }
 
 // Gaps generados de las plantillas cuyo tag_prefix es prefijo de algún tag del tema, sin repetir ni los ya vistos.
+// Las plantillas `card_only` son solo para las tarjetas de nivel 3 (cards.js).
 function generated(topic, templates, lexicon, rng, skip) {
-  const tpls = (templates ?? []).filter(t => topic.tags.some(tag => tag.startsWith(t.tag_prefix)));
+  const tpls = (templates ?? []).filter(t => !t.card_only && topic.tags.some(tag => tag.startsWith(t.tag_prefix)));
   const pool = new Map();
   for (const t of tpls) for (const e of instancesOf(t, lexicon ?? [])) if (!skip.has(e.id)) pool.set(e.id, e);
   return shuffle([...pool.values()], rng);

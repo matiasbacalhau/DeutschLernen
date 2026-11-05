@@ -39,7 +39,7 @@ export default async function grupo(el, { store, content, params }) {
     const candidates = reviewCandidates(C.units, topicId);
     // En una transacción: la cola de LanguageTool no puede resolver nada en el grupo guardado mientras se cierra.
     ({ group } = await store.update(['group', 'progress', 'mastery', 'words', 'log', 'quarantine', 'srs'], v => {
-      let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? EMPTY_MASTERY, words: v.words ?? {}, log: v.log ?? [] };
+      let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? EMPTY_MASTERY, words: v.words ?? {}, log: v.log ?? [], srs: v.srs ?? {} };
       // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
       if (v.group) state = closeSaved({ saved: v.group, state, quarantine: v.quarantine ?? [], now });
       const { progress, mastery, words } = state;
@@ -50,7 +50,7 @@ export default async function grupo(el, { store, content, params }) {
         fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
       }
       // Las palabras del glosario entran a la SRS en nivel 1 (spec §5.1); las que ya están no se tocan.
-      const srs = fresh.glossary ? addWords(v.srs ?? {}, fresh.glossary.map(w => w.lemma), now) : undefined;
+      const srs = fresh.glossary ? addWords(state.srs, fresh.glossary.map(w => w.lemma), now) : undefined;
       return { ...(v.group ? state : {}), group: fresh, ...(srs && { srs }) };
     }));
   }
@@ -87,10 +87,10 @@ export default async function grupo(el, { store, content, params }) {
     const { group: g, toApply } = commitNext(group);
     const now = Date.now();
     // El grupo en memoria avanza solo si el guardado salió bien: si falla, reintentar Siguiente vuelve a aplicar este commit.
-    ({ group } = await store.update(['mastery', 'log', 'words', 'progress', 'quarantine', 'group'], v => ({
+    ({ group } = await store.update(['mastery', 'log', 'words', 'progress', 'quarantine', 'group', 'srs'], v => ({
       ...applyCommit({
         group, toApply, now, quarantine: v.quarantine ?? [],
-        state: { mastery: v.mastery ?? EMPTY_MASTERY, log: v.log ?? [], words: v.words ?? {}, progress: v.progress ?? { steps: {} } },
+        state: { mastery: v.mastery ?? EMPTY_MASTERY, log: v.log ?? [], words: v.words ?? {}, progress: v.progress ?? { steps: {} }, srs: v.srs ?? {} },
       }),
       group: carryResolved(g, v.group),
     })));
