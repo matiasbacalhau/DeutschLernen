@@ -282,13 +282,14 @@ Banco de unos 15 ítems por nivel (gramática generada, lectura, realia, mini-di
 |---|---|
 | **0 — Esqueleto** | Repo con LICENSE (código MIT, datos CC-BY-SA), CI (`check.sh` con LanguageTool en Docker) y Pages; PWA instalable; router; store con export/import; prueba en el iPhone de instalación, offline, TTS alemán y CORS de LanguageTool. |
 | **1 — Porción vertical** | `curriculum.json` (todos los niveles, con grafo), `morph.js` (artículos, presente) con tests de tablas propias, léxico a mano (~150 palabras A1), generador `articulo-caso`, los tipos de la iteración 1 (`detective`, `order`, `choice`, `situation`, `transform`, `translate`, `spot-error`, `reading`, `writing-guided`, `writing-free`, `gap`), `diagnose` + feedback "incorrecto → regla → siguiente" (sin solución ni reintento), mastery y scheduler básicos, **3 temas de A1 u. 1 con la escalera completa de 5 escalones** (grupos de 10 a 20 min, glosario 30/40/30, lectura, escritura corregida con LanguageTool y `lt-map`, cola offline), identidad visual A1 y registro de uso local (sin SRS ni audición). Ya se usa a diario. Detalle en `docs/superpowers/specs/2026-10-30-iteracion-1-design.md`. |
-| **2 — Test de nivel + A1 u. 2–4** | Test adaptativo con banco A1–A2, dashboard, SRS de vocabulario (ts-fsrs), léxico A1 desde german-nouns y kaikki (desde acá los tests de morph son contra Wiktionary), glosario con estado de palabras al estilo Lute y divisor de compuestos. |
-| **3 — A1 completo** | Unidades 5–12, hotspot (preposiciones con Akk y chunks de Dativ)/realia/odd-one-out, dictado TTS, reproductor YouTube, primeros videos A1, Perfekt en morph, biblioteca personal A (importar texto, glosario y estado de palabras). |
-| **4 — Escritura + A2 (1.ª mitad)** | picture-story y describe, declinación adjetival y Dativ en morph, examen de salida de A1. |
-| **5 — A2 completo** | Generadores wechselpraep, verb-praeposition, konj2; examen de salida de A2. |
-| **6–7 — B1** | Präteritum, Passiv y relativas en el generador, lecturas B1, simulacro Goethe B1. |
-| **8–9 — B2** | Textos auténticos (Wikipedia, prensa CC, dominio público; verificar si Thomas Mann ya está en Wikisource-DE), Erörterung, `chart`, Konj. I, simulacro B2, biblioteca personal B (`tools/pack_text.py` e importación de paquetes). |
-| **10–11 — C1** | Nominalización, Partizipialattribut, Funktionsverbgefüge, ensayo C1, literatura de dominio público, simulacro C1. |
+| **2 — Vocabulario + escucha** | Escalera de una palabra (niveles 0–3), tarjetas de vocabulario dentro de los grupos, SRS de vocabulario (ts-fsrs, vendorizado con su LICENSE), dictado con TTS y situaciones en modo escucha (con "Ahora no puedo escuchar"), e imágenes OpenMoji solo para vocabulario. Detalle en `docs/superpowers/specs/2026-11-04-vocabulario-escucha-design.md`. |
+| **3 — Test de nivel + A1 u. 2–4** | Test adaptativo con banco A1–A2, dashboard, léxico A1 desde german-nouns y kaikki (desde acá los tests de morph son contra Wiktionary), glosario con estado de palabras al estilo Lute y divisor de compuestos. |
+| **4 — A1 completo** | Unidades 5–12, hotspot (preposiciones con Akk y chunks de Dativ)/realia/odd-one-out, reproductor YouTube, primeros videos A1, Perfekt en morph, biblioteca personal A (importar texto, glosario y estado de palabras). |
+| **5 — Escritura + A2 (1.ª mitad)** | picture-story y describe, declinación adjetival y Dativ en morph, examen de salida de A1. |
+| **6 — A2 completo** | Generadores wechselpraep, verb-praeposition, konj2; examen de salida de A2. |
+| **7–8 — B1** | Präteritum, Passiv y relativas en el generador, lecturas B1, simulacro Goethe B1. |
+| **9–10 — B2** | Textos auténticos (Wikipedia, prensa CC, dominio público; verificar si Thomas Mann ya está en Wikisource-DE), Erörterung, `chart`, Konj. I, simulacro B2, biblioteca personal B (`tools/pack_text.py` e importación de paquetes). |
+| **11–12 — C1** | Nominalización, Partizipialattribut, Funktionsverbgefüge, ensayo C1, literatura de dominio público, simulacro C1. |
 | **Continuo** | Ajustes según los datos de uso: qué tags fallan más y qué tiempos reales lleva cada ejercicio. |
 
 ## 6. Verificación (en cada iteración)
@@ -317,7 +318,7 @@ Resumen verificable de las reglas que ya están repartidas en el plan. Ante una 
 7. **Gating por grafo.** Un tag entra como nuevo recién cuando sus `requires` superan el umbral. Solo se samplean pares (tag, tipo) con ítems o generador.
 8. **Prerrequisitos:** el tag diagnosticado recibe la penalización completa y el tag del ítem una parcial (×0.5). Sin datos del par se usa el tag; sin datos del tag, la semilla del test o 0.
 9. **Determinismo:** RNG y reloj inyectables en `scheduler.js` y `mastery.js`.
-10. **FSRS solo para vocabulario (lema).** Una tarjeta puede volver en la misma sesión, pero en otro formato (de→es, es→de, artículo, plural). "Conocida" tiene una sola definición: estado Lute 5 o estabilidad FSRS por encima de un umbral fijo.
+10. **FSRS solo para vocabulario (lema).** Una tarjeta puede volver en la misma sesión, pero en otro formato (de→es, es→de, artículo, plural). "Conocida" tiene una sola definición: llegó al nivel 3 de la escalera (spec de la iteración 2 §4).
 
 ### Respuestas y calidad
 11. **Respuesta única o conjunto completo.** Las consignas generadas fijan la restricción; `order` acepta todos los órdenes V2 válidos; morph devuelve conjuntos de variantes.
