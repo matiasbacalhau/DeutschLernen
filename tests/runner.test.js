@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {commitNext} from '../js/core/progress.js';
 import {addWords} from '../js/core/srs.js';
-import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch, skipExercise} from '../js/core/runner.js';
+import {correctSentence, reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch, skipExercise} from '../js/core/runner.js';
 import {withoutAudio} from '../js/core/cards.js';
 import {scoreGroup} from '../js/core/progress.js';
 
@@ -303,4 +303,17 @@ test('withoutAudio: tarjeta a lectura, situación con texto, dictado se saltea',
   assert.equal(withoutAudio({id: 'd', type: 'dictation'}, {lexicon}), null);
   const plain = {id: 'x', type: 'gap'};
   assert.equal(withoutAudio(plain, {lexicon}), plain);
+});
+
+test('correctSentence: la frase correcta solo tras acertar', () => {
+  const ok = [{key: 'g', ok: true}];
+  const gap = {type: 'gap', text: 'Hier ___ die Dusche.'};
+  assert.equal(correctSentence(gap, 'ist', ok), 'Hier ist die Dusche.');
+  assert.equal(correctSentence(gap, 'ist', [{key: 'g', ok: false}]), null);
+  assert.equal(correctSentence({type: 'order'}, ['Ich', 'bin', 'neu'], ok), 'Ich bin neu');
+  assert.equal(correctSentence({type: 'translate'}, 'Ich bin neu.', ok), 'Ich bin neu.');
+  const choice = {type: 'choice', options: [{text: 'Ich bin neu.'}, {text: 'bin'}]};
+  assert.equal(correctSentence(choice, 0, ok), 'Ich bin neu.');
+  assert.equal(correctSentence(choice, 1, ok), null);
+  assert.equal(correctSentence({type: 'dictation'}, 'x y', ok), null);
 });

@@ -10,7 +10,7 @@ import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, correctSentence, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import { addWords } from '../core/srs.js';
 import { withoutAudio } from '../core/cards.js';
@@ -297,9 +297,12 @@ export default async function grupo(el, { store, content, params }) {
       );
     });
     const curiosity = curiosityFor(ex, results, C.curriculum, rng);
+    const sentence = correctSentence(ex, answer, results);
+    const listen = sentence && listenButton(sentence);
     return [
       ex.type === 'situation' && situationReplay(ex, answer, results),
-      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
+      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
+      !(allOk && multi) && listen,
       curiosity && h('p', { class: 'curiosity' }, rich(curiosity)),
     ];
   }

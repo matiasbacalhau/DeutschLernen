@@ -26,6 +26,22 @@ export function reviewCandidates(units, topicId) {
   return out;
 }
 
+// La frase correcta que se puede escuchar tras acertar un ítem cerrado (spec 6.4), o null. Nunca tras un error (regla 2).
+export function correctSentence(ex, answer, results) {
+  if (!results.length || !results.every(r => r.ok)) return null;
+  switch (ex.type) {
+    case 'transform':
+    case 'translate': return typeof answer === 'string' && answer.trim() ? answer.trim() : null;
+    case 'order': return Array.isArray(answer) ? answer.join(' ') : null;
+    case 'choice': {
+      const text = ex.options?.[answer]?.text;
+      return text && text.trim().split(/\s+/).length >= 2 ? text : null;
+    }
+    case 'gap': return typeof answer === 'string' && ex.text?.includes('___') ? ex.text.replace('___', answer.trim()) : null;
+    default: return null;
+  }
+}
+
 // {tag, dims, answers, label} del ítem `key` de `ex`. `answers` son las formas aceptadas (texto).
 export function itemInfo(ex, key) {
   const n = nOf(key);
