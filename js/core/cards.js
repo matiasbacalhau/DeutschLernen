@@ -122,3 +122,12 @@ export function pickCards(srs, {now, rng, lexicon, templates, topic, groupExerci
   }
   return out;
 }
+
+// Un ejercicio con audio sin audio (spec §6.3): la tarjeta de escucha pasa a su variante de lectura, la situación se ve
+// con texto; el dictado (suelto o de nivel 3) no tiene variante barata: null = saltearlo. Sin audio, el mismo ejercicio.
+export function withoutAudio(ex, {lexicon, rng}) {
+  if (ex.type === 'card' && ex.mode === 'listen') return makeCard(ex.word, {rung: ex.rung, mode: 'read', lexicon, rng});
+  if (ex.type === 'situation' && ex.listen) return {...ex, listen: false};
+  if (ex.type === 'dictation') return null;
+  return ex;
+}

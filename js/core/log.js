@@ -16,6 +16,9 @@ export const ltEntry = ({rule, mapped, at, src}) => ({t: 'lt', rule, mapped: !!m
 // Repaso de una palabra en la escalera (tarjeta o hueco de nivel 3): lo que movió la SRS.
 export const vocabEntry = ({lemma, rung, mode, ok, ms, at}) => ({t: 'v', lemma, rung, mode, ok: !!ok, ms, at});
 
+// Ejercicio con audio que se salteó o pasó a lectura por "Ahora no puedo escuchar" (no toca puntaje, mastery ni SRS).
+export const skipEntry = ({item, at}) => ({t: 'skip-audio', item, at});
+
 export function countWords(seenCounts, words) {
   const out = {...seenCounts};
   for (const w of words) out[w] = (out[w] ?? 0) + 1;

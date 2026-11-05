@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {answerEntry, groupEntry, ltEntry, vocabEntry, countWords} from '../js/core/log.js';
+import {answerEntry, groupEntry, ltEntry, vocabEntry, skipEntry, countWords} from '../js/core/log.js';
 
 const result = {key: 'a1-art-0042', tag: 'ART_NOM', ok: false, rule: 'ART_ACC', notice: null, prereq: null, review: false};
 
@@ -54,4 +54,8 @@ test('answerEntry: una respuesta escrita fallada guarda el texto; las demás no'
 test('vocabEntry: repaso de una palabra en la escalera', () => {
   assert.deepEqual(vocabEntry({lemma: 'Bett', rung: 2, mode: 'listen', ok: 1, ms: 3000, at: 5}),
     {t: 'v', lemma: 'Bett', rung: 2, mode: 'listen', ok: true, ms: 3000, at: 5});
+});
+
+test('skipEntry: ejercicio con audio salteado', () => {
+  assert.deepEqual(skipEntry({item: 'dict:1', at: 7}), {t: 'skip-audio', item: 'dict:1', at: 7});
 });

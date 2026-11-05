@@ -3,7 +3,7 @@
 import {countItems} from './checks/index.js';
 import {applyResult} from './mastery.js';
 import {pickExample, pickCuriosity} from './feedback.js';
-import {answerEntry, groupEntry, ltEntry, vocabEntry, countWords} from './log.js';
+import {answerEntry, groupEntry, ltEntry, vocabEntry, skipEntry, countWords} from './log.js';
 import {reviewWord, reviewDue} from './srs.js';
 import {stepKey, recordAttempt, scoreGroup, commitNext} from './progress.js';
 
@@ -191,6 +191,12 @@ export function closeSaved({saved, state, quarantine, now}) {
     return {...s, progress: f.progress, log: f.log};
   }
   return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true})]};
+}
+
+// Salta el ejercicio actual sin resultado: ni puntaje, ni mastery, ni SRS (spec §6.3). `entry` va al log.
+export function skipExercise(group, {now}) {
+  const item = group.exercises[group.index].id;
+  return {group: {...group, index: group.index + 1}, entry: skipEntry({item, at: now})};
 }
 
 // Cronómetro de un ejercicio que no cuenta el tiempo con la app en segundo plano (el usuario se fue a otra cosa).

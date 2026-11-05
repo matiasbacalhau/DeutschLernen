@@ -10,9 +10,11 @@ import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import { addWords } from '../core/srs.js';
+import { withoutAudio } from '../core/cards.js';
+import { skipEntry } from '../core/log.js';
 import { buildExtras } from '../core/extras.js';
 import { dictationPool } from '../core/dictation.js';
 import * as tts from '../services/tts.js';
@@ -43,6 +45,7 @@ export default async function grupo(el, { store, content, params }) {
   const titleOf = id => C.curriculum.topics.find(t => t.id === id)?.title ?? id;
   const defOf = id => Object.values(C.units).flatMap(u => u.topics).find(t => t.topic === id);
 
+  let audioHintSeen = !!(await store.get('meta'))?.audioHintSeen;
   let group = await store.get('group');
   if (!group || group.topic !== topicId || group.step !== n) {
     const now = Date.now();
@@ -137,7 +140,22 @@ export default async function grupo(el, { store, content, params }) {
       } }, 'Seguir'));
       return;
     }
-    const ex = group.exercises[group.index];
+    let ex = group.exercises[group.index];
+    // Sin audio (spec §6.3): lo que sigue en el grupo sale sin él; el dictado se saltea.
+    if (group.audioOff) {
+      const plain = withoutAudio(ex, { lexicon: C.lexicon, rng: Math.random });
+      if (plain === null) {
+        const { group: skipped, entry } = skipExercise(group, { now: Date.now() });
+        group = skipped;
+        await store.update(['group', 'log'], v => ({ group: carryResolved(skipped, v.group), log: [...(v.log ?? []), entry] }));
+        return next();
+      }
+      if (plain !== ex) {
+        ex = plain;
+        group = { ...group, exercises: group.exercises.map((e, i) => (i === group.index ? plain : e)) };
+        await save();
+      }
+    }
     // Escritura enviada que no llegó a corregirse (se cerró la app durante "Corrigiendo…"): se reenvía.
     if (group.draft?.id === ex.id && group.draft.text != null) {
       counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
@@ -195,9 +213,27 @@ export default async function grupo(el, { store, content, params }) {
       ex.review && h('span', { class: 'pill small' }, 'Repaso'),
       group.index === 0 && n !== 3 && h('p', { class: 'scene' }, h('strong', {}, stepDef.scene.title), ' · ', rich(stepDef.scene.context)),
     ];
+    // Una sola vez: con el iPhone en silencio el TTS no suena y no hay forma de detectarlo.
+    const hasAudio = !group.audioOff && (ex.type === 'dictation' || (ex.type === 'card' && ex.mode === 'listen') || (ex.type === 'situation' && ex.listen));
+    if (hasAudio && tts.supported() && !audioHintSeen) {
+      audioHintSeen = true;
+      head.push(h('p', { class: 'muted' }, 'Si no suena, sacá el modo silencio del iPhone.'));
+      store.update(['meta'], v => ({ meta: { ...v.meta, audioHintSeen: true } })).catch(() => {});
+    }
     show(head, body);
     renderExercise(ex, body, {
       ctx,
+      // "Ahora no puedo escuchar": sin audio por el resto del grupo; este ejercicio sale en su variante sin audio.
+      onNoAudio: async () => {
+        document.removeEventListener('visibilitychange', onVisibility);
+        group = { ...group, audioOff: true };
+        if (ex.type !== 'dictation') {
+          const entry = skipEntry({ item: ex.id, at: Date.now() });
+          await store.update(['log'], v => ({ log: [...(v.log ?? []), entry] }));
+        }
+        await save();
+        next();
+      },
       submit: async answer => {
         const ms = watch.elapsed(Date.now());
         document.removeEventListener('visibilitychange', onVisibility);

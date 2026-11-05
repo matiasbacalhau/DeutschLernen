@@ -2,7 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {commitNext} from '../js/core/progress.js';
 import {addWords} from '../js/core/srs.js';
-import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch} from '../js/core/runner.js';
+import {reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch, skipExercise} from '../js/core/runner.js';
+import {withoutAudio} from '../js/core/cards.js';
+import {scoreGroup} from '../js/core/progress.js';
 
 const curriculum = {
   tags: {
@@ -268,4 +270,37 @@ test('applyCommit: el mismo grupo otra vez (committed ya avanzado) no vuelve a r
 test('closeSaved: aplica a la SRS lo respondido sin commit', () => {
   const out = closeSaved({saved: vocabGroup, state: vocabState(), quarantine: [], now: 5000});
   assert.equal(out.srs.Bett.card.reps, 1);
+});
+
+test('skipExercise: avanza sin resultado, sin cambiar puntaje, mastery ni SRS', () => {
+  const g = {
+    id: 'g', topic: 't1', step: 2, index: 1, committed: 0,
+    exercises: [{id: 'a', type: 'gap', tag: 'a1.sein.praesens', answers: ['bin']}, {id: 'dict:1', type: 'dictation', text: 'Ich bin hier.'}],
+    results: [{key: 'a', tag: 'a1.sein.praesens', ok: true}],
+  };
+  const before = scoreGroup(g);
+  const {group, entry} = skipExercise(g, {now: 9});
+  assert.equal(group.index, 2);
+  assert.deepEqual(group.results, g.results);
+  assert.deepEqual(entry, {t: 'skip-audio', item: 'dict:1', at: 9});
+  assert.equal(scoreGroup(group).pct, before.pct);
+  const {group: c, toApply} = commitNext(group);
+  const st = {...state, srs: addWords({}, ['Bett'], 0)};
+  const out = applyCommit({group: c, toApply, state: st, quarantine: [], now: 10});
+  assert.deepEqual(out.srs, st.srs);
+  assert.deepEqual(out.log.filter(e => e.t === 'v'), []);
+});
+
+test('withoutAudio: tarjeta a lectura, situación con texto, dictado se saltea', () => {
+  const w = {lemma: 'Bett', pos: 'noun', article: 'das', es: 'cama'};
+  const lexicon = [w, {lemma: 'Tisch', pos: 'noun', article: 'der', es: 'mesa'}, {lemma: 'Haus', pos: 'noun', article: 'das', es: 'casa'}, {lemma: 'Buch', pos: 'noun', article: 'das', es: 'libro'}];
+  const card = {id: 'card:Bett:1:listen', type: 'card', rung: 1, mode: 'listen', word: w, vocab: {lemma: 'Bett', rung: 1, mode: 'listen'}};
+  const r = withoutAudio(card, {lexicon, rng: lcg(1)});
+  assert.equal(r.mode, 'read');
+  assert.equal(r.id, 'card:Bett:1:read');
+  assert.deepEqual(r.vocab, {lemma: 'Bett', rung: 1, mode: 'read'});
+  assert.equal(withoutAudio({id: 's', type: 'situation', listen: true}, {lexicon}).listen, false);
+  assert.equal(withoutAudio({id: 'd', type: 'dictation'}, {lexicon}), null);
+  const plain = {id: 'x', type: 'gap'};
+  assert.equal(withoutAudio(plain, {lexicon}), plain);
 });
