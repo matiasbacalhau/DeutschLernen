@@ -31,11 +31,12 @@ Comprobado el 2026-11-04 sobre `main` (`f13a8d1`).
   - 🔊 en el ejemplo del feedback, el glosario y el modelo de la escritura, con la voz predeterminada.
   - Generador de *sein* × persona: 24 huecos en los escalones 3 y 4 del tema 1, con un diagnóstico que nombra la persona de lo escrito.
 - Escritura: corregida con LanguageTool y `lt-map`. Sin red, queda pendiente.
+  - Palabras aceptadas (`accepted_words` en `content-src/lt-map.yaml`, unas 150 entre nombres, ciudades y marcas): si LanguageTool las marca como mal escritas, no cuentan. Probado con LanguageTool local el 2026-11-07: *Matías* ya no da error, *Hauss* sí. Sale del backup del 7/11, donde la ortografía de nombres trabó la escritura del tema 1.
 - Corrector de gramática con LLM (`proxy/`, Claude Haiku 5.5):
   - El Worker está publicado. Un GET sin origen recibe 403, como corresponde.
   - El bench dio 0 falsos positivos en 22 textos correctos y detectó 21 de 21 errores, con 3,3 s de latencia máxima (según el PR #4; no se volvió a correr).
 - UI: inicio, mapa, tema, grupo, ficha, glosario, escritura y ajustes, con la identidad A1 "cuaderno sereno". Se revisó con web-design-guidelines.
-- Tests: 220 de JS y 26 de Python pasan en local. La CI de `main` (con LanguageTool sobre los 827 textos en alemán del contenido) dio verde el 2026-11-04.
+- Tests: 226 de JS y 27 de Python pasan en local (2026-11-07). La CI de `main` (con LanguageTool sobre los 827 textos en alemán del contenido) dio verde el 2026-11-04.
 
 ## No probado
 
@@ -44,7 +45,8 @@ Comprobado el 2026-11-04 sobre `main` (`f13a8d1`).
   - que el progreso sobreviva a cerrar la app y a un export/import;
   - la escritura con red (la corrección tiene que llegar en menos de 5 s);
   - la escritura en modo avión (tiene que quedar pendiente y corregirse al volver la red);
-  - que suene el 🔊 nuevo y que aparezcan los huecos generados de *sein* al rehacer un escalón.
+  - que suene el 🔊 nuevo y que aparezcan los huecos generados de *sein* al rehacer un escalón;
+  - que la escritura del tema 1 (escalón 5) pase con nombres propios. Si falta una palabra, el próximo backup la muestra en el texto de la escritura fallada.
 - **El corrector con Gemini:** se puede activar con `PROVIDER`, pero nunca se probó contra la API real.
 - **Límites conocidos:**
   - El tiempo del grupo entero sigue contando lo que pasa con la app en segundo plano (el de cada ejercicio ya no).

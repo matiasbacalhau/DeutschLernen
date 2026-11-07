@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { gradeWriting, check } from '../js/core/checks/writing.js';
+import { gradeWriting, ltRulesOf, check } from '../js/core/checks/writing.js';
 import { checkExercise } from '../js/core/checks/index.js';
 import { enqueue, processQueue, withoutResolved, check as ltCheck } from '../js/services/languagetool.js';
 import { check as grammarCheck, withGrammar } from '../js/services/grammar.js';
@@ -96,6 +96,45 @@ test('regla mapeada sin tag: marca con su texto, sin penalización', () => {
 
 test('sin coincidencias: ok y vacío', () => {
   assert.deepEqual(gradeWriting([], ltMap), {ok: true, marks: [], penalties: []});
+});
+
+// "Ich bin Matías aus Rosario." con el contexto que manda LanguageTool, del que sale la palabra marcada.
+const NAMES = 'Ich bin Matías aus Rosario.';
+const ctx = (id, cat, offset, length) => ({...m(id, cat, offset, length), context: {text: NAMES, offset, length}});
+const accepted = {...ltMap, accepted_words: ['matías', 'Rosario']};
+
+test('palabra aceptada marcada como mal escrita: sin marca ni error, sin importar mayúsculas', () => {
+  const g = gradeWriting([ctx('GERMAN_SPELLER_RULE', 'TYPOS', 8, 6), ctx('GERMAN_SPELLER_RULE', 'TYPOS', 19, 7)], accepted);
+  assert.deepEqual(g, {ok: true, marks: [], penalties: []});
+});
+
+test('palabra aceptada con la tilde descompuesta (como la escribe el iPhone a veces): también se acepta', () => {
+  const t = 'Ich bin Matías.';
+  const mt = {...m('GERMAN_SPELLER_RULE', 'TYPOS', 8, 7), context: {text: t, offset: 8, length: 7}};
+  assert.equal(gradeWriting([mt], accepted).ok, true);
+});
+
+test('palabra que no está en la lista: sigue siendo error de ortografía', () => {
+  const g = gradeWriting([ctx('GERMAN_SPELLER_RULE', 'TYPOS', 8, 6)], ltMap);
+  assert.equal(g.ok, false);
+  assert.equal(g.marks.length, 1);
+});
+
+test('otra regla sobre una palabra aceptada: sigue contando', () => {
+  const g = gradeWriting([ctx('UPPERCASE_SENTENCE_START', 'CASING', 8, 6)], accepted);
+  assert.equal(g.ok, false);
+});
+
+test('la palabra aceptada no va al registro de reglas', () => {
+  assert.deepEqual(ltRulesOf([ctx('GERMAN_SPELLER_RULE', 'TYPOS', 8, 6), ...DASS], accepted).map(x => x.rule), ['RELATIVPRONOMEN_STATT_DASS']);
+});
+
+test('la lista real acepta nombres, ciudades y marcas', () => {
+  for (const w of ['Matías', 'Aires', 'adidas']) {
+    const t = `Ich mag ${w}.`;
+    const mt = {...m('GERMAN_SPELLER_RULE', 'TYPOS', 8, w.length), context: {text: t, offset: 8, length: w.length}};
+    assert.equal(gradeWriting([mt], realMap).ok, true, w);
+  }
 });
 
 test('check: Result con key del ejercicio, tag null y ltRules', async () => {
