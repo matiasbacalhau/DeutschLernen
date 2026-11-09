@@ -26,8 +26,8 @@ export function humorLine(mastery, tags) {
 // Si la escritura está pendiente en el grupo abierto, se resuelve ahí (la cuenta el intento del fin de grupo);
 // si no, en el intento ya registrado. Mastery y log se aplican acá, una sola vez.
 // Devuelve el estado nuevo ({progress, mastery, log, group}) y el aviso para el inicio (con texto y marcas).
-export function applyResolved({state, entry, ltMap, quarantine, now}) {
-  const {ok, marks, penalties} = gradeWriting(entry.matches, ltMap);
+export function applyResolved({state, entry, ltMap, quarantine, now, acceptedWords}) {
+  const {ok, marks, penalties} = gradeWriting(entry.matches, ltMap, {text: entry.text, acceptedWords});
   const mastery = applyResult(state.mastery, {tag: null, type: 'writing', ok, penalties, exerciseId: entry.key}, {now, quarantine: new Set(quarantine)});
   const log = [
     ...state.log,

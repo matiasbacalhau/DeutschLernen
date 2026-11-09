@@ -226,6 +226,9 @@ button:not(:disabled):active, .button:active { opacity: 0.75; }
 .umlauts button { flex: 1; width: auto; min-width: 44px; margin: 0; padding: 0; background: var(--surface); color: var(--text); font-weight: 500; border-radius: var(--radius-sm); }
 
 input[type="file"] { width: 100%; font: inherit; margin: 8px 0; }
+.card textarea { display: block; width: 100%; min-height: 80px; padding: 10px 14px; margin: 8px 0; font: inherit; color: var(--text); background: var(--ground); border: 1.5px solid var(--hair); border-radius: var(--radius-sm); resize: vertical; }
+.card textarea:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.accepted-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
 select { display: block; width: 100%; min-height: 48px; margin: 8px 0; padding: 0 12px; font: inherit; color: inherit; background: var(--ground); border: 1.5px solid var(--hair); border-radius: var(--radius-sm); }
 
 /* Runner de grupo */

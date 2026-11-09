@@ -65,11 +65,12 @@ async function processLtQueue() {
     const { ltMap } = await content();
     // Una sola transacción (lectura incluida): resultados, grupo abierto, avisos y salida de la cola.
     // Si algo falla antes, las escrituras siguen en la cola.
-    await store.update(['progress', 'mastery', 'log', 'quarantine', 'notices', 'group', 'ltQueue'], v => {
+    await store.update(['progress', 'mastery', 'log', 'quarantine', 'notices', 'group', 'ltQueue', 'settings'], v => {
       let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? { tags: {}, pairs: {} }, log: v.log ?? [], group: v.group ?? null };
       let notices = v.notices ?? [];
+      const acceptedWords = [v.settings?.name, ...(v.settings?.customWords ?? [])].filter(Boolean);
       for (const entry of resolved) {
-        const { notice, ...next } = applyResolved({ state, entry, ltMap, quarantine: v.quarantine ?? [], now: Date.now() });
+        const { notice, ...next } = applyResolved({ state, entry, ltMap, quarantine: v.quarantine ?? [], now: Date.now(), acceptedWords });
         state = next;
         notices = [...notices.filter(n => n.key !== notice.key), notice];
       }
