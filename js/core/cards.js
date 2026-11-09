@@ -73,6 +73,7 @@ function verbGap(word, usable, rng) {
   return asLevel3({
     id: `verb:${word.lemma}`, type: 'gap', tag: tagOf(person), context: 'Conjugá el verbo entre paréntesis.',
     text: `${SUBJECTS[person]} ___ (${word.lemma}) …`, answers: present(word, person), dims: {person}, verb: word.lemma,
+    generated: true,
   }, word.lemma);
 }
 

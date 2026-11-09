@@ -82,6 +82,7 @@ test('pickCards nivel 3 de un verbo: hueco con present() si el presente está de
   const m = mastery({'a1.pron.personal': 0.8, 'a1.praesens.regular': 0.5});
   const [gap] = pickCards(srs, opts({mastery: m}));
   assert.equal(gap.type, 'gap');
+  assert.equal(gap.generated, true);
   assert.equal(gap.tag, 'a1.praesens.regular');
   assert.match(gap.text, /^(Ich|Du|Er|Wir|Ihr|Tom und Lea) ___ \(wohnen\) …$/);
   assert.ok(['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(gap.answers[0]));
