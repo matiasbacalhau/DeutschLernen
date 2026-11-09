@@ -43,3 +43,10 @@ test('sin hide conserva artículo y plural', () => {
   const g = pickGlossary(lexicon, {}, opts());
   assert.ok(g.some(w => w.article === 'der' && w.plural));
 });
+
+test('una palabra con image la conserva; sin image, null', () => {
+  const lex = lexicon.map((w, i) => (i === 0 ? {...w, image: '1F511'} : w));
+  const g = pickGlossary(lex, {K0: 1}, opts());
+  assert.equal(g.find(w => w.lemma === 'K0').image, '1F511');
+  assert.ok(g.filter(w => w.lemma !== 'K0').every(w => w.image === null));
+});

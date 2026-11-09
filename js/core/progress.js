@@ -32,16 +32,19 @@ function shuffle(arr, rng) {
 }
 
 // Gaps generados de las plantillas cuyo tag_prefix es prefijo de algún tag del tema, sin repetir ni los ya vistos.
-function generated(topic, templates, lexicon, rng, skip) {
-  const tpls = (templates ?? []).filter(t => topic.tags.some(tag => tag.startsWith(t.tag_prefix)));
+// Las plantillas `card_only` son solo para las tarjetas de nivel 3 (cards.js). Primero, al azar, las de un `noun`
+// de `prefer` (lemas en aprendizaje, spec §5.3); después, al azar, el resto.
+function generated(topic, templates, lexicon, rng, skip, prefer = new Set()) {
+  const tpls = (templates ?? []).filter(t => !t.card_only && topic.tags.some(tag => tag.startsWith(t.tag_prefix)));
   const pool = new Map();
   for (const t of tpls) for (const e of instancesOf(t, lexicon ?? [])) if (!skip.has(e.id)) pool.set(e.id, e);
-  return shuffle([...pool.values()], rng);
+  const all = shuffle([...pool.values()], rng);
+  return [...all.filter(e => prefer.has(e.noun)), ...all.filter(e => !prefer.has(e.noun))];
 }
 
-// opts: {now, rng, templates, lexicon, otherExercises, curriculum?}
+// opts: {now, rng, templates, lexicon, otherExercises, curriculum?, preferLemmas?: Set}
 // - otherExercises: cerrados de OTROS temas (se filtran a los de un solo ítem); curriculum (opcional) aporta el gating del repaso.
-export function buildGroup(unit, topicId, n, progress, mastery, {now, rng, templates, lexicon, otherExercises = [], curriculum} = {}) {
+export function buildGroup(unit, topicId, n, progress, mastery, {now, rng, templates, lexicon, otherExercises = [], curriculum, preferLemmas} = {}) {
   const topic = findTopic(unit, topicId);
   const stepDef = topic.steps.find(s => s.n === n);
   const prev = progress.steps[stepKey(topicId, n)];
@@ -49,13 +52,13 @@ export function buildGroup(unit, topicId, n, progress, mastery, {now, rng, templ
   let main;
   if (!prev?.attempts.length) {
     main = stepDef.exercises.filter(e => !e.reserve);
-    if (stepDef.generated) main = [...main, ...generated(topic, templates, lexicon, rng, new Set()).slice(0, stepDef.generated)];
+    if (stepDef.generated) main = [...main, ...generated(topic, templates, lexicon, rng, new Set(), preferLemmas).slice(0, stepDef.generated)];
   } else {
     const min = MIN_ITEMS[n];
     main = [];
     const add = list => { for (const e of list) { if (items(main) >= min) return; main.push(e); } };
     add(stepDef.exercises.filter(e => !(e.id in seen)));
-    if (items(main) < min && stepDef.generated !== undefined) add(generated(topic, templates, lexicon, rng, new Set(Object.keys(seen))));
+    if (items(main) < min && stepDef.generated !== undefined) add(generated(topic, templates, lexicon, rng, new Set(Object.keys(seen)), preferLemmas));
     const old = [...stepDef.exercises].filter(e => e.id in seen).sort((a, b) => seen[a.id] - seen[b.id]);
     add(old);
   }

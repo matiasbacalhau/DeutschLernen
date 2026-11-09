@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {answerEntry, groupEntry, ltEntry, countWords} from '../js/core/log.js';
+import {answerEntry, groupEntry, ltEntry, vocabEntry, skipEntry, countWords} from '../js/core/log.js';
 
 const result = {key: 'a1-art-0042', tag: 'ART_NOM', ok: false, rule: 'ART_ACC', notice: null, prereq: null, review: false};
 
@@ -26,6 +26,8 @@ test('answerEntry correcto y de escritura: diag null, tag null', () => {
 test('groupEntry', () => {
   assert.deepEqual(groupEntry({id: 'g1', startedAt: 10, endedAt: 70, abandoned: false}),
     {t: 'g', id: 'g1', start: 10, end: 70, abandoned: false, ms: 60});
+  assert.deepEqual(groupEntry({id: 'g1', startedAt: 10, endedAt: 70, abandoned: false, activeMs: 25}),
+    {t: 'g', id: 'g1', start: 10, end: 70, abandoned: false, ms: 60, activeMs: 25});
 });
 
 test('ltEntry', () => {
@@ -49,4 +51,13 @@ test('answerEntry: una respuesta escrita fallada guarda el texto; las demás no'
   const e = answerEntry({...result, given: 'Sie ist in das Zimmer 12.'}, {type: 'translate', ms: 1, at: 2});
   assert.equal(e.text, 'Sie ist in das Zimmer 12.');
   assert.equal('text' in answerEntry(result, {type: 'gap', ms: 1, at: 2}), false);
+});
+
+test('vocabEntry: repaso de una palabra en la escalera', () => {
+  assert.deepEqual(vocabEntry({lemma: 'Bett', rung: 2, mode: 'listen', ok: 1, ms: 3000, at: 5}),
+    {t: 'v', lemma: 'Bett', rung: 2, mode: 'listen', ok: true, ms: 3000, at: 5});
+});
+
+test('skipEntry: ejercicio con audio salteado', () => {
+  assert.deepEqual(skipEntry({item: 'dict:1', at: 7}), {t: 'skip-audio', item: 'dict:1', at: 7});
 });

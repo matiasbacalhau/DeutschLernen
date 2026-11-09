@@ -13,6 +13,7 @@ import * as lt from './services/languagetool.js';
 import { withGrammar } from './services/grammar.js';
 import { applyResolved } from './core/inicio.js';
 import { loadContent } from './core/content.js';
+import { seedSrs } from './core/srs.js';
 
 const views = { home, ajustes, pruebas, grupo, fin, ficha, mapa, tema, escritura };
 let contentPromise;
@@ -83,6 +84,16 @@ async function processLtQueue() {
 }
 
 await store.init();
+// Carga inicial de la SRS, una sola vez: el glosario viejo no dejó registro de qué palabras se vieron (spec §5.1).
+try {
+  const { lexicon, units } = await content();
+  await store.update(['srs', 'meta', 'progress'], v => {
+    if (v.meta?.srsSeeded) return {};
+    return { srs: seedSrs(v.srs ?? {}, { progress: v.progress ?? { steps: {} }, units, lexicon, now: Date.now() }), meta: { ...v.meta, srsSeeded: true } };
+  });
+} catch (e) {
+  console.warn('carga inicial de la SRS', e);
+}
 window.addEventListener('hashchange', render);
 render();
 processLtQueue();

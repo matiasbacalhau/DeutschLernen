@@ -40,3 +40,16 @@ test('recordatorio de backup a los 7 días', () => {
   assert.equal(needsBackupReminder({ firstUseAt: 0, lastBackupAt: now - DAY }, now), false);
   assert.equal(needsBackupReminder({ firstUseAt: 0, lastBackupAt: now - 8 * DAY }, now), true);
 });
+
+test('un backup v1 sin srs sale con srs vacío y esquema 2', () => {
+  const text = JSON.stringify({ app: APP_ID, schemaVersion: 1, data: { meta: { schemaVersion: 1, firstUseAt: 1 }, words: {} } });
+  const out = parseBackup(text);
+  assert.deepEqual(out.srs, {});
+  assert.equal(out.meta.schemaVersion, 2);
+  assert.deepEqual(out.words, {});
+});
+
+test('la migración a v2 no pisa un srs existente', () => {
+  const srs = { Bett: { rung: 2 } };
+  assert.deepEqual(migrate({ meta: {}, srs }, 1).srs, srs);
+});

@@ -4,7 +4,9 @@ import { article } from '../morph.js';
 const GENDER = {der: 'm', die: 'f', das: 'n'};
 const TAG_SUFFIX = {m: 'mask', f: 'fem', n: 'neut', pl: 'plural'};
 
+// Sin artículo en el léxico (países como *Deutschland*) no hay hueco de artículo.
 function fits(slot, w) {
+  if (!GENDER[w.article]) return false;
   if (w.pos !== slot.pos || !slot.fields.includes(w.field)) return false;
   return !slot.countable || w.plural != null;
 }

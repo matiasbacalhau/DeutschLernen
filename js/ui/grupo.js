@@ -3,6 +3,7 @@
 import { h, rich } from './dom.js';
 import { answerInput, listenButton } from './inputs.js';
 import { renderFicha } from './ficha.js';
+import { wordPicture } from './imagen.js';
 import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
 import { checkExercise } from '../core/checks/index.js';
@@ -10,13 +11,26 @@ import { EVALUATED_OK } from '../core/checks/common.js';
 import { gradeWriting } from '../core/checks/writing.js';
 import { buildGroup, commitNext } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, correctSentence, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
+import { addWords } from '../core/srs.js';
+import { withoutAudio, cardReveal } from '../core/cards.js';
+import { skipEntry } from '../core/log.js';
+import { buildExtras } from '../core/extras.js';
+import { dictationPool } from '../core/dictation.js';
+import * as tts from '../services/tts.js';
 import * as lt from '../services/languagetool.js';
 import { withGrammar } from '../services/grammar.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
 const EMPTY_MASTERY = { tags: {}, pairs: {} };
+
+// Frases para dictar: se arman una vez por contenido cargado.
+const pools = new WeakMap();
+const poolOf = C => {
+  if (!pools.has(C)) pools.set(C, dictationPool(C.units, C.templates, C.lexicon, C.curriculum));
+  return pools.get(C);
+};
 
 export default async function grupo(el, { store, content, params }) {
   const C = await content();
@@ -32,23 +46,34 @@ export default async function grupo(el, { store, content, params }) {
   const titleOf = id => C.curriculum.topics.find(t => t.id === id)?.title ?? id;
   const defOf = id => Object.values(C.units).flatMap(u => u.topics).find(t => t.topic === id);
 
+  let audioHintSeen = !!(await store.get('meta'))?.audioHintSeen;
   let group = await store.get('group');
   if (!group || group.topic !== topicId || group.step !== n) {
     const now = Date.now();
     const candidates = reviewCandidates(C.units, topicId);
     // En una transacción: la cola de LanguageTool no puede resolver nada en el grupo guardado mientras se cierra.
-    ({ group } = await store.update(['group', 'progress', 'mastery', 'words', 'log', 'quarantine'], v => {
-      let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? EMPTY_MASTERY, words: v.words ?? {}, log: v.log ?? [] };
+    ({ group } = await store.update(['group', 'progress', 'mastery', 'words', 'log', 'quarantine', 'srs'], v => {
+      let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? EMPTY_MASTERY, words: v.words ?? {}, log: v.log ?? [], srs: v.srs ?? {} };
       // El grupo guardado de otro escalón no se pierde: se aplica lo respondido y se cierra (terminado o abandonado).
       if (v.group) state = closeSaved({ saved: v.group, state, quarantine: v.quarantine ?? [], now });
       const { progress, mastery, words } = state;
-      const fresh = buildGroup(unit, topicId, n, progress, mastery, {
-        now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum,
+      // Los generadores eligen primero palabras en aprendizaje (spec §5.3).
+      const preferLemmas = new Set(Object.keys(state.srs).filter(l => [1, 2].includes(state.srs[l].rung)));
+      let fresh = buildGroup(unit, topicId, n, progress, mastery, {
+        now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum, preferLemmas,
       });
       if (n === 3) {
         fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
       }
-      return v.group ? { ...state, group: fresh } : { group: fresh };
+      // Las palabras del glosario entran a la SRS en nivel 1 (spec §5.1); las que ya están no se tocan.
+      const srs = fresh.glossary ? addWords(state.srs, fresh.glossary.map(w => w.lemma), now) : undefined;
+      // Tarjetas y lugar de escucha después del glosario: sus palabras no salen en las tarjetas ni en el dictado de este
+      // grupo (el glosario las muestra; regla 1) y vuelven desde el siguiente.
+      fresh = buildExtras(fresh, {
+        srs: srs ?? state.srs, now, rng: Math.random, unit, units: C.units, progress, lexicon: C.lexicon, templates: C.templates,
+        mastery, curriculum: C.curriculum, pool: poolOf(C), audio: tts.supported(), glossary: (fresh.glossary ?? []).map(w => w.lemma),
+      });
+      return { ...(v.group ? state : {}), group: fresh, ...(srs && { srs }) };
     }));
   }
 
@@ -78,16 +103,16 @@ export default async function grupo(el, { store, content, params }) {
   // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
   const correct = withGrammar(text => lt.check(text));
   const ltClient = { check: correct };
-  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lt: ltClient });
+  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lexicon: C.lexicon, lt: ltClient });
 
   async function commit() {
     const { group: g, toApply } = commitNext(group);
     const now = Date.now();
     // El grupo en memoria avanza solo si el guardado salió bien: si falla, reintentar Siguiente vuelve a aplicar este commit.
-    ({ group } = await store.update(['mastery', 'log', 'words', 'progress', 'quarantine', 'group'], v => ({
+    ({ group } = await store.update(['mastery', 'log', 'words', 'progress', 'quarantine', 'group', 'srs'], v => ({
       ...applyCommit({
         group, toApply, now, quarantine: v.quarantine ?? [],
-        state: { mastery: v.mastery ?? EMPTY_MASTERY, log: v.log ?? [], words: v.words ?? {}, progress: v.progress ?? { steps: {} } },
+        state: { mastery: v.mastery ?? EMPTY_MASTERY, log: v.log ?? [], words: v.words ?? {}, progress: v.progress ?? { steps: {} }, srs: v.srs ?? {} },
       }),
       group: carryResolved(g, v.group),
     })));
@@ -117,7 +142,22 @@ export default async function grupo(el, { store, content, params }) {
       } }, 'Seguir'));
       return;
     }
-    const ex = group.exercises[group.index];
+    let ex = group.exercises[group.index];
+    // Sin audio (spec §6.3): lo que sigue en el grupo sale sin él; el dictado se saltea.
+    if (group.audioOff) {
+      const plain = withoutAudio(ex, { lexicon: C.lexicon, rng: Math.random });
+      if (plain === null) {
+        const { group: skipped, entry } = skipExercise(group, { now: Date.now() });
+        group = skipped;
+        await store.update(['group', 'log'], v => ({ group: carryResolved(skipped, v.group), log: [...(v.log ?? []), entry] }));
+        return next();
+      }
+      if (plain !== ex) {
+        ex = plain;
+        group = { ...group, exercises: group.exercises.map((e, i) => (i === group.index ? plain : e)) };
+        await save();
+      }
+    }
     // Escritura enviada que no llegó a corregirse (se cerró la app durante "Corrigiendo…"): se reenvía.
     if (group.draft?.id === ex.id && group.draft.text != null) {
       counter.textContent = `${group.index + 1} de ${group.exercises.length}`;
@@ -175,9 +215,31 @@ export default async function grupo(el, { store, content, params }) {
       ex.review && h('span', { class: 'pill small' }, 'Repaso'),
       group.index === 0 && n !== 3 && h('p', { class: 'scene' }, h('strong', {}, stepDef.scene.title), ' · ', rich(stepDef.scene.context)),
     ];
+    // Una sola vez: con el iPhone en silencio el TTS no suena y no hay forma de detectarlo.
+    const hasAudio = !group.audioOff && (ex.type === 'dictation' || (ex.type === 'card' && ex.mode === 'listen') || (ex.type === 'situation' && ex.listen));
+    if (hasAudio && tts.supported() && !audioHintSeen) {
+      audioHintSeen = true;
+      head.push(h('p', { class: 'muted' }, 'Si no suena, sacá el modo silencio del iPhone.'));
+      store.update(['meta'], v => ({ meta: { ...v.meta, audioHintSeen: true } })).catch(() => {});
+    }
     show(head, body);
+    let noAudio = false;
     renderExercise(ex, body, {
       ctx,
+      // "Ahora no puedo escuchar": sin audio por el resto del grupo; este ejercicio sale en su variante sin audio.
+      onNoAudio: async () => {
+        if (noAudio) return; // doble toque: una sola vez
+        noAudio = true;
+        document.removeEventListener('visibilitychange', onVisibility);
+        group = { ...group, audioOff: true };
+        // La tarjeta pasa a lectura: el log lo anota acá. El dictado y la situación se saltean: lo anota skipExercise.
+        if (ex.type === 'card') {
+          const entry = skipEntry({ item: ex.id, at: Date.now() });
+          await store.update(['log'], v => ({ log: [...(v.log ?? []), entry] }));
+        }
+        await save();
+        next();
+      },
       submit: async answer => {
         const ms = watch.elapsed(Date.now());
         document.removeEventListener('visibilitychange', onVisibility);
@@ -233,15 +295,24 @@ export default async function grupo(el, { store, content, params }) {
         // Lo que escribió el usuario: la frase con lo que difiere subrayado, o la palabra suelta (la situación ya la muestra).
         r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
           : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
+        // El dictado es una tarea abierta: después de responder se muestra la frase original (regla 2).
+        ex.type === 'dictation' && h('p', {}, 'La frase: ', h('em', { lang: 'de' }, ex.text)),
         !r.ok && r.rule && h('p', {}, rich(r.rule)),
         example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es}) `, listenButton(example.de)),
         r.notice && h('p', { class: 'muted' }, r.notice),
       );
     });
     const curiosity = curiosityFor(ex, results, C.curriculum, rng);
+    const sentence = correctSentence(ex, answer, results);
+    const listen = sentence && listenButton(sentence);
+    // Tarjeta: imagen y "der Schlüssel · llave" con 🔊 solo tras acertar (antes del acierto revelarían la respuesta).
+    const reveal = ex.type === 'card' && cardReveal(ex, results);
     return [
+      reveal?.picture && wordPicture(ex.word, 'card'),
+      reveal?.label && h('p', { class: 'sentence' }, reveal.label, ' ', listenButton(reveal.de)),
       ex.type === 'situation' && situationReplay(ex, answer, results),
-      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
+      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
+      !(allOk && multi) && listen,
       curiosity && h('p', { class: 'curiosity' }, rich(curiosity)),
     ];
   }

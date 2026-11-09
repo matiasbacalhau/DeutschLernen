@@ -26,7 +26,7 @@ export function checkWritten(key, item, answer, ctx) {
   const m = matchAnswer(answer, item.answers, {orthographic: !!info.orthographic});
   if (m.ok) return result(key, item.tag, true, {notice: m.notice});
   if (item.generated) {
-    const d = diagnose(item, answer, ctx.curriculum.tags);
+    const d = diagnose(item, answer, ctx.curriculum.tags, ctx.lexicon);
     return result(key, item.tag, false, {...d, given: String(answer)});
   }
   const hit = (item.errors ?? []).find((e) => matchAnswer(answer, [e.answer], {orthographic: !!info.orthographic}).ok);

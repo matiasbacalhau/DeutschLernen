@@ -8,7 +8,7 @@ preview_urls = false
 
 [vars]
 PROVIDER = "claude"
-ALLOWED_ORIGINS = "https://matiasbacalhau.github.io"
+ALLOWED_ORIGINS = "https://matiasbacalhau.github.io,http://localhost:8000"
 # Opcionales: CLAUDE_MODEL, GEMINI_MODEL, EFFORT (low | medium | high).
 
 # Logs con búsqueda por campo (traceId, provider, reason) en el panel de Cloudflare.

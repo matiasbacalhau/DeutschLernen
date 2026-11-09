@@ -3,7 +3,8 @@
 import {countItems} from './checks/index.js';
 import {applyResult} from './mastery.js';
 import {pickExample, pickCuriosity} from './feedback.js';
-import {answerEntry, groupEntry, ltEntry, countWords} from './log.js';
+import {answerEntry, groupEntry, ltEntry, vocabEntry, skipEntry, countWords} from './log.js';
+import {reviewWord, reviewDue} from './srs.js';
 import {stepKey, recordAttempt, scoreGroup, commitNext} from './progress.js';
 
 const WRITING = new Set(['writing-guided', 'writing-free']);
@@ -23,6 +24,25 @@ export function reviewCandidates(units, topicId) {
     }
   }
   return out;
+}
+
+// La frase correcta que se puede escuchar tras acertar un ítem cerrado (spec 6.4), o null. Nunca tras un error (regla 2).
+export function correctSentence(ex, answer, results) {
+  if (!results.length || !results.every(r => r.ok)) return null;
+  switch (ex.type) {
+    case 'transform':
+    case 'translate': return typeof answer === 'string' && answer.trim() ? answer.trim() : null;
+    case 'order': return Array.isArray(answer) ? answer.join(' ') : null;
+    case 'choice': {
+      const text = ex.options?.[answer]?.text;
+      return text && text.trim().split(/\s+/).length >= 2 ? text : null;
+    }
+    case 'gap':
+      // El hueco de verbo de nivel 3 (cards.js) lleva el infinitivo entre paréntesis: no es una frase para escuchar.
+      if (String(ex.id).startsWith('card3:verb:')) return null;
+      return typeof answer === 'string' && ex.text?.includes('___') ? ex.text.replace('___', answer.trim()) : null;
+    default: return null;
+  }
 }
 
 // {tag, dims, answers, label} del ítem `key` de `ex`. `answers` son las formas aceptadas (texto).
@@ -93,12 +113,15 @@ export function needsFicha(group, topic) {
   return group.exercises.slice(0, group.index).some(e => e.type === 'detective');
 }
 
-// Aplica los resultados confirmados. state: {mastery, log, words, progress}; quarantine: ids (array).
-// Cada resultado lleva `ms` y `at` (los pone la UI al responder).
+// Aplica los resultados confirmados. state: {mastery, log, words, progress, srs}; quarantine: ids (array).
+// Cada resultado lleva `ms` y `at` (los pone la UI al responder). Los ejercicios con `vocab` (tarjetas, huecos y
+// dictados de nivel 3) además repasan su palabra en la SRS; el dictado, por lo que dice `lemmaOk` de esa palabra.
+// Un dictado suelto repasa solo FSRS de cada palabra suya que esté vencida, sin cambiar su nivel (spec §6.1).
 export function applyCommit({group, toApply, state, quarantine, now}) {
   const byId = new Map(group.exercises.map(e => [e.id, e]));
   const q = new Set(quarantine);
   let {mastery, words} = state;
+  let srs = state.srs ?? {};
   const log = [...state.log];
   const touched = [];
   for (const r of toApply) {
@@ -108,6 +131,19 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
     mastery = applyResult(mastery, {...r, type: ex.type, exerciseId: ex.id}, {now, quarantine: q});
     log.push(answerEntry(r, {type: ex.type, ms: r.ms, at: r.at}));
     for (const lt of r.ltRules ?? []) log.push(ltEntry({...lt, at: r.at}));
+    if (ex.vocab) {
+      const {lemma, rung, mode} = ex.vocab;
+      const ok = ex.type === 'dictation' ? !!r.lemmaOk?.[lemma] : r.ok;
+      srs = reviewWord(srs, lemma, ok, {now: r.at, rung, mode});
+      log.push(vocabEntry({lemma, rung, mode, ok, ms: r.ms, at: r.at}));
+    } else if (ex.type === 'dictation') {
+      for (const [lemma, ok] of Object.entries(r.lemmaOk ?? {})) {
+        const before = srs;
+        srs = reviewDue(srs, lemma, ok, {now: r.at});
+        // Entrada v solo si la palabra se repasó (estaba en la SRS y vencida), con su nivel de ahora (no cambia).
+        if (srs !== before) log.push(vocabEntry({lemma, rung: srs[lemma].rung, mode: 'listen', ok, ms: r.ms, at: r.at}));
+      }
+    }
   }
   for (const ex of touched) words = countWords(words, ex.words ?? []);
   const key = stepKey(group.topic, group.step);
@@ -115,14 +151,23 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
   const seen = {...prev.seen};
   for (const ex of touched) if (!ex.review) seen[ex.id] = now;
   const progress = {...state.progress, steps: {...state.progress.steps, [key]: {...prev, seen}}};
-  return {mastery, log, words, progress};
+  return {mastery, log, words, progress, srs};
+}
+
+// Suma el tiempo activo (sin segundo plano) de cada ejercicio respondido del grupo, una vez por ejercicio.
+function activeMsOf(group) {
+  const byEx = new Map();
+  for (const r of group.results ?? []) {
+    if (typeof r.ms === 'number' && !byEx.has(idOf(r.key))) byEx.set(idOf(r.key), r.ms);
+  }
+  return [...byEx.values()].reduce((a, b) => a + b, 0);
 }
 
 // Cierre del grupo: intento en progress, entrada de grupo en el log y puntaje.
 export function finishGroup(group, {progress, log}, now) {
   return {
     progress: recordAttempt(progress, group, now),
-    log: [...log, groupEntry({id: group.id, startedAt: group.startedAt, endedAt: now, abandoned: false})],
+    log: [...log, groupEntry({id: group.id, startedAt: group.startedAt, endedAt: now, abandoned: false, activeMs: activeMsOf(group)})],
     score: scoreGroup(group),
   };
 }
@@ -178,7 +223,13 @@ export function closeSaved({saved, state, quarantine, now}) {
     const f = finishGroup(g, {progress: s.progress, log: s.log}, now);
     return {...s, progress: f.progress, log: f.log};
   }
-  return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true})]};
+  return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true, activeMs: activeMsOf(g)})]};
+}
+
+// Salta el ejercicio actual sin resultado: ni puntaje, ni mastery, ni SRS (spec §6.3). `entry` va al log.
+export function skipExercise(group, {now}) {
+  const item = group.exercises[group.index].id;
+  return {group: {...group, index: group.index + 1}, entry: skipEntry({item, at: now})};
 }
 
 // Cronómetro de un ejercicio que no cuenta el tiempo con la app en segundo plano (el usuario se fue a otra cosa).

@@ -32,3 +32,17 @@ test('ninguna celda: la rule del tag', () => {
   const d = diagnose(item('m'), 'xyz', tags);
   assert.deepEqual(d, {rule: 'La regla del tag.', prereq: null});
 });
+
+test('verbo conjugado: si escribió la forma de otra persona, nombra esa persona sin revelar la forma esperada', () => {
+  const lexicon = [
+    {lemma: 'wohnen', pos: 'verb'},
+    {lemma: 'sprechen', pos: 'verb', irregular: {du: 'sprichst', er: 'spricht'}},
+  ];
+  const gap = {tag: 'a1.praesens.regular', dims: {person: 'du'}, verb: 'wohnen', generated: true};
+  const d1 = diagnose(gap, 'wohne', {}, lexicon);
+  assert.equal(d1.rule, 'Esa forma es la de *ich*: fijate quién es el sujeto.');
+  assert.doesNotMatch(d1.rule, /wohnst/);
+  const d2 = diagnose({...gap, tag: 'a1.praesens.irregular', verb: 'sprechen'}, 'spricht', {}, lexicon);
+  assert.equal(d2.rule, 'Esa forma es la de *er*, *sie* (ella) y *es*: fijate quién es el sujeto.');
+  assert.doesNotMatch(d2.rule, /sprichst/);
+});

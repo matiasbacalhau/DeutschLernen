@@ -4,6 +4,13 @@ import {masteryOf} from './mastery.js';
 const MONTH = 30 * 86400000;
 const GATE = 0.6;
 
+// El tag tiene datos y cada uno de sus `requires` llega a GATE (sin datos cuenta 0).
+export function tagUnlocked(tag, mastery, curriculum) {
+  if (masteryOf(mastery, tag) === null) return false;
+  const reqs = curriculum?.tags?.[tag]?.requires ?? [];
+  return reqs.every(r => (masteryOf(mastery, r) ?? 0) >= GATE);
+}
+
 export const forgetting = (last, now) => 1 + Math.min(1, (now - last) / MONTH);
 
 // candidates: ejercicios cerrados de un solo ítem (con `tag` y `type`).
@@ -15,10 +22,8 @@ export function pickReview(candidates, state, {now, rng, count, excludeTags = []
   const pool = [];
   for (const ex of candidates) {
     if (excluded.has(ex.tag)) continue;
+    if (!tagUnlocked(ex.tag, state, curriculum)) continue;
     const m = masteryOf(state, ex.tag);
-    if (m === null) continue;
-    const reqs = curriculum?.tags?.[ex.tag]?.requires ?? [];
-    if (reqs.some(r => (masteryOf(state, r) ?? 0) < GATE)) continue;
     const pair = state.pairs[`${ex.tag}|${ex.type}`];
     const mp = pair && pair.n > 0 ? pair.m : m;
     const w = Math.max(0.1, 1 - mp) * forgetting(state.tags[ex.tag].last, now);

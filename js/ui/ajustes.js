@@ -87,5 +87,6 @@ export default async function ajustes(el, { store }) {
       h('button', { onclick: exportarReportes }, 'Exportar reportes ⚑'),
     ),
     h('a', { class: 'button secondary', href: '#/pruebas' }, 'Pruebas del iPhone'),
+    h('p', { class: 'muted' }, 'Pictogramas: ', h('a', { href: 'https://openmoji.org', target: '_blank', rel: 'noopener' }, 'OpenMoji'), ' (CC BY-SA 4.0)'),
   );
 }

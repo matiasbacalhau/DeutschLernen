@@ -37,6 +37,13 @@
    context: "En una cena: el anfitrión te quiere servir otra vez y ya no podés más.",
    text: "Danke, ich möchte ___ {noun} mehr.", slot: {pos: noun, fields: [getraenke]}}
 
+# Solo para las tarjetas de nivel 3 (spec §4): sirve para cualquier sustantivo, así que no entra en los grupos del tema
+# (`card_only`). Cuenta para a1.nom.<género> del lema.
+- {id: tpl-nom-hier, tag_prefix: a1.nom, det: def, kase: nom, verb: sein, card_only: true,
+   context: "Mirando un libro de imágenes con un nene, le señalás cada cosa (con artículo definido).",
+   text: "Schau mal, hier ist ___ {noun}!",
+   slot: {pos: noun, fields: [einkaufen, essen, gerichte, getraenke, hostel, kueche, laender, personen, tiere, vorrat, wohnung]}}
+
 # sein en presente (tema 1). {subject} va al comienzo; el resto de la frase no puede depender de la persona.
 - {id: tpl-sein-muede, kind: sein, tag_prefix: a1.sein.praesens,
    context: "23:00 en el hostel: después del viaje, nadie da más.",

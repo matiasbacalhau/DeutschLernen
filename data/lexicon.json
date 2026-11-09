@@ -27,7 +27,8 @@
   "es": "cama",
   "field": "hostel",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F6CF"
  },
  {
   "lemma": "Schlüssel",
@@ -37,7 +38,8 @@
   "es": "llave",
   "field": "hostel",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F511"
  },
  {
   "lemma": "Rezeption",
@@ -67,7 +69,8 @@
   "es": "mochila",
   "field": "hostel",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F392"
  },
  {
   "lemma": "Koffer",
@@ -77,7 +80,8 @@
   "es": "valija",
   "field": "hostel",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9F3"
  },
  {
   "lemma": "Handtuch",
@@ -97,7 +101,8 @@
   "es": "ducha",
   "field": "hostel",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F6BF"
  },
  {
   "lemma": "Bad",
@@ -127,7 +132,8 @@
   "es": "bolso, bolsa",
   "field": "hostel",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F45C"
  },
  {
   "lemma": "Pass",
@@ -147,7 +153,8 @@
   "es": "documento de identidad",
   "field": "hostel",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1FAAA"
  },
  {
   "lemma": "Reservierung",
@@ -197,7 +204,8 @@
   "es": "wifi",
   "field": "hostel",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "E254"
  },
  {
   "lemma": "Steckdose",
@@ -207,7 +215,8 @@
   "es": "enchufe",
   "field": "hostel",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "E144"
  },
  {
   "lemma": "Decke",
@@ -317,7 +326,8 @@
   "es": "puerta",
   "field": "wohnung",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F6AA"
  },
  {
   "lemma": "Fenster",
@@ -327,7 +337,8 @@
   "es": "ventana",
   "field": "wohnung",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1FA9F"
  },
  {
   "lemma": "Tisch",
@@ -347,7 +358,8 @@
   "es": "silla",
   "field": "wohnung",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1FA91"
  },
  {
   "lemma": "Sofa",
@@ -387,7 +399,8 @@
   "es": "espejo",
   "field": "wohnung",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1FA9E"
  },
  {
   "lemma": "Lampe",
@@ -427,7 +440,8 @@
   "es": "reloj",
   "field": "wohnung",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F570"
  },
  {
   "lemma": "Garten",
@@ -447,7 +461,8 @@
   "es": "escalera",
   "field": "wohnung",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "E202"
  },
  {
   "lemma": "Aufzug",
@@ -457,7 +472,8 @@
   "es": "ascensor",
   "field": "wohnung",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F6D7"
  },
  {
   "lemma": "Löffel",
@@ -467,7 +483,8 @@
   "es": "cuchara",
   "field": "kueche",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F944"
  },
  {
   "lemma": "Gabel",
@@ -487,7 +504,8 @@
   "es": "cuchillo",
   "field": "kueche",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F52A"
  },
  {
   "lemma": "Teller",
@@ -517,7 +535,8 @@
   "es": "vaso",
   "field": "kueche",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F943"
  },
  {
   "lemma": "Flasche",
@@ -597,7 +616,8 @@
   "es": "cafetera",
   "field": "kueche",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "E155"
  },
  {
   "lemma": "Wasserkocher",
@@ -617,7 +637,8 @@
   "es": "pan",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F35E"
  },
  {
   "lemma": "Brötchen",
@@ -637,7 +658,8 @@
   "es": "manteca",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9C8"
  },
  {
   "lemma": "Käse",
@@ -647,7 +669,8 @@
   "es": "queso",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9C0"
  },
  {
   "lemma": "Milch",
@@ -657,7 +680,8 @@
   "es": "leche",
   "field": "getraenke",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F95B"
  },
  {
   "lemma": "Wasser",
@@ -707,7 +731,8 @@
   "es": "cerveza",
   "field": "getraenke",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F37A"
  },
  {
   "lemma": "Wein",
@@ -717,7 +742,8 @@
   "es": "vino",
   "field": "getraenke",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F377"
  },
  {
   "lemma": "Apfel",
@@ -727,7 +753,8 @@
   "es": "manzana",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F34E"
  },
  {
   "lemma": "Banane",
@@ -737,7 +764,8 @@
   "es": "banana",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F34C"
  },
  {
   "lemma": "Orange",
@@ -747,7 +775,8 @@
   "es": "naranja",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F34A"
  },
  {
   "lemma": "Tomate",
@@ -757,7 +786,8 @@
   "es": "tomate",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F345"
  },
  {
   "lemma": "Kartoffel",
@@ -767,7 +797,8 @@
   "es": "papa",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F954"
  },
  {
   "lemma": "Zwiebel",
@@ -777,7 +808,8 @@
   "es": "cebolla",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9C5"
  },
  {
   "lemma": "Ei",
@@ -787,7 +819,8 @@
   "es": "huevo",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F95A"
  },
  {
   "lemma": "Fleisch",
@@ -797,7 +830,8 @@
   "es": "carne",
   "field": "essen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F969"
  },
  {
   "lemma": "Fisch",
@@ -807,7 +841,8 @@
   "es": "pescado",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F41F"
  },
  {
   "lemma": "Reis",
@@ -837,7 +872,8 @@
   "es": "ensalada",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F957"
  },
  {
   "lemma": "Kuchen",
@@ -847,7 +883,8 @@
   "es": "torta",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F382"
  },
  {
   "lemma": "Zucker",
@@ -867,7 +904,8 @@
   "es": "sal",
   "field": "vorrat",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9C2"
  },
  {
   "lemma": "Wurst",
@@ -887,7 +925,8 @@
   "es": "chocolate",
   "field": "essen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F36B"
  },
  {
   "lemma": "Marmelade",
@@ -1007,7 +1046,8 @@
   "es": "euro",
   "field": "einkaufen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F4B6"
  },
  {
   "lemma": "Preis",
@@ -1047,7 +1087,8 @@
   "es": "canasto",
   "field": "einkaufen",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9FA"
  },
  {
   "lemma": "Liste",
@@ -1077,7 +1118,8 @@
   "es": "recibo",
   "field": "einkaufen",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9FE"
  },
  {
   "lemma": "Zeitung",
@@ -1087,7 +1129,8 @@
   "es": "diario",
   "field": "einkaufen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F4F0"
  },
  {
   "lemma": "Briefmarke",
@@ -1127,7 +1170,8 @@
   "es": "hombre",
   "field": "personen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F468"
  },
  {
   "lemma": "Frau",
@@ -1137,7 +1181,8 @@
   "es": "mujer, señora",
   "field": "personen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F469"
  },
  {
   "lemma": "Kind",
@@ -1147,7 +1192,8 @@
   "es": "niño",
   "field": "personen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9D2"
  },
  {
   "lemma": "Freund",
@@ -1217,7 +1263,8 @@
   "es": "docente",
   "field": "personen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9D1-200D-1F3EB"
  },
  {
   "lemma": "Familie",
@@ -1227,7 +1274,8 @@
   "es": "familia",
   "field": "personen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F46A"
  },
  {
   "lemma": "Bruder",
@@ -1257,7 +1305,8 @@
   "es": "estudiante",
   "field": "personen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9D1-200D-1F393"
  },
  {
   "lemma": "Arzt",
@@ -1267,7 +1316,8 @@
   "es": "médico",
   "field": "personen",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F9D1-200D-2695-FE0F"
  },
  {
   "lemma": "Kollege",
@@ -1467,7 +1517,8 @@
   "es": "buzón",
   "field": "wohnung",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F4EB"
  },
  {
   "lemma": "Keller",
@@ -1567,7 +1618,8 @@
   "es": "bicicleta",
   "field": "wohnung",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F6B2"
  },
  {
   "lemma": "Pflanze",
@@ -1577,7 +1629,8 @@
   "es": "planta",
   "field": "wohnung",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1FAB4"
  },
  {
   "lemma": "Schreibtisch",
@@ -1657,7 +1710,8 @@
   "es": "paquetito",
   "field": "einkaufen",
   "freq": 3,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F4E6"
  },
  {
   "lemma": "Mädchen",
@@ -1667,7 +1721,8 @@
   "es": "chica, nena",
   "field": "personen",
   "freq": 1,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F467"
  },
  {
   "lemma": "Techniker",
@@ -1697,7 +1752,8 @@
   "es": "gato, gata",
   "field": "tiere",
   "freq": 2,
-  "level": "A1"
+  "level": "A1",
+  "image": "1F408"
  },
  {
   "lemma": "Kätzchen",

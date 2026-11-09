@@ -1,9 +1,12 @@
 // Formato del backup, migraciones y recordatorio. Lógica pura: no toca IndexedDB ni el DOM.
 export const APP_ID = 'deutschlernen';
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 // migrations[n] convierte los datos de la versión n − 1 a la n.
-const migrations = {};
+const migrations = {
+  // v2: SRS de vocabulario.
+  2: data => ({ ...data, srs: data.srs ?? {} }),
+};
 
 const DAY = 86_400_000;
 

@@ -142,6 +142,32 @@
   }
  },
  {
+  "id": "tpl-nom-hier",
+  "tag_prefix": "a1.nom",
+  "det": "def",
+  "kase": "nom",
+  "verb": "sein",
+  "card_only": true,
+  "context": "Mirando un libro de imágenes con un nene, le señalás cada cosa (con artículo definido).",
+  "text": "Schau mal, hier ist ___ {noun}!",
+  "slot": {
+   "pos": "noun",
+   "fields": [
+    "einkaufen",
+    "essen",
+    "gerichte",
+    "getraenke",
+    "hostel",
+    "kueche",
+    "laender",
+    "personen",
+    "tiere",
+    "vorrat",
+    "wohnung"
+   ]
+  }
+ },
+ {
   "id": "tpl-sein-muede",
   "kind": "sein",
   "tag_prefix": "a1.sein.praesens",
