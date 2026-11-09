@@ -1,6 +1,7 @@
 // Proxy del corrector de gramática (proxy/): validación, prompt, adaptadores y handler, sin red ni SDK.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { validate } from '../proxy/validate.js';
 import { nounIndex, recategorize } from '../proxy/genders.js';
 import { buildPrompt } from '../proxy/prompt.js';
@@ -256,4 +257,12 @@ test('handler: el texto del usuario nunca llega al log', async () => {
   await call({text: 'Geheimnis eins.'});
   await call({text: 'Geheimnis zwei.'}, {origin: 'https://evil.example'});
   assert.ok(!JSON.stringify(lines).includes('Geheimnis'));
+});
+
+test('wrangler.toml: ALLOWED_ORIGINS admite GitHub Pages y localhost:8000', async () => {
+  const toml = readFileSync(new URL('../proxy/wrangler.toml', import.meta.url), 'utf8');
+  const origins = toml.match(/^ALLOWED_ORIGINS\s*=\s*"([^"]+)"/m)?.[1] ?? '';
+  const list = origins.split(',').map(s => s.trim());
+  assert.ok(list.includes('https://matiasbacalhau.github.io'));
+  assert.ok(list.includes('http://localhost:8000'));
 });
