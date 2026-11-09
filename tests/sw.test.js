@@ -28,3 +28,12 @@ test('SHELL no lista archivos inexistentes', () => {
 test('la CI puede reemplazar la versión de la caché', () => {
   assert.match(sw, /^const CACHE = 'dev';$/m);
 });
+
+test('la CI copia a _site todos los archivos y carpetas que usa SHELL', () => {
+  const ci = readFileSync(join(root, '.github/workflows/ci.yml'), 'utf8');
+  const cpLine = ci.match(/cp -r ([^\n]+) _site\//)?.[1] ?? '';
+  const copied = new Set(cpLine.trim().split(/\s+/));
+  const topEntries = new Set(shell.filter(p => p !== './').map(p => p.split('/')[0]));
+  const missing = [...topEntries].filter(e => !copied.has(e));
+  assert.deepEqual(missing, []);
+});
