@@ -5,7 +5,18 @@ import { result } from './common.js';
 
 const overlaps = (a, b) => a.offset < b.offset + b.length && b.offset < a.offset + a.length;
 
-export function gradeWriting(matches, ltMap) {
+// Nombres, ciudades y marcas que LanguageTool no conoce (lt-map.accepted_words): su "mal escrita" no cuenta.
+// La palabra sale del contexto de la coincidencia, así anda igual con las que vuelven de la cola offline.
+const key = w => w.normalize('NFC').toLowerCase();
+const isAcceptedWord = (mt, ltMap) => {
+  if (mt.rule?.id !== 'GERMAN_SPELLER_RULE' || !mt.context) return false;
+  const {text, offset, length} = mt.context;
+  return (ltMap.accepted_words ?? []).some(w => key(w) === key(text.slice(offset, offset + length)));
+};
+const relevant = (matches, ltMap) => matches.filter(mt => !isAcceptedWord(mt, ltMap));
+
+export function gradeWriting(allMatches, ltMap) {
+  const matches = relevant(allMatches, ltMap);
   const notices = new Set(ltMap.notice_categories ?? []);
   const llmMarks = matches.filter(mt => mt.llm);
   const marks = [];
@@ -36,7 +47,7 @@ export function gradeWriting(matches, ltMap) {
 }
 
 // Para el log de uso: una entrada por marca; las del corrector llevan proveedor, modelo y traceId.
-export const ltRulesOf = (matches, ltMap) => matches.map(mt => (mt.llm
+export const ltRulesOf = (matches, ltMap) => relevant(matches, ltMap).map(mt => (mt.llm
   ? {rule: `llm:${mt.llm}`, mapped: !!ltMap.llm_categories?.[mt.llm], src: mt.src}
   : {rule: mt.rule.id, mapped: !!ltMap.rules?.[mt.rule.id]}));
 

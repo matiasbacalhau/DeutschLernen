@@ -121,6 +121,12 @@ class ValidateTest(unittest.TestCase):
         self.assertError(d, 'a1.nada')
         self.assertError(d, 'Y no tiene hint')
 
+    def test_ltmap_palabras_aceptadas(self):
+        d = minimo()
+        d['ltMap']['accepted_words'] = ['Matías', 'matías', 'Buenos Aires']
+        self.assertError(d, 'repetida', 'matías')
+        self.assertError(d, 'una sola palabra', 'Buenos Aires')
+
     def test_lexico_sin_campo(self):
         d = minimo()
         del d['lexicon'][0]['field']

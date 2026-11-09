@@ -32,6 +32,7 @@ Comprobado el 2026-11-08 sobre `spec/vocabulario-escucha`.
   - 🔊 en el ejemplo del feedback, el glosario y el modelo de la escritura, con la voz predeterminada.
   - Generador de *sein* × persona: 24 huecos en los escalones 3 y 4 del tema 1, con un diagnóstico que nombra la persona de lo escrito.
 - Escritura: corregida con LanguageTool y `lt-map`. Sin red, queda pendiente.
+  - Palabras aceptadas (`accepted_words` en `content-src/lt-map.yaml`, unas 150 entre nombres, ciudades y marcas): si LanguageTool las marca como mal escritas, no cuentan. Probado con LanguageTool local el 2026-11-07: *Matías* ya no da error, *Hauss* sí. Sale del backup del 7/11, donde la ortografía de nombres trabó la escritura del tema 1.
 - Corrector de gramática con LLM (`proxy/`, Claude Haiku 5.5):
   - El Worker está publicado (`ALLOWED_ORIGINS` incluye GitHub Pages y `http://localhost:8000`). Un GET sin origen recibe 403, como corresponde.
   - El bench dio 0 falsos positivos en 22 textos correctos y detectó 21 de 21 errores, con 3,3 s de latencia máxima (según el PR #4; no se volvió a correr).
@@ -44,6 +45,7 @@ Comprobado el 2026-11-08 sobre `spec/vocabulario-escucha`.
 - Escucha: dictado con TTS (reconociendo sustantivos, plurales y formas verbales conjugadas del léxico), situaciones ya vistas en modo escucha, botón "Ahora no puedo escuchar" y 🔊 de la frase al acertar un ítem cerrado.
 - Imágenes OpenMoji (56 SVG con crédito CC BY-SA 4.0 en `data/credits.json` y en Ajustes; copiadas a `_site/` en la CI y cacheadas en `sw.js`).
 - Tests: 290 de JS, 31 de Python, humo E2E headless (`node tools/e2e_smoke.mjs`, 146 archivos en caché del SW, 0 errores y 0 404) y `tools/check.sh` en verde.
+- Tests: 226 de JS y 27 de Python pasan en local (2026-11-07). La CI de `main` (con LanguageTool sobre los 827 textos en alemán del contenido) dio verde el 2026-11-04.
 
 ## No probado
 
@@ -55,6 +57,8 @@ Comprobado el 2026-11-08 sobre `spec/vocabulario-escucha`.
   - que suenen las tarjetas de escucha, los dictados, las situaciones en modo escucha y el 🔊 al acertar;
   - que "Ahora no puedo escuchar" apague el audio del resto del grupo sin bajar el puntaje;
   - que las imágenes OpenMoji carguen en modo avión.
+  - que suene el 🔊 nuevo y que aparezcan los huecos generados de *sein* al rehacer un escalón;
+  - que la escritura del tema 1 (escalón 5) pase con nombres propios. Si falta una palabra, el próximo backup la muestra en el texto de la escritura fallada.
 - **El corrector con Gemini:** se puede activar con `PROVIDER`, pero nunca se probó contra la API real.
 - **Límites conocidos:**
   - `ms` del grupo sigue guardando el tiempo total de pared (`end - start`), pero ahora `activeMs` guarda aparte la suma neta sin segundo plano.

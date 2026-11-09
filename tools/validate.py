@@ -2,6 +2,7 @@
 import json
 import os
 import sys
+import unicodedata
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
 MINIMOS = {1: 10, 2: 14, 3: 14, 4: 12}
@@ -85,6 +86,15 @@ def validar_ltmap(lt, tags, errs):
         for campo in ('es', 'hint'):
             if not c.get(campo):
                 errs.append(f'lt-map: la categoría {cid} no tiene {campo}')
+    vistas = set()
+    for w in lt.get('accepted_words', []):
+        # LanguageTool marca de a una palabra: "Buenos Aires" nunca coincidiría.
+        if ' ' in w.strip():
+            errs.append(f'lt-map: la palabra aceptada "{w}" tiene que ser una sola palabra')
+        clave = unicodedata.normalize('NFC', w).lower()
+        if clave in vistas:
+            errs.append(f'lt-map: palabra aceptada repetida: {w}')
+        vistas.add(clave)
 
 
 def validar_ejercicio(ex, tags, ids, errs):
