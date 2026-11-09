@@ -26,6 +26,8 @@ test('answerEntry correcto y de escritura: diag null, tag null', () => {
 test('groupEntry', () => {
   assert.deepEqual(groupEntry({id: 'g1', startedAt: 10, endedAt: 70, abandoned: false}),
     {t: 'g', id: 'g1', start: 10, end: 70, abandoned: false, ms: 60});
+  assert.deepEqual(groupEntry({id: 'g1', startedAt: 10, endedAt: 70, abandoned: false, activeMs: 25}),
+    {t: 'g', id: 'g1', start: 10, end: 70, abandoned: false, ms: 60, activeMs: 25});
 });
 
 test('ltEntry', () => {

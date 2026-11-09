@@ -154,11 +154,20 @@ export function applyCommit({group, toApply, state, quarantine, now}) {
   return {mastery, log, words, progress, srs};
 }
 
+// Suma el tiempo activo (sin segundo plano) de cada ejercicio respondido del grupo, una vez por ejercicio.
+function activeMsOf(group) {
+  const byEx = new Map();
+  for (const r of group.results ?? []) {
+    if (typeof r.ms === 'number' && !byEx.has(idOf(r.key))) byEx.set(idOf(r.key), r.ms);
+  }
+  return [...byEx.values()].reduce((a, b) => a + b, 0);
+}
+
 // Cierre del grupo: intento en progress, entrada de grupo en el log y puntaje.
 export function finishGroup(group, {progress, log}, now) {
   return {
     progress: recordAttempt(progress, group, now),
-    log: [...log, groupEntry({id: group.id, startedAt: group.startedAt, endedAt: now, abandoned: false})],
+    log: [...log, groupEntry({id: group.id, startedAt: group.startedAt, endedAt: now, abandoned: false, activeMs: activeMsOf(group)})],
     score: scoreGroup(group),
   };
 }
@@ -214,7 +223,7 @@ export function closeSaved({saved, state, quarantine, now}) {
     const f = finishGroup(g, {progress: s.progress, log: s.log}, now);
     return {...s, progress: f.progress, log: f.log};
   }
-  return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true})]};
+  return {...s, log: [...s.log, groupEntry({id: g.id, startedAt: g.startedAt, endedAt: now, abandoned: true, activeMs: activeMsOf(g)})]};
 }
 
 // Salta el ejercicio actual sin resultado: ni puntaje, ni mastery, ni SRS (spec §6.3). `entry` va al log.

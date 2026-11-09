@@ -149,7 +149,7 @@ test('finishGroup: intento en progress, groupEntry y puntaje', () => {
   const g = {...group, exercises: group.exercises.slice(0, 2), index: 2, committed: 2, results: group.results};
   const out = finishGroup(g, {progress: {steps: {}}, log: [{t: 'a'}]}, 500);
   assert.equal(out.log.length, 2);
-  assert.deepEqual(out.log[1], {t: 'g', id: 't1/1@0', start: 0, end: 500, abandoned: false, ms: 500});
+  assert.deepEqual(out.log[1], {t: 'g', id: 't1/1@0', start: 0, end: 500, abandoned: false, ms: 500, activeMs: 8});
   assert.equal(out.progress.steps['t1/1'].attempts.length, 1);
   assert.equal(out.score.ok, 2);
   assert.equal(out.score.bad, 1);

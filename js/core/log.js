@@ -6,8 +6,9 @@ export const answerEntry = (result, {exerciseId, type, ms, at}) => ({
   ...(result.given != null ? {text: result.given} : {}),
 });
 
-export const groupEntry = ({id, startedAt, endedAt, abandoned}) => ({
+export const groupEntry = ({id, startedAt, endedAt, abandoned, activeMs}) => ({
   t: 'g', id, start: startedAt, end: endedAt, abandoned: !!abandoned, ms: endedAt - startedAt,
+  ...(activeMs != null ? {activeMs} : {}),
 });
 
 // src: {provider, model, trace} en las marcas del corrector de gramática (para comparar proveedores y encontrar la línea del Worker).
