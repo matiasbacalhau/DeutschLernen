@@ -88,6 +88,12 @@ test('check dictation: acierto (sin mayúsculas, con aviso) y error en otra pala
   // El plural cuenta como la palabra.
   const pl = {...dict, text: 'Die Stühle sind neu.', lemmas: ['Stuhl']};
   assert.deepEqual((await checkExercise(pl, 'Die Stühle sint neu', ctx))[0].lemmaOk, {Stuhl: true});
+  // Una forma conjugada de un verbo del léxico también cuenta para su lema en el dictado.
+  const pool = dictationPool(units, templates, lexicon);
+  assert.ok(pool.find((e) => e.text === 'Ich brauche noch einen Löffel für die Küche.').lemmas.includes('brauchen'));
+  const vb = {...dict, text: 'Woher kommst du?', lemmas: ['kommen']};
+  assert.deepEqual((await checkExercise(vb, 'Woher kommst du', ctx))[0].lemmaOk, {kommen: true});
+  assert.deepEqual((await checkExercise(vb, 'Woher komst du', ctx))[0].lemmaOk, {kommen: false});
 });
 
 const state = (srs) => ({mastery: {tags: {}, pairs: {}}, log: [], words: {}, progress: {steps: {}}, srs});

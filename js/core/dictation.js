@@ -3,9 +3,17 @@
 import { instancesOf } from './generators/index.js';
 import { countItems } from './checks/index.js';
 import { itemInfo, containsAnswer } from './runner.js';
+import { present } from './morph.js';
 
 const MAX_WORDS = 8;
+const PERSONS = ['ich', 'du', 'er', 'wir', 'ihr', 'sie'];
 const words = (s) => String(s).toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+
+// Las formas de una palabra en las frases: lema y plural en sustantivos; presente en verbos (salvo *sein*, cuyas formas
+// supletivas aparecen en casi toda frase y no muestran la raíz del infinitivo).
+export const wordForms = (w) => (w.pos === 'verb' && w.lemma !== 'sein'
+  ? [...new Set([w.lemma, ...PERSONS.flatMap((p) => present(w, p))])]
+  : w.plural ? [w.lemma, w.plural] : [w.lemma]);
 
 // Las frases de cada ejercicio que pueden dictarse tal cual: sin huecos.
 function sentencesOf(ex) {
@@ -21,10 +29,10 @@ function sentencesOf(ex) {
 // Una instancia de generador con el hueco relleno con su primera respuesta.
 const filled = (e) => e.text.replace('___', e.answers[0]);
 
-// Los lemas del léxico cuyo lema o plural aparece como palabra en `text` (sin distinguir mayúsculas).
+// Los lemas del léxico cuya forma (lema, plural o presente verbal) aparece como palabra en `text` (sin distinguir mayúsculas).
 export function lemmasIn(text, lexicon) {
   const set = new Set(words(text));
-  return [...new Set(lexicon.filter((w) => set.has(w.lemma.toLowerCase()) || (w.plural && set.has(w.plural.toLowerCase()))).map((w) => w.lemma))];
+  return [...new Set(lexicon.filter((w) => wordForms(w).some((f) => set.has(f.toLowerCase()))).map((w) => w.lemma))];
 }
 
 // [{text, lemmas, cardOnly?}]: frases de hasta 8 palabras sin `___`, sin repetir: todas las respuestas aceptadas de
