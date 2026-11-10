@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {commitNext} from '../js/core/progress.js';
 import {addWords} from '../js/core/srs.js';
-import {correctSentence, reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch, skipExercise} from '../js/core/runner.js';
+import {correctSentence, reviewCandidates, itemInfo, exampleFor, curiosityFor, needsFicha, applyCommit, finishGroup, containsAnswer, segments, closeSaved, recordAnswer, carryResolved, stopwatch, skipExercise, applyRewrite} from '../js/core/runner.js';
 import {withoutAudio} from '../js/core/cards.js';
 import {scoreGroup} from '../js/core/progress.js';
 
@@ -340,4 +340,22 @@ test('applyCommit: el dictado suelto deja una entrada v por cada palabra cuyo re
   assert.equal(out.srs.Bett.rung, 2);
   assert.deepEqual(out.srs.Schlüssel, srs.Schlüssel);
   assert.deepEqual(out.log.filter(e => e.t === 'v'), [{t: 'v', lemma: 'Bett', rung: 2, mode: 'listen', ok: true, ms: 7, at: 2000}]);
+});
+
+test('applyRewrite: recuperar puntaje y limpiar marcas al corregir una escritura en Reescribir', () => {
+  const g = {
+    id: 'g', topic: 't1', step: 5, index: 1, committed: 0,
+    exercises: [{id: 'w1', type: 'writing-free'}],
+    results: [{
+      key: 'w1', tag: null, ok: false, score: 0.5,
+      marks: [{offset: 0, length: 3, text: 'Error', kind: 'error'}],
+      penalties: [{tag: 'a1.sein.praesens'}],
+    }],
+  };
+  const updated = applyRewrite(g, 'w1', {ok: true, score: 1, marks: [], penalties: []});
+  const r = updated.results[0];
+  assert.equal(r.ok, true);
+  assert.equal(r.score, 0.75);
+  assert.deepEqual(r.marks, []);
+  assert.deepEqual(r.penalties, []);
 });

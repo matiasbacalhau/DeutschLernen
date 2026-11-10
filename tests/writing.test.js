@@ -349,3 +349,53 @@ test('grammar.check: un error del proxy lleva el status', async () => {
     globalThis.fetch = orig;
   }
 });
+
+test('puntaje gradual por oración: 1 error en 4 oraciones da score 0.75; 1 error en 5 oraciones da score 0.8 y ok true', () => {
+  const text4 = 'Ich bin Leo. Ich komme aus Spanien. Sie ist ein Person. Wir sind nett.';
+  const g4 = gradeWriting([llm('NOM_FEM', 44, 3)], realMap, {text: text4});
+  assert.equal(g4.score, 0.75);
+  assert.equal(g4.ok, false);
+
+  const text5 = 'Hallo! Ich bin Leo. Ich komme aus Spanien. Sie ist ein Person. Wir sind nett.';
+  const g5 = gradeWriting([llm('NOM_FEM', 51, 3)], realMap, {text: text5});
+  assert.equal(g5.score, 0.8);
+  assert.equal(g5.ok, true);
+});
+
+test('activeTags: reglas de temas aún no vistos pasan a notice sin bajar score ni penalizar mastery', () => {
+  const text = 'In Zimmer 12 sind wir zu dritt. Lea ist ein nette Person. Sie wohnt in das Zimmer.';
+  const matches = [
+    llm('NOM_FEM', 40, 3),
+    llm('DAT_AFTER_PREP', 68, 13),
+    m('DE_AGREEMENT', 'GRAMMAR', 40, 16),
+  ];
+  const activeTags = new Set(['a1.pron.personal', 'a1.sein.praesens', 'a1.wfragen']);
+  const g = gradeWriting(matches, realMap, {text, activeTags});
+  assert.equal(g.ok, true);
+  assert.equal(g.score, 1);
+  assert.deepEqual(g.penalties, []);
+  assert.ok(g.marks.every(mk => mk.kind === 'notice'));
+});
+
+test('activeTags: reglas del tema activo siguen siendo error y penalizan', () => {
+  const text = 'Ich ist müde. Wir bin hier.';
+  const matches = [llm('SEIN_FORM', 4, 3)];
+  const activeTags = new Set(['a1.pron.personal', 'a1.sein.praesens']);
+  const g = gradeWriting(matches, realMap, {text, activeTags});
+  assert.equal(g.ok, false);
+  assert.equal(g.score, 0.5);
+  assert.deepEqual(g.penalties, [{tag: 'a1.sein.praesens'}]);
+  assert.equal(g.marks[0].kind, 'error');
+});
+
+test('check: devuelve score y rewards de topicTags', async () => {
+  const lt = {check: async () => []};
+  const [r] = await check(
+    {id: 'w1', type: 'writing-free'},
+    {text: 'Ich bin Leo. Du bist nett.'},
+    {lt, ltMap: realMap, topicTags: ['a1.sein.praesens']}
+  );
+  assert.equal(r.ok, true);
+  assert.equal(r.score, 1);
+  assert.deepEqual(r.rewards, ['a1.sein.praesens']);
+});

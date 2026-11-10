@@ -23,7 +23,14 @@ export function applyResult(state, result, {now, quarantine} = {}) {
   if (quarantine?.has(result.exerciseId)) return state;
   let s = state;
   if (result.tag == null) {
+    const penalized = new Set((result.penalties ?? []).map(p => p.tag));
     for (const p of result.penalties ?? []) s = touch(s, p.tag, 'writing', 0, 1, now);
+    const weight = result.score ?? (result.ok ? 1 : 0);
+    if (weight > 0) {
+      for (const tag of result.rewards ?? []) {
+        if (!penalized.has(tag)) s = touch(s, tag, 'writing', 1, weight, now);
+      }
+    }
     return s;
   }
   if (result.ok) return touch(s, result.tag, result.type, 1, 1, now);

@@ -59,3 +59,19 @@ test('masteryOf sin datos → null; con datos → m', () => {
   const s = applyResult(empty(), {tag: 't', type: 'gap', ok: true}, {now: NOW});
   close(masteryOf(s, 't'), 0.3);
 });
+
+test('tag null con rewards: escritura correcta sube mastery de los tags del tema no penalizados y el par tag|writing', () => {
+  const s0 = {tags: {a: {m: 0.5, n: 1, last: 1}}, pairs: {'a|writing': {m: 0, n: 1, last: 1}}};
+  const s = applyResult(s0, {tag: null, type: 'writing-free', ok: true, score: 1, penalties: [], rewards: ['a', 'b']}, {now: NOW});
+  close(s.tags.a.m, 0.5 + 0.3 * 0.5);
+  close(s.pairs['a|writing'].m, 0.3);
+  close(s.tags.b.m, 0.3);
+  close(s.pairs['b|writing'].m, 0.3);
+});
+
+test('tag null con rewards y penalties: el tag penalizado baja y solo el no penalizado sube', () => {
+  const s0 = empty();
+  const s = applyResult(s0, {tag: null, type: 'writing-guided', ok: false, score: 0.75, penalties: [{tag: 'a'}], rewards: ['a', 'b']}, {now: NOW});
+  close(s.tags.a.m, 0);
+  close(s.tags.b.m, 0.3 * 0.75);
+});

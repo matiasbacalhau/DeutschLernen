@@ -55,6 +55,24 @@ export default async function ajustes(el, { store }) {
   const name = h('input', { id: 'name', type: 'text', value: settings.name ?? '', autocomplete: 'off', autocapitalize: 'words', spellcheck: 'false',
     onchange: async e => store.set('settings', { ...((await store.get('settings')) ?? {}), name: e.target.value.trim() }) });
 
+  const customWordsArea = h('textarea', {
+    id: 'custom-words',
+    rows: 4,
+    autocomplete: 'off',
+    autocapitalize: 'words',
+    spellcheck: 'false',
+    placeholder: 'Ej: Córdoba, Matías, La Plata',
+    onchange: async e => {
+      const words = e.target.value
+        .split(/[\n,]+/)
+        .map(w => w.trim())
+        .filter(Boolean);
+      const curr = (await store.get('settings')) ?? {};
+      await store.set('settings', { ...curr, customWords: words });
+    },
+  });
+  customWordsArea.value = (settings.customWords ?? []).join('\n');
+
   const exportarReportes = async () => {
     try {
       const date = new Date().toISOString().slice(0, 10);
@@ -72,6 +90,12 @@ export default async function ajustes(el, { store }) {
     h('div', { class: 'card' },
       h('label', { for: 'name' }, 'Tu nombre'),
       name,
+    ),
+    h('div', { class: 'card' },
+      h('h2', {}, 'Palabras aceptadas'),
+      h('p', { class: 'muted' }, 'Nombres propios, lugares o palabras que el corrector no debe marcar como error de ortografía (separadas por coma o renglón). Se suman a los nombres y lugares del curso sin distinguir mayúsculas ni tildes.'),
+      h('label', { for: 'custom-words' }, 'Tus palabras y nombres:'),
+      customWordsArea,
     ),
     h('div', { class: 'card' },
       h('h2', {}, 'Backup'),

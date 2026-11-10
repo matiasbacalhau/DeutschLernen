@@ -26,13 +26,17 @@ export function humorLine(mastery, tags) {
 // Si la escritura está pendiente en el grupo abierto, se resuelve ahí (la cuenta el intento del fin de grupo);
 // si no, en el intento ya registrado. Mastery y log se aplican acá, una sola vez.
 // Devuelve el estado nuevo ({progress, mastery, log, group}) y el aviso para el inicio (con texto y marcas).
-export function applyResolved({state, entry, ltMap, quarantine, now}) {
-  const {ok, marks, penalties} = gradeWriting(entry.matches, ltMap);
-  const mastery = applyResult(state.mastery, {tag: null, type: 'writing', ok, penalties, exerciseId: entry.key}, {now, quarantine: new Set(quarantine)});
+export function applyResolved({state, entry, ltMap, quarantine, now, acceptedWords, activeTags, topicTags}) {
+  const {ok, score, marks, penalties} = gradeWriting(entry.matches, ltMap, {text: entry.text, acceptedWords, activeTags});
+  const mastery = applyResult(
+    state.mastery,
+    {tag: null, type: 'writing', ok, score, penalties, ...(topicTags ? {rewards: topicTags} : {}), exerciseId: entry.key},
+    {now, quarantine: new Set(quarantine)},
+  );
   const log = [
     ...state.log,
     answerEntry({key: entry.key, tag: null, ok}, {type: entry.type ?? 'writing', ms: entry.ms, at: entry.at}),
-    ...ltRulesOf(entry.matches, ltMap).map(lt => ltEntry({...lt, at: entry.at})),
+    ...ltRulesOf(entry.matches, ltMap, {text: entry.text, acceptedWords}).map(lt => ltEntry({...lt, at: entry.at})),
   ];
   let {progress, group = null} = state;
   if (pendingInGroup(group, entry.key, entry.group)) group = resolveInGroup(group, entry.key, {ok, marks, penalties});

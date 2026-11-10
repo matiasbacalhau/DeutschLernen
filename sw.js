@@ -8,6 +8,7 @@ const SHELL = [
   'manifest.webmanifest',
   'css/app.css',
   'js/app.js',
+  'js/core/accepted-words.js',
   'js/core/backup.js',
   'js/core/cards.js',
   'js/core/checks/card.js',

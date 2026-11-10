@@ -12,6 +12,7 @@ import escritura from './ui/escritura.js';
 import * as lt from './services/languagetool.js';
 import { withGrammar } from './services/grammar.js';
 import { applyResolved } from './core/inicio.js';
+import { activeTagsFor } from './core/progress.js';
 import { loadContent } from './core/content.js';
 import { seedSrs } from './core/srs.js';
 
@@ -62,14 +63,18 @@ async function processLtQueue() {
     if (!((await store.get('ltQueue')) ?? []).length) return;
     const resolved = await lt.processQueue(store, withGrammar(text => lt.check(text)));
     if (!resolved.length) return;
-    const { ltMap } = await content();
+    const { ltMap, units } = await content();
+    const defOf = id => Object.values(units).flatMap(u => u.topics).find(t => t.topic === id);
     // Una sola transacción (lectura incluida): resultados, grupo abierto, avisos y salida de la cola.
     // Si algo falla antes, las escrituras siguen en la cola.
-    await store.update(['progress', 'mastery', 'log', 'quarantine', 'notices', 'group', 'ltQueue'], v => {
+    await store.update(['progress', 'mastery', 'log', 'quarantine', 'notices', 'group', 'ltQueue', 'settings'], v => {
       let state = { progress: v.progress ?? { steps: {} }, mastery: v.mastery ?? { tags: {}, pairs: {} }, log: v.log ?? [], group: v.group ?? null };
       let notices = v.notices ?? [];
+      const acceptedWords = [v.settings?.name, ...(v.settings?.customWords ?? [])].filter(Boolean);
       for (const entry of resolved) {
-        const { notice, ...next } = applyResolved({ state, entry, ltMap, quarantine: v.quarantine ?? [], now: Date.now() });
+        const activeTags = activeTagsFor(units, state.progress, entry.topic);
+        const topicTags = defOf(entry.topic)?.tags ?? [];
+        const { notice, ...next } = applyResolved({ state, entry, ltMap, quarantine: v.quarantine ?? [], now: Date.now(), acceptedWords, activeTags, topicTags });
         state = next;
         notices = [...notices.filter(n => n.key !== notice.key), notice];
       }
