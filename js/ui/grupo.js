@@ -8,10 +8,10 @@ import { renderGlossary } from './glosario.js';
 import { render as renderExercise } from '../exercises/index.js';
 import { checkExercise } from '../core/checks/index.js';
 import { EVALUATED_OK } from '../core/checks/common.js';
-import { gradeWriting } from '../core/checks/writing.js';
-import { buildGroup, commitNext } from '../core/progress.js';
+import { gradeWriting, countSentences, isAcceptedWord, buildAcceptedWordsSet } from '../core/checks/writing.js';
+import { buildGroup, commitNext, activeTagsFor } from '../core/progress.js';
 import { pickGlossary } from '../core/glossary.js';
-import { reviewCandidates, itemInfo, exampleFor, curiosityFor, correctSentence, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise } from '../core/runner.js';
+import { reviewCandidates, itemInfo, exampleFor, curiosityFor, correctSentence, needsFicha, applyCommit, closeSaved, recordAnswer, carryResolved, segments, stopwatch, skipExercise, applyRewrite } from '../core/runner.js';
 import { marked, markList, verdict, extras } from './escritura.js';
 import { addWords } from '../core/srs.js';
 import { withoutAudio, cardReveal } from '../core/cards.js';
@@ -105,7 +105,9 @@ export default async function grupo(el, { store, content, params }) {
   // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
   const correct = withGrammar(text => lt.check(text));
   const ltClient = { check: correct };
-  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lexicon: C.lexicon, lt: ltClient, acceptedWords });
+  const progressState = (await store.get('progress')) ?? { steps: {} };
+  const activeTags = activeTagsFor(C.units, progressState, topicId);
+  const checkCtxFor = () => ({ curriculum: C.curriculum, ltMap: C.ltMap, lexicon: C.lexicon, lt: ltClient, acceptedWords, activeTags, topicTags: topic.tags });
 
   async function commit() {
     const { group: g, toApply } = commitNext(group);
@@ -344,25 +346,33 @@ export default async function grupo(el, { store, content, params }) {
     if (r.pending) {
       return [h('p', { class: 'notice' }, 'Sin conexión: la corregimos cuando vuelva la red.'), h('p', { class: 'muted' }, 'Tu texto quedó guardado. El grupo sigue.')];
     }
+    const verdictBox = h('div', {}, verdict(r.ok));
+    const markedBox = h('div', {}, marked(answer.text, r.marks));
+    const listBox = h('div', {}, markList(r.marks));
     const rewrite = h('div');
+    const onUpdateResult = updated => {
+      verdictBox.replaceChildren(verdict(updated.ok));
+      announcer.textContent = updated.ok ? 'Sin errores' : 'Con errores';
+    };
     return [
-      verdict(r.ok),
-      marked(answer.text, r.marks),
-      markList(r.marks),
-      spellerWordActions(answer.text, r.marks),
+      verdictBox,
+      markedBox,
+      listBox,
+      spellerWordActions(ex, answer.text, r, { markedBox, listBox, onUpdateResult }),
       extras(ex),
-      h('button', { type: 'button', class: 'secondary', onclick: e => { e.currentTarget.remove(); rewriteForm(rewrite, answer.text); } }, 'Reescribir'),
+      h('button', { type: 'button', class: 'secondary', onclick: e => { e.currentTarget.remove(); rewriteForm(ex, rewrite, answer.text, onUpdateResult); } }, 'Reescribir'),
       rewrite,
     ];
   }
 
-  function spellerWordActions(text, marks) {
-    if (!marks?.length) return null;
+  function spellerWordActions(ex, text, r, { markedBox, listBox, onUpdateResult }) {
+    if (!r.marks?.length) return null;
     const spellerEs = C.ltMap?.rules?.GERMAN_SPELLER_RULE?.es;
-    const spellingMarks = marks.filter(m => m.kind === 'error' && spellerEs && m.text === spellerEs);
+    const spellingMarks = r.marks.filter(m => m.kind === 'error' && spellerEs && m.text === spellerEs);
     if (!spellingMarks.length) return null;
     const words = [...new Set(spellingMarks.map(m => text.slice(m.offset, m.offset + m.length).trim()).filter(Boolean))];
     if (!words.length) return null;
+    let currentMarks = r.marks;
     const container = h('div', { class: 'accepted-actions' });
     for (const w of words) {
       const btn = h('button', {
@@ -376,6 +386,23 @@ export default async function grupo(el, { store, content, params }) {
             await store.set('settings', { ...s, customWords: [...current, w] });
             acceptedWords = [...acceptedWords, w];
           }
+          const acceptedSet = buildAcceptedWordsSet(acceptedWords, C.ltMap?.accepted_words ?? []);
+          currentMarks = currentMarks.filter(m => {
+            if (m.kind === 'error' && spellerEs && m.text === spellerEs) {
+              const token = text.slice(m.offset, m.offset + m.length);
+              if (isAcceptedWord(token, acceptedSet)) return false;
+            }
+            return true;
+          });
+          const sentences = countSentences(text);
+          const errorCount = currentMarks.filter(m => m.kind === 'error').length;
+          const score = sentences > 0 ? Math.max(0, (sentences - errorCount) / sentences) : (errorCount === 0 ? 1 : 0);
+          const ok = errorCount === 0 || (sentences > 0 && score >= 0.8);
+          group = applyRewrite(group, ex.id, { ok, score, marks: currentMarks, penalties: r.penalties ?? [], fullCredit: true });
+          await save();
+          markedBox.replaceChildren(marked(text, currentMarks));
+          listBox.replaceChildren(markList(currentMarks));
+          onUpdateResult({ ok, score });
           btn.textContent = `✓ «${w}» aceptada`;
         },
       }, `Aceptar «${w}» en la app`);
@@ -384,8 +411,8 @@ export default async function grupo(el, { store, content, params }) {
     return container;
   }
 
-  // Reescribir es opcional: vuelve a corregir y muestra las marcas, pero no cambia el Result.
-  function rewriteForm(box, text) {
+  // Reescribir: vuelve a corregir, muestra las marcas y actualiza el resultado si mejora el puntaje.
+  function rewriteForm(ex, box, text, onUpdateResult) {
     const input = answerInput({ multiline: true, label: 'Tu reescritura' });
     input.lang = 'de';
     input.querySelector('textarea').value = text;
@@ -394,8 +421,12 @@ export default async function grupo(el, { store, content, params }) {
       btn.disabled = true;
       try {
         const t = input.value();
-        const { marks } = gradeWriting(await correct(t), C.ltMap, { text: t, acceptedWords });
-        out.replaceChildren(marked(t, marks), markList(marks));
+        const rwGrade = gradeWriting(await correct(t), C.ltMap, { text: t, acceptedWords, activeTags });
+        group = applyRewrite(group, ex.id, rwGrade);
+        await save();
+        const updated = group.results.find(res => res.key === ex.id);
+        if (updated) onUpdateResult(updated);
+        out.replaceChildren(verdict(rwGrade.ok), marked(t, rwGrade.marks), markList(rwGrade.marks));
       } catch {
         out.replaceChildren(h('p', { class: 'muted' }, 'Sin conexión: no se pudo corregir la reescritura.'));
       }

@@ -93,6 +93,24 @@ export function commitNext(group) {
 
 // Escritura: el texto en español de sus marcas de error (de lt-map); nunca el id ni el nombre de la regla de LanguageTool.
 const reasons = r => [r.rule, ...(r.marks ?? []).filter(m => m.kind === 'error').map(m => m.text)].filter(Boolean);
+const itemScore = r => r.score ?? (r.ok ? 1 : 0);
+
+// Tags de los temas hasta `topicId` inclusive más los de cualquier tema ya intentado en `progress`.
+export function activeTagsFor(units, progress, topicId) {
+  const tags = new Set();
+  const unitList = Array.isArray(units) ? units : Object.values(units ?? {});
+  for (const u of unitList) {
+    let reachedCurrent = false;
+    for (const t of u.topics ?? []) {
+      const attempted = (t.steps ?? []).some(s => (progress?.steps?.[stepKey(t.topic, s.n)]?.attempts?.length ?? 0) > 0);
+      if (t.topic === topicId || !reachedCurrent || attempted) {
+        for (const tag of t.tags ?? []) tags.add(tag);
+      }
+      if (t.topic === topicId) reachedCurrent = true;
+    }
+  }
+  return tags;
+}
 
 // {pct, passed, pending, failedRules, ok, bad}. Solo cuentan los ejercicios sin `review`.
 export function scoreGroup(group) {
@@ -102,13 +120,15 @@ export function scoreGroup(group) {
   const done = counted.filter(r => !r.pending);
   const ok = done.filter(r => r.ok).length;
   const bad = done.length - ok;
+  const points = done.reduce((acc, r) => acc + itemScore(r), 0);
   const failedRules = [...new Set(done.filter(r => !r.ok).flatMap(reasons))];
   if (group.step === 5) {
     const total = group.exercises.filter(e => !e.review).length;
-    const passed = ok >= 2 ? true : ok + (total - ok - bad) >= 2 ? null : false;
-    return {pct: total ? ok / total : 0, passed, pending, failedRules, ok, bad};
+    const remaining = total - ok - bad;
+    const passed = points >= 2 ? true : points + remaining >= 2 ? null : false;
+    return {pct: total ? points / total : 0, passed, pending, failedRules, ok, bad};
   }
-  const pct = done.length ? ok / done.length : 0;
+  const pct = done.length ? points / done.length : 0;
   return {pct, passed: pct >= PASS, pending, failedRules, ok, bad};
 }
 

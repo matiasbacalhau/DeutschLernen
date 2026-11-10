@@ -209,6 +209,26 @@ export function recordAnswer(group, results) {
   return {...rest, results: [...group.results, ...results], index: group.index + 1};
 }
 
+// Reescritura opcional o aceptación de nombre propio: si mejora el puntaje, recupera la mitad de lo perdido (o el total con fullCredit) y actualiza marcas/penalties.
+export function applyRewrite(group, exerciseId, rewriteGrade) {
+  const results = group.results.map(r => {
+    if (idOf(r.key) !== exerciseId) return r;
+    const prevScore = r.score ?? (r.ok ? 1 : 0);
+    const nextScore = rewriteGrade.score ?? (rewriteGrade.ok ? 1 : 0);
+    if (nextScore <= prevScore && !rewriteGrade.ok) return r;
+    const score = rewriteGrade.fullCredit ? nextScore : (prevScore + nextScore) / 2;
+    const ok = rewriteGrade.ok || score >= 0.8;
+    return {
+      ...r,
+      ok,
+      score,
+      marks: rewriteGrade.marks ?? r.marks,
+      penalties: rewriteGrade.penalties ?? r.penalties,
+    };
+  });
+  return {...group, results};
+}
+
 // Cierra el grupo guardado antes de empezar otro: primero aplica lo respondido sin commit; si estaba todo
 // respondido, registra el intento (no abandonado); si no, lo deja en el log como abandonado.
 export function closeSaved({saved, state, quarantine, now}) {

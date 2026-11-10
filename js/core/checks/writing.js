@@ -8,6 +8,25 @@ export { normalizeAcceptedWord, buildAcceptedWordsSet, isAcceptedWord };
 
 const overlaps = (a, b) => a.offset < b.offset + b.length && b.offset < a.offset + a.length;
 
+const IMPLICIT_TAGS = {
+  DAT_AFTER_PREP: ['a2.dativ'],
+  DE_AGREEMENT: ['a1.nom.mask', 'a1.nom.fem', 'a1.nom.neut', 'a1.nom.plural'],
+  OBJECT_AGREEMENT: ['a1.akk.mask', 'a1.akk.fem', 'a1.akk.neut', 'a1.akk.plural'],
+};
+
+function isRuleActive(ruleId, entryTag, activeSet) {
+  if (!activeSet) return true;
+  if (entryTag) return activeSet.has(entryTag);
+  const implicit = IMPLICIT_TAGS[ruleId];
+  if (implicit) return implicit.some(t => activeSet.has(t));
+  return true;
+}
+
+export function countSentences(text) {
+  if (!text) return 0;
+  return (String(text).match(/[^.!?]+[.!?]*/g) ?? []).map(s => s.trim()).filter(Boolean).length;
+}
+
 const wordOf = (mt, text) => {
   if (mt.context?.text != null && mt.context?.offset != null && mt.context?.length != null) {
     return mt.context.text.slice(mt.context.offset, mt.context.offset + mt.context.length);
@@ -31,6 +50,8 @@ export const relevant = (matches, ltMap, { text, acceptedWords } = {}) => {
 export function gradeWriting(allMatches, ltMap, opts = {}) {
   const text = typeof opts === 'string' ? opts : opts.text;
   const acceptedWords = typeof opts === 'object' ? opts.acceptedWords : undefined;
+  const activeTags = typeof opts === 'object' ? opts.activeTags : undefined;
+  const activeSet = activeTags ? (activeTags instanceof Set ? activeTags : new Set(activeTags)) : null;
   const matches = relevant(allMatches, ltMap, { text, acceptedWords });
   const notices = new Set(ltMap.notice_categories ?? []);
   const llmMarks = matches.filter(mt => mt.llm);
@@ -40,10 +61,13 @@ export function gradeWriting(allMatches, ltMap, opts = {}) {
     const base = {offset: mt.offset, length: mt.length};
     let entry;
     let fallback;
+    let ruleId;
     if (mt.llm) {
+      ruleId = mt.llm;
       entry = ltMap.llm_categories?.[mt.llm];
       fallback = 'gramática';
     } else {
+      ruleId = mt.rule.id;
       const cat = mt.rule.category?.id;
       if (notices.has(cat)) {
         marks.push({...base, text: ltMap.categories?.[cat] ?? 'estilo', kind: 'notice'});
@@ -55,10 +79,18 @@ export function gradeWriting(allMatches, ltMap, opts = {}) {
       if (!entry) console.warn('unmapped', mt.rule.id, cat);
       fallback = ltMap.categories?.[cat] ?? 'otro error';
     }
-    marks.push({...base, text: entry?.es ?? fallback, kind: 'error'});
-    if (entry?.tag && !penalties.some(p => p.tag === entry.tag)) penalties.push({tag: entry.tag});
+    const active = isRuleActive(ruleId, entry?.tag, activeSet);
+    const kind = active ? 'error' : 'notice';
+    marks.push({...base, text: entry?.es ?? fallback, kind});
+    if (active && entry?.tag && !penalties.some(p => p.tag === entry.tag)) penalties.push({tag: entry.tag});
   }
-  return {ok: !marks.some(x => x.kind === 'error'), marks, penalties};
+  const errorCount = marks.filter(x => x.kind === 'error').length;
+  const sentences = countSentences(text);
+  const score = sentences > 0
+    ? Math.max(0, (sentences - errorCount) / sentences)
+    : (errorCount === 0 ? 1 : 0);
+  const ok = errorCount === 0 || (sentences > 0 && score >= 0.8);
+  return {ok, ...(text !== undefined ? {score} : {}), marks, penalties};
 }
 
 // Para el log de uso: una entrada por marca; las del corrector llevan proveedor, modelo y traceId.
@@ -70,15 +102,22 @@ export const ltRulesOf = (matches, ltMap, opts = {}) => {
     : {rule: mt.rule.id, mapped: !!ltMap.rules?.[mt.rule.id]}));
 };
 
-export async function check(exercise, answer, {lt, ltMap, acceptedWords}) {
+export async function check(exercise, answer, {lt, ltMap, acceptedWords, activeTags, topicTags}) {
   let matches;
   try {
     matches = await lt.check(answer.text);
   } catch {
     return [result(exercise.id, null, false, {pending: true})];
   }
-  const opts = { text: answer.text, acceptedWords };
+  const opts = { text: answer.text, acceptedWords, activeTags };
   const filtered = relevant(matches, ltMap, opts);
-  const {ok, marks, penalties} = gradeWriting(filtered, ltMap, opts);
-  return [result(exercise.id, null, ok, {penalties, marks, ltRules: ltRulesOf(matches, ltMap, opts)})];
+  const {ok, score, marks, penalties} = gradeWriting(filtered, ltMap, opts);
+  const rewards = topicTags ?? exercise.tags;
+  return [result(exercise.id, null, ok, {
+    score,
+    penalties,
+    marks,
+    ...(rewards ? {rewards} : {}),
+    ltRules: ltRulesOf(matches, ltMap, opts),
+  })];
 }

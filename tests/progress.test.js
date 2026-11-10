@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {applyResult} from '../js/core/mastery.js';
-import {buildGroup, commitNext, scoreGroup, resolvePending, recordAttempt, suggestNext, topicStatus} from '../js/core/progress.js';
+import {buildGroup, commitNext, scoreGroup, resolvePending, recordAttempt, suggestNext, topicStatus, activeTagsFor} from '../js/core/progress.js';
 
 const DAY = 86400000;
 const NOW = 100 * DAY;
@@ -227,4 +227,24 @@ test('topicStatus', () => {
   assert.equal(st(empty, noMastery, {id: 'a1.u1.t3', unit: 'a1.u01'}), 'proximamente'); // draft
   assert.equal(st(empty, noMastery, {id: 'a2.u1.t1'}), 'proximamente'); // sin unidad
   assert.equal(st(empty, noMastery, {id: 'b1.t1', unit: 'b1.u01'}), 'proximamente'); // unidad no cargada
+});
+
+test('scoreGroup en escalón 5 usa score gradual por tarea (no todo o nada)', () => {
+  const results = [
+    {key: 'w1', tag: null, ok: true, score: 1, penalties: [], marks: []},
+    {key: 'w2', tag: null, ok: true, score: 1, penalties: [], marks: []},
+    {key: 'w3', tag: null, ok: false, score: 0.75, penalties: [], marks: [{offset: 0, length: 3, text: 'Regla', kind: 'error'}]},
+  ];
+  const s = scoreGroup(grp(w, results, {step: 5}));
+  assert.ok(Math.abs(s.pct - 2.75 / 3) < 1e-9);
+  assert.equal(s.passed, true);
+});
+
+test('activeTagsFor: incluye tags hasta el tema actual y temas ya intentados', () => {
+  const tagsT1 = activeTagsFor([unit], empty, 'a1.u1.t1');
+  assert.deepEqual([...tagsT1], ['a1.pron.personal']);
+  const tagsT2 = activeTagsFor([unit], empty, 'a1.u1.t2');
+  assert.deepEqual([...tagsT2], ['a1.pron.personal', 'a1.genus']);
+  const tagsT1WithAttemptT2 = activeTagsFor([unit], prog({'a1.u1.t2/1': [attempt(false)]}), 'a1.u1.t1');
+  assert.deepEqual([...tagsT1WithAttemptT2], ['a1.pron.personal', 'a1.genus']);
 });
