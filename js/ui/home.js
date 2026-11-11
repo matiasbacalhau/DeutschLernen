@@ -20,10 +20,10 @@ export default async function home(el, { store, content }) {
     return h('div', { class: 'card' },
       h('h2', {}, heading),
       h('p', {}, h('strong', {}, titleOf(g.topic))),
-      h('p', { class: 'muted' }, `Escalón ${g.step} · ${s.name}`),
+      h('p', { class: 'muted' }, `Stufe ${g.step} · ${s.name}`),
       h('p', {}, rich(s.scene.title)),
       !primary && h('p', { class: 'muted' }, 'Empezarlo cierra el grupo a medias (lo que respondiste queda guardado).'),
-      h('a', { class: primary ? 'button' : 'button secondary', href: `#/grupo/${encodeURIComponent(g.topic)}/${g.step}` }, open && primary ? 'Seguir' : 'Empezar'),
+      h('a', { class: primary ? 'button' : 'button secondary', href: `#/grupo/${encodeURIComponent(g.topic)}/${g.step}` }, open && primary ? 'Weiter' : 'Start'),
     );
   };
 
@@ -37,8 +37,8 @@ export default async function home(el, { store, content }) {
       h('div', { class: 'notice' }, 'Pasaron 7 días o más sin backup. ', h('a', { href: '#/ajustes' }, 'Exportá uno ahora.')),
     open && card(open, 'Grupo a medias', true),
     suggested && card(suggested, 'Siguiente grupo', !open),
-    h('a', { class: 'button secondary', href: '#/mapa' }, 'Mapa de temas'),
-    h('a', { class: 'button secondary', href: '#/ajustes' }, 'Ajustes y backup'),
+    h('a', { class: 'button secondary', href: '#/mapa' }, 'Themenkarte'),
+    h('a', { class: 'button secondary', href: '#/ajustes' }, 'Einstellungen & Backup'),
     !isStandalone() && h('div', { class: 'card' },
       h('h2', {}, 'Instalar en el iPhone'),
       h('p', {}, 'En Safari: botón Compartir → "Agregar a pantalla de inicio". Así se abre a pantalla completa, funciona sin conexión y el progreso queda más protegido.'),

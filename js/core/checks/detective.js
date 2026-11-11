@@ -3,7 +3,8 @@ import { checkWritten, result, tagInfo } from './common.js';
 
 export async function check(ex, {rule, apply}, ctx) {
   const ok = !!ex.rules[rule]?.correct;
-  const first = result(`${ex.id}#0`, ex.tag, ok, {rule: tagInfo(ctx, ex.tag).rule, ...(ok ? {} : {showFicha: true})});
+  const info = tagInfo(ctx, ex.tag);
+  const first = result(`${ex.id}#0`, ex.tag, ok, {rule: info.rule, rule_de: info.rule_de, ...(ok ? {} : {showFicha: true})});
   const rest = ex.apply.map((a, i) => checkWritten(`${ex.id}#${i + 1}`, {...a, tag: ex.tag}, apply[i] ?? '', ctx));
   return [first, ...rest];
 }

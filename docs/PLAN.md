@@ -35,7 +35,7 @@ como extra, en audición con recursos gratuitos. Se usa en **iPhone** como PWA: 
 ### Cambios de la tercera revisión (2026-10-30)
 Detalle en [`docs/superpowers/specs/2026-10-30-iteracion-1-design.md`](superpowers/specs/2026-10-30-iteracion-1-design.md) §3.
 1. Ya no hay sesión de duración elegida (5/15/30/45 min): la unidad de uso es el **grupo**, un escalón de la escalera de un tema, de 10 a 20 minutos con repaso intercalado. La app sugiere el siguiente y hay un mapa de temas para elegir otro.
-2. **Escalera por tema** de 5 escalones (descubrir, reconocer, producir guiado, detectar y usar, redactar).
+2. **Escalera por tema** de 5 escalones (descubrir, reconocer, detectar y usar, producir guiado, redactar).
 3. **Tipos de ejercicio de la iteración 1:** `detective`, `order`, `choice`, `situation`, `transform`, `translate`, `spot-error`, `reading`, `writing-guided`, `writing-free` y `gap` generado. Salen `image-choice` y `match`.
 4. **Feedback de acierto:** "Bien" y, a veces, un dato curioso.
 5. **Grupo superado** con el 80 % de aciertos o más.
@@ -172,7 +172,7 @@ js/app.js                        # arranque, router por hash
 js/ui/*.js                       # home/sesión, mapa, unidad, ficha, lectura, escritura, audición, test, vocab, ajustes
 js/core/store.js                 # IndexedDB, migraciones, export/import
 js/core/progress.js              # estado de la escalera: escalones superados, para reforzar, grupo a medias
-js/core/glossary.js              # glosario 30/40/30 del escalón 3
+js/core/glossary.js              # glosario 30/40/30 del escalón con campo temático (escalón 4)
 js/core/log.js                   # registro de uso local (respuestas, grupos, errores de escritura)
 js/core/feedback.js              # arma el feedback: incorrecto → regla → ejemplo distinto
 js/core/content.js               # carga diferida de packs por nivel
@@ -229,7 +229,7 @@ docs/curriculum.md, docs/content-guide.md
 
 ### Grupos y escalera
 Cada tema tiene 5 escalones y cada escalón es un **grupo** de 10 a 20 minutos, con repaso intercalado (detalle en [`docs/superpowers/specs/2026-10-30-iteracion-1-design.md`](superpowers/specs/2026-10-30-iteracion-1-design.md) §5.3).
-- Escalones: descubrir, reconocer, producir guiado (con glosario 30/40/30), detectar y usar, y redactar.
+- Escalones: descubrir, reconocer, detectar y usar, producir guiado (con glosario 30/40/30), y redactar.
 - Los escalones 1 a 4 se superan con el 80 % de los ítems del tema; el 5, con 2 de 3 escrituras sin ningún error.
 - Un escalón por debajo del 80 % queda "para reforzar" y vuelve con ítems no vistos.
 - La app sugiere el siguiente grupo (primero el "para reforzar" más viejo) y desde el mapa se puede abrir cualquier escalón.

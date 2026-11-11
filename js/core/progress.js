@@ -9,7 +9,7 @@ import {instancesOf} from './generators/index.js';
 import {pickReview, interleave} from './scheduler.js';
 import {masteryOf} from './mastery.js';
 
-const MIN_ITEMS = {1: 10, 2: 14, 3: 14, 4: 12, 5: 3};
+const MIN_ITEMS = {1: 10, 2: 14, 3: 12, 4: 14, 5: 3};
 const PASS = 0.8;
 const MASTERED = 0.8;
 const WEAK = 0.5;

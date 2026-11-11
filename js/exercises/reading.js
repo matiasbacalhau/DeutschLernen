@@ -5,7 +5,7 @@ import { onceButton, shuffledIndexes } from './common.js';
 
 export function render(ex, el, { submit }) {
   const answers = ex.questions.map(() => null);
-  const btn = onceButton('Responder', () => submit(answers.map(a => (typeof a === 'function' ? a() : a))),
+  const btn = onceButton('Prüfen', () => submit(answers.map(a => (typeof a === 'function' ? a() : a))),
     () => answers.every(a => (typeof a === 'function' ? a().trim() !== '' : a !== null)));
   const questions = ex.questions.map((q, n) => {
     if (!q.options) {

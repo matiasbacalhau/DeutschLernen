@@ -48,7 +48,7 @@ ficha:
 steps:
   # ───────────────────────────── Escalón 1 ─────────────────────────────
   - n: 1
-    name: "Descubrir"
+    name: "Entdecken"
     scene: {title: "In der Bäckerei", context: "Sábado · 7:40 · con hambre, el abrigo arriba del pijama y una fila que llega a la puerta"}
     exercises:
       - id: t3-1-det-einen
@@ -155,7 +155,7 @@ steps:
 
   # ───────────────────────────── Escalón 2 ─────────────────────────────
   - n: 2
-    name: "Reconocer"
+    name: "Erkennen"
     scene: {title: "Im Supermarkt", context: "Sábado · 11:00 · la lista de Jana, un changuito con una rueda rebelde y Paul, que 'solo viene a mirar'"}
     exercises:
       - id: t3-2-ord-salat
@@ -402,214 +402,7 @@ steps:
 
   # ───────────────────────────── Escalón 3 ─────────────────────────────
   - n: 3
-    name: "Producir guiado"
-    scene: {title: "Am Kiosk", context: "Martes · 23:10 · el súper cerró, en casa no hay nada y el kiosco de la esquina es la última esperanza"}
-    field: essen
-    generated: 4
-    exercises:
-      - id: t3-3-sit-wurst
-        type: situation
-        scene: {title: "Am Kiosk", context: "23:12 · Herr Yilmaz levanta la vista del celular"}
-        bubbles:
-          - {who: them, text: "Na, Nachtschicht? Was brauchst du?"}
-          - {who: me, text: "Paul hat Hunger. Er möchte ___ Wurst und ___ Apfel."}
-          - {who: them, text: "Wurst ist leider aus. Aber Äpfel habe ich!"}
-        gaps:
-          - tag: a1.akk.fem
-            answers: ["eine"]
-            dims: {gender: f}
-            errors:
-              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Wurst*."}
-              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."}
-          - tag: a1.akk.mask
-            answers: ["einen"]
-            dims: {gender: m}
-            errors:
-              - {answer: "ein", rule: "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto."}
-              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."}
-        reviewed: true
-
-      - id: t3-3-tf-apfel
-        type: transform
-        tag: a1.akk.mask
-        source: "Ich möchte ein Brötchen."
-        instruction: "Cambiá *Brötchen* por *Apfel*."
-        answers: ["Ich möchte einen Apfel.", "Einen Apfel möchte ich."]
-        dims: {gender: m}
-        errors:
-          - {answer: "Ich möchte ein Apfel.", rule: "El sustantivo nuevo trae su género: el artículo no se hereda de *Brötchen*. Y con *möchten* va en *Akkusativ*."}
-          - {answer: "Ich möchte eine Apfel.", rule: "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."}
-        reviewed: true
-
-      - id: t3-3-sit-wein
-        type: situation
-        scene: {title: "Am Kiosk", context: "23:20 · Leo vuelve: se olvidó lo más importante"}
-        bubbles:
-          - {who: them, text: "Du schon wieder! Was fehlt?"}
-          - {who: me, text: "Jana hat morgen Geburtstag. Ich brauche ___ Wein für sie."}
-          - {who: them, text: "Rot oder weiß?"}
-          - {who: me, text: "Rot. Und hast du ___ Kerze? Sie wird dreißig!"}
-        gaps:
-          - tag: a1.akk.mask
-            answers: ["einen"]
-            dims: {gender: m}
-            errors:
-              - {answer: "ein", rule: "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que necesitás, no el sujeto."}
-              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Wein*."}
-          - tag: a1.akk.fem
-            answers: ["eine", "keine"]
-            dims: {gender: f}
-            errors:
-              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Kerze*."}
-              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Kerze* y qué género tienen casi todas las palabras así."}
-        curiosities: ["*Sie wird dreißig*: los cumpleaños se dicen con *werden* (volverse): 'se vuelve treinta'."]
-        reviewed: true
-
-      - id: t3-3-gap-brot
-        type: gap
-        tag: a1.akk.neut
-        context: "En la caja, Leo le muestra a Herr Yilmaz lo que eligió."
-        text: "Ich möchte ___ Brot und zwei Bananen."
-        answers: ["ein", "das", "dieses"]
-        dims: {gender: n}
-        errors:
-          - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."}
-          - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Brot*."}
-        reviewed: true
-
-      - id: t3-3-tf-kein
-        type: transform
-        tag: a1.akk.mask
-        source: "Herr Yilmaz hat einen Apfelsaft."
-        instruction: "Ahora negá con *kein*: se le terminó."
-        answers: ["Herr Yilmaz hat keinen Apfelsaft.", "Herr Yilmaz hat keinen Apfelsaft mehr.", "Keinen Apfelsaft hat Herr Yilmaz.", "Keinen Apfelsaft hat Herr Yilmaz mehr.", "Keinen Apfelsaft mehr hat Herr Yilmaz."]
-        dims: {gender: m}
-        errors:
-          - {answer: "Herr Yilmaz hat kein Apfelsaft.", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
-          - {answer: "Herr Yilmaz hat kein Apfelsaft mehr.", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
-          - {answer: "Herr Yilmaz hat nicht einen Apfelsaft.", rule: "Un sustantivo con *ein* se niega con *kein*, que se declina igual que *ein*."}
-        reviewed: true
-
-      - id: t3-3-sit-banane
-        type: situation
-        scene: {title: "Am Kiosk", context: "23:35 · en la puerta aparece Paul, en pantuflas"}
-        bubbles:
-          - {who: them, text: "Leo! Ich habe Hunger. Hast du was für mich?"}
-          - {who: me, text: "Ich habe ___ Banane und ___ Ei. Mehr nicht."}
-          - {who: them, text: "Und Schokolade? Bitte!"}
-          - {who: me, text: "Nein, ich habe ___ Schokolade. Sorry!"}
-        gaps:
-          - tag: a1.akk.fem
-            answers: ["eine"]
-            dims: {gender: f}
-            errors:
-              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Banane*."}
-              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."}
-          - tag: a1.akk.neut
-            answers: ["ein"]
-            dims: {gender: n}
-            errors:
-              - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género."}
-              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Ei*."}
-          - tag: a1.akk.fem
-            answers: ["keine"]
-            dims: {gender: f}
-            errors:
-              - {answer: "keinen", rule: "*keinen* acompaña a un solo género, y no es el de *Schokolade*."}
-              - {answer: "kein", rule: "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."}
-        reviewed: true
-
-      - id: t3-3-gap-apfelsaft
-        type: gap
-        tag: a1.akk.mask
-        context: "Herr Yilmaz señala la heladera vacía."
-        text: "Sorry, ich habe heute ___ Apfelsaft mehr."
-        answers: ["keinen"]
-        dims: {gender: m}
-        errors:
-          - {answer: "kein", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
-          - {answer: "keine", rule: "*keine* acompaña a otro género (o al plural): en las compuestas manda la última parte, *Apfel-saft*."}
-        reviewed: true
-
-      - id: t3-3-tf-plural
-        type: transform
-        tag: a1.akk.plural
-        source: "Ich brauche das Ei."
-        instruction: "Ahora en plural."
-        answers: ["Ich brauche die Eier.", "Die Eier brauche ich."]
-        dims: {gender: pl}
-        errors:
-          - {answer: "Ich brauche den Eier.", rule: "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros, el mismo que como sujeto."}
-          - {answer: "Ich brauche das Eier.", rule: "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."}
-        reviewed: true
-
-      - id: t3-3-gap-schokolade
-        type: gap
-        tag: a1.akk.fem
-        context: "Leo le escribe a Jana desde el kiosco."
-        text: "Brauchst du auch ___ Schokolade? Hier gibt es zwölf Sorten!"
-        answers: ["eine"]
-        dims: {gender: f}
-        errors:
-          - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Schokolade*."}
-          - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."}
-        reviewed: true
-
-      # Reserva
-      - id: t3-3-sit-salat
-        type: situation
-        reserve: true
-        scene: {title: "Am Kiosk", context: "23:55 · Herr Yilmaz ya bajó media persiana"}
-        bubbles:
-          - {who: them, text: "Noch etwas? Ich mache gleich zu."}
-          - {who: me, text: "Ja! Ich brauche noch ___ Salat für morgen."}
-          - {who: them, text: "Salat? Hier? Das ist ein Kiosk, kein Supermarkt!"}
-          - {who: me, text: "Okay, okay. Dann nehme ich ___ Banane."}
-        gaps:
-          - tag: a1.akk.mask
-            answers: ["einen"]
-            dims: {gender: m}
-            errors:
-              - {answer: "ein", rule: "*brauchen* pide *Akkusativ* (objeto directo): la ensalada es lo que necesitás, no el sujeto."}
-              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Salat*: que *ensalada* sea femenino en español no cuenta."}
-          - tag: a1.akk.fem
-            answers: ["eine", "die"]
-            dims: {gender: f}
-            errors:
-              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Banane*."}
-              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."}
-        curiosities: ["*nehmen* (llevar, tomar) también pide *Akkusativ*: casi todo verbo con objeto directo lo pide."]
-        reviewed: true
-
-      - id: t3-3-tf-kaese
-        type: transform
-        tag: a1.akk.mask
-        reserve: true
-        source: "Der Käse ist lecker."
-        instruction: "Ahora el queso es lo que querés: con artículo definido y *Ich möchte…*"
-        answers: ["Ich möchte den Käse.", "Den Käse möchte ich."]
-        dims: {gender: m}
-        errors:
-          - {answer: "Ich möchte der Käse.", rule: "Ahora el queso no es el sujeto sino lo que querés: con *möchten* va en *Akkusativ*."}
-          - {answer: "Ich möchte die Käse.", rule: "*die* acompaña a otro género (o al plural): el de *Käse* se aprende con la palabra, aunque termine en *-e*."}
-        reviewed: true
-
-      - id: t3-3-gap-brot-gratis
-        type: gap
-        tag: a1.akk.neut
-        reserve: true
-        context: "Herr Yilmaz, orgulloso, te muestra algo envuelto en papel."
-        text: "Meine Frau backt jeden Tag. Möchtest du ___ Brot von heute? Gratis!"
-        answers: ["ein", "das"]
-        dims: {gender: n}
-        errors:
-          - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."}
-          - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Brot*."}
-        reviewed: true
-
-  # ───────────────────────────── Escalón 4 ─────────────────────────────
-  - n: 4
-    name: "Detectar y usar"
+    name: "Im Kontext anwenden"
     scene: {title: "Janas Einkaufsliste", context: "Viernes · 18:00 · mañana hay cena en casa y Jana dejó una lista en la heladera, con instrucciones"}
     exercises:
       - id: t3-4-read-liste
@@ -810,9 +603,216 @@ steps:
           - {answer: "Ich brauche nicht Tüte, danke.", rule: "En alemán, un sustantivo sin artículo se niega con *kein*, que se declina como *ein*."}
         reviewed: true
 
+  # ───────────────────────────── Escalón 4 ─────────────────────────────
+  - n: 4
+    name: "Angeleitet produzieren"
+    scene: {title: "Am Kiosk", context: "Martes · 23:10 · el súper cerró, en casa no hay nada y el kiosco de la esquina es la última esperanza"}
+    field: essen
+    generated: 4
+    exercises:
+      - id: t3-3-sit-wurst
+        type: situation
+        scene: {title: "Am Kiosk", context: "23:12 · Herr Yilmaz levanta la vista del celular"}
+        bubbles:
+          - {who: them, text: "Na, Nachtschicht? Was brauchst du?"}
+          - {who: me, text: "Paul hat Hunger. Er möchte ___ Wurst und ___ Apfel."}
+          - {who: them, text: "Wurst ist leider aus. Aber Äpfel habe ich!"}
+        gaps:
+          - tag: a1.akk.fem
+            answers: ["eine"]
+            dims: {gender: f}
+            errors:
+              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Wurst*."}
+              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."}
+          - tag: a1.akk.mask
+            answers: ["einen"]
+            dims: {gender: m}
+            errors:
+              - {answer: "ein", rule: "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto."}
+              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."}
+        reviewed: true
+
+      - id: t3-3-tf-apfel
+        type: transform
+        tag: a1.akk.mask
+        source: "Ich möchte ein Brötchen."
+        instruction: "Ersetze *Brötchen* durch *Apfel*."
+        answers: ["Ich möchte einen Apfel.", "Einen Apfel möchte ich."]
+        dims: {gender: m}
+        errors:
+          - {answer: "Ich möchte ein Apfel.", rule: "El sustantivo nuevo trae su género: el artículo no se hereda de *Brötchen*. Y con *möchten* va en *Akkusativ*."}
+          - {answer: "Ich möchte eine Apfel.", rule: "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."}
+        reviewed: true
+
+      - id: t3-3-sit-wein
+        type: situation
+        scene: {title: "Am Kiosk", context: "23:20 · Leo vuelve: se olvidó lo más importante"}
+        bubbles:
+          - {who: them, text: "Du schon wieder! Was fehlt?"}
+          - {who: me, text: "Jana hat morgen Geburtstag. Ich brauche ___ Wein für sie."}
+          - {who: them, text: "Rot oder weiß?"}
+          - {who: me, text: "Rot. Und hast du ___ Kerze? Sie wird dreißig!"}
+        gaps:
+          - tag: a1.akk.mask
+            answers: ["einen"]
+            dims: {gender: m}
+            errors:
+              - {answer: "ein", rule: "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que necesitás, no el sujeto."}
+              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Wein*."}
+          - tag: a1.akk.fem
+            answers: ["eine", "keine"]
+            dims: {gender: f}
+            errors:
+              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Kerze*."}
+              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Kerze* y qué género tienen casi todas las palabras así."}
+        curiosities: ["*Sie wird dreißig*: los cumpleaños se dicen con *werden* (volverse): 'se vuelve treinta'."]
+        reviewed: true
+
+      - id: t3-3-gap-brot
+        type: gap
+        tag: a1.akk.neut
+        context: "En la caja, Leo le muestra a Herr Yilmaz lo que eligió."
+        text: "Ich möchte ___ Brot und zwei Bananen."
+        answers: ["ein", "das", "dieses"]
+        dims: {gender: n}
+        errors:
+          - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."}
+          - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Brot*."}
+        reviewed: true
+
+      - id: t3-3-tf-kein
+        type: transform
+        tag: a1.akk.mask
+        source: "Herr Yilmaz hat einen Apfelsaft."
+        instruction: "Jetzt mit *kein* verneinen."
+        answers: ["Herr Yilmaz hat keinen Apfelsaft.", "Herr Yilmaz hat keinen Apfelsaft mehr.", "Keinen Apfelsaft hat Herr Yilmaz.", "Keinen Apfelsaft hat Herr Yilmaz mehr.", "Keinen Apfelsaft mehr hat Herr Yilmaz."]
+        dims: {gender: m}
+        errors:
+          - {answer: "Herr Yilmaz hat kein Apfelsaft.", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
+          - {answer: "Herr Yilmaz hat kein Apfelsaft mehr.", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
+          - {answer: "Herr Yilmaz hat nicht einen Apfelsaft.", rule: "Un sustantivo con *ein* se niega con *kein*, que se declina igual que *ein*."}
+        reviewed: true
+
+      - id: t3-3-sit-banane
+        type: situation
+        scene: {title: "Am Kiosk", context: "23:35 · en la puerta aparece Paul, en pantuflas"}
+        bubbles:
+          - {who: them, text: "Leo! Ich habe Hunger. Hast du was für mich?"}
+          - {who: me, text: "Ich habe ___ Banane und ___ Ei. Mehr nicht."}
+          - {who: them, text: "Und Schokolade? Bitte!"}
+          - {who: me, text: "Nein, ich habe ___ Schokolade. Sorry!"}
+        gaps:
+          - tag: a1.akk.fem
+            answers: ["eine"]
+            dims: {gender: f}
+            errors:
+              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Banane*."}
+              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."}
+          - tag: a1.akk.neut
+            answers: ["ein"]
+            dims: {gender: n}
+            errors:
+              - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género."}
+              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Ei*."}
+          - tag: a1.akk.fem
+            answers: ["keine"]
+            dims: {gender: f}
+            errors:
+              - {answer: "keinen", rule: "*keinen* acompaña a un solo género, y no es el de *Schokolade*."}
+              - {answer: "kein", rule: "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."}
+        reviewed: true
+
+      - id: t3-3-gap-apfelsaft
+        type: gap
+        tag: a1.akk.mask
+        context: "Herr Yilmaz señala la heladera vacía."
+        text: "Sorry, ich habe heute ___ Apfelsaft mehr."
+        answers: ["keinen"]
+        dims: {gender: m}
+        errors:
+          - {answer: "kein", rule: "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."}
+          - {answer: "keine", rule: "*keine* acompaña a otro género (o al plural): en las compuestas manda la última parte, *Apfel-saft*."}
+        reviewed: true
+
+      - id: t3-3-tf-plural
+        type: transform
+        tag: a1.akk.plural
+        source: "Ich brauche das Ei."
+        instruction: "Jetzt im Plural."
+        answers: ["Ich brauche die Eier.", "Die Eier brauche ich."]
+        dims: {gender: pl}
+        errors:
+          - {answer: "Ich brauche den Eier.", rule: "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros, el mismo que como sujeto."}
+          - {answer: "Ich brauche das Eier.", rule: "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."}
+        reviewed: true
+
+      - id: t3-3-gap-schokolade
+        type: gap
+        tag: a1.akk.fem
+        context: "Leo le escribe a Jana desde el kiosco."
+        text: "Brauchst du auch ___ Schokolade? Hier gibt es zwölf Sorten!"
+        answers: ["eine"]
+        dims: {gender: f}
+        errors:
+          - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Schokolade*."}
+          - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."}
+        reviewed: true
+
+      # Reserva
+      - id: t3-3-sit-salat
+        type: situation
+        reserve: true
+        scene: {title: "Am Kiosk", context: "23:55 · Herr Yilmaz ya bajó media persiana"}
+        bubbles:
+          - {who: them, text: "Noch etwas? Ich mache gleich zu."}
+          - {who: me, text: "Ja! Ich brauche noch ___ Salat für morgen."}
+          - {who: them, text: "Salat? Hier? Das ist ein Kiosk, kein Supermarkt!"}
+          - {who: me, text: "Okay, okay. Dann nehme ich ___ Banane."}
+        gaps:
+          - tag: a1.akk.mask
+            answers: ["einen"]
+            dims: {gender: m}
+            errors:
+              - {answer: "ein", rule: "*brauchen* pide *Akkusativ* (objeto directo): la ensalada es lo que necesitás, no el sujeto."}
+              - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Salat*: que *ensalada* sea femenino en español no cuenta."}
+          - tag: a1.akk.fem
+            answers: ["eine", "die"]
+            dims: {gender: f}
+            errors:
+              - {answer: "einen", rule: "*einen* acompaña a un solo género, y no es el de *Banane*."}
+              - {answer: "ein", rule: "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."}
+        curiosities: ["*nehmen* (llevar, tomar) también pide *Akkusativ*: casi todo verbo con objeto directo lo pide."]
+        reviewed: true
+
+      - id: t3-3-tf-kaese
+        type: transform
+        tag: a1.akk.mask
+        reserve: true
+        source: "Der Käse ist lecker."
+        instruction: "Jetzt mit bestimmtem Artikel und *Ich möchte…*."
+        answers: ["Ich möchte den Käse.", "Den Käse möchte ich."]
+        dims: {gender: m}
+        errors:
+          - {answer: "Ich möchte der Käse.", rule: "Ahora el queso no es el sujeto sino lo que querés: con *möchten* va en *Akkusativ*."}
+          - {answer: "Ich möchte die Käse.", rule: "*die* acompaña a otro género (o al plural): el de *Käse* se aprende con la palabra, aunque termine en *-e*."}
+        reviewed: true
+
+      - id: t3-3-gap-brot-gratis
+        type: gap
+        tag: a1.akk.neut
+        reserve: true
+        context: "Herr Yilmaz, orgulloso, te muestra algo envuelto en papel."
+        text: "Meine Frau backt jeden Tag. Möchtest du ___ Brot von heute? Gratis!"
+        answers: ["ein", "das"]
+        dims: {gender: n}
+        errors:
+          - {answer: "einen", rule: "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."}
+          - {answer: "eine", rule: "*eine* acompaña a un solo género, y no es el de *Brot*."}
+        reviewed: true
+
   # ───────────────────────────── Escalón 5 ─────────────────────────────
   - n: 5
-    name: "Redactar"
+    name: "Freies Schreiben"
     scene: {title: "Bestellung für das Abendessen", context: "Sábado · 19:30 · la sopa de Jana se quemó, hay seis personas con hambre y la pizzería cierra a las 21"}
     exercises:
       - id: t3-5-wg-pizzeria

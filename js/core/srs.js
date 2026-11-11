@@ -53,15 +53,16 @@ export function isKnown(entry, word) {
   return entry.rung === 3 || (word.pos === 'verb' && entry.rung === 2 && entry.card.stability >= PROMOTE_DAYS[2]);
 }
 
-// Carga inicial (spec §5.1): por cada tema con un intento en el escalón 3, entran los lemas del campo de ese escalón.
+// Carga inicial (spec §5.1): por cada tema con un intento en un escalón con campo léxico, entran los lemas de ese campo.
 export function seedSrs(srs, { progress, units, lexicon, now }) {
   let out = srs;
   for (const unit of Object.values(units)) {
     for (const topic of unit.topics) {
-      if (!progress.steps[`${topic.topic}/3`]?.attempts.length) continue;
-      const field = topic.steps.find(s => s.n === 3)?.field;
-      if (!field) continue;
-      out = addWords(out, lexicon.filter(w => w.field === field).map(w => w.lemma), now);
+      for (const step of topic.steps) {
+        if (!step.field) continue;
+        if (!progress.steps[`${topic.topic}/${step.n}`]?.attempts.length) continue;
+        out = addWords(out, lexicon.filter(w => w.field === step.field).map(w => w.lemma), now);
+      }
     }
   }
   return out;

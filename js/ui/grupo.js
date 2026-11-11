@@ -40,7 +40,7 @@ export default async function grupo(el, { store, content, params }) {
   const topic = unit?.topics.find(t => t.topic === topicId);
   const stepDef = topic?.steps?.find(s => s.n === n);
   if (!topic || topic.draft || !stepDef) {
-    el.append(h('p', {}, 'Este escalón todavía no tiene contenido.'), h('a', { class: 'button secondary', href: '#/' }, 'Inicio'));
+    el.append(h('p', {}, 'Diese Stufe hat noch keinen Inhalt.'), h('a', { class: 'button secondary', href: '#/' }, 'Start'));
     return;
   }
   const titleOf = id => C.curriculum.topics.find(t => t.id === id)?.title ?? id;
@@ -64,7 +64,7 @@ export default async function grupo(el, { store, content, params }) {
       let fresh = buildGroup(unit, topicId, n, progress, mastery, {
         now, rng: Math.random, templates: C.templates, lexicon: C.lexicon, otherExercises: candidates, curriculum: C.curriculum, preferLemmas,
       });
-      if (n === 3) {
+      if (stepDef.field) {
         fresh.glossary = pickGlossary(C.lexicon, words, { field: stepDef.field, level: 'A1', hide: topic.hides ?? [], rng: Math.random });
       }
       // Las palabras del glosario entran a la SRS en nivel 1 (spec §5.1); las que ya están no se tocan.
@@ -90,8 +90,8 @@ export default async function grupo(el, { store, content, params }) {
   const counter = h('span', { class: 'muted' });
   const bar = h('div', { class: 'group-bar' },
     h('a', { class: 'close', href: '#/', 'aria-label': 'Salir al inicio' }, '✕'),
-    h('div', { class: 'group-title' }, h('strong', {}, `Escalón ${n} · ${stepDef.name}`), counter),
-    group.glossary && h('button', { type: 'button', class: 'secondary small', onclick: () => { glossaryBox.hidden = !glossaryBox.hidden; } }, 'Glosario'),
+    h('div', { class: 'group-title' }, h('strong', {}, `Stufe ${n} · ${stepDef.name}`), counter),
+    group.glossary && h('button', { type: 'button', class: 'secondary small', onclick: () => { glossaryBox.hidden = !glossaryBox.hidden; } }, 'Wortschatz'),
   );
   const screen = h('div', { class: 'screen' });
   // Región viva: el resultado de cada ejercicio se anuncia sin releer toda la pantalla.
@@ -129,13 +129,13 @@ export default async function grupo(el, { store, content, params }) {
       return;
     }
     if (group.glossary && !group.glossaryShown && group.index === 0) {
-      const box = h('div', { class: 'card' }, h('h2', {}, 'Glosario'), h('p', { class: 'muted' }, 'Palabras para usar en este grupo. Después quedan en el botón "Glosario".'));
+      const box = h('div', { class: 'card' }, h('h2', {}, 'Wortschatz'), h('p', { class: 'muted' }, 'Palabras para usar en este grupo. Después quedan en el botón "Wortschatz".'));
       renderGlossary(box, group.glossary);
       show(h('p', { class: 'scene' }, rich(stepDef.scene.context)), box, h('button', { type: 'button', onclick: async () => {
         group = { ...group, glossaryShown: true };
         await save();
         next();
-      } }, 'Empezar'));
+      } }, 'Start'));
       return;
     }
     if (needsFicha(group, topic)) {
@@ -143,7 +143,7 @@ export default async function grupo(el, { store, content, params }) {
         group = { ...group, fichaShown: true };
         await save();
         next();
-      } }, 'Seguir'));
+      } }, 'Weiter'));
       return;
     }
     let ex = group.exercises[group.index];
@@ -209,7 +209,7 @@ export default async function grupo(el, { store, content, params }) {
         if (!first.showFicha) return;
         await new Promise(resolve => {
           const box = h('div', { class: 'card' }, renderFicha(topic, titleOf(topicId)),
-            h('button', { type: 'button', onclick: () => { box.remove(); resolve(); } }, 'Seguir'));
+            h('button', { type: 'button', onclick: () => { box.remove(); resolve(); } }, 'Weiter'));
           body.append(box);
           box.scrollIntoView({ block: 'start' });
         });
@@ -259,8 +259,8 @@ export default async function grupo(el, { store, content, params }) {
 
   function feedback(ex, answer, results) {
     announcer.textContent = WRITING.has(ex.type)
-      ? (results[0].pending ? 'Sin conexión: se corrige después.' : results[0].ok ? 'Sin errores' : 'Con errores')
-      : (results.every(r => r.ok) ? 'Bien' : 'Incorrecto');
+      ? (results[0].pending ? 'Sin conexión: se corrige después.' : results[0].ok ? 'Fehlerfrei' : 'Mit Fehlern')
+      : (results.every(r => r.ok) ? 'Richtig' : 'Falsch');
     const nodes = WRITING.has(ex.type) ? writingFeedback(ex, answer, results[0]) : closedFeedback(ex, answer, results);
     const anyBad = results.some(r => !r.ok && !r.pending);
     const fichaDef = defOf(ex.topic ?? topicId);
@@ -268,7 +268,7 @@ export default async function grupo(el, { store, content, params }) {
     const fichaBtn = anyBad && fichaDef?.ficha && h('button', { type: 'button', class: 'secondary', onclick: () => {
       if (fichaBox.firstChild) fichaBox.replaceChildren();
       else fichaBox.append(h('div', { class: 'card' }, renderFicha(fichaDef, titleOf(ex.topic ?? topicId))));
-    } }, 'Ver ficha');
+    } }, 'Theoriekarte');
     const report = reportBox(ex, answer);
     // Siguiente se usa una vez y espera a que el ⚑ termine de guardar la cuarentena antes del commit (regla 4).
     const nextBtn = h('button', { type: 'button', onclick: async () => {
@@ -282,7 +282,7 @@ export default async function grupo(el, { store, content, params }) {
         nextBtn.disabled = false;
         announcer.textContent = 'No se pudo guardar. Probá de nuevo.';
       }
-    } }, 'Siguiente');
+    } }, 'Weiter');
     show(nodes, fichaBtn, fichaBox, report, nextBtn);
   }
 
@@ -295,13 +295,23 @@ export default async function grupo(el, { store, content, params }) {
       const example = exampleFor(ex, r, { results, answer, curriculum: C.curriculum, rng });
       return h('div', { class: 'item' },
         multi && info.label && h('p', { class: 'item-label', lang: 'de' }, rich(info.label)),
-        r.ok ? h('span', { class: 'tag-ok' }, 'Bien') : h('span', { class: 'tag-bad' }, 'Incorrecto'),
+        r.ok ? h('span', { class: 'tag-ok' }, 'Richtig') : h('span', { class: 'tag-bad' }, 'Falsch'),
         // Lo que escribió el usuario: la frase con lo que difiere subrayado, o la palabra suelta (la situación ya la muestra).
         r.wrong ? underlined(r.given, r.wrong, r.rule !== EVALUATED_OK)
           : !r.ok && r.given && ex.type !== 'situation' && h('p', { class: 'muted' }, 'Escribiste: ', h('em', { lang: 'de' }, r.given)),
         // El dictado es una tarea abierta: después de responder se muestra la frase original (regla 2).
         ex.type === 'dictation' && h('p', {}, 'La frase: ', h('em', { lang: 'de' }, ex.text)),
-        !r.ok && r.rule && h('p', {}, rich(r.rule)),
+        !r.ok && (r.rule || r.rule_de) && (
+          (r.rule_de && r.rule && r.rule_de !== r.rule)
+            ? [
+                h('p', { class: 'rule-primary', lang: 'de' }, rich(r.rule_de)),
+                h('details', { class: 'rule-accordion' },
+                  h('summary', { lang: 'de' }, 'Erklärung auf Spanisch anzeigen'),
+                  h('p', { class: 'rule-detailed', lang: 'es' }, rich(r.rule)),
+                ),
+              ]
+            : h('p', { class: 'rule-primary', lang: 'es' }, rich(r.rule || r.rule_de))
+        ),
         example && h('p', { class: 'example' }, 'Por ejemplo: ', h('em', { lang: 'de' }, example.de), ` (${example.es}) `, listenButton(example.de)),
         r.notice && h('p', { class: 'muted' }, r.notice),
       );
@@ -315,7 +325,7 @@ export default async function grupo(el, { store, content, params }) {
       reveal?.picture && wordPicture(ex.word, 'card'),
       reveal?.label && h('p', { class: 'sentence' }, reveal.label, ' ', listenButton(reveal.de)),
       ex.type === 'situation' && situationReplay(ex, answer, results),
-      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Bien'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
+      allOk && multi ? [h('span', { class: 'tag-ok' }, 'Richtig'), listen, results.filter(r => r.notice).map(r => h('p', { class: 'muted' }, r.notice))] : items,
       !(allOk && multi) && listen,
       curiosity && h('p', { class: 'curiosity' }, rich(curiosity)),
     ];
@@ -352,7 +362,7 @@ export default async function grupo(el, { store, content, params }) {
     const rewrite = h('div');
     const onUpdateResult = updated => {
       verdictBox.replaceChildren(verdict(updated.ok));
-      announcer.textContent = updated.ok ? 'Sin errores' : 'Con errores';
+      announcer.textContent = updated.ok ? 'Fehlerfrei' : 'Mit Fehlern';
     };
     return [
       verdictBox,

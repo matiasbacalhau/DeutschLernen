@@ -40,7 +40,7 @@ ficha:
 steps:
   # ───────────────────────────── Escalón 1 ─────────────────────────────
   - n: 1
-    name: "Descubrir"
+    name: "Entdecken"
     scene: {title: "Ankunft im Hostel", context: "Hostel Seeblick · 22:15 · llovió todo el camino y la mochila pesa como un ropero"}
     exercises:
       - id: t1-1-det-sein
@@ -145,7 +145,7 @@ steps:
 
   # ───────────────────────────── Escalón 2 ─────────────────────────────
   - n: 2
-    name: "Reconocer"
+    name: "Erkennen"
     scene: {title: "An der Rezeption", context: "22:20 · Anna habla rapidísimo y vos dejás un charco en el piso"}
     exercises:
       - id: t1-2-ord-dusche
@@ -359,253 +359,7 @@ steps:
 
   # ───────────────────────────── Escalón 3 ─────────────────────────────
   - n: 3
-    name: "Producir guiado"
-    scene: {title: "Zimmer 12", context: "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"}
-    field: hostel
-    generated: 3
-    exercises:
-      - id: t1-3-sit-schnarchen
-        type: situation
-        scene: {title: "Zimmer 12", context: "23:40 · alguien ronca en la oscuridad"}
-        bubbles:
-          - {who: them, text: "Hey! Wer schnarcht da so laut?"}
-          - {who: me, text: "Das ist Tom. ___ ist im Etagenbett oben."}
-          - {who: them, text: "Hast du Ohrstöpsel?"}
-          - {who: me, text: "Nein, leider nicht. Und ich ___ so müde!"}
-        gaps:
-          - tag: a1.pron.personal
-            answers: ["Er", "Der", "Tom"]
-            dims: {person: er}
-            errors:
-              - {answer: "Sie", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
-              - {answer: "Es", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
-          - tag: a1.sein.praesens
-            answers: ["bin"]
-            dims: {person: ich}
-            errors:
-              - {answer: "bist", rule: "Esa forma es la de *du*; el sujeto acá sos vos mismo."}
-              - {answer: "ist", rule: "Esa forma es la de tercera persona (él, ella, eso); el sujeto acá sos vos mismo."}
-        reviewed: true
-
-      - id: t1-3-tf-tom
-        type: transform
-        tag: a1.sein.praesens
-        source: "Ich bin im Etagenbett oben."
-        instruction: "Ahora con *Tom* como sujeto."
-        answers: ["Tom ist im Etagenbett oben.", "Tom ist oben im Etagenbett.", "Oben im Etagenbett ist Tom.", "Im Etagenbett oben ist Tom."]
-        dims: {person: sie}
-        reviewed: true
-
-      - id: t1-3-sit-mia
-        type: situation
-        scene: {title: "Zimmer 12", context: "23:45 · entra una chica con linterna buscando su cama"}
-        bubbles:
-          - {who: them, text: "Hi, ich bin Mia. Ich bin neu hier."}
-          - {who: me, text: "Hallo Mia! ___ kommst du?"}
-          - {who: them, text: "Aus Chile. Und du?"}
-          - {who: me, text: "Aus Argentinien. ___ ist dein Bett? Oben oder unten?"}
-        gaps:
-          - tag: a1.wfragen
-            answers: ["Woher"]
-            dims: {word: woher}
-            errors:
-              - {answer: "Wo", rule: "*wo* pregunta dónde está algo; para el origen hace falta la palabra que pregunta 'desde dónde'."}
-          - tag: a1.wfragen
-            answers: ["Wo", "Welches"]
-            dims: {word: wo}
-            errors:
-              - {answer: "Wer", rule: "*wer* pregunta por personas (aunque suene a *where*); acá buscás un lugar."}
-              - {answer: "Woher", rule: "Esa palabra pregunta por el origen; acá preguntás dónde está la cama ahora."}
-        reviewed: true
-
-      - id: t1-3-tf-handtuecher
-        type: transform
-        tag: a1.sein.praesens
-        source: "Das Handtuch ist nass."
-        instruction: "Ahora en plural: *die Handtücher*."
-        answers: ["Die Handtücher sind nass.", "Nass sind die Handtücher."]
-        dims: {person: wir}
-        reviewed: true
-
-      - id: t1-3-gap-ihr
-        type: gap
-        tag: a1.sein.praesens
-        context: "1:00 · Tom y Mia vuelven del bar cantando."
-        text: "Leise! Ihr ___ zu laut!"
-        answers: ["seid"]
-        dims: {person: ihr}
-        errors:
-          - {answer: "sind", rule: "Con *ihr* (ustedes, en confianza) *sein* tiene una forma propia, distinta de la de *wir* y *sie*."}
-          - {answer: "seit", rule: "Suena igual, pero *seit* es una preposición de tiempo (desde); acá va el verbo *sein*."}
-        curiosities: ["*seid* (de *sein*) y *seit* (desde) suenan igual: hasta muchos alemanes los confunden por escrito."]
-        reviewed: true
-
-      - id: t1-3-sit-schluessel
-        type: situation
-        scene: {title: "Im Gang", context: "0:10 · volviste del baño y la llave no abre"}
-        bubbles:
-          - {who: them, text: "Hm? Wer ist da?"}
-          - {who: me, text: "___ bin es, Leo! Der Schlüssel funktioniert nicht."}
-          - {who: them, text: "Oh nein! Und wo sind Mia und Lea?"}
-          - {who: me, text: "___ sind noch in der Bar."}
-        gaps:
-          - tag: a1.pron.personal
-            answers: ["Ich"]
-            dims: {person: ich}
-            errors:
-              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
-          - tag: a1.pron.personal
-            answers: ["Sie", "Die", "Beide"]
-            dims: {person: sie_pl}
-            errors:
-              - {answer: "Wir", rule: "Vos estás en el pasillo: el sujeto son otras personas, no vos."}
-              - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Mia y Lea no están ahí."}
-        reviewed: true
-
-      - id: t1-3-tf-mia
-        type: transform
-        tag: a1.pron.personal
-        source: "Mia ist aus Chile."
-        instruction: "Reemplazá *Mia* por un pronombre personal."
-        answers: ["Sie ist aus Chile.", "Aus Chile ist sie."]
-        dims: {person: sie}
-        reviewed: true
-
-      - id: t1-3-sit-handtuch
-        type: situation
-        scene: {title: "Zimmer 12", context: "0:30 · inventario de lo que falta, con linterna"}
-        bubbles:
-          - {who: them, text: "Leo, ist das dein Handtuch?"}
-          - {who: me, text: "Nein, das ist das Handtuch von Tom. Es ___ nass."}
-          - {who: them, text: "Igitt! Und die Kissen?"}
-          - {who: me, text: "Die Kissen ___ super weich. Aber die Decke ist zu dünn."}
-        gaps:
-          - tag: a1.sein.praesens
-            answers: ["ist"]
-            dims: {person: sie}
-            errors:
-              - {answer: "sind", rule: "*es* reemplaza a *das Handtuch*, que es uno solo: *sein* va en singular."}
-          - tag: a1.sein.praesens
-            answers: ["sind"]
-            dims: {person: wir}
-            errors:
-              - {answer: "ist", rule: "*die Kissen* es plural (el singular es *das Kissen*): *sein* va en plural."}
-        reviewed: true
-
-      - id: t1-3-tf-sie
-        type: transform
-        tag: a1.sein.praesens
-        source: "Du bist in Zimmer 12."
-        instruction: "Ahora con trato formal (*Sie*)."
-        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in dem Zimmer 12.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In dem Zimmer 12 sind Sie."]
-        dims: {person: wir}
-        reviewed: true
-
-      - id: t1-3-gap-was
-        type: gap
-        tag: a1.wfragen
-        context: "Lea encuentra algo chiquito y amarillo en el Schließfach."
-        text: "___ ist das? Ein Ohrstöpsel?"
-        answers: ["Was"]
-        dims: {word: was}
-        errors:
-          - {answer: "Wer", rule: "*wer* pregunta por personas; esto es una cosa."}
-          - {answer: "Wo", rule: "*wo* pregunta por un lugar; acá querés saber qué cosa es."}
-        reviewed: true
-
-      - id: t1-3-tf-wo
-        type: transform
-        tag: a1.wfragen
-        source: "Der Schlüssel ist im Schließfach."
-        instruction: "Convertila en la pregunta por el lugar."
-        answers: ["Wo ist der Schlüssel?"]
-        dims: {word: wo}
-        reviewed: true
-
-      # Reserva
-      - id: t1-3-sit-fruehstueck
-        type: situation
-        reserve: true
-        scene: {title: "Frühstücksraum", context: "7:05 · nadie durmió y Tom está fresco como una lechuga"}
-        bubbles:
-          - {who: them, text: "Guten Morgen! Alles okay?"}
-          - {who: me, text: "Nein! Wir ___ total müde. Du schnarchst wie ein Traktor!"}
-          - {who: them, text: "Ich? Ich schnarche nicht!"}
-          - {who: me, text: "Doch! Frag Mia und Lea. ___ sind auch total müde."}
-        gaps:
-          - tag: a1.sein.praesens
-            answers: ["sind"]
-            dims: {person: wir}
-            errors:
-              - {answer: "seid", rule: "Esa es la forma de *ihr* (ustedes); el sujeto acá es *wir*."}
-              - {answer: "bin", rule: "Esa es la forma de *ich*; el sujeto acá es *wir*."}
-          - tag: a1.pron.personal
-            answers: ["Sie", "Die", "Beide"]
-            dims: {person: sie_pl}
-            errors:
-              - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."}
-        reviewed: true
-
-      - id: t1-3-sit-tuer
-        reserve: true
-        type: situation
-        scene: {title: "Vor der Tür", context: "22:16 · tocás el portero eléctrico, chorreando"}
-        bubbles:
-          - {who: them, text: "Hallo? Wer ist da?"}
-          - {who: me, text: "Hallo! ___ bin Leo. Ich habe eine Reservierung."}
-          - {who: them, text: "Ah, Leo! Komm rein, die Tür ist offen."}
-          - {who: me, text: "Danke! Der Rucksack ___ so schwer."}
-        gaps:
-          - tag: a1.pron.personal
-            answers: ["Ich"]
-            dims: {person: ich}
-            errors:
-              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
-              - {answer: "Du", rule: "*du* es a quién le hablás; acá te presentás vos."}
-          - tag: a1.sein.praesens
-            answers: ["ist"]
-            dims: {person: sie}
-            errors:
-              - {answer: "bin", rule: "El sujeto es *der Rucksack*, no vos: va la forma de tercera persona del singular."}
-              - {answer: "sind", rule: "*der Rucksack* es uno solo: la forma de *sein* va en singular."}
-        reviewed: true
-
-      - id: t1-3-tf-wir
-        type: transform
-        tag: a1.sein.praesens
-        reserve: true
-        source: "Ich bin müde."
-        instruction: "Ahora con *wir*."
-        answers: ["Wir sind müde.", "Müde sind wir."]
-        dims: {person: wir}
-        reviewed: true
-
-      - id: t1-3-tf-woher
-        type: transform
-        tag: a1.wfragen
-        reserve: true
-        source: "Lea ist aus Spanien."
-        instruction: "Convertila en la pregunta por el origen de Lea."
-        answers: ["Woher ist Lea?", "Woher kommt Lea?", "Wo ist Lea her?", "Wo kommt Lea her?", "Woher stammt Lea?", "Aus welchem Land kommt Lea?", "Aus welchem Land ist Lea?"]
-        dims: {word: woher}
-        reviewed: true
-
-      - id: t1-3-gap-sie-pl
-        type: gap
-        tag: a1.pron.personal
-        reserve: true
-        context: "Anna te señala a dos chicos que entran al cuarto de al lado con un Koffer cada uno."
-        text: "Das sind Jan und Max. ___ sind aus Kanada."
-        answers: ["Sie", "Die", "Beide"]
-        dims: {person: sie_pl}
-        errors:
-          - {answer: "Er", rule: "Son dos personas: el pronombre tiene que ser de plural."}
-          - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Anna te habla a vos de ellos."}
-        reviewed: true
-
-  # ───────────────────────────── Escalón 4 ─────────────────────────────
-  - n: 4
-    name: "Detectar y usar"
+    name: "Im Kontext anwenden"
     scene: {title: "Eine E-Mail vom Hostel", context: "Al día siguiente · 9:30 · llegó un email con las reglas de la casa"}
     generated: 3
     exercises:
@@ -813,9 +567,255 @@ steps:
           - {answer: "Wer ist das?", rule: "*wer* pregunta por personas; para una cosa hace falta otra palabra interrogativa."}
         reviewed: true
 
+  # ───────────────────────────── Escalón 4 ─────────────────────────────
+  - n: 4
+    name: "Angeleitet produzieren"
+    scene: {title: "Zimmer 12", context: "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"}
+    field: hostel
+    generated: 3
+    exercises:
+      - id: t1-3-sit-schnarchen
+        type: situation
+        scene: {title: "Zimmer 12", context: "23:40 · alguien ronca en la oscuridad"}
+        bubbles:
+          - {who: them, text: "Hey! Wer schnarcht da so laut?"}
+          - {who: me, text: "Das ist Tom. ___ ist im Etagenbett oben."}
+          - {who: them, text: "Hast du Ohrstöpsel?"}
+          - {who: me, text: "Nein, leider nicht. Und ich ___ so müde!"}
+        gaps:
+          - tag: a1.pron.personal
+            answers: ["Er", "Der", "Tom"]
+            dims: {person: er}
+            errors:
+              - {answer: "Sie", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
+              - {answer: "Es", rule: "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."}
+          - tag: a1.sein.praesens
+            answers: ["bin"]
+            dims: {person: ich}
+            errors:
+              - {answer: "bist", rule: "Esa forma es la de *du*; el sujeto acá sos vos mismo."}
+              - {answer: "ist", rule: "Esa forma es la de tercera persona (él, ella, eso); el sujeto acá sos vos mismo."}
+        reviewed: true
+
+      - id: t1-3-tf-tom
+        type: transform
+        tag: a1.sein.praesens
+        source: "Ich bin im Etagenbett oben."
+        instruction: "Jetzt mit *Tom* als Subjekt."
+        answers: ["Tom ist im Etagenbett oben.", "Tom ist oben im Etagenbett.", "Oben im Etagenbett ist Tom.", "Im Etagenbett oben ist Tom."]
+        dims: {person: sie}
+        reviewed: true
+
+      - id: t1-3-sit-mia
+        type: situation
+        scene: {title: "Zimmer 12", context: "23:45 · entra una chica con linterna buscando su cama"}
+        bubbles:
+          - {who: them, text: "Hi, ich bin Mia. Ich bin neu hier."}
+          - {who: me, text: "Hallo Mia! ___ kommst du?"}
+          - {who: them, text: "Aus Chile. Und du?"}
+          - {who: me, text: "Aus Argentinien. ___ ist dein Bett? Oben oder unten?"}
+        gaps:
+          - tag: a1.wfragen
+            answers: ["Woher"]
+            dims: {word: woher}
+            errors:
+              - {answer: "Wo", rule: "*wo* pregunta dónde está algo; para el origen hace falta la palabra que pregunta 'desde dónde'."}
+          - tag: a1.wfragen
+            answers: ["Wo", "Welches"]
+            dims: {word: wo}
+            errors:
+              - {answer: "Wer", rule: "*wer* pregunta por personas (aunque suene a *where*); acá buscás un lugar."}
+              - {answer: "Woher", rule: "Esa palabra pregunta por el origen; acá preguntás dónde está la cama ahora."}
+        reviewed: true
+
+      - id: t1-3-tf-handtuecher
+        type: transform
+        tag: a1.sein.praesens
+        source: "Das Handtuch ist nass."
+        instruction: "Jetzt im Plural: *die Handtücher*."
+        answers: ["Die Handtücher sind nass.", "Nass sind die Handtücher."]
+        dims: {person: wir}
+        reviewed: true
+
+      - id: t1-3-gap-ihr
+        type: gap
+        tag: a1.sein.praesens
+        context: "1:00 · Tom y Mia vuelven del bar cantando."
+        text: "Leise! Ihr ___ zu laut!"
+        answers: ["seid"]
+        dims: {person: ihr}
+        errors:
+          - {answer: "sind", rule: "Con *ihr* (ustedes, en confianza) *sein* tiene una forma propia, distinta de la de *wir* y *sie*."}
+          - {answer: "seit", rule: "Suena igual, pero *seit* es una preposición de tiempo (desde); acá va el verbo *sein*."}
+        curiosities: ["*seid* (de *sein*) y *seit* (desde) suenan igual: hasta muchos alemanes los confunden por escrito."]
+        reviewed: true
+
+      - id: t1-3-sit-schluessel
+        type: situation
+        scene: {title: "Im Gang", context: "0:10 · volviste del baño y la llave no abre"}
+        bubbles:
+          - {who: them, text: "Hm? Wer ist da?"}
+          - {who: me, text: "___ bin es, Leo! Der Schlüssel funktioniert nicht."}
+          - {who: them, text: "Oh nein! Und wo sind Mia und Lea?"}
+          - {who: me, text: "___ sind noch in der Bar."}
+        gaps:
+          - tag: a1.pron.personal
+            answers: ["Ich"]
+            dims: {person: ich}
+            errors:
+              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
+          - tag: a1.pron.personal
+            answers: ["Sie", "Die", "Beide"]
+            dims: {person: sie_pl}
+            errors:
+              - {answer: "Wir", rule: "Vos estás en el pasillo: el sujeto son otras personas, no vos."}
+              - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Mia y Lea no están ahí."}
+        reviewed: true
+
+      - id: t1-3-tf-mia
+        type: transform
+        tag: a1.pron.personal
+        source: "Mia ist aus Chile."
+        instruction: "Ersetze *Mia* durch ein Personalpronomen."
+        answers: ["Sie ist aus Chile.", "Aus Chile ist sie."]
+        dims: {person: sie}
+        reviewed: true
+
+      - id: t1-3-sit-handtuch
+        type: situation
+        scene: {title: "Zimmer 12", context: "0:30 · inventario de lo que falta, con linterna"}
+        bubbles:
+          - {who: them, text: "Leo, ist das dein Handtuch?"}
+          - {who: me, text: "Nein, das ist das Handtuch von Tom. Es ___ nass."}
+          - {who: them, text: "Igitt! Und die Kissen?"}
+          - {who: me, text: "Die Kissen ___ super weich. Aber die Decke ist zu dünn."}
+        gaps:
+          - tag: a1.sein.praesens
+            answers: ["ist"]
+            dims: {person: sie}
+            errors:
+              - {answer: "sind", rule: "*es* reemplaza a *das Handtuch*, que es uno solo: *sein* va en singular."}
+          - tag: a1.sein.praesens
+            answers: ["sind"]
+            dims: {person: wir}
+            errors:
+              - {answer: "ist", rule: "*die Kissen* es plural (el singular es *das Kissen*): *sein* va en plural."}
+        reviewed: true
+
+      - id: t1-3-tf-sie
+        type: transform
+        tag: a1.sein.praesens
+        source: "Du bist in Zimmer 12."
+        instruction: "Jetzt in der Höflichkeitsform (*Sie*)."
+        answers: ["Sie sind in Zimmer 12.", "Sie sind im Zimmer 12.", "Sie sind in dem Zimmer 12.", "In Zimmer 12 sind Sie.", "Im Zimmer 12 sind Sie.", "In dem Zimmer 12 sind Sie."]
+        dims: {person: wir}
+        reviewed: true
+
+      - id: t1-3-gap-was
+        type: gap
+        tag: a1.wfragen
+        context: "Lea encuentra algo chiquito y amarillo en el Schließfach."
+        text: "___ ist das? Ein Ohrstöpsel?"
+        answers: ["Was"]
+        dims: {word: was}
+        errors:
+          - {answer: "Wer", rule: "*wer* pregunta por personas; esto es una cosa."}
+          - {answer: "Wo", rule: "*wo* pregunta por un lugar; acá querés saber qué cosa es."}
+        reviewed: true
+
+      - id: t1-3-tf-wo
+        type: transform
+        tag: a1.wfragen
+        source: "Der Schlüssel ist im Schließfach."
+        instruction: "Frage nach dem Ort."
+        answers: ["Wo ist der Schlüssel?"]
+        dims: {word: wo}
+        reviewed: true
+
+      # Reserva
+      - id: t1-3-sit-fruehstueck
+        type: situation
+        reserve: true
+        scene: {title: "Frühstücksraum", context: "7:05 · nadie durmió y Tom está fresco como una lechuga"}
+        bubbles:
+          - {who: them, text: "Guten Morgen! Alles okay?"}
+          - {who: me, text: "Nein! Wir ___ total müde. Du schnarchst wie ein Traktor!"}
+          - {who: them, text: "Ich? Ich schnarche nicht!"}
+          - {who: me, text: "Doch! Frag Mia und Lea. ___ sind auch total müde."}
+        gaps:
+          - tag: a1.sein.praesens
+            answers: ["sind"]
+            dims: {person: wir}
+            errors:
+              - {answer: "seid", rule: "Esa es la forma de *ihr* (ustedes); el sujeto acá es *wir*."}
+              - {answer: "bin", rule: "Esa es la forma de *ich*; el sujeto acá es *wir*."}
+          - tag: a1.pron.personal
+            answers: ["Sie", "Die", "Beide"]
+            dims: {person: sie_pl}
+            errors:
+              - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."}
+        reviewed: true
+
+      - id: t1-3-sit-tuer
+        reserve: true
+        type: situation
+        scene: {title: "Vor der Tür", context: "22:16 · tocás el portero eléctrico, chorreando"}
+        bubbles:
+          - {who: them, text: "Hallo? Wer ist da?"}
+          - {who: me, text: "Hallo! ___ bin Leo. Ich habe eine Reservierung."}
+          - {who: them, text: "Ah, Leo! Komm rein, die Tür ist offen."}
+          - {who: me, text: "Danke! Der Rucksack ___ so schwer."}
+        gaps:
+          - tag: a1.pron.personal
+            answers: ["Ich"]
+            dims: {person: ich}
+            errors:
+              - {answer: "Er", rule: "Hablás de vos mismo: el pronombre es el de primera persona."}
+              - {answer: "Du", rule: "*du* es a quién le hablás; acá te presentás vos."}
+          - tag: a1.sein.praesens
+            answers: ["ist"]
+            dims: {person: sie}
+            errors:
+              - {answer: "bin", rule: "El sujeto es *der Rucksack*, no vos: va la forma de tercera persona del singular."}
+              - {answer: "sind", rule: "*der Rucksack* es uno solo: la forma de *sein* va en singular."}
+        reviewed: true
+
+      - id: t1-3-tf-wir
+        type: transform
+        tag: a1.sein.praesens
+        reserve: true
+        source: "Ich bin müde."
+        instruction: "Jetzt mit *wir*."
+        answers: ["Wir sind müde.", "Müde sind wir."]
+        dims: {person: wir}
+        reviewed: true
+
+      - id: t1-3-tf-woher
+        type: transform
+        tag: a1.wfragen
+        reserve: true
+        source: "Lea ist aus Spanien."
+        instruction: "Frage nach der Herkunft von Lea."
+        answers: ["Woher ist Lea?", "Woher kommt Lea?", "Wo ist Lea her?", "Wo kommt Lea her?", "Woher stammt Lea?", "Aus welchem Land kommt Lea?", "Aus welchem Land ist Lea?"]
+        dims: {word: woher}
+        reviewed: true
+
+      - id: t1-3-gap-sie-pl
+        type: gap
+        tag: a1.pron.personal
+        reserve: true
+        context: "Anna te señala a dos chicos que entran al cuarto de al lado con un Koffer cada uno."
+        text: "Das sind Jan und Max. ___ sind aus Kanada."
+        answers: ["Sie", "Die", "Beide"]
+        dims: {person: sie_pl}
+        errors:
+          - {answer: "Er", rule: "Son dos personas: el pronombre tiene que ser de plural."}
+          - {answer: "Ihr", rule: "*ihr* es la gente a la que le hablás; Anna te habla a vos de ellos."}
+        reviewed: true
+
   # ───────────────────────────── Escalón 5 ─────────────────────────────
   - n: 5
-    name: "Redactar"
+    name: "Freies Schreiben"
     scene: {title: "Gruppenchat Hostel Seeblick", context: "Mediodía · 47 mensajes sin leer, la mitad sobre los ronquidos de Tom"}
     exercises:
       - id: t1-5-wg-vorstellen
