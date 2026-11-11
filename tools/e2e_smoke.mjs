@@ -125,7 +125,7 @@ async function main() {
       const deadline = Date.now() + 10000;
       while (Date.now() < deadline) {
         const text = document.getElementById('view')?.innerText ?? '';
-        if (/Guten (Morgen|Tag|Abend)/.test(text) && text.includes('Empezar')) break;
+        if (/Guten (Morgen|Tag|Abend)/.test(text) && text.includes('Start')) break;
         await new Promise(r => setTimeout(r, 50));
       }
       const reg = await navigator.serviceWorker.ready;
@@ -150,9 +150,9 @@ async function main() {
         }
         throw new Error('No apareció "' + expected + '" en ' + hash + ': ' + (document.getElementById('view')?.innerText ?? ''));
       };
-      await visit('#/mapa', 'Mapa de temas');
+      await visit('#/mapa', 'Themenkarte');
       await visit('#/ajustes', 'OpenMoji');
-      await visit('#/grupo/a1.u1.t1/1', 'Escalón 1');
+      await visit('#/grupo/a1.u1.t1/1', 'Stufe 1');
       return true;
     })()`);
 

@@ -14,14 +14,15 @@ export function render(ex, el, { submit, onNoAudio }) {
     gapSpans.push(...gaps);
     return h('div', { class: `bubble ${b.who}`, lang: 'de' }, nodes);
   });
-  const inputs = gapSpans.map((_, i) => answerInput({ label: `Hueco ${i + 1}` }));
+  const inputs = gapSpans.map((_, i) => answerInput({ label: `Lücke ${i + 1}` }));
   const filled = () => inputs.every(x => x.value().trim() !== '');
-  const btn = onceButton('Responder', () => submit(inputs.map(x => x.value())), filled);
+  const btn = onceButton('Prüfen', () => submit(inputs.map(x => x.value())), filled);
   inputs.forEach((x, i) => x.addEventListener('input', () => { gapSpans[i].textContent = x.value() || `(${i + 1})`; btn.refresh(); }));
   el.append(
     h('p', { class: 'scene' }, h('strong', {}, ex.scene.title), ' · ', rich(ex.scene.context)),
+    h('p', { class: 'muted' }, rich(ex.prompt ?? 'Wähle die passende Antwort.')),
     h('div', { class: 'chat' }, bubbles),
     ...inputs, btn,
-    ...(ex.listen && onNoAudio ? [h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio() }, 'Ahora no puedo escuchar')] : []),
+    ...(ex.listen && onNoAudio ? [h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio() }, 'Gerade kein Audio')] : []),
   );
 }

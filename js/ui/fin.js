@@ -6,15 +6,15 @@ import { suggestNext } from '../core/progress.js';
 const pctText = p => `${Math.round(p * 100)} %`;
 
 function verdict(score) {
-  if (score.passed === true) return h('span', { class: 'tag-ok' }, 'Superado');
-  if (score.passed === false) return h('span', { class: 'tag-bad' }, 'Para reforzar');
+  if (score.passed === true) return h('span', { class: 'tag-ok' }, 'Geschafft!');
+  if (score.passed === false) return h('span', { class: 'tag-bad' }, 'Zu wiederholen');
   const n = score.pending.length;
   return h('span', { class: 'pill' }, `Esperando la corrección de ${n} ${n === 1 ? 'escritura' : 'escrituras'}`);
 }
 
 export default async function fin(el, { store, content }) {
   const { units } = await content();
-  const home = h('a', { class: 'button secondary', href: '#/' }, 'Inicio');
+  const home = h('a', { class: 'button secondary', href: '#/' }, 'Start');
   const now = Date.now();
   // En una transacción: una escritura que la cola resuelve justo ahora entra en el intento o lo resuelve después, nunca se pierde.
   let group = null;
@@ -41,7 +41,7 @@ export default async function fin(el, { store, content }) {
       h('p', {}, verdict(score)),
       score.failedRules.length > 0 && [h('h2', {}, 'Reglas para repasar'), h('ul', {}, score.failedRules.map(r => h('li', {}, rich(r))))],
     ),
-    next && h('a', { class: 'button', href: `#/grupo/${encodeURIComponent(next.topic)}/${next.step}` }, 'Siguiente grupo'),
+    next && h('a', { class: 'button', href: `#/grupo/${encodeURIComponent(next.topic)}/${next.step}` }, 'Nächste Gruppe'),
     home,
   );
 }

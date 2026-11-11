@@ -6,7 +6,7 @@ import unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'tools'))
 from validate import count_items, validate  # noqa: E402
 
-MINIMOS = {1: 10, 2: 14, 3: 14, 4: 12}
+MINIMOS = {1: 10, 2: 14, 3: 12, 4: 14}
 
 
 def gap(i, tag='a1.nom.mask', **kw):

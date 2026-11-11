@@ -11,9 +11,19 @@ function diagnoseVerb(item, answer, tags, lexicon = []) {
   const word = item.word ?? lexicon.find(w => w.pos === 'verb' && w.lemma === item.verb);
   const formsOf = p => (word && word.lemma !== 'sein' ? present(word, p).map(f => f.toLowerCase()) : [SEIN[p]]);
   const persons = PERSONS.filter(p => formsOf(p).includes(given));
-  if (!persons.length) return {rule: tags[item.tag]?.rule ?? 'Repasá la regla de este tema.', prereq: null};
+  if (!persons.length) {
+    return {
+      rule: tags[item.tag]?.rule ?? 'Repasá la regla de este tema.',
+      rule_de: tags[item.tag]?.rule_de ?? 'Wiederhole die grammatische Regel für dieses Thema.',
+      prereq: null,
+    };
+  }
   const names = persons.map(p => PERSON_NAME[p]);
-  return {rule: `Esa forma es la de ${names.join(', ')}: fijate quién es el sujeto.`, prereq: null};
+  return {
+    rule: `Esa forma es la de ${names.join(', ')}: fijate quién es el sujeto.`,
+    rule_de: 'Überprüfe das Subjekt: Die Verbendung muss zum Subjekt passen.',
+    prereq: null,
+  };
 }
 
 const GENDER_NAME = {m: 'masculino', f: 'femenino', n: 'neutro', pl: 'plural'};
@@ -26,11 +36,26 @@ export function diagnose(item, answer, tags = {}, lexicon = []) {
   const {gender, kase, det} = item.dims;
   const cells = findArticle(String(answer).trim().toLowerCase()).filter(c => c.det === det);
   if (cells.some(c => c.gender === gender && c.kase !== kase))
-    return {rule: `*${item.verb ?? 'Este verbo'}* pide ${KASE_NAME[kase]}.`, prereq: null};
+    return {
+      rule: `*${item.verb ?? 'Este verbo'}* pide ${KASE_NAME[kase]}.`,
+      rule_de: `${item.verb ? `*${item.verb}*` : 'Dieses Verb'} verlangt ${kase === 'akk' ? 'Akkusativ' : 'Nominativ'}.`,
+      prereq: null,
+    };
   const wrong = cells.find(c => c.kase === kase && c.gender !== gender);
   if (wrong) {
     const what = wrong.gender === 'pl' ? 'plural: revisá el número' : `${GENDER_NAME[wrong.gender]}: revisá el género`;
-    return {rule: `*${item.noun}* no es ${what}.`, prereq: `a1.nom.${TAG_SUFFIX[gender]}`};
+    const whatDe = wrong.gender === 'pl'
+      ? `Achte auf den Numerus: *${item.noun}* steht nicht im Plural.`
+      : `Achte auf das Geschlecht: *${item.noun}* hat ein anderes grammatisches Geschlecht.`;
+    return {
+      rule: `*${item.noun}* no es ${what}.`,
+      rule_de: whatDe,
+      prereq: `a1.nom.${TAG_SUFFIX[gender]}`,
+    };
   }
-  return {rule: tags[item.tag]?.rule ?? 'Repasá la regla de este tema.', prereq: null};
+  return {
+    rule: tags[item.tag]?.rule ?? 'Repasá la regla de este tema.',
+    rule_de: tags[item.tag]?.rule_de ?? 'Wiederhole die grammatische Regel für dieses Thema.',
+    prereq: null,
+  };
 }

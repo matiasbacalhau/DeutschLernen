@@ -19,7 +19,7 @@ export default async function ficha(el, { content, params }) {
   const id = params[0];
   const def = Object.values(units).flatMap(u => u.topics).find(t => t.topic === id);
   const title = curriculum.topics.find(t => t.id === id)?.title ?? id;
-  const back = h('button', { type: 'button', class: 'secondary', onclick: () => (history.length > 1 ? history.back() : (location.hash = '#/')) }, 'Volver');
+  const back = h('button', { type: 'button', class: 'secondary', onclick: () => (history.length > 1 ? history.back() : (location.hash = '#/')) }, 'Zurück');
   if (!def?.ficha) {
     el.append(h('p', {}, 'Este tema todavía no tiene ficha.'), back);
     return;

@@ -15,7 +15,7 @@ export const markList = marks => marks.length
   ? h('ol', { class: 'marks' }, marks.map(m => h('li', { class: m.kind === 'notice' ? 'muted' : null }, rich(m.text))))
   : h('p', { class: 'muted' }, 'LanguageTool no marcó nada. Ojo: no ve todo (sentido, estilo, alguna gramática).');
 
-export const verdict = ok => (ok ? h('span', { class: 'tag-ok' }, 'Sin errores') : h('span', { class: 'tag-bad' }, 'Con errores'));
+export const verdict = ok => (ok ? h('span', { class: 'tag-ok' }, 'Fehlerfrei') : h('span', { class: 'tag-bad' }, 'Mit Fehlern'));
 
 // Checklist ("lo que LanguageTool no ve") y modelo del ejercicio, si los tiene.
 export const extras = ex => [
@@ -26,7 +26,7 @@ export const extras = ex => [
 export default async function escritura(el, { store, content, params }) {
   const C = await content();
   const key = params[0];
-  const home = h('a', { class: 'button secondary', href: '#/' }, 'Inicio');
+  const home = h('a', { class: 'button secondary', href: '#/' }, 'Start');
   const notice = ((await store.get('notices')) ?? []).findLast(n => n.key === key);
   // Verla la descarta del inicio (en una transacción: no pisa un aviso que la cola agregue mientras tanto).
   if (notice) await store.update(['notices'], v => ({ notices: (v.notices ?? []).filter(n => !(n.key === notice.key && n.at === notice.at)) }));
@@ -39,7 +39,7 @@ export default async function escritura(el, { store, content, params }) {
   const marks = notice.marks ?? [];
   el.append(
     h('h1', {}, 'Tu escritura'),
-    h('p', { class: 'muted' }, `${title} · Escalón ${notice.step}`),
+    h('p', { class: 'muted' }, `${title} · Stufe ${notice.step}`),
     notice.scene && h('p', {}, rich(notice.scene)),
     h('div', { class: 'card' }, verdict(notice.ok), marked(notice.text, marks), markList(marks)),
     ...extras(ex).flat().filter(Boolean),

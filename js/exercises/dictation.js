@@ -8,17 +8,17 @@ import { onceButton, onEnter } from './common.js';
 export function render(ex, el, { submit, onNoAudio }) {
   // speak() rechaza si otra frase la interrumpe: no es un error para el usuario.
   const play = (rate) => () => tts.speak(ex.text, { rate }).catch(() => {});
-  const input = answerInput({ label: 'Lo que escuchaste' });
-  const btn = onceButton('Responder', () => submit(input.value()), () => input.value().trim() !== '');
+  const input = answerInput({ label: 'Was du gehört hast' });
+  const btn = onceButton('Prüfen', () => submit(input.value()), () => input.value().trim() !== '');
   input.addEventListener('input', btn.refresh);
   onEnter(input, () => btn.click());
   el.append(
-    h('p', { class: 'muted' }, 'Escuchá y escribí la frase.'),
+    h('p', { class: 'muted' }, 'Höre zu und schreibe den Satz.'),
     h('p', { class: 'listen-row' },
-      h('button', { type: 'button', class: 'listen', 'aria-label': 'Escuchar más despacio', lang: 'es', onclick: play(0.8) }, '🔊'),
-      h('button', { type: 'button', class: 'secondary small', 'aria-label': 'Escuchar a velocidad normal', lang: 'es', onclick: play(1) }, '1×'),
+      h('button', { type: 'button', class: 'listen', 'aria-label': 'Langsamer anhören', lang: 'de', onclick: play(0.8) }, '🔊'),
+      h('button', { type: 'button', class: 'secondary small', 'aria-label': 'Normale Geschwindigkeit', lang: 'de', onclick: play(1) }, '1×'),
     ),
     input, btn,
-    h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio?.() }, 'Ahora no puedo escuchar'),
+    h('button', { type: 'button', class: 'secondary no-audio', onclick: () => onNoAudio?.() }, 'Gerade kein Audio'),
   );
 }

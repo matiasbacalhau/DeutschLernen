@@ -28,21 +28,21 @@ export function render(ex, el, { submit, ctx }) {
   const showApply = rule => {
     const inputs = ex.apply.map((a, n) => {
       const hasGap = a.text.includes('___');
-      const input = answerInput({ label: hasGap ? `Frase ${n + 1}` : `Frase ${n + 1}: escribila completa` });
+      const input = answerInput({ label: hasGap ? `Satz ${n + 1}` : `Satz ${n + 1}: schreibe ihn vollständig` });
       const line = hasGap ? withGaps(a.text) : null;
       if (line) input.addEventListener('input', () => { line.gaps[0].textContent = input.value() || '(1)'; });
       return { input, node: h('div', { class: 'apply' }, h('p', { lang: hasGap ? 'de' : null }, line ? line.nodes : rich(a.text)), input) };
     });
-    const btn = onceButton('Responder', () => submit({ rule, apply: inputs.map(x => x.input.value()) }),
+    const btn = onceButton('Prüfen', () => submit({ rule, apply: inputs.map(x => x.input.value()) }),
       () => inputs.every(x => x.input.value().trim() !== ''));
     inputs.forEach(x => x.input.addEventListener('input', btn.refresh));
-    applyBox.replaceChildren(h('h2', {}, 'Ahora aplicala'), ...inputs.map(x => x.node), btn);
+    applyBox.replaceChildren(h('h2', {}, 'Jetzt anwenden'), ...inputs.map(x => x.node), btn);
     inputs[0]?.input.focus();
   };
 
   el.append(
     h('ul', { class: 'card sentences' }, ex.sentences.map(highlighted)),
-    h('p', {}, '¿Qué cambia y cuándo?'),
+    h('p', {}, 'Was ändert sich und wann?'),
     ...rules, applyBox,
   );
   // Al retomar con la regla ya elegida (ctx.rule): queda fija y se sigue con la parte de aplicar.

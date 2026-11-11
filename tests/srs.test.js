@@ -111,7 +111,7 @@ test('seedSrs con el contenido real: el campo hostel del tema 1', async () => {
   const { readFile } = await import('node:fs/promises');
   const units = { 'a1.u1': JSON.parse(await readFile('data/levels/a1/unit-01.json', 'utf8')) };
   const lexicon = JSON.parse(await readFile('data/lexicon.json', 'utf8'));
-  const srs = seedSrs({}, { progress: { steps: { 'a1.u1.t1/3': { attempts: [{ at: 1 }], seen: {} } } }, units, lexicon, now: T0 });
+  const srs = seedSrs({}, { progress: { steps: { 'a1.u1.t1/4': { attempts: [{ at: 1 }], seen: {} } } }, units, lexicon, now: T0 });
   const expected = lexicon.filter(w => w.field === 'hostel').map(w => w.lemma);
   assert.ok(expected.length > 0);
   assert.deepEqual(Object.keys(srs).sort(), expected.sort());

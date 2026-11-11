@@ -10,5 +10,6 @@ const joined = (chunks) => foldFirst(clean(chunks.join(' ')));
 export async function check(ex, answer, ctx) {
   const got = joined(answer);
   const ok = ex.answers.some((a) => joined(a) === got);
-  return [result(ex.id, ex.tag, ok, {rule: tagInfo(ctx, ex.tag).rule})];
+  const info = tagInfo(ctx, ex.tag);
+  return [result(ex.id, ex.tag, ok, {rule: info.rule, rule_de: info.rule_de})];
 }

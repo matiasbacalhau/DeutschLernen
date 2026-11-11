@@ -4,8 +4,8 @@ import { diagnose } from '../diagnose.js';
 
 export const tagInfo = (ctx, tag) => ctx.curriculum.tags[tag] ?? {};
 
-export function result(key, tag, ok, {rule = null, notice = null, prereq = null, ...extra} = {}) {
-  return {key, tag, ok, rule: ok ? null : rule, notice, prereq, review: false, ...extra};
+export function result(key, tag, ok, {rule = null, rule_de = null, notice = null, prereq = null, ...extra} = {}) {
+  return {key, tag, ok, rule: ok ? null : rule, rule_de: ok ? null : rule_de, notice, prereq, review: false, ...extra};
 }
 
 // Los tipos multi-ítem siempre usan `id#n`, aun con un solo ítem.
@@ -19,6 +19,7 @@ const KEY_WORDS = {
 const ARTICLES = ['der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'einen', 'einem', 'einer', 'eines', 'kein', 'keine', 'keinen', 'keinem', 'keiner', 'keines'];
 const keyWordsOf = tag => KEY_WORDS[tag] ?? (/^a1\.(nom|akk)\./.test(tag ?? '') ? ARTICLES : null);
 export const EVALUATED_OK = 'Lo que practica este ejercicio está bien: el error está en lo subrayado, que es de otro tema.';
+export const EVALUATED_OK_DE = 'Das Thema dieser Übung ist richtig: Der Fehler liegt im unterstrichenen Teil.';
 
 // item: ejercicio o hueco con {tag, answers, errors?, dims?, generated?}.
 export function checkWritten(key, item, answer, ctx) {
@@ -41,12 +42,20 @@ export function checkWritten(key, item, answer, ctx) {
     return keyWords(String(answer), set).join(' ') === keyWords(closestAnswer(String(answer), item.answers, opts), set).join(' ');
   })();
   // `given`: el texto tal como llegó, para el registro local (así se puede ver por qué una respuesta no se aceptó).
-  return result(key, item.tag, false, {rule: hit?.rule ?? (elsewhere ? EVALUATED_OK : info.rule), given: String(answer), ...(wrong.length ? {wrong} : {})});
+  return result(key, item.tag, false, {
+    rule: hit?.rule ?? (elsewhere ? EVALUATED_OK : info.rule),
+    rule_de: hit?.rule_de ?? (elsewhere ? EVALUATED_OK_DE : info.rule_de),
+    given: String(answer),
+    ...(wrong.length ? {wrong} : {}),
+  });
 }
 
 // options: [{text, correct?, rule?}]; answer: índice elegido.
 export function checkOption(key, tag, options, answer, ctx) {
   const opt = options[answer];
   if (opt?.correct) return result(key, tag, true);
-  return result(key, tag, false, {rule: opt?.rule ?? tagInfo(ctx, tag).rule});
+  return result(key, tag, false, {
+    rule: opt?.rule ?? tagInfo(ctx, tag).rule,
+    rule_de: opt?.rule_de ?? tagInfo(ctx, tag).rule_de,
+  });
 }

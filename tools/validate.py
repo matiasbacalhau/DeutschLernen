@@ -5,7 +5,7 @@ import sys
 import unicodedata
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
-MINIMOS = {1: 10, 2: 14, 3: 14, 4: 12}
+MINIMOS = {1: 10, 2: 14, 3: 12, 4: 14}
 LEXICO_CAMPOS = ['lemma', 'pos', 'es', 'field', 'freq', 'level']
 
 

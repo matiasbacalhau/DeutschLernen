@@ -46,6 +46,7 @@ tags:
     requires: []
     orthographic: false
     rule: "Los *Personalpronomen* (pronombres personales) reemplazan al sujeto y hay uno distinto para cada persona; el trato formal se escribe con mayúscula."
+    rule_de: "Personalpronomen stehen für Subjekte und wechseln je nach Person; Höflichkeitsformen werden großgeschrieben."
     examples:
       - {de: "Ich bin müde.", es: "Estoy cansado.", dims: {"person": "ich"}}
       - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
@@ -57,6 +58,7 @@ tags:
     requires: [a1.pron.personal]
     orthographic: false
     rule: "El verbo *sein* (ser/estar) es irregular: cambia con cada persona y sirve tanto para ser como para estar."
+    rule_de: "Das Verb *sein* ist unregelmäßig: Es hat für jede Person eine eigene Form im Präsens."
     examples:
       - {de: "Ich bin neu hier.", es: "Soy nuevo acá.", dims: {"person": "ich"}}
       - {de: "Du bist im Hostel.", es: "Estás en el hostel.", dims: {"person": "du"}}
@@ -68,6 +70,7 @@ tags:
     requires: []
     orthographic: false
     rule: "Las *W-Fragen* (preguntas con palabra interrogativa) empiezan con esa palabra y el verbo conjugado va enseguida, en segunda posición."
+    rule_de: "W-Fragen beginnen mit einem Fragewort; konjugierte Verben folgen an Position 2."
     examples:
       - {de: "Wer ist das?", es: "¿Quién es?", dims: {"word": "wer"}}
       - {de: "Was ist das?", es: "¿Qué es esto?", dims: {"word": "was"}}
@@ -80,6 +83,7 @@ tags:
     requires: []
     orthographic: false
     rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    rule_de: "Im Nominativ (Subjekt) richtet sich jede Artikelform nach maskulinem Genus."
     examples:
       - {de: "Der Löffel ist neu.", es: "La cuchara es nueva.", dims: {"gender": "m"}}
       - {de: "Die Lampe ist im Zimmer.", es: "La lámpara está en el cuarto.", dims: {"gender": "f"}}
@@ -89,6 +93,7 @@ tags:
     requires: []
     orthographic: false
     rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    rule_de: "Im Nominativ (Subjekt) richtet sich jede Artikelform nach femininem Genus."
     examples:
       - {de: "Die Lampe ist neu.", es: "La lámpara es nueva.", dims: {"gender": "f"}}
       - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
@@ -98,6 +103,7 @@ tags:
     requires: []
     orthographic: false
     rule: "En *Nominativ* (el sujeto) cada sustantivo trae el artículo de su género, que se aprende con la palabra o se deduce de sus pistas (terminación, palabra compuesta, *-chen*, plural)."
+    rule_de: "Im Nominativ (Subjekt) richtet sich jede Artikelform nach neutralem Genus."
     examples:
       - {de: "Das Bett ist groß.", es: "La cama es grande.", dims: {"gender": "n"}}
       - {de: "Der Schrank ist leer.", es: "El armario está vacío.", dims: {"gender": "m"}}
@@ -107,6 +113,7 @@ tags:
     requires: []
     orthographic: false
     rule: "En *Nominativ* (el sujeto) el plural comparte un único artículo para todos los géneros."
+    rule_de: "Im Nominativ Plural gilt dieselbe Artikelform für alle Genera."
     examples:
       - {de: "Die Betten sind groß.", es: "Las camas son grandes.", dims: {"gender": "pl"}}
       - {de: "Der Tisch ist alt.", es: "La mesa es vieja.", dims: {"gender": "m"}}
@@ -117,6 +124,7 @@ tags:
     requires: [a1.nom.mask]
     orthographic: false
     rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    rule_de: "Mit *brauchen*, *haben* und *möchten* steht Akkusativ: Nur maskulines Genus verändert seine Artikelform gegenüber Nominativ."
     examples:
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
       - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
@@ -126,6 +134,7 @@ tags:
     requires: [a1.nom.fem]
     orthographic: false
     rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    rule_de: "Mit *brauchen*, *haben* und *möchten* steht Akkusativ: Feminines Genus bleibt unverändert gegenüber Nominativ."
     examples:
       - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
@@ -135,6 +144,7 @@ tags:
     requires: [a1.nom.neut]
     orthographic: false
     rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo): el artículo depende del género del sustantivo, y solo uno de los tres géneros cambia respecto del *Nominativ*."
+    rule_de: "Mit *brauchen*, *haben* und *möchten* steht Akkusativ: Neutrales Genus bleibt unverändert gegenüber Nominativ."
     examples:
       - {de: "Ich möchte ein Brot.", es: "Quiero un pan.", dims: {"gender": "n"}}
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
@@ -144,6 +154,7 @@ tags:
     requires: [a1.nom.plural]
     orthographic: false
     rule: "Con *brauchen*, *haben* y *möchten* el objeto va en *Akkusativ* (objeto directo); el plural no cambia: queda igual que en Nominativ."
+    rule_de: "Mit *brauchen*, *haben* und *möchten* steht Akkusativ: Pluralformen bleiben unverändert gegenüber Nominativ."
     examples:
       - {de: "Wir brauchen Teller.", es: "Necesitamos platos.", dims: {"gender": "pl"}}
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
@@ -154,6 +165,7 @@ tags:
     requires: []
     orthographic: true
     rule: "En alemán todos los sustantivos se escriben con mayúscula inicial, también en medio de la oración."
+    rule_de: "Im Deutschen werden alle Nomen großgeschrieben, auch im Satzinneren."
     examples:
       - {de: "Ich brauche einen Löffel.", es: "Necesito una cuchara.", dims: {"gender": "m"}}
       - {de: "Ich habe eine Tasche.", es: "Tengo un bolso.", dims: {"gender": "f"}}
@@ -164,6 +176,7 @@ tags:
     requires: [a1.sein.praesens]
     orthographic: false
     rule: "El *Perfekt* (pretérito perfecto) lleva un verbo auxiliar que depende del verbo principal: los de movimiento o cambio de estado usan uno y la mayoría del resto usa el otro."
+    rule_de: "Das Perfekt bildet man mit *haben* oder *sein*: Verben der Bewegung oder Zustandsänderung bilden das Perfekt meist mit *sein*."
     examples:
       - {de: "Ich habe ein Brot gekauft.", es: "Compré un pan.", dims: {"aux": "haben"}}
       - {de: "Ich bin nach Berlin gefahren.", es: "Viajé a Berlín.", dims: {"aux": "sein"}}

@@ -80,7 +80,7 @@
    "steps": [
     {
      "n": 1,
-     "name": "Descubrir",
+     "name": "Entdecken",
      "scene": {
       "title": "Ankunft im Hostel",
       "context": "Hostel Seeblick · 22:15 · llovió todo el camino y la mochila pesa como un ropero"
@@ -409,7 +409,7 @@
     },
     {
      "n": 2,
-     "name": "Reconocer",
+     "name": "Erkennen",
      "scene": {
       "title": "An der Rezeption",
       "context": "22:20 · Anna habla rapidísimo y vos dejás un charco en el piso"
@@ -946,657 +946,7 @@
     },
     {
      "n": 3,
-     "name": "Producir guiado",
-     "scene": {
-      "title": "Zimmer 12",
-      "context": "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"
-     },
-     "field": "hostel",
-     "generated": 3,
-     "exercises": [
-      {
-       "id": "t1-3-sit-schnarchen",
-       "type": "situation",
-       "scene": {
-        "title": "Zimmer 12",
-        "context": "23:40 · alguien ronca en la oscuridad"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Hey! Wer schnarcht da so laut?"
-        },
-        {
-         "who": "me",
-         "text": "Das ist Tom. ___ ist im Etagenbett oben."
-        },
-        {
-         "who": "them",
-         "text": "Hast du Ohrstöpsel?"
-        },
-        {
-         "who": "me",
-         "text": "Nein, leider nicht. Und ich ___ so müde!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.pron.personal",
-         "answers": [
-          "Er",
-          "Der",
-          "Tom"
-         ],
-         "dims": {
-          "person": "er"
-         },
-         "errors": [
-          {
-           "answer": "Sie",
-           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
-          },
-          {
-           "answer": "Es",
-           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
-          }
-         ]
-        },
-        {
-         "tag": "a1.sein.praesens",
-         "answers": [
-          "bin"
-         ],
-         "dims": {
-          "person": "ich"
-         },
-         "errors": [
-          {
-           "answer": "bist",
-           "rule": "Esa forma es la de *du*; el sujeto acá sos vos mismo."
-          },
-          {
-           "answer": "ist",
-           "rule": "Esa forma es la de tercera persona (él, ella, eso); el sujeto acá sos vos mismo."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Etagenbett",
-        "Ohrstöpsel"
-       ]
-      },
-      {
-       "id": "t1-3-tf-tom",
-       "type": "transform",
-       "tag": "a1.sein.praesens",
-       "source": "Ich bin im Etagenbett oben.",
-       "instruction": "Ahora con *Tom* como sujeto.",
-       "answers": [
-        "Tom ist im Etagenbett oben.",
-        "Tom ist oben im Etagenbett.",
-        "Oben im Etagenbett ist Tom.",
-        "Im Etagenbett oben ist Tom."
-       ],
-       "dims": {
-        "person": "sie"
-       },
-       "reviewed": true,
-       "words": [
-        "Etagenbett"
-       ]
-      },
-      {
-       "id": "t1-3-sit-mia",
-       "type": "situation",
-       "scene": {
-        "title": "Zimmer 12",
-        "context": "23:45 · entra una chica con linterna buscando su cama"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Hi, ich bin Mia. Ich bin neu hier."
-        },
-        {
-         "who": "me",
-         "text": "Hallo Mia! ___ kommst du?"
-        },
-        {
-         "who": "them",
-         "text": "Aus Chile. Und du?"
-        },
-        {
-         "who": "me",
-         "text": "Aus Argentinien. ___ ist dein Bett? Oben oder unten?"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.wfragen",
-         "answers": [
-          "Woher"
-         ],
-         "dims": {
-          "word": "woher"
-         },
-         "errors": [
-          {
-           "answer": "Wo",
-           "rule": "*wo* pregunta dónde está algo; para el origen hace falta la palabra que pregunta 'desde dónde'."
-          }
-         ]
-        },
-        {
-         "tag": "a1.wfragen",
-         "answers": [
-          "Wo",
-          "Welches"
-         ],
-         "dims": {
-          "word": "wo"
-         },
-         "errors": [
-          {
-           "answer": "Wer",
-           "rule": "*wer* pregunta por personas (aunque suene a *where*); acá buscás un lugar."
-          },
-          {
-           "answer": "Woher",
-           "rule": "Esa palabra pregunta por el origen; acá preguntás dónde está la cama ahora."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Bett",
-        "Argentinien",
-        "Chile"
-       ]
-      },
-      {
-       "id": "t1-3-tf-handtuecher",
-       "type": "transform",
-       "tag": "a1.sein.praesens",
-       "source": "Das Handtuch ist nass.",
-       "instruction": "Ahora en plural: *die Handtücher*.",
-       "answers": [
-        "Die Handtücher sind nass.",
-        "Nass sind die Handtücher."
-       ],
-       "dims": {
-        "person": "wir"
-       },
-       "reviewed": true,
-       "words": [
-        "Handtuch"
-       ]
-      },
-      {
-       "id": "t1-3-gap-ihr",
-       "type": "gap",
-       "tag": "a1.sein.praesens",
-       "context": "1:00 · Tom y Mia vuelven del bar cantando.",
-       "text": "Leise! Ihr ___ zu laut!",
-       "answers": [
-        "seid"
-       ],
-       "dims": {
-        "person": "ihr"
-       },
-       "errors": [
-        {
-         "answer": "sind",
-         "rule": "Con *ihr* (ustedes, en confianza) *sein* tiene una forma propia, distinta de la de *wir* y *sie*."
-        },
-        {
-         "answer": "seit",
-         "rule": "Suena igual, pero *seit* es una preposición de tiempo (desde); acá va el verbo *sein*."
-        }
-       ],
-       "curiosities": [
-        "*seid* (de *sein*) y *seit* (desde) suenan igual: hasta muchos alemanes los confunden por escrito."
-       ],
-       "reviewed": true,
-       "words": []
-      },
-      {
-       "id": "t1-3-sit-schluessel",
-       "type": "situation",
-       "scene": {
-        "title": "Im Gang",
-        "context": "0:10 · volviste del baño y la llave no abre"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Hm? Wer ist da?"
-        },
-        {
-         "who": "me",
-         "text": "___ bin es, Leo! Der Schlüssel funktioniert nicht."
-        },
-        {
-         "who": "them",
-         "text": "Oh nein! Und wo sind Mia und Lea?"
-        },
-        {
-         "who": "me",
-         "text": "___ sind noch in der Bar."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.pron.personal",
-         "answers": [
-          "Ich"
-         ],
-         "dims": {
-          "person": "ich"
-         },
-         "errors": [
-          {
-           "answer": "Er",
-           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
-          }
-         ]
-        },
-        {
-         "tag": "a1.pron.personal",
-         "answers": [
-          "Sie",
-          "Die",
-          "Beide"
-         ],
-         "dims": {
-          "person": "sie_pl"
-         },
-         "errors": [
-          {
-           "answer": "Wir",
-           "rule": "Vos estás en el pasillo: el sujeto son otras personas, no vos."
-          },
-          {
-           "answer": "Ihr",
-           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están ahí."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schlüssel"
-       ]
-      },
-      {
-       "id": "t1-3-tf-mia",
-       "type": "transform",
-       "tag": "a1.pron.personal",
-       "source": "Mia ist aus Chile.",
-       "instruction": "Reemplazá *Mia* por un pronombre personal.",
-       "answers": [
-        "Sie ist aus Chile.",
-        "Aus Chile ist sie."
-       ],
-       "dims": {
-        "person": "sie"
-       },
-       "reviewed": true,
-       "words": [
-        "Chile"
-       ]
-      },
-      {
-       "id": "t1-3-sit-handtuch",
-       "type": "situation",
-       "scene": {
-        "title": "Zimmer 12",
-        "context": "0:30 · inventario de lo que falta, con linterna"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Leo, ist das dein Handtuch?"
-        },
-        {
-         "who": "me",
-         "text": "Nein, das ist das Handtuch von Tom. Es ___ nass."
-        },
-        {
-         "who": "them",
-         "text": "Igitt! Und die Kissen?"
-        },
-        {
-         "who": "me",
-         "text": "Die Kissen ___ super weich. Aber die Decke ist zu dünn."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.sein.praesens",
-         "answers": [
-          "ist"
-         ],
-         "dims": {
-          "person": "sie"
-         },
-         "errors": [
-          {
-           "answer": "sind",
-           "rule": "*es* reemplaza a *das Handtuch*, que es uno solo: *sein* va en singular."
-          }
-         ]
-        },
-        {
-         "tag": "a1.sein.praesens",
-         "answers": [
-          "sind"
-         ],
-         "dims": {
-          "person": "wir"
-         },
-         "errors": [
-          {
-           "answer": "ist",
-           "rule": "*die Kissen* es plural (el singular es *das Kissen*): *sein* va en plural."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Handtuch",
-        "Decke",
-        "Kissen"
-       ]
-      },
-      {
-       "id": "t1-3-tf-sie",
-       "type": "transform",
-       "tag": "a1.sein.praesens",
-       "source": "Du bist in Zimmer 12.",
-       "instruction": "Ahora con trato formal (*Sie*).",
-       "answers": [
-        "Sie sind in Zimmer 12.",
-        "Sie sind im Zimmer 12.",
-        "Sie sind in dem Zimmer 12.",
-        "In Zimmer 12 sind Sie.",
-        "Im Zimmer 12 sind Sie.",
-        "In dem Zimmer 12 sind Sie."
-       ],
-       "dims": {
-        "person": "wir"
-       },
-       "reviewed": true,
-       "words": [
-        "Zimmer"
-       ]
-      },
-      {
-       "id": "t1-3-gap-was",
-       "type": "gap",
-       "tag": "a1.wfragen",
-       "context": "Lea encuentra algo chiquito y amarillo en el Schließfach.",
-       "text": "___ ist das? Ein Ohrstöpsel?",
-       "answers": [
-        "Was"
-       ],
-       "dims": {
-        "word": "was"
-       },
-       "errors": [
-        {
-         "answer": "Wer",
-         "rule": "*wer* pregunta por personas; esto es una cosa."
-        },
-        {
-         "answer": "Wo",
-         "rule": "*wo* pregunta por un lugar; acá querés saber qué cosa es."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schließfach",
-        "Ohrstöpsel"
-       ]
-      },
-      {
-       "id": "t1-3-tf-wo",
-       "type": "transform",
-       "tag": "a1.wfragen",
-       "source": "Der Schlüssel ist im Schließfach.",
-       "instruction": "Convertila en la pregunta por el lugar.",
-       "answers": [
-        "Wo ist der Schlüssel?"
-       ],
-       "dims": {
-        "word": "wo"
-       },
-       "reviewed": true,
-       "words": [
-        "Schlüssel",
-        "Schließfach"
-       ]
-      },
-      {
-       "id": "t1-3-sit-fruehstueck",
-       "type": "situation",
-       "reserve": true,
-       "scene": {
-        "title": "Frühstücksraum",
-        "context": "7:05 · nadie durmió y Tom está fresco como una lechuga"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Guten Morgen! Alles okay?"
-        },
-        {
-         "who": "me",
-         "text": "Nein! Wir ___ total müde. Du schnarchst wie ein Traktor!"
-        },
-        {
-         "who": "them",
-         "text": "Ich? Ich schnarche nicht!"
-        },
-        {
-         "who": "me",
-         "text": "Doch! Frag Mia und Lea. ___ sind auch total müde."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.sein.praesens",
-         "answers": [
-          "sind"
-         ],
-         "dims": {
-          "person": "wir"
-         },
-         "errors": [
-          {
-           "answer": "seid",
-           "rule": "Esa es la forma de *ihr* (ustedes); el sujeto acá es *wir*."
-          },
-          {
-           "answer": "bin",
-           "rule": "Esa es la forma de *ich*; el sujeto acá es *wir*."
-          }
-         ]
-        },
-        {
-         "tag": "a1.pron.personal",
-         "answers": [
-          "Sie",
-          "Die",
-          "Beide"
-         ],
-         "dims": {
-          "person": "sie_pl"
-         },
-         "errors": [
-          {
-           "answer": "Ihr",
-           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": []
-      },
-      {
-       "id": "t1-3-sit-tuer",
-       "reserve": true,
-       "type": "situation",
-       "scene": {
-        "title": "Vor der Tür",
-        "context": "22:16 · tocás el portero eléctrico, chorreando"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Hallo? Wer ist da?"
-        },
-        {
-         "who": "me",
-         "text": "Hallo! ___ bin Leo. Ich habe eine Reservierung."
-        },
-        {
-         "who": "them",
-         "text": "Ah, Leo! Komm rein, die Tür ist offen."
-        },
-        {
-         "who": "me",
-         "text": "Danke! Der Rucksack ___ so schwer."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.pron.personal",
-         "answers": [
-          "Ich"
-         ],
-         "dims": {
-          "person": "ich"
-         },
-         "errors": [
-          {
-           "answer": "Er",
-           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
-          },
-          {
-           "answer": "Du",
-           "rule": "*du* es a quién le hablás; acá te presentás vos."
-          }
-         ]
-        },
-        {
-         "tag": "a1.sein.praesens",
-         "answers": [
-          "ist"
-         ],
-         "dims": {
-          "person": "sie"
-         },
-         "errors": [
-          {
-           "answer": "bin",
-           "rule": "El sujeto es *der Rucksack*, no vos: va la forma de tercera persona del singular."
-          },
-          {
-           "answer": "sind",
-           "rule": "*der Rucksack* es uno solo: la forma de *sein* va en singular."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Rucksack",
-        "Reservierung",
-        "Tür"
-       ]
-      },
-      {
-       "id": "t1-3-tf-wir",
-       "type": "transform",
-       "tag": "a1.sein.praesens",
-       "reserve": true,
-       "source": "Ich bin müde.",
-       "instruction": "Ahora con *wir*.",
-       "answers": [
-        "Wir sind müde.",
-        "Müde sind wir."
-       ],
-       "dims": {
-        "person": "wir"
-       },
-       "reviewed": true,
-       "words": []
-      },
-      {
-       "id": "t1-3-tf-woher",
-       "type": "transform",
-       "tag": "a1.wfragen",
-       "reserve": true,
-       "source": "Lea ist aus Spanien.",
-       "instruction": "Convertila en la pregunta por el origen de Lea.",
-       "answers": [
-        "Woher ist Lea?",
-        "Woher kommt Lea?",
-        "Wo ist Lea her?",
-        "Wo kommt Lea her?",
-        "Woher stammt Lea?",
-        "Aus welchem Land kommt Lea?",
-        "Aus welchem Land ist Lea?"
-       ],
-       "dims": {
-        "word": "woher"
-       },
-       "reviewed": true,
-       "words": [
-        "Spanien",
-        "Land"
-       ]
-      },
-      {
-       "id": "t1-3-gap-sie-pl",
-       "type": "gap",
-       "tag": "a1.pron.personal",
-       "reserve": true,
-       "context": "Anna te señala a dos chicos que entran al cuarto de al lado con un Koffer cada uno.",
-       "text": "Das sind Jan und Max. ___ sind aus Kanada.",
-       "answers": [
-        "Sie",
-        "Die",
-        "Beide"
-       ],
-       "dims": {
-        "person": "sie_pl"
-       },
-       "errors": [
-        {
-         "answer": "Er",
-         "rule": "Son dos personas: el pronombre tiene que ser de plural."
-        },
-        {
-         "answer": "Ihr",
-         "rule": "*ihr* es la gente a la que le hablás; Anna te habla a vos de ellos."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Koffer"
-       ]
-      }
-     ]
-    },
-    {
-     "n": 4,
-     "name": "Detectar y usar",
+     "name": "Im Kontext anwenden",
      "scene": {
       "title": "Eine E-Mail vom Hostel",
       "context": "Al día siguiente · 9:30 · llegó un email con las reglas de la casa"
@@ -2120,8 +1470,658 @@
      ]
     },
     {
+     "n": 4,
+     "name": "Angeleitet produzieren",
+     "scene": {
+      "title": "Zimmer 12",
+      "context": "23:40 · luz apagada, Tom ronca como un tractor y nadie duerme"
+     },
+     "field": "hostel",
+     "generated": 3,
+     "exercises": [
+      {
+       "id": "t1-3-sit-schnarchen",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "23:40 · alguien ronca en la oscuridad"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hey! Wer schnarcht da so laut?"
+        },
+        {
+         "who": "me",
+         "text": "Das ist Tom. ___ ist im Etagenbett oben."
+        },
+        {
+         "who": "them",
+         "text": "Hast du Ohrstöpsel?"
+        },
+        {
+         "who": "me",
+         "text": "Nein, leider nicht. Und ich ___ so müde!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Er",
+          "Der",
+          "Tom"
+         ],
+         "dims": {
+          "person": "er"
+         },
+         "errors": [
+          {
+           "answer": "Sie",
+           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
+          },
+          {
+           "answer": "Es",
+           "rule": "El pronombre sigue el género gramatical de la palabra a la que reemplaza: fijate quién ronca y qué género tiene."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "bin"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "bist",
+           "rule": "Esa forma es la de *du*; el sujeto acá sos vos mismo."
+          },
+          {
+           "answer": "ist",
+           "rule": "Esa forma es la de tercera persona (él, ella, eso); el sujeto acá sos vos mismo."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Etagenbett",
+        "Ohrstöpsel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-tom",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Ich bin im Etagenbett oben.",
+       "instruction": "Jetzt mit *Tom* als Subjekt.",
+       "answers": [
+        "Tom ist im Etagenbett oben.",
+        "Tom ist oben im Etagenbett.",
+        "Oben im Etagenbett ist Tom.",
+        "Im Etagenbett oben ist Tom."
+       ],
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "Etagenbett"
+       ]
+      },
+      {
+       "id": "t1-3-sit-mia",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "23:45 · entra una chica con linterna buscando su cama"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hi, ich bin Mia. Ich bin neu hier."
+        },
+        {
+         "who": "me",
+         "text": "Hallo Mia! ___ kommst du?"
+        },
+        {
+         "who": "them",
+         "text": "Aus Chile. Und du?"
+        },
+        {
+         "who": "me",
+         "text": "Aus Argentinien. ___ ist dein Bett? Oben oder unten?"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.wfragen",
+         "answers": [
+          "Woher"
+         ],
+         "dims": {
+          "word": "woher"
+         },
+         "errors": [
+          {
+           "answer": "Wo",
+           "rule": "*wo* pregunta dónde está algo; para el origen hace falta la palabra que pregunta 'desde dónde'."
+          }
+         ]
+        },
+        {
+         "tag": "a1.wfragen",
+         "answers": [
+          "Wo",
+          "Welches"
+         ],
+         "dims": {
+          "word": "wo"
+         },
+         "errors": [
+          {
+           "answer": "Wer",
+           "rule": "*wer* pregunta por personas (aunque suene a *where*); acá buscás un lugar."
+          },
+          {
+           "answer": "Woher",
+           "rule": "Esa palabra pregunta por el origen; acá preguntás dónde está la cama ahora."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Bett",
+        "Argentinien",
+        "Chile"
+       ]
+      },
+      {
+       "id": "t1-3-tf-handtuecher",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Das Handtuch ist nass.",
+       "instruction": "Jetzt im Plural: *die Handtücher*.",
+       "answers": [
+        "Die Handtücher sind nass.",
+        "Nass sind die Handtücher."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Handtuch"
+       ]
+      },
+      {
+       "id": "t1-3-gap-ihr",
+       "type": "gap",
+       "tag": "a1.sein.praesens",
+       "context": "1:00 · Tom y Mia vuelven del bar cantando.",
+       "text": "Leise! Ihr ___ zu laut!",
+       "answers": [
+        "seid"
+       ],
+       "dims": {
+        "person": "ihr"
+       },
+       "errors": [
+        {
+         "answer": "sind",
+         "rule": "Con *ihr* (ustedes, en confianza) *sein* tiene una forma propia, distinta de la de *wir* y *sie*."
+        },
+        {
+         "answer": "seit",
+         "rule": "Suena igual, pero *seit* es una preposición de tiempo (desde); acá va el verbo *sein*."
+        }
+       ],
+       "curiosities": [
+        "*seid* (de *sein*) y *seit* (desde) suenan igual: hasta muchos alemanes los confunden por escrito."
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-sit-schluessel",
+       "type": "situation",
+       "scene": {
+        "title": "Im Gang",
+        "context": "0:10 · volviste del baño y la llave no abre"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hm? Wer ist da?"
+        },
+        {
+         "who": "me",
+         "text": "___ bin es, Leo! Der Schlüssel funktioniert nicht."
+        },
+        {
+         "who": "them",
+         "text": "Oh nein! Und wo sind Mia und Lea?"
+        },
+        {
+         "who": "me",
+         "text": "___ sind noch in der Bar."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Ich"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "Er",
+           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
+          }
+         ]
+        },
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Sie",
+          "Die",
+          "Beide"
+         ],
+         "dims": {
+          "person": "sie_pl"
+         },
+         "errors": [
+          {
+           "answer": "Wir",
+           "rule": "Vos estás en el pasillo: el sujeto son otras personas, no vos."
+          },
+          {
+           "answer": "Ihr",
+           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están ahí."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schlüssel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-mia",
+       "type": "transform",
+       "tag": "a1.pron.personal",
+       "source": "Mia ist aus Chile.",
+       "instruction": "Ersetze *Mia* durch ein Personalpronomen.",
+       "answers": [
+        "Sie ist aus Chile.",
+        "Aus Chile ist sie."
+       ],
+       "dims": {
+        "person": "sie"
+       },
+       "reviewed": true,
+       "words": [
+        "Chile"
+       ]
+      },
+      {
+       "id": "t1-3-sit-handtuch",
+       "type": "situation",
+       "scene": {
+        "title": "Zimmer 12",
+        "context": "0:30 · inventario de lo que falta, con linterna"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo, ist das dein Handtuch?"
+        },
+        {
+         "who": "me",
+         "text": "Nein, das ist das Handtuch von Tom. Es ___ nass."
+        },
+        {
+         "who": "them",
+         "text": "Igitt! Und die Kissen?"
+        },
+        {
+         "who": "me",
+         "text": "Die Kissen ___ super weich. Aber die Decke ist zu dünn."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         },
+         "errors": [
+          {
+           "answer": "sind",
+           "rule": "*es* reemplaza a *das Handtuch*, que es uno solo: *sein* va en singular."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "sind"
+         ],
+         "dims": {
+          "person": "wir"
+         },
+         "errors": [
+          {
+           "answer": "ist",
+           "rule": "*die Kissen* es plural (el singular es *das Kissen*): *sein* va en plural."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Handtuch",
+        "Decke",
+        "Kissen"
+       ]
+      },
+      {
+       "id": "t1-3-tf-sie",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "source": "Du bist in Zimmer 12.",
+       "instruction": "Jetzt in der Höflichkeitsform (*Sie*).",
+       "answers": [
+        "Sie sind in Zimmer 12.",
+        "Sie sind im Zimmer 12.",
+        "Sie sind in dem Zimmer 12.",
+        "In Zimmer 12 sind Sie.",
+        "Im Zimmer 12 sind Sie.",
+        "In dem Zimmer 12 sind Sie."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": [
+        "Zimmer"
+       ]
+      },
+      {
+       "id": "t1-3-gap-was",
+       "type": "gap",
+       "tag": "a1.wfragen",
+       "context": "Lea encuentra algo chiquito y amarillo en el Schließfach.",
+       "text": "___ ist das? Ein Ohrstöpsel?",
+       "answers": [
+        "Was"
+       ],
+       "dims": {
+        "word": "was"
+       },
+       "errors": [
+        {
+         "answer": "Wer",
+         "rule": "*wer* pregunta por personas; esto es una cosa."
+        },
+        {
+         "answer": "Wo",
+         "rule": "*wo* pregunta por un lugar; acá querés saber qué cosa es."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schließfach",
+        "Ohrstöpsel"
+       ]
+      },
+      {
+       "id": "t1-3-tf-wo",
+       "type": "transform",
+       "tag": "a1.wfragen",
+       "source": "Der Schlüssel ist im Schließfach.",
+       "instruction": "Frage nach dem Ort.",
+       "answers": [
+        "Wo ist der Schlüssel?"
+       ],
+       "dims": {
+        "word": "wo"
+       },
+       "reviewed": true,
+       "words": [
+        "Schlüssel",
+        "Schließfach"
+       ]
+      },
+      {
+       "id": "t1-3-sit-fruehstueck",
+       "type": "situation",
+       "reserve": true,
+       "scene": {
+        "title": "Frühstücksraum",
+        "context": "7:05 · nadie durmió y Tom está fresco como una lechuga"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Guten Morgen! Alles okay?"
+        },
+        {
+         "who": "me",
+         "text": "Nein! Wir ___ total müde. Du schnarchst wie ein Traktor!"
+        },
+        {
+         "who": "them",
+         "text": "Ich? Ich schnarche nicht!"
+        },
+        {
+         "who": "me",
+         "text": "Doch! Frag Mia und Lea. ___ sind auch total müde."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "sind"
+         ],
+         "dims": {
+          "person": "wir"
+         },
+         "errors": [
+          {
+           "answer": "seid",
+           "rule": "Esa es la forma de *ihr* (ustedes); el sujeto acá es *wir*."
+          },
+          {
+           "answer": "bin",
+           "rule": "Esa es la forma de *ich*; el sujeto acá es *wir*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Sie",
+          "Die",
+          "Beide"
+         ],
+         "dims": {
+          "person": "sie_pl"
+         },
+         "errors": [
+          {
+           "answer": "Ihr",
+           "rule": "*ihr* es la gente a la que le hablás; Mia y Lea no están en la charla."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-sit-tuer",
+       "reserve": true,
+       "type": "situation",
+       "scene": {
+        "title": "Vor der Tür",
+        "context": "22:16 · tocás el portero eléctrico, chorreando"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Hallo? Wer ist da?"
+        },
+        {
+         "who": "me",
+         "text": "Hallo! ___ bin Leo. Ich habe eine Reservierung."
+        },
+        {
+         "who": "them",
+         "text": "Ah, Leo! Komm rein, die Tür ist offen."
+        },
+        {
+         "who": "me",
+         "text": "Danke! Der Rucksack ___ so schwer."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.pron.personal",
+         "answers": [
+          "Ich"
+         ],
+         "dims": {
+          "person": "ich"
+         },
+         "errors": [
+          {
+           "answer": "Er",
+           "rule": "Hablás de vos mismo: el pronombre es el de primera persona."
+          },
+          {
+           "answer": "Du",
+           "rule": "*du* es a quién le hablás; acá te presentás vos."
+          }
+         ]
+        },
+        {
+         "tag": "a1.sein.praesens",
+         "answers": [
+          "ist"
+         ],
+         "dims": {
+          "person": "sie"
+         },
+         "errors": [
+          {
+           "answer": "bin",
+           "rule": "El sujeto es *der Rucksack*, no vos: va la forma de tercera persona del singular."
+          },
+          {
+           "answer": "sind",
+           "rule": "*der Rucksack* es uno solo: la forma de *sein* va en singular."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Rucksack",
+        "Reservierung",
+        "Tür"
+       ]
+      },
+      {
+       "id": "t1-3-tf-wir",
+       "type": "transform",
+       "tag": "a1.sein.praesens",
+       "reserve": true,
+       "source": "Ich bin müde.",
+       "instruction": "Jetzt mit *wir*.",
+       "answers": [
+        "Wir sind müde.",
+        "Müde sind wir."
+       ],
+       "dims": {
+        "person": "wir"
+       },
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t1-3-tf-woher",
+       "type": "transform",
+       "tag": "a1.wfragen",
+       "reserve": true,
+       "source": "Lea ist aus Spanien.",
+       "instruction": "Frage nach der Herkunft von Lea.",
+       "answers": [
+        "Woher ist Lea?",
+        "Woher kommt Lea?",
+        "Wo ist Lea her?",
+        "Wo kommt Lea her?",
+        "Woher stammt Lea?",
+        "Aus welchem Land kommt Lea?",
+        "Aus welchem Land ist Lea?"
+       ],
+       "dims": {
+        "word": "woher"
+       },
+       "reviewed": true,
+       "words": [
+        "Spanien",
+        "Land"
+       ]
+      },
+      {
+       "id": "t1-3-gap-sie-pl",
+       "type": "gap",
+       "tag": "a1.pron.personal",
+       "reserve": true,
+       "context": "Anna te señala a dos chicos que entran al cuarto de al lado con un Koffer cada uno.",
+       "text": "Das sind Jan und Max. ___ sind aus Kanada.",
+       "answers": [
+        "Sie",
+        "Die",
+        "Beide"
+       ],
+       "dims": {
+        "person": "sie_pl"
+       },
+       "errors": [
+        {
+         "answer": "Er",
+         "rule": "Son dos personas: el pronombre tiene que ser de plural."
+        },
+        {
+         "answer": "Ihr",
+         "rule": "*ihr* es la gente a la que le hablás; Anna te habla a vos de ellos."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Koffer"
+       ]
+      }
+     ]
+    },
+    {
      "n": 5,
-     "name": "Redactar",
+     "name": "Freies Schreiben",
      "scene": {
       "title": "Gruppenchat Hostel Seeblick",
       "context": "Mediodía · 47 mensajes sin leer, la mitad sobre los ronquidos de Tom"
@@ -2274,7 +2274,7 @@
    "steps": [
     {
      "n": 1,
-     "name": "Descubrir",
+     "name": "Entdecken",
      "scene": {
       "title": "Die neue Wohnung",
       "context": "Leipzig · sábado 10:00 · el departamento huele a pintura y Jana ya etiquetó hasta la puerta"
@@ -2719,7 +2719,7 @@
     },
     {
      "n": 2,
-     "name": "Reconocer",
+     "name": "Erkennen",
      "scene": {
       "title": "Umzugstag",
       "context": "Sábado · 9:00 · 23 cajas, un sofá que no pasa por la puerta y Paul, que 'solo trae una mochila'"
@@ -3521,690 +3521,7 @@
     },
     {
      "n": 3,
-     "name": "Producir guiado",
-     "scene": {
-      "title": "Die WG-Küche",
-      "context": "Domingo · 13:00 · Paul cocinó a las 2 de la mañana y la cocina parece la escena de un crimen"
-     },
-     "field": "kueche",
-     "exercises": [
-      {
-       "id": "t2-3-sit-messer",
-       "type": "situation",
-       "scene": {
-        "title": "Die WG-Küche",
-        "context": "13:05 · Jana inspecciona con guantes de goma"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Igitt! In der Spüle liegt ein Messer mit Ketchup."
-        },
-        {
-         "who": "me",
-         "text": "Ah, ___ Messer ist von Paul. Er kocht immer um zwei Uhr nachts."
-        },
-        {
-         "who": "them",
-         "text": "Und auf dem Herd steht ein Topf mit Nudeln."
-        },
-        {
-         "who": "me",
-         "text": "___ Topf ist auch von Paul. Typisch!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.nom.neut",
-         "answers": [
-          "das",
-          "dieses"
-         ],
-         "dims": {
-          "gender": "n"
-         },
-         "errors": [
-          {
-           "answer": "der",
-           "rule": "Ni *el cuchillo* ni la terminación *-er* ayudan acá (*Messer* no es un aparato): su género se aprende con la palabra."
-          },
-          {
-           "answer": "die",
-           "rule": "*Messer* no tiene ninguna pista de femenino: su género se aprende con la palabra."
-          }
-         ]
-        },
-        {
-         "tag": "a1.nom.mask",
-         "answers": [
-          "Der",
-          "Dieser"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "Das",
-           "rule": "Que Jana diga *ein Topf* no decide nada: *ein* sirve para dos géneros. El de *Topf* se aprende con la palabra."
-          },
-          {
-           "answer": "Die",
-           "rule": "El género de *Topf* no sale del español (*la olla*): se aprende con la palabra."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Uhr",
-        "Messer",
-        "Topf",
-        "Herd",
-        "Spüle"
-       ]
-      },
-      {
-       "id": "t2-3-tf-pfanne",
-       "type": "transform",
-       "tag": "a1.nom.fem",
-       "source": "Der Topf ist schmutzig.",
-       "instruction": "Cambiá *Topf* por *Pfanne*.",
-       "answers": [
-        "Die Pfanne ist schmutzig.",
-        "Schmutzig ist die Pfanne.",
-        "Die Pfanne ist dreckig.",
-        "Dreckig ist die Pfanne."
-       ],
-       "dims": {
-        "gender": "f"
-       },
-       "errors": [
-        {
-         "answer": "Der Pfanne ist schmutzig.",
-         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Topf*. *Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras así."
-        },
-        {
-         "answer": "Das Pfanne ist schmutzig.",
-         "rule": "*Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Topf",
-        "Pfanne"
-       ]
-      },
-      {
-       "id": "t2-3-sit-kaffee",
-       "type": "situation",
-       "scene": {
-        "title": "Die WG-Küche",
-        "context": "13:20 · Paul aparece en pijama y con los ojos a media asta"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Morgen. Ist noch Kaffee da?"
-        },
-        {
-         "who": "me",
-         "text": "Kaffee ja, aber ___ Kaffeemaschine ist kaputt."
-        },
-        {
-         "who": "them",
-         "text": "Oh nein. Dann trinke ich Tee."
-        },
-        {
-         "who": "me",
-         "text": "Gute Idee. Aber ___ Tassen sind alle schmutzig."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.nom.fem",
-         "answers": [
-          "die",
-          "unsere",
-          "meine",
-          "diese"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "der",
-           "rule": "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."
-          },
-          {
-           "answer": "das",
-           "rule": "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."
-          }
-         ]
-        },
-        {
-         "tag": "a1.nom.plural",
-         "answers": [
-          "die",
-          "unsere",
-          "eure",
-          "deine",
-          "meine",
-          "diese"
-         ],
-         "dims": {
-          "gender": "pl"
-         },
-         "errors": [
-          {
-           "answer": "der",
-           "rule": "*Tassen* es plural: en plural hay un solo artículo para los tres géneros."
-          },
-          {
-           "answer": "das",
-           "rule": "*Tassen* es plural: en plural hay un solo artículo para los tres géneros."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Tasse",
-        "Kaffeemaschine",
-        "Kaffee",
-        "Tee"
-       ]
-      },
-      {
-       "id": "t2-3-tf-glas",
-       "type": "transform",
-       "tag": "a1.nom.neut",
-       "source": "Die Tasse ist im Schrank.",
-       "instruction": "Cambiá *Tasse* por *Glas*.",
-       "answers": [
-        "Das Glas ist im Schrank.",
-        "Im Schrank ist das Glas.",
-        "Das Glas steht im Schrank.",
-        "Im Schrank steht das Glas."
-       ],
-       "dims": {
-        "gender": "n"
-       },
-       "errors": [
-        {
-         "answer": "Die Glas ist im Schrank.",
-         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Glas*."
-        },
-        {
-         "answer": "Der Glas ist im Schrank.",
-         "rule": "El género de *Glas* no sale del español (*el vaso*): se aprende con la palabra."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schrank",
-        "Tasse",
-        "Glas"
-       ]
-      },
-      {
-       "id": "t2-3-gap-schuessel",
-       "type": "gap",
-       "tag": "a1.nom.fem",
-       "context": "Nota de Jana pegada en la heladera, con tres subrayados.",
-       "text": "___ Schüssel im Kühlschrank ist für morgen. Finger weg, Paul!",
-       "answers": [
-        "Die",
-        "Diese",
-        "Meine",
-        "Unsere"
-       ],
-       "dims": {
-        "gender": "f"
-       },
-       "errors": [
-        {
-         "answer": "Der",
-         "rule": "El género de *Schüssel* no sale de su terminación ni del español (*el bol*): se aprende con la palabra."
-        },
-        {
-         "answer": "Das",
-         "rule": "El género de *Schüssel* no sale de su terminación ni del español (*el bol*): se aprende con la palabra."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schüssel",
-        "Kühlschrank"
-       ]
-      },
-      {
-       "id": "t2-3-tf-loeffel",
-       "type": "transform",
-       "tag": "a1.nom.mask",
-       "source": "Die Gabel liegt auf dem Tisch.",
-       "instruction": "Cambiá *Gabel* por *Löffel*.",
-       "answers": [
-        "Der Löffel liegt auf dem Tisch.",
-        "Auf dem Tisch liegt der Löffel.",
-        "Der Löffel ist auf dem Tisch.",
-        "Auf dem Tisch ist der Löffel."
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Die Löffel liegt auf dem Tisch.",
-         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Gabel*, se aprende con *Löffel*."
-        },
-        {
-         "answer": "Das Löffel liegt auf dem Tisch.",
-         "rule": "*Löffel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Tisch",
-        "Löffel",
-        "Gabel"
-       ]
-      },
-      {
-       "id": "t2-3-sit-glas",
-       "type": "situation",
-       "scene": {
-        "title": "Die WG-Küche",
-        "context": "13:40 · Jana abre la heladera y da un paso atrás"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Leo! Im Kühlschrank steht ein Glas. Da ist etwas Grünes drin."
-        },
-        {
-         "who": "me",
-         "text": "Keine Ahnung! ___ Glas ist nicht von mir."
-        },
-        {
-         "who": "them",
-         "text": "Und da ist noch ein Teller mit Pizza von letzter Woche."
-        },
-        {
-         "who": "me",
-         "text": "___ Teller ist von Paul. Und die Pizza auch."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.nom.neut",
-         "answers": [
-          "Das",
-          "Dieses"
-         ],
-         "dims": {
-          "gender": "n"
-         },
-         "errors": [
-          {
-           "answer": "Der",
-           "rule": "Que Jana diga *ein Glas* no decide nada: *ein* sirve para dos géneros. El de *Glas* se aprende con la palabra."
-          },
-          {
-           "answer": "Die",
-           "rule": "*Glas* no tiene ninguna pista de femenino: su género se aprende con la palabra."
-          }
-         ]
-        },
-        {
-         "tag": "a1.nom.mask",
-         "answers": [
-          "Der",
-          "Dieser"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "Das",
-           "rule": "Que Jana diga *ein Teller* no decide nada: *ein* sirve para dos géneros. El de *Teller* se aprende con la palabra."
-          },
-          {
-           "answer": "Die",
-           "rule": "*Teller* no tiene ninguna pista de femenino: su género se aprende con la palabra."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Teller",
-        "Glas",
-        "Kühlschrank"
-       ]
-      },
-      {
-       "id": "t2-3-tf-plural",
-       "type": "transform",
-       "tag": "a1.nom.plural",
-       "source": "Das Glas ist sauber.",
-       "instruction": "Ahora en plural.",
-       "answers": [
-        "Die Gläser sind sauber.",
-        "Sauber sind die Gläser."
-       ],
-       "dims": {
-        "gender": "pl"
-       },
-       "errors": [
-        {
-         "answer": "Das Gläser sind sauber.",
-         "rule": "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."
-        },
-        {
-         "answer": "Der Gläser sind sauber.",
-         "rule": "En plural hay un solo artículo para los tres géneros."
-        },
-        {
-         "answer": "Die Gläser ist sauber.",
-         "rule": "Con un sujeto en plural, *sein* también va en plural."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Glas"
-       ]
-      },
-      {
-       "id": "t2-3-gap-kuehlschrank",
-       "type": "gap",
-       "tag": "a1.nom.mask",
-       "context": "Etiqueta de Jana en la heladera (con artículo definido, como todas sus etiquetas).",
-       "text": "___ Kühlschrank ist für alle. Das Essen nicht.",
-       "answers": [
-        "Der",
-        "Dieser"
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Die",
-         "rule": "En las palabras compuestas manda la última parte: *Kühl-schrank*."
-        },
-        {
-         "answer": "Das",
-         "rule": "En las palabras compuestas manda la última parte: *Kühl-schrank*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Kühlschrank",
-        "essen"
-       ]
-      },
-      {
-       "id": "t2-3-tf-wasserkocher",
-       "type": "transform",
-       "tag": "a1.nom.mask",
-       "source": "Das ist ein Wasserkocher.",
-       "instruction": "Ahora con el artículo definido.",
-       "answers": [
-        "Das ist der Wasserkocher."
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Das ist das Wasserkocher.",
-         "rule": "*ein* sirve para dos géneros y no decide nada; en las palabras compuestas manda la última parte, no *Wasser*."
-        },
-        {
-         "answer": "Das ist die Wasserkocher.",
-         "rule": "En las palabras compuestas manda la última parte: *Wasser-kocher*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Wasserkocher"
-       ]
-      },
-      {
-       "id": "t2-3-gap-besteck",
-       "type": "gap",
-       "tag": "a1.nom.neut",
-       "context": "Etiqueta de Jana en un cajón (con artículo definido, como todas sus etiquetas).",
-       "text": "___ Besteck ist hier. Bitte zurücklegen!",
-       "answers": [
-        "Das",
-        "Dieses"
-       ],
-       "dims": {
-        "gender": "n"
-       },
-       "errors": [
-        {
-         "answer": "Die",
-         "rule": "*Besteck* es singular en alemán, aunque en español digamos *los cubiertos*: no es plural, y su género se aprende con la palabra."
-        },
-        {
-         "answer": "Der",
-         "rule": "*Besteck* no tiene ninguna pista de masculino: su género se aprende con la palabra."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Besteck"
-       ]
-      },
-      {
-       "id": "t2-3-gap-teller",
-       "type": "gap",
-       "tag": "a1.nom.plural",
-       "context": "Paul, mensaje en el grupo de la casa a las 2:47.",
-       "text": "Sorry! ___ Teller sind alle in der Spüle.",
-       "answers": [
-        "Die",
-        "Unsere",
-        "Eure",
-        "Deine",
-        "Meine",
-        "Diese"
-       ],
-       "dims": {
-        "gender": "pl"
-       },
-       "errors": [
-        {
-         "answer": "Der",
-         "rule": "*Teller* acá es plural (lo dice *sind*): en plural hay un solo artículo para los tres géneros."
-        },
-        {
-         "answer": "Das",
-         "rule": "*Teller* acá es plural (lo dice *sind*): en plural hay un solo artículo para los tres géneros."
-        }
-       ],
-       "curiosities": [
-        "Muchos sustantivos en *-er* tienen el plural igual al singular (*der Teller → die Teller*): el artículo y el verbo te dicen cuál es."
-       ],
-       "reviewed": true,
-       "words": [
-        "Teller",
-        "Spüle"
-       ]
-      },
-      {
-       "id": "t2-3-sit-ofen",
-       "type": "situation",
-       "reserve": true,
-       "scene": {
-        "title": "Die WG-Küche",
-        "context": "2:15 · huele a quemado y Paul jura que no fue él"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Leo! Warum riecht es hier so komisch?"
-        },
-        {
-         "who": "me",
-         "text": "Ich glaube, ___ Mikrowelle ist noch an. Mit deiner Pizza drin."
-        },
-        {
-         "who": "them",
-         "text": "Und auf dem Herd steht ein Wasserkocher ohne Wasser!"
-        },
-        {
-         "who": "me",
-         "text": "Oh nein! ___ Wasserkocher ist von Jana!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.nom.fem",
-         "answers": [
-          "die",
-          "unsere",
-          "meine",
-          "deine",
-          "diese"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "der",
-           "rule": "*Mikrowelle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
-          },
-          {
-           "answer": "das",
-           "rule": "*Mikrowelle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
-          }
-         ]
-        },
-        {
-         "tag": "a1.nom.mask",
-         "answers": [
-          "Der",
-          "Dieser"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "Das",
-           "rule": "En las palabras compuestas manda la última parte, no la primera: *Wasser* no decide."
-          },
-          {
-           "answer": "Die",
-           "rule": "En las palabras compuestas manda la última parte, no la primera: *Wasser* no decide."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Herd",
-        "Wasserkocher",
-        "Wasser",
-        "Mikrowelle"
-       ]
-      },
-      {
-       "id": "t2-3-tf-spuele",
-       "type": "transform",
-       "tag": "a1.nom.fem",
-       "reserve": true,
-       "source": "Das ist die Gabel.",
-       "instruction": "Ahora con el artículo indefinido.",
-       "answers": [
-        "Das ist eine Gabel."
-       ],
-       "dims": {
-        "gender": "f"
-       },
-       "errors": [
-        {
-         "answer": "Das ist ein Gabel.",
-         "rule": "El indefinido sigue el mismo género que el definido de la fuente: no es igual para los tres géneros."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Gabel"
-       ]
-      },
-      {
-       "id": "t2-3-tf-messer",
-       "type": "transform",
-       "tag": "a1.nom.neut",
-       "reserve": true,
-       "source": "Die Tasse ist sauber.",
-       "instruction": "Cambiá *Tasse* por *Messer*.",
-       "answers": [
-        "Das Messer ist sauber.",
-        "Sauber ist das Messer."
-       ],
-       "dims": {
-        "gender": "n"
-       },
-       "errors": [
-        {
-         "answer": "Der Messer ist sauber.",
-         "rule": "Ni *el cuchillo* ni la terminación *-er* ayudan acá (*Messer* no es un aparato): su género se aprende con la palabra."
-        },
-        {
-         "answer": "Die Messer ist sauber.",
-         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Messer*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Messer",
-        "Tasse"
-       ]
-      },
-      {
-       "id": "t2-3-gap-spuele",
-       "type": "gap",
-       "tag": "a1.nom.fem",
-       "reserve": true,
-       "context": "Etiqueta de Jana sobre la mesada (con artículo definido, como todas sus etiquetas).",
-       "text": "___ Spüle ist kein Schrank, Paul!",
-       "answers": [
-        "Die",
-        "Diese"
-       ],
-       "dims": {
-        "gender": "f"
-       },
-       "errors": [
-        {
-         "answer": "Der",
-         "rule": "*Spüle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
-        },
-        {
-         "answer": "Das",
-         "rule": "*Spüle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schrank",
-        "Spüle"
-       ]
-      }
-     ]
-    },
-    {
-     "n": 4,
-     "name": "Detectar y usar",
+     "name": "Im Kontext anwenden",
      "scene": {
       "title": "Ein Zettel vom Vermieter",
       "context": "Lunes · 8:00 · en el pasillo apareció un cartel del dueño con más signos de exclamación que palabras"
@@ -4740,8 +4057,691 @@
      ]
     },
     {
+     "n": 4,
+     "name": "Angeleitet produzieren",
+     "scene": {
+      "title": "Die WG-Küche",
+      "context": "Domingo · 13:00 · Paul cocinó a las 2 de la mañana y la cocina parece la escena de un crimen"
+     },
+     "field": "kueche",
+     "exercises": [
+      {
+       "id": "t2-3-sit-messer",
+       "type": "situation",
+       "scene": {
+        "title": "Die WG-Küche",
+        "context": "13:05 · Jana inspecciona con guantes de goma"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Igitt! In der Spüle liegt ein Messer mit Ketchup."
+        },
+        {
+         "who": "me",
+         "text": "Ah, ___ Messer ist von Paul. Er kocht immer um zwei Uhr nachts."
+        },
+        {
+         "who": "them",
+         "text": "Und auf dem Herd steht ein Topf mit Nudeln."
+        },
+        {
+         "who": "me",
+         "text": "___ Topf ist auch von Paul. Typisch!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.nom.neut",
+         "answers": [
+          "das",
+          "dieses"
+         ],
+         "dims": {
+          "gender": "n"
+         },
+         "errors": [
+          {
+           "answer": "der",
+           "rule": "Ni *el cuchillo* ni la terminación *-er* ayudan acá (*Messer* no es un aparato): su género se aprende con la palabra."
+          },
+          {
+           "answer": "die",
+           "rule": "*Messer* no tiene ninguna pista de femenino: su género se aprende con la palabra."
+          }
+         ]
+        },
+        {
+         "tag": "a1.nom.mask",
+         "answers": [
+          "Der",
+          "Dieser"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "Das",
+           "rule": "Que Jana diga *ein Topf* no decide nada: *ein* sirve para dos géneros. El de *Topf* se aprende con la palabra."
+          },
+          {
+           "answer": "Die",
+           "rule": "El género de *Topf* no sale del español (*la olla*): se aprende con la palabra."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Uhr",
+        "Messer",
+        "Topf",
+        "Herd",
+        "Spüle"
+       ]
+      },
+      {
+       "id": "t2-3-tf-pfanne",
+       "type": "transform",
+       "tag": "a1.nom.fem",
+       "source": "Der Topf ist schmutzig.",
+       "instruction": "Ersetze *Topf* durch *Pfanne*.",
+       "answers": [
+        "Die Pfanne ist schmutzig.",
+        "Schmutzig ist die Pfanne.",
+        "Die Pfanne ist dreckig.",
+        "Dreckig ist die Pfanne."
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Der Pfanne ist schmutzig.",
+         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Topf*. *Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras así."
+        },
+        {
+         "answer": "Das Pfanne ist schmutzig.",
+         "rule": "*Pfanne* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Topf",
+        "Pfanne"
+       ]
+      },
+      {
+       "id": "t2-3-sit-kaffee",
+       "type": "situation",
+       "scene": {
+        "title": "Die WG-Küche",
+        "context": "13:20 · Paul aparece en pijama y con los ojos a media asta"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Morgen. Ist noch Kaffee da?"
+        },
+        {
+         "who": "me",
+         "text": "Kaffee ja, aber ___ Kaffeemaschine ist kaputt."
+        },
+        {
+         "who": "them",
+         "text": "Oh nein. Dann trinke ich Tee."
+        },
+        {
+         "who": "me",
+         "text": "Gute Idee. Aber ___ Tassen sind alle schmutzig."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.nom.fem",
+         "answers": [
+          "die",
+          "unsere",
+          "meine",
+          "diese"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "der",
+           "rule": "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."
+          },
+          {
+           "answer": "das",
+           "rule": "En las palabras compuestas manda la última parte, no la primera: *Kaffee* no decide."
+          }
+         ]
+        },
+        {
+         "tag": "a1.nom.plural",
+         "answers": [
+          "die",
+          "unsere",
+          "eure",
+          "deine",
+          "meine",
+          "diese"
+         ],
+         "dims": {
+          "gender": "pl"
+         },
+         "errors": [
+          {
+           "answer": "der",
+           "rule": "*Tassen* es plural: en plural hay un solo artículo para los tres géneros."
+          },
+          {
+           "answer": "das",
+           "rule": "*Tassen* es plural: en plural hay un solo artículo para los tres géneros."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Tasse",
+        "Kaffeemaschine",
+        "Kaffee",
+        "Tee"
+       ]
+      },
+      {
+       "id": "t2-3-tf-glas",
+       "type": "transform",
+       "tag": "a1.nom.neut",
+       "source": "Die Tasse ist im Schrank.",
+       "instruction": "Ersetze *Tasse* durch *Glas*.",
+       "answers": [
+        "Das Glas ist im Schrank.",
+        "Im Schrank ist das Glas.",
+        "Das Glas steht im Schrank.",
+        "Im Schrank steht das Glas."
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "Die Glas ist im Schrank.",
+         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Glas*."
+        },
+        {
+         "answer": "Der Glas ist im Schrank.",
+         "rule": "El género de *Glas* no sale del español (*el vaso*): se aprende con la palabra."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schrank",
+        "Tasse",
+        "Glas"
+       ]
+      },
+      {
+       "id": "t2-3-gap-schuessel",
+       "type": "gap",
+       "tag": "a1.nom.fem",
+       "context": "Nota de Jana pegada en la heladera, con tres subrayados.",
+       "text": "___ Schüssel im Kühlschrank ist für morgen. Finger weg, Paul!",
+       "answers": [
+        "Die",
+        "Diese",
+        "Meine",
+        "Unsere"
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Der",
+         "rule": "El género de *Schüssel* no sale de su terminación ni del español (*el bol*): se aprende con la palabra."
+        },
+        {
+         "answer": "Das",
+         "rule": "El género de *Schüssel* no sale de su terminación ni del español (*el bol*): se aprende con la palabra."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schüssel",
+        "Kühlschrank"
+       ]
+      },
+      {
+       "id": "t2-3-tf-loeffel",
+       "type": "transform",
+       "tag": "a1.nom.mask",
+       "source": "Die Gabel liegt auf dem Tisch.",
+       "instruction": "Ersetze *Gabel* durch *Löffel*.",
+       "answers": [
+        "Der Löffel liegt auf dem Tisch.",
+        "Auf dem Tisch liegt der Löffel.",
+        "Der Löffel ist auf dem Tisch.",
+        "Auf dem Tisch ist der Löffel."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Die Löffel liegt auf dem Tisch.",
+         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Gabel*, se aprende con *Löffel*."
+        },
+        {
+         "answer": "Das Löffel liegt auf dem Tisch.",
+         "rule": "*Löffel* no tiene ninguna pista de neutro (ni *-chen* ni *-lein*): su género se aprende con la palabra."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Tisch",
+        "Löffel",
+        "Gabel"
+       ]
+      },
+      {
+       "id": "t2-3-sit-glas",
+       "type": "situation",
+       "scene": {
+        "title": "Die WG-Küche",
+        "context": "13:40 · Jana abre la heladera y da un paso atrás"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo! Im Kühlschrank steht ein Glas. Da ist etwas Grünes drin."
+        },
+        {
+         "who": "me",
+         "text": "Keine Ahnung! ___ Glas ist nicht von mir."
+        },
+        {
+         "who": "them",
+         "text": "Und da ist noch ein Teller mit Pizza von letzter Woche."
+        },
+        {
+         "who": "me",
+         "text": "___ Teller ist von Paul. Und die Pizza auch."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.nom.neut",
+         "answers": [
+          "Das",
+          "Dieses"
+         ],
+         "dims": {
+          "gender": "n"
+         },
+         "errors": [
+          {
+           "answer": "Der",
+           "rule": "Que Jana diga *ein Glas* no decide nada: *ein* sirve para dos géneros. El de *Glas* se aprende con la palabra."
+          },
+          {
+           "answer": "Die",
+           "rule": "*Glas* no tiene ninguna pista de femenino: su género se aprende con la palabra."
+          }
+         ]
+        },
+        {
+         "tag": "a1.nom.mask",
+         "answers": [
+          "Der",
+          "Dieser"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "Das",
+           "rule": "Que Jana diga *ein Teller* no decide nada: *ein* sirve para dos géneros. El de *Teller* se aprende con la palabra."
+          },
+          {
+           "answer": "Die",
+           "rule": "*Teller* no tiene ninguna pista de femenino: su género se aprende con la palabra."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Teller",
+        "Glas",
+        "Kühlschrank"
+       ]
+      },
+      {
+       "id": "t2-3-tf-plural",
+       "type": "transform",
+       "tag": "a1.nom.plural",
+       "source": "Das Glas ist sauber.",
+       "instruction": "Jetzt im Plural.",
+       "answers": [
+        "Die Gläser sind sauber.",
+        "Sauber sind die Gläser."
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "errors": [
+        {
+         "answer": "Das Gläser sind sauber.",
+         "rule": "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."
+        },
+        {
+         "answer": "Der Gläser sind sauber.",
+         "rule": "En plural hay un solo artículo para los tres géneros."
+        },
+        {
+         "answer": "Die Gläser ist sauber.",
+         "rule": "Con un sujeto en plural, *sein* también va en plural."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Glas"
+       ]
+      },
+      {
+       "id": "t2-3-gap-kuehlschrank",
+       "type": "gap",
+       "tag": "a1.nom.mask",
+       "context": "Etiqueta de Jana en la heladera (con artículo definido, como todas sus etiquetas).",
+       "text": "___ Kühlschrank ist für alle. Das Essen nicht.",
+       "answers": [
+        "Der",
+        "Dieser"
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Die",
+         "rule": "En las palabras compuestas manda la última parte: *Kühl-schrank*."
+        },
+        {
+         "answer": "Das",
+         "rule": "En las palabras compuestas manda la última parte: *Kühl-schrank*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Kühlschrank",
+        "essen"
+       ]
+      },
+      {
+       "id": "t2-3-tf-wasserkocher",
+       "type": "transform",
+       "tag": "a1.nom.mask",
+       "source": "Das ist ein Wasserkocher.",
+       "instruction": "Jetzt mit bestimmtem Artikel.",
+       "answers": [
+        "Das ist der Wasserkocher."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Das ist das Wasserkocher.",
+         "rule": "*ein* sirve para dos géneros y no decide nada; en las palabras compuestas manda la última parte, no *Wasser*."
+        },
+        {
+         "answer": "Das ist die Wasserkocher.",
+         "rule": "En las palabras compuestas manda la última parte: *Wasser-kocher*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Wasserkocher"
+       ]
+      },
+      {
+       "id": "t2-3-gap-besteck",
+       "type": "gap",
+       "tag": "a1.nom.neut",
+       "context": "Etiqueta de Jana en un cajón (con artículo definido, como todas sus etiquetas).",
+       "text": "___ Besteck ist hier. Bitte zurücklegen!",
+       "answers": [
+        "Das",
+        "Dieses"
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "Die",
+         "rule": "*Besteck* es singular en alemán, aunque en español digamos *los cubiertos*: no es plural, y su género se aprende con la palabra."
+        },
+        {
+         "answer": "Der",
+         "rule": "*Besteck* no tiene ninguna pista de masculino: su género se aprende con la palabra."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Besteck"
+       ]
+      },
+      {
+       "id": "t2-3-gap-teller",
+       "type": "gap",
+       "tag": "a1.nom.plural",
+       "context": "Paul, mensaje en el grupo de la casa a las 2:47.",
+       "text": "Sorry! ___ Teller sind alle in der Spüle.",
+       "answers": [
+        "Die",
+        "Unsere",
+        "Eure",
+        "Deine",
+        "Meine",
+        "Diese"
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "errors": [
+        {
+         "answer": "Der",
+         "rule": "*Teller* acá es plural (lo dice *sind*): en plural hay un solo artículo para los tres géneros."
+        },
+        {
+         "answer": "Das",
+         "rule": "*Teller* acá es plural (lo dice *sind*): en plural hay un solo artículo para los tres géneros."
+        }
+       ],
+       "curiosities": [
+        "Muchos sustantivos en *-er* tienen el plural igual al singular (*der Teller → die Teller*): el artículo y el verbo te dicen cuál es."
+       ],
+       "reviewed": true,
+       "words": [
+        "Teller",
+        "Spüle"
+       ]
+      },
+      {
+       "id": "t2-3-sit-ofen",
+       "type": "situation",
+       "reserve": true,
+       "scene": {
+        "title": "Die WG-Küche",
+        "context": "2:15 · huele a quemado y Paul jura que no fue él"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo! Warum riecht es hier so komisch?"
+        },
+        {
+         "who": "me",
+         "text": "Ich glaube, ___ Mikrowelle ist noch an. Mit deiner Pizza drin."
+        },
+        {
+         "who": "them",
+         "text": "Und auf dem Herd steht ein Wasserkocher ohne Wasser!"
+        },
+        {
+         "who": "me",
+         "text": "Oh nein! ___ Wasserkocher ist von Jana!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.nom.fem",
+         "answers": [
+          "die",
+          "unsere",
+          "meine",
+          "deine",
+          "diese"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "der",
+           "rule": "*Mikrowelle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
+          },
+          {
+           "answer": "das",
+           "rule": "*Mikrowelle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
+          }
+         ]
+        },
+        {
+         "tag": "a1.nom.mask",
+         "answers": [
+          "Der",
+          "Dieser"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "Das",
+           "rule": "En las palabras compuestas manda la última parte, no la primera: *Wasser* no decide."
+          },
+          {
+           "answer": "Die",
+           "rule": "En las palabras compuestas manda la última parte, no la primera: *Wasser* no decide."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Herd",
+        "Wasserkocher",
+        "Wasser",
+        "Mikrowelle"
+       ]
+      },
+      {
+       "id": "t2-3-tf-spuele",
+       "type": "transform",
+       "tag": "a1.nom.fem",
+       "reserve": true,
+       "source": "Das ist die Gabel.",
+       "instruction": "Jetzt mit unbestimmtem Artikel.",
+       "answers": [
+        "Das ist eine Gabel."
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Das ist ein Gabel.",
+         "rule": "El indefinido sigue el mismo género que el definido de la fuente: no es igual para los tres géneros."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Gabel"
+       ]
+      },
+      {
+       "id": "t2-3-tf-messer",
+       "type": "transform",
+       "tag": "a1.nom.neut",
+       "reserve": true,
+       "source": "Die Tasse ist sauber.",
+       "instruction": "Ersetze *Tasse* durch *Messer*.",
+       "answers": [
+        "Das Messer ist sauber.",
+        "Sauber ist das Messer."
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "Der Messer ist sauber.",
+         "rule": "Ni *el cuchillo* ni la terminación *-er* ayudan acá (*Messer* no es un aparato): su género se aprende con la palabra."
+        },
+        {
+         "answer": "Die Messer ist sauber.",
+         "rule": "El sustantivo nuevo trae su propio género: el artículo no se hereda de *Tasse*, se aprende con *Messer*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Messer",
+        "Tasse"
+       ]
+      },
+      {
+       "id": "t2-3-gap-spuele",
+       "type": "gap",
+       "tag": "a1.nom.fem",
+       "reserve": true,
+       "context": "Etiqueta de Jana sobre la mesada (con artículo definido, como todas sus etiquetas).",
+       "text": "___ Spüle ist kein Schrank, Paul!",
+       "answers": [
+        "Die",
+        "Diese"
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "Der",
+         "rule": "*Spüle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
+        },
+        {
+         "answer": "Das",
+         "rule": "*Spüle* termina en *-e*: pensá qué género tienen casi todas las palabras con esa terminación."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schrank",
+        "Spüle"
+       ]
+      }
+     ]
+    },
+    {
      "n": 5,
-     "name": "Redactar",
+     "name": "Freies Schreiben",
      "scene": {
       "title": "Ein Brief an Mia",
       "context": "Domingo a la noche · la primera noche tranquila en el departamento (Paul salió)"
@@ -4881,7 +4881,7 @@
    "steps": [
     {
      "n": 1,
-     "name": "Descubrir",
+     "name": "Entdecken",
      "scene": {
       "title": "In der Bäckerei",
       "context": "Sábado · 7:40 · con hambre, el abrigo arriba del pijama y una fila que llega a la puerta"
@@ -5243,7 +5243,7 @@
     },
     {
      "n": 2,
-     "name": "Reconocer",
+     "name": "Erkennen",
      "scene": {
       "title": "Im Supermarkt",
       "context": "Sábado · 11:00 · la lista de Jana, un changuito con una rueda rebelde y Paul, que 'solo viene a mirar'"
@@ -6046,560 +6046,7 @@
     },
     {
      "n": 3,
-     "name": "Producir guiado",
-     "scene": {
-      "title": "Am Kiosk",
-      "context": "Martes · 23:10 · el súper cerró, en casa no hay nada y el kiosco de la esquina es la última esperanza"
-     },
-     "field": "essen",
-     "generated": 4,
-     "exercises": [
-      {
-       "id": "t3-3-sit-wurst",
-       "type": "situation",
-       "scene": {
-        "title": "Am Kiosk",
-        "context": "23:12 · Herr Yilmaz levanta la vista del celular"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Na, Nachtschicht? Was brauchst du?"
-        },
-        {
-         "who": "me",
-         "text": "Paul hat Hunger. Er möchte ___ Wurst und ___ Apfel."
-        },
-        {
-         "who": "them",
-         "text": "Wurst ist leider aus. Aber Äpfel habe ich!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.akk.fem",
-         "answers": [
-          "eine"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "einen",
-           "rule": "*einen* acompaña a un solo género, y no es el de *Wurst*."
-          },
-          {
-           "answer": "ein",
-           "rule": "*ein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."
-          }
-         ]
-        },
-        {
-         "tag": "a1.akk.mask",
-         "answers": [
-          "einen"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "ein",
-           "rule": "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto."
-          },
-          {
-           "answer": "eine",
-           "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Apfel",
-        "Wurst"
-       ]
-      },
-      {
-       "id": "t3-3-tf-apfel",
-       "type": "transform",
-       "tag": "a1.akk.mask",
-       "source": "Ich möchte ein Brötchen.",
-       "instruction": "Cambiá *Brötchen* por *Apfel*.",
-       "answers": [
-        "Ich möchte einen Apfel.",
-        "Einen Apfel möchte ich."
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Ich möchte ein Apfel.",
-         "rule": "El sustantivo nuevo trae su género: el artículo no se hereda de *Brötchen*. Y con *möchten* va en *Akkusativ*."
-        },
-        {
-         "answer": "Ich möchte eine Apfel.",
-         "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Brötchen",
-        "Apfel"
-       ]
-      },
-      {
-       "id": "t3-3-sit-wein",
-       "type": "situation",
-       "scene": {
-        "title": "Am Kiosk",
-        "context": "23:20 · Leo vuelve: se olvidó lo más importante"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Du schon wieder! Was fehlt?"
-        },
-        {
-         "who": "me",
-         "text": "Jana hat morgen Geburtstag. Ich brauche ___ Wein für sie."
-        },
-        {
-         "who": "them",
-         "text": "Rot oder weiß?"
-        },
-        {
-         "who": "me",
-         "text": "Rot. Und hast du ___ Kerze? Sie wird dreißig!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.akk.mask",
-         "answers": [
-          "einen"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "ein",
-           "rule": "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que necesitás, no el sujeto."
-          },
-          {
-           "answer": "eine",
-           "rule": "*eine* acompaña a un solo género, y no es el de *Wein*."
-          }
-         ]
-        },
-        {
-         "tag": "a1.akk.fem",
-         "answers": [
-          "eine",
-          "keine"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "einen",
-           "rule": "*einen* acompaña a un solo género, y no es el de *Kerze*."
-          },
-          {
-           "answer": "ein",
-           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Kerze* y qué género tienen casi todas las palabras así."
-          }
-         ]
-        }
-       ],
-       "curiosities": [
-        "*Sie wird dreißig*: los cumpleaños se dicen con *werden* (volverse): 'se vuelve treinta'."
-       ],
-       "reviewed": true,
-       "words": [
-        "Wein"
-       ]
-      },
-      {
-       "id": "t3-3-gap-brot",
-       "type": "gap",
-       "tag": "a1.akk.neut",
-       "context": "En la caja, Leo le muestra a Herr Yilmaz lo que eligió.",
-       "text": "Ich möchte ___ Brot und zwei Bananen.",
-       "answers": [
-        "ein",
-        "das",
-        "dieses"
-       ],
-       "dims": {
-        "gender": "n"
-       },
-       "errors": [
-        {
-         "answer": "einen",
-         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
-        },
-        {
-         "answer": "eine",
-         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Brot",
-        "Banane"
-       ]
-      },
-      {
-       "id": "t3-3-tf-kein",
-       "type": "transform",
-       "tag": "a1.akk.mask",
-       "source": "Herr Yilmaz hat einen Apfelsaft.",
-       "instruction": "Ahora negá con *kein*: se le terminó.",
-       "answers": [
-        "Herr Yilmaz hat keinen Apfelsaft.",
-        "Herr Yilmaz hat keinen Apfelsaft mehr.",
-        "Keinen Apfelsaft hat Herr Yilmaz.",
-        "Keinen Apfelsaft hat Herr Yilmaz mehr.",
-        "Keinen Apfelsaft mehr hat Herr Yilmaz."
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Herr Yilmaz hat kein Apfelsaft.",
-         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
-        },
-        {
-         "answer": "Herr Yilmaz hat kein Apfelsaft mehr.",
-         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
-        },
-        {
-         "answer": "Herr Yilmaz hat nicht einen Apfelsaft.",
-         "rule": "Un sustantivo con *ein* se niega con *kein*, que se declina igual que *ein*."
-        }
-       ],
-       "reviewed": true,
-       "words": []
-      },
-      {
-       "id": "t3-3-sit-banane",
-       "type": "situation",
-       "scene": {
-        "title": "Am Kiosk",
-        "context": "23:35 · en la puerta aparece Paul, en pantuflas"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Leo! Ich habe Hunger. Hast du was für mich?"
-        },
-        {
-         "who": "me",
-         "text": "Ich habe ___ Banane und ___ Ei. Mehr nicht."
-        },
-        {
-         "who": "them",
-         "text": "Und Schokolade? Bitte!"
-        },
-        {
-         "who": "me",
-         "text": "Nein, ich habe ___ Schokolade. Sorry!"
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.akk.fem",
-         "answers": [
-          "eine"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "einen",
-           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
-          },
-          {
-           "answer": "ein",
-           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
-          }
-         ]
-        },
-        {
-         "tag": "a1.akk.neut",
-         "answers": [
-          "ein"
-         ],
-         "dims": {
-          "gender": "n"
-         },
-         "errors": [
-          {
-           "answer": "einen",
-           "rule": "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género."
-          },
-          {
-           "answer": "eine",
-           "rule": "*eine* acompaña a un solo género, y no es el de *Ei*."
-          }
-         ]
-        },
-        {
-         "tag": "a1.akk.fem",
-         "answers": [
-          "keine"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "keinen",
-           "rule": "*keinen* acompaña a un solo género, y no es el de *Schokolade*."
-          },
-          {
-           "answer": "kein",
-           "rule": "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
-          }
-         ]
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Banane",
-        "Ei",
-        "Schokolade"
-       ]
-      },
-      {
-       "id": "t3-3-gap-apfelsaft",
-       "type": "gap",
-       "tag": "a1.akk.mask",
-       "context": "Herr Yilmaz señala la heladera vacía.",
-       "text": "Sorry, ich habe heute ___ Apfelsaft mehr.",
-       "answers": [
-        "keinen"
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "kein",
-         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
-        },
-        {
-         "answer": "keine",
-         "rule": "*keine* acompaña a otro género (o al plural): en las compuestas manda la última parte, *Apfel-saft*."
-        }
-       ],
-       "reviewed": true,
-       "words": []
-      },
-      {
-       "id": "t3-3-tf-plural",
-       "type": "transform",
-       "tag": "a1.akk.plural",
-       "source": "Ich brauche das Ei.",
-       "instruction": "Ahora en plural.",
-       "answers": [
-        "Ich brauche die Eier.",
-        "Die Eier brauche ich."
-       ],
-       "dims": {
-        "gender": "pl"
-       },
-       "errors": [
-        {
-         "answer": "Ich brauche den Eier.",
-         "rule": "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros, el mismo que como sujeto."
-        },
-        {
-         "answer": "Ich brauche das Eier.",
-         "rule": "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Ei"
-       ]
-      },
-      {
-       "id": "t3-3-gap-schokolade",
-       "type": "gap",
-       "tag": "a1.akk.fem",
-       "context": "Leo le escribe a Jana desde el kiosco.",
-       "text": "Brauchst du auch ___ Schokolade? Hier gibt es zwölf Sorten!",
-       "answers": [
-        "eine"
-       ],
-       "dims": {
-        "gender": "f"
-       },
-       "errors": [
-        {
-         "answer": "einen",
-         "rule": "*einen* acompaña a un solo género, y no es el de *Schokolade*."
-        },
-        {
-         "answer": "ein",
-         "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Schokolade"
-       ]
-      },
-      {
-       "id": "t3-3-sit-salat",
-       "type": "situation",
-       "reserve": true,
-       "scene": {
-        "title": "Am Kiosk",
-        "context": "23:55 · Herr Yilmaz ya bajó media persiana"
-       },
-       "bubbles": [
-        {
-         "who": "them",
-         "text": "Noch etwas? Ich mache gleich zu."
-        },
-        {
-         "who": "me",
-         "text": "Ja! Ich brauche noch ___ Salat für morgen."
-        },
-        {
-         "who": "them",
-         "text": "Salat? Hier? Das ist ein Kiosk, kein Supermarkt!"
-        },
-        {
-         "who": "me",
-         "text": "Okay, okay. Dann nehme ich ___ Banane."
-        }
-       ],
-       "gaps": [
-        {
-         "tag": "a1.akk.mask",
-         "answers": [
-          "einen"
-         ],
-         "dims": {
-          "gender": "m"
-         },
-         "errors": [
-          {
-           "answer": "ein",
-           "rule": "*brauchen* pide *Akkusativ* (objeto directo): la ensalada es lo que necesitás, no el sujeto."
-          },
-          {
-           "answer": "eine",
-           "rule": "*eine* acompaña a un solo género, y no es el de *Salat*: que *ensalada* sea femenino en español no cuenta."
-          }
-         ]
-        },
-        {
-         "tag": "a1.akk.fem",
-         "answers": [
-          "eine",
-          "die"
-         ],
-         "dims": {
-          "gender": "f"
-         },
-         "errors": [
-          {
-           "answer": "einen",
-           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
-          },
-          {
-           "answer": "ein",
-           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
-          }
-         ]
-        }
-       ],
-       "curiosities": [
-        "*nehmen* (llevar, tomar) también pide *Akkusativ*: casi todo verbo con objeto directo lo pide."
-       ],
-       "reviewed": true,
-       "words": [
-        "Banane",
-        "Salat",
-        "Supermarkt",
-        "Kiosk"
-       ]
-      },
-      {
-       "id": "t3-3-tf-kaese",
-       "type": "transform",
-       "tag": "a1.akk.mask",
-       "reserve": true,
-       "source": "Der Käse ist lecker.",
-       "instruction": "Ahora el queso es lo que querés: con artículo definido y *Ich möchte…*",
-       "answers": [
-        "Ich möchte den Käse.",
-        "Den Käse möchte ich."
-       ],
-       "dims": {
-        "gender": "m"
-       },
-       "errors": [
-        {
-         "answer": "Ich möchte der Käse.",
-         "rule": "Ahora el queso no es el sujeto sino lo que querés: con *möchten* va en *Akkusativ*."
-        },
-        {
-         "answer": "Ich möchte die Käse.",
-         "rule": "*die* acompaña a otro género (o al plural): el de *Käse* se aprende con la palabra, aunque termine en *-e*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Käse"
-       ]
-      },
-      {
-       "id": "t3-3-gap-brot-gratis",
-       "type": "gap",
-       "tag": "a1.akk.neut",
-       "reserve": true,
-       "context": "Herr Yilmaz, orgulloso, te muestra algo envuelto en papel.",
-       "text": "Meine Frau backt jeden Tag. Möchtest du ___ Brot von heute? Gratis!",
-       "answers": [
-        "ein",
-        "das"
-       ],
-       "dims": {
-        "gender": "n"
-       },
-       "errors": [
-        {
-         "answer": "einen",
-         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
-        },
-        {
-         "answer": "eine",
-         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
-        }
-       ],
-       "reviewed": true,
-       "words": [
-        "Brot",
-        "Frau"
-       ]
-      }
-     ]
-    },
-    {
-     "n": 4,
-     "name": "Detectar y usar",
+     "name": "Im Kontext anwenden",
      "scene": {
       "title": "Janas Einkaufsliste",
       "context": "Viernes · 18:00 · mañana hay cena en casa y Jana dejó una lista en la heladera, con instrucciones"
@@ -7224,8 +6671,561 @@
      ]
     },
     {
+     "n": 4,
+     "name": "Angeleitet produzieren",
+     "scene": {
+      "title": "Am Kiosk",
+      "context": "Martes · 23:10 · el súper cerró, en casa no hay nada y el kiosco de la esquina es la última esperanza"
+     },
+     "field": "essen",
+     "generated": 4,
+     "exercises": [
+      {
+       "id": "t3-3-sit-wurst",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:12 · Herr Yilmaz levanta la vista del celular"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Na, Nachtschicht? Was brauchst du?"
+        },
+        {
+         "who": "me",
+         "text": "Paul hat Hunger. Er möchte ___ Wurst und ___ Apfel."
+        },
+        {
+         "who": "them",
+         "text": "Wurst ist leider aus. Aber Äpfel habe ich!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Wurst*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: el género de *Wurst* se aprende con la palabra."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*möchten* pide *Akkusativ* (objeto directo): la manzana es lo que Paul quiere, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Apfel",
+        "Wurst"
+       ]
+      },
+      {
+       "id": "t3-3-tf-apfel",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "source": "Ich möchte ein Brötchen.",
+       "instruction": "Ersetze *Brötchen* durch *Apfel*.",
+       "answers": [
+        "Ich möchte einen Apfel.",
+        "Einen Apfel möchte ich."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte ein Apfel.",
+         "rule": "El sustantivo nuevo trae su género: el artículo no se hereda de *Brötchen*. Y con *möchten* va en *Akkusativ*."
+        },
+        {
+         "answer": "Ich möchte eine Apfel.",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Apfel*: que *manzana* sea femenino en español no cuenta."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brötchen",
+        "Apfel"
+       ]
+      },
+      {
+       "id": "t3-3-sit-wein",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:20 · Leo vuelve: se olvidó lo más importante"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Du schon wieder! Was fehlt?"
+        },
+        {
+         "who": "me",
+         "text": "Jana hat morgen Geburtstag. Ich brauche ___ Wein für sie."
+        },
+        {
+         "who": "them",
+         "text": "Rot oder weiß?"
+        },
+        {
+         "who": "me",
+         "text": "Rot. Und hast du ___ Kerze? Sie wird dreißig!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*brauchen* pide *Akkusativ* (objeto directo): el vino es lo que necesitás, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Wein*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine",
+          "keine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Kerze*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Kerze* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "curiosities": [
+        "*Sie wird dreißig*: los cumpleaños se dicen con *werden* (volverse): 'se vuelve treinta'."
+       ],
+       "reviewed": true,
+       "words": [
+        "Wein"
+       ]
+      },
+      {
+       "id": "t3-3-gap-brot",
+       "type": "gap",
+       "tag": "a1.akk.neut",
+       "context": "En la caja, Leo le muestra a Herr Yilmaz lo que eligió.",
+       "text": "Ich möchte ___ Brot und zwei Bananen.",
+       "answers": [
+        "ein",
+        "das",
+        "dieses"
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
+        },
+        {
+         "answer": "eine",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Banane"
+       ]
+      },
+      {
+       "id": "t3-3-tf-kein",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "source": "Herr Yilmaz hat einen Apfelsaft.",
+       "instruction": "Jetzt mit *kein* verneinen.",
+       "answers": [
+        "Herr Yilmaz hat keinen Apfelsaft.",
+        "Herr Yilmaz hat keinen Apfelsaft mehr.",
+        "Keinen Apfelsaft hat Herr Yilmaz.",
+        "Keinen Apfelsaft hat Herr Yilmaz mehr.",
+        "Keinen Apfelsaft mehr hat Herr Yilmaz."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Herr Yilmaz hat kein Apfelsaft.",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "Herr Yilmaz hat kein Apfelsaft mehr.",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "Herr Yilmaz hat nicht einen Apfelsaft.",
+         "rule": "Un sustantivo con *ein* se niega con *kein*, que se declina igual que *ein*."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-3-sit-banane",
+       "type": "situation",
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:35 · en la puerta aparece Paul, en pantuflas"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Leo! Ich habe Hunger. Hast du was für mich?"
+        },
+        {
+         "who": "me",
+         "text": "Ich habe ___ Banane und ___ Ei. Mehr nicht."
+        },
+        {
+         "who": "them",
+         "text": "Und Schokolade? Bitte!"
+        },
+        {
+         "who": "me",
+         "text": "Nein, ich habe ___ Schokolade. Sorry!"
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.neut",
+         "answers": [
+          "ein"
+         ],
+         "dims": {
+          "gender": "n"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "En *Akkusativ* cambia un solo género, y *Ei* no es de ese: revisá su género."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Ei*."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "keine"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "keinen",
+           "rule": "*keinen* acompaña a un solo género, y no es el de *Schokolade*."
+          },
+          {
+           "answer": "kein",
+           "rule": "*kein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Banane",
+        "Ei",
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-3-gap-apfelsaft",
+       "type": "gap",
+       "tag": "a1.akk.mask",
+       "context": "Herr Yilmaz señala la heladera vacía.",
+       "text": "Sorry, ich habe heute ___ Apfelsaft mehr.",
+       "answers": [
+        "keinen"
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "kein",
+         "rule": "*kein* se declina igual que *ein*, y con *haben* el objeto va en *Akkusativ*."
+        },
+        {
+         "answer": "keine",
+         "rule": "*keine* acompaña a otro género (o al plural): en las compuestas manda la última parte, *Apfel-saft*."
+        }
+       ],
+       "reviewed": true,
+       "words": []
+      },
+      {
+       "id": "t3-3-tf-plural",
+       "type": "transform",
+       "tag": "a1.akk.plural",
+       "source": "Ich brauche das Ei.",
+       "instruction": "Jetzt im Plural.",
+       "answers": [
+        "Ich brauche die Eier.",
+        "Die Eier brauche ich."
+       ],
+       "dims": {
+        "gender": "pl"
+       },
+       "errors": [
+        {
+         "answer": "Ich brauche den Eier.",
+         "rule": "El plural no cambia en *Akkusativ*: tiene un solo artículo para los tres géneros, el mismo que como sujeto."
+        },
+        {
+         "answer": "Ich brauche das Eier.",
+         "rule": "En plural hay un solo artículo para los tres géneros: el del singular no se conserva."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Ei"
+       ]
+      },
+      {
+       "id": "t3-3-gap-schokolade",
+       "type": "gap",
+       "tag": "a1.akk.fem",
+       "context": "Leo le escribe a Jana desde el kiosco.",
+       "text": "Brauchst du auch ___ Schokolade? Hier gibt es zwölf Sorten!",
+       "answers": [
+        "eine"
+       ],
+       "dims": {
+        "gender": "f"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "*einen* acompaña a un solo género, y no es el de *Schokolade*."
+        },
+        {
+         "answer": "ein",
+         "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Schokolade* y qué género tienen casi todas las palabras así."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Schokolade"
+       ]
+      },
+      {
+       "id": "t3-3-sit-salat",
+       "type": "situation",
+       "reserve": true,
+       "scene": {
+        "title": "Am Kiosk",
+        "context": "23:55 · Herr Yilmaz ya bajó media persiana"
+       },
+       "bubbles": [
+        {
+         "who": "them",
+         "text": "Noch etwas? Ich mache gleich zu."
+        },
+        {
+         "who": "me",
+         "text": "Ja! Ich brauche noch ___ Salat für morgen."
+        },
+        {
+         "who": "them",
+         "text": "Salat? Hier? Das ist ein Kiosk, kein Supermarkt!"
+        },
+        {
+         "who": "me",
+         "text": "Okay, okay. Dann nehme ich ___ Banane."
+        }
+       ],
+       "gaps": [
+        {
+         "tag": "a1.akk.mask",
+         "answers": [
+          "einen"
+         ],
+         "dims": {
+          "gender": "m"
+         },
+         "errors": [
+          {
+           "answer": "ein",
+           "rule": "*brauchen* pide *Akkusativ* (objeto directo): la ensalada es lo que necesitás, no el sujeto."
+          },
+          {
+           "answer": "eine",
+           "rule": "*eine* acompaña a un solo género, y no es el de *Salat*: que *ensalada* sea femenino en español no cuenta."
+          }
+         ]
+        },
+        {
+         "tag": "a1.akk.fem",
+         "answers": [
+          "eine",
+          "die"
+         ],
+         "dims": {
+          "gender": "f"
+         },
+         "errors": [
+          {
+           "answer": "einen",
+           "rule": "*einen* acompaña a un solo género, y no es el de *Banane*."
+          },
+          {
+           "answer": "ein",
+           "rule": "*ein* sin terminación no va con este sustantivo: pensá cómo termina *Banane* y qué género tienen casi todas las palabras así."
+          }
+         ]
+        }
+       ],
+       "curiosities": [
+        "*nehmen* (llevar, tomar) también pide *Akkusativ*: casi todo verbo con objeto directo lo pide."
+       ],
+       "reviewed": true,
+       "words": [
+        "Banane",
+        "Salat",
+        "Supermarkt",
+        "Kiosk"
+       ]
+      },
+      {
+       "id": "t3-3-tf-kaese",
+       "type": "transform",
+       "tag": "a1.akk.mask",
+       "reserve": true,
+       "source": "Der Käse ist lecker.",
+       "instruction": "Jetzt mit bestimmtem Artikel und *Ich möchte…*.",
+       "answers": [
+        "Ich möchte den Käse.",
+        "Den Käse möchte ich."
+       ],
+       "dims": {
+        "gender": "m"
+       },
+       "errors": [
+        {
+         "answer": "Ich möchte der Käse.",
+         "rule": "Ahora el queso no es el sujeto sino lo que querés: con *möchten* va en *Akkusativ*."
+        },
+        {
+         "answer": "Ich möchte die Käse.",
+         "rule": "*die* acompaña a otro género (o al plural): el de *Käse* se aprende con la palabra, aunque termine en *-e*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Käse"
+       ]
+      },
+      {
+       "id": "t3-3-gap-brot-gratis",
+       "type": "gap",
+       "tag": "a1.akk.neut",
+       "reserve": true,
+       "context": "Herr Yilmaz, orgulloso, te muestra algo envuelto en papel.",
+       "text": "Meine Frau backt jeden Tag. Möchtest du ___ Brot von heute? Gratis!",
+       "answers": [
+        "ein",
+        "das"
+       ],
+       "dims": {
+        "gender": "n"
+       },
+       "errors": [
+        {
+         "answer": "einen",
+         "rule": "En *Akkusativ* cambia un solo género, y *Brot* no es de ese: revisá su género."
+        },
+        {
+         "answer": "eine",
+         "rule": "*eine* acompaña a un solo género, y no es el de *Brot*."
+        }
+       ],
+       "reviewed": true,
+       "words": [
+        "Brot",
+        "Frau"
+       ]
+      }
+     ]
+    },
+    {
      "n": 5,
-     "name": "Redactar",
+     "name": "Freies Schreiben",
      "scene": {
       "title": "Bestellung für das Abendessen",
       "context": "Sábado · 19:30 · la sopa de Jana se quemó, hay seis personas con hambre y la pizzería cierra a las 21"
