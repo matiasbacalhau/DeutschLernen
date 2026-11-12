@@ -266,3 +266,27 @@ test('wrangler.toml: ALLOWED_ORIGINS admite GitHub Pages y localhost:8000', asyn
   assert.ok(list.includes('https://matiasbacalhau.github.io'));
   assert.ok(list.includes('http://localhost:8000'));
 });
+
+test('handler: cuando APP_TOKEN está configurado, rechaza con 401 sin token válido y acepta con token válido', async () => {
+  const lines = [];
+  const deps = {
+    catalog,
+    nouns,
+    providers: {fake: {key: 'FAKE_KEY', correct: async () => ({model: 'fake-1', errors})}},
+    log: (level, msg, fields) => lines.push({level, msg, ...fields}),
+    hits: new Map(),
+  };
+  const envWithToken = {...env, APP_TOKEN: 'mi-secreto'};
+  const req = body => handle(new Request('https://proxy.example/', {
+    method: 'POST',
+    headers: {origin: ORIGIN, 'cf-connecting-ip': '1.2.3.4', 'cf-ray': 'ray-t', 'content-type': 'application/json'},
+    body: JSON.stringify(body),
+  }), envWithToken, deps);
+
+  assert.equal((await req({text: TEXT})).status, 401);
+  assert.equal((await req({text: TEXT, token: 'malo'})).status, 401);
+  assert.equal(lines.filter(l => l.reason === 'unauthorized').length, 2);
+
+  const ok = await req({text: TEXT, token: 'mi-secreto'});
+  assert.equal(ok.status, 200);
+});
