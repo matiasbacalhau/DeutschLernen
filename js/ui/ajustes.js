@@ -55,6 +55,17 @@ export default async function ajustes(el, { store }) {
   const name = h('input', { id: 'name', type: 'text', value: settings.name ?? '', autocomplete: 'off', autocapitalize: 'words', spellcheck: 'false',
     onchange: async e => store.set('settings', { ...((await store.get('settings')) ?? {}), name: e.target.value.trim() }) });
 
+  const grammarToken = h('input', {
+    id: 'grammar-token',
+    type: 'password',
+    value: settings.grammarToken ?? '',
+    autocomplete: 'off',
+    autocapitalize: 'off',
+    spellcheck: 'false',
+    placeholder: 'Opcional (APP_TOKEN del Worker)',
+    onchange: async e => store.set('settings', { ...((await store.get('settings')) ?? {}), grammarToken: e.target.value.trim() }),
+  });
+
   const customWordsArea = h('textarea', {
     id: 'custom-words',
     rows: 4,
@@ -96,6 +107,12 @@ export default async function ajustes(el, { store }) {
       h('p', { class: 'muted' }, 'Nombres propios, lugares o palabras que el corrector no debe marcar como error de ortografía (separadas por coma o renglón). Se suman a los nombres y lugares del curso sin distinguir mayúsculas ni tildes.'),
       h('label', { for: 'custom-words' }, 'Tus palabras y nombres:'),
       customWordsArea,
+    ),
+    h('div', { class: 'card' },
+      h('h2', {}, 'Corrector de gramática (IA)'),
+      h('p', { class: 'muted' }, 'Clave personal para usar tu Worker con Claude/Gemini. Si queda vacía, la app corrige gratis solo con LanguageTool.'),
+      h('label', { for: 'grammar-token' }, 'Clave del Worker (APP_TOKEN):'),
+      grammarToken,
     ),
     h('div', { class: 'card' },
       h('h2', {}, 'Backup'),

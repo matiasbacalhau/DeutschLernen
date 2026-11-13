@@ -15,10 +15,12 @@ const set = JSON.parse(readFileSync(new URL('grammar-bench.json', import.meta.ur
 
 async function correct(text) {
   const started = Date.now();
+  const token = process.env.APP_TOKEN;
+  const payload = {text, ...(provider ? {provider} : {}), ...(token ? {token} : {})};
   const res = await fetch(url, {
     method: 'POST',
     headers: {'content-type': 'application/json', origin: ORIGIN},
-    body: JSON.stringify(provider ? {text, provider} : {text}),
+    body: JSON.stringify(payload),
   });
   const body = await res.json();
   if (!res.ok) throw new Error(`${res.status} ${body.error} (traceId ${body.traceId})`);

@@ -4,12 +4,15 @@
 const API = 'https://deutschlernen-grammar.matiasbacalhau.workers.dev/';
 
 // Devuelve marcas {offset, length, llm: categoría, src: {provider, model, trace}}. Un error lleva el status HTTP, como en languagetool.js.
-export async function check(text, { url = API, timeout = 15000 } = {}) {
-  if (!url) return [];
+// Sin token contra la API por defecto (o ante 401/403 del proxy), degrada a [] para que la app siga con LanguageTool gratis.
+export async function check(text, { url = API, token = '', timeout = 15000 } = {}) {
+  if (!url || (url === API && !token)) return [];
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeout);
   try {
-    const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text }), signal: ctrl.signal });
+    const payload = token ? { text, token } : { text };
+    const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl.signal });
+    if (res.status === 401 || res.status === 403) return [];
     if (!res.ok) throw Object.assign(new Error(`El corrector respondió ${res.status}.`), { status: res.status });
     const { provider, model, traceId, marks } = await res.json();
     return marks.map(m => ({ offset: m.offset, length: m.length, llm: m.category, src: { provider, model, trace: traceId } }));
@@ -19,7 +22,7 @@ export async function check(text, { url = API, timeout = 15000 } = {}) {
 }
 
 // LanguageTool más el corrector. Si cualquiera falla, falla todo: la escritura queda pendiente y no se corrige a medias.
-export const withGrammar = (ltCheck, grammarCheck = check) => async text => {
-  const [lt, grammar] = await Promise.all([ltCheck(text), grammarCheck(text)]);
+export const withGrammar = (ltCheck, grammarCheck = check, opts = {}) => async text => {
+  const [lt, grammar] = await Promise.all([ltCheck(text), grammarCheck(text, opts)]);
   return [...lt, ...grammar];
 };

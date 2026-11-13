@@ -350,6 +350,27 @@ test('grammar.check: un error del proxy lleva el status', async () => {
   }
 });
 
+test('grammar.check: sin token contra la API por defecto devuelve [] sin red; con 401/403 degrada a []', async () => {
+  const orig = globalThis.fetch;
+  let called = 0;
+  globalThis.fetch = async (_url, init) => {
+    called += 1;
+    const body = JSON.parse(init.body);
+    if (body.token !== 'secreto') return new Response('{"error":"unauthorized"}', {status: 401});
+    return new Response(JSON.stringify({provider: 'claude', model: 'claude-haiku-5-5', version: 'v1', traceId: 't-1', marks: [{offset: 9, length: 3, category: 'AKK_MASK'}]}));
+  };
+  try {
+    assert.deepEqual(await grammarCheck('Ich habe ein Hund.'), []);
+    assert.equal(called, 0, 'sin token no golpea la API por defecto');
+    assert.deepEqual(await grammarCheck('Ich habe ein Hund.', {token: 'malo'}), []);
+    assert.equal(called, 1, 'con token inválido degrada a [] en 401');
+    const marks = await grammarCheck('Ich habe ein Hund.', {token: 'secreto'});
+    assert.deepEqual(marks, [llm('AKK_MASK', 9, 3)]);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
 test('puntaje gradual por oración: 1 error en 4 oraciones da score 0.75; 1 error en 5 oraciones da score 0.8 y ok true', () => {
   const text4 = 'Ich bin Leo. Ich komme aus Spanien. Sie ist ein Person. Wir sind nett.';
   const g4 = gradeWriting([llm('NOM_FEM', 44, 3)], realMap, {text: text4});

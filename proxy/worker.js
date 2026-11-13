@@ -29,6 +29,7 @@ export async function handle(request, env, {catalog, nouns, providers, log, hits
   let body;
   try { body = await request.json(); } catch { body = null; }
   if (typeof body?.text !== 'string') return reject(400, 'bad_body');
+  if (env.APP_TOKEN && (request.headers.get('x-app-token') ?? body.token) !== env.APP_TOKEN) return reject(401, 'unauthorized');
   if (body.text.length > MAX_TEXT) return reject(413, 'too_long', {chars: body.text.length});
   const name = body.provider ?? env.PROVIDER ?? 'claude';
   const provider = Object.hasOwn(providers, name) ? providers[name] : null;

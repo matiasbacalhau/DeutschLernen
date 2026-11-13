@@ -61,7 +61,8 @@ async function processLtQueue() {
   processing = true;
   try {
     if (!((await store.get('ltQueue')) ?? []).length) return;
-    const resolved = await lt.processQueue(store, withGrammar(text => lt.check(text)));
+    const settings = (await store.get('settings')) ?? {};
+    const resolved = await lt.processQueue(store, withGrammar(text => lt.check(text), undefined, { token: settings.grammarToken }));
     if (!resolved.length) return;
     const { ltMap, units } = await content();
     const defOf = id => Object.values(units).flatMap(u => u.topics).find(t => t.topic === id);

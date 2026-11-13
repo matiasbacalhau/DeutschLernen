@@ -103,7 +103,7 @@ export default async function grupo(el, { store, content, params }) {
     window.scrollTo(0, 0);
   };
   // LanguageTool más el corrector de gramática, los dos con timeout: sin respuesta, la escritura queda pendiente.
-  const correct = withGrammar(text => lt.check(text));
+  const correct = withGrammar(text => lt.check(text), undefined, { token: settings.grammarToken });
   const ltClient = { check: correct };
   const progressState = (await store.get('progress')) ?? { steps: {} };
   const activeTags = activeTagsFor(C.units, progressState, topicId);
