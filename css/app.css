@@ -10,8 +10,8 @@
   --negative: #f2938a;
   --negative-bg: #3a1d1a;
   --hair: #2e2f2b;
-  --edge-pri: #b8b6af;
-  --edge-sec: #3b3d37;
+  --edge-pri: #8f8d85;
+  --edge-sec: #5c5e56;
   --radius: 22px;
   --radius-sm: 14px;
   --pill: 999px;
@@ -88,11 +88,11 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 }
 
 button, .button {
-  --b-edge: 4px;
+  --b-edge: 5px;
   display: block;
   width: 100%;
-  min-height: 48px;
-  margin: 10px 0;
+  min-height: 52px;
+  margin: 12px 0;
   padding: 12px 16px;
   border: 0;
   border-radius: var(--pill);
@@ -103,20 +103,20 @@ button, .button {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 0 var(--b-edge) 0 0 var(--edge-pri);
-  transition: translate 140ms var(--ease-spring), box-shadow 140ms var(--ease-spring);
+  box-shadow: 0 var(--b-edge) 0 0 var(--edge-pri), 0 10px 18px -6px rgba(0, 0, 0, 0.7);
+  transition: translate 200ms var(--ease-spring), box-shadow 200ms var(--ease-spring);
 }
 
 button.secondary, .button.secondary {
-  background: var(--ground);
+  background: var(--surface);
   color: var(--text);
-  box-shadow: inset 0 0 0 1.5px var(--text), 0 var(--b-edge) 0 0 var(--edge-sec);
+  box-shadow: inset 0 0 0 1.5px var(--text), 0 var(--b-edge) 0 0 var(--edge-sec), 0 8px 14px -6px rgba(0, 0, 0, 0.55);
   transition-timing-function: var(--ease-snap);
 }
 
 button:disabled { background: var(--hair); color: var(--muted); border-color: var(--hair); box-shadow: none; cursor: not-allowed; }
-button:not(:disabled):hover, .button:hover { --b-edge: 6px; translate: 0 -2px; }
-button:not(:disabled):active, .button:active { --b-edge: 1px; translate: 0 3px; }
+button:not(:disabled):hover, .button:hover { --b-edge: 7px; translate: 0 -2px; }
+button:not(:disabled):active, .button:active { --b-edge: 1px; translate: 0 4px; transition-duration: 60ms; }
 @media (prefers-reduced-motion: reduce) {
   button, .button, .chunk { transition: none; }
   button:not(:disabled):hover, .button:hover, button:not(:disabled):active, .button:active, .chunk:hover, .chunk:active { translate: none; }
@@ -168,7 +168,7 @@ button:not(:disabled):active, .button:active { --b-edge: 1px; translate: 0 3px; 
 
 /* Ejercicio de ordenar */
 .chunk {
-  --c-edge: 3px;
+  --c-edge: 4px;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -181,10 +181,10 @@ button:not(:disabled):active, .button:active { --b-edge: 1px; translate: 0 3px; 
   font-weight: 500;
   width: auto;
   box-shadow: inset 0 0 0 1px var(--hair), 0 var(--c-edge) 0 0 var(--edge-sec);
-  transition: translate 120ms var(--ease-snap), box-shadow 120ms var(--ease-snap);
+  transition: translate 180ms var(--ease-snap), box-shadow 180ms var(--ease-snap);
 }
-.chunk:not(:disabled):hover { --c-edge: 4px; translate: 0 -1px; }
-.chunk:not(:disabled):active { --c-edge: 1px; translate: 0 2px; }
+.chunk:not(:disabled):hover { --c-edge: 5px; translate: 0 -1px; }
+.chunk:not(:disabled):active { --c-edge: 1px; translate: 0 3px; transition-duration: 60ms; }
 .chunk.used { opacity: 0.5; box-shadow: none; translate: 0 2px; text-decoration: line-through; }
 
 /* Escritura libre */
