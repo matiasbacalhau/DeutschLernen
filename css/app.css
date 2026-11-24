@@ -1,41 +1,25 @@
-/* Identidad A1 "cuaderno sereno": blanco, papel piedra, tinta y un acento verde petróleo (menos del 2 % de la pantalla). */
-@font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSerif-Regular.woff2") format("woff2"); }
-@font-face { font-family: "Instrument Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-400.woff2") format("woff2"); }
-@font-face { font-family: "Instrument Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-500.woff2") format("woff2"); }
-@font-face { font-family: "Instrument Sans"; font-weight: 600; font-style: normal; font-display: swap; src: url("../fonts/InstrumentSans-600.woff2") format("woff2"); }
-
+/* Identidad oscura (predominante #141513), fuente Chillax y controles táctiles. */
 :root {
-  --ground: #ffffff;
-  --surface: #f3f1ea;
-  --text: #1f201d;
-  --muted: #636361;
+  --ground: #141513;
+  --surface: #1f201d;
+  --text: #ecebe6;
+  --muted: #a3a29d;
   --text-muted: var(--muted);
-  --accent: #1b6e66;
-  --accent-tint: #e3efed;
-  --negative: #b42318;
-  --negative-bg: #fdecea;
-  --hair: #e6e3da;
+  --accent: #5fb3a9;
+  --accent-tint: #1e2e2c;
+  --negative: #f2938a;
+  --negative-bg: #3a1d1a;
+  --hair: #2e2f2b;
+  --edge-pri: #b8b6af;
+  --edge-sec: #3b3d37;
   --radius: 22px;
   --radius-sm: 14px;
   --pill: 999px;
-  --pic-tile: #f3f1ea; /* ficha de las imágenes: la misma para toda palabra, también en oscuro, para que el color nunca indique género */
-  --sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
-  --serif: "Instrument Serif", Georgia, serif;
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ground: #141513;
-    --surface: #1f201d;
-    --text: #ecebe6;
-    --muted: #a3a29d;
-    --accent: #5fb3a9;
-    --accent-tint: #1e2e2c;
-    --negative: #f2938a;
-    --negative-bg: #3a1d1a;
-    --hair: #2e2f2b;
-  }
+  --pic-tile: #262723; /* ficha de las imágenes: la misma para toda palabra para que el color nunca indique género */
+  --sans: "Chillax", ui-rounded, system-ui, -apple-system, sans-serif;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -48,7 +32,7 @@ body {
   background: var(--ground);
   color: var(--text);
   caret-color: var(--accent);
-  font: 400 17px/1.5 var(--sans);
+  font: 500 17px/1.5 var(--sans);
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
@@ -78,8 +62,8 @@ a { color: var(--accent); }
 a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.greeting { font: 400 2.25rem/1.05 var(--serif); letter-spacing: -0.01em; margin: 8px 0 8px; }
-.curiosity { font: 400 1.15rem/1.3 var(--serif); color: var(--accent); margin: 8px 0 0; }
+.greeting { font: 600 2.25rem/1.05 var(--sans); letter-spacing: -0.03em; margin: 8px 0 8px; }
+.curiosity { font: 500 1.05rem/1.35 var(--sans); color: var(--accent); margin: 8px 0 0; }
 
 .card {
   background: var(--surface);
@@ -104,10 +88,11 @@ a, button { touch-action: manipulation; -webkit-tap-highlight-color: transparent
 }
 
 button, .button {
+  --b-edge: 4px;
   display: block;
   width: 100%;
   min-height: 48px;
-  margin: 8px 0;
+  margin: 10px 0;
   padding: 12px 16px;
   border: 0;
   border-radius: var(--pill);
@@ -118,17 +103,24 @@ button, .button {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 0 var(--b-edge) 0 0 var(--edge-pri);
+  transition: translate 140ms var(--ease-spring), box-shadow 140ms var(--ease-spring);
 }
 
 button.secondary, .button.secondary {
-  background: transparent;
+  background: var(--ground);
   color: var(--text);
-  border: 1.5px solid var(--text);
+  box-shadow: inset 0 0 0 1.5px var(--text), 0 var(--b-edge) 0 0 var(--edge-sec);
+  transition-timing-function: var(--ease-snap);
 }
 
-button:disabled { background: var(--hair); color: var(--muted); border-color: var(--hair); cursor: not-allowed; }
-@media (hover: hover) { button:not(:disabled):hover, .button:hover { opacity: 0.88; } }
-button:not(:disabled):active, .button:active { opacity: 0.75; }
+button:disabled { background: var(--hair); color: var(--muted); border-color: var(--hair); box-shadow: none; cursor: not-allowed; }
+@media (hover: hover) { button:not(:disabled):hover, .button:hover { --b-edge: 6px; translate: 0 -2px; } }
+button:not(:disabled):active, .button:active { --b-edge: 1px; translate: 0 3px; }
+@media (prefers-reduced-motion: reduce) {
+  button, .button, .chunk { transition: none; }
+  button:not(:disabled):hover, .button:hover, button:not(:disabled):active, .button:active, .chunk:hover, .chunk:active { translate: none; }
+}
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -176,6 +168,7 @@ button:not(:disabled):active, .button:active { opacity: 0.75; }
 
 /* Ejercicio de ordenar */
 .chunk {
+  --c-edge: 3px;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -187,8 +180,12 @@ button:not(:disabled):active, .button:active { opacity: 0.75; }
   color: var(--text);
   font-weight: 500;
   width: auto;
+  box-shadow: inset 0 0 0 1px var(--hair), 0 var(--c-edge) 0 0 var(--edge-sec);
+  transition: translate 120ms var(--ease-snap), box-shadow 120ms var(--ease-snap);
 }
-.chunk.used { opacity: 0.55; text-decoration: line-through; }
+@media (hover: hover) { .chunk:not(:disabled):hover { --c-edge: 4px; translate: 0 -1px; } }
+.chunk:not(:disabled):active { --c-edge: 1px; translate: 0 2px; }
+.chunk.used { opacity: 0.5; box-shadow: none; translate: 0 2px; text-decoration: line-through; }
 
 /* Escritura libre */
 .mark.error { text-decoration: underline wavy var(--negative); text-underline-offset: 3px; }
@@ -244,7 +241,7 @@ select { display: block; width: 100%; min-height: 48px; margin: 8px 0; padding: 
 .group-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .group-bar .close { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: var(--text); text-decoration: none; font-size: 1.2rem; }
 .group-title { flex: 1; display: flex; flex-direction: column; line-height: 1.25; }
-button.listen { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; margin: 0; padding: 0; vertical-align: middle; background: transparent; color: inherit; border: 1.5px solid var(--hair); font-size: 1.1rem; }
+button.listen { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 44px; margin: 0; padding: 0; vertical-align: middle; background: transparent; color: inherit; border: 1.5px solid var(--hair); box-shadow: none; font-size: 1.1rem; }
 button.small, .button.small { width: auto; min-height: 44px; padding: 8px 16px; margin: 0; font-size: 0.9rem; }
 .pill.small { min-height: 0; padding: 4px 12px; font-size: 0.85rem; margin-bottom: 8px; }
 .scene { color: var(--muted); font-size: 0.95rem; }
