@@ -29,7 +29,7 @@ export default async function lieder(el, { store, content, params }) {
   el.append(
     h('div', { class: 'group-bar' },
       h('a', { class: 'close', href: '#/', 'aria-label': 'Start' }, '✕'),
-      h('div', { class: 'group-title' }, h('strong', {}, 'Lieder'), h('span', { class: 'muted' }, 'Hören · Lesen · Wortschatz')),
+      h('div', { class: 'group-title' }, h('strong', {}, 'Lieder'), h('span', { class: 'muted' }, 'Hören, Lesen, Wortschatz')),
     ),
     h('p', { class: 'muted' }, 'Cargá tu archivo local (.m4a, .mp3 o .flac) en cada canción. Queda guardado solo en este dispositivo (fuera de tus backups).'),
     ...songs.map(s => {
@@ -39,7 +39,7 @@ export default async function lieder(el, { store, content, params }) {
           h('strong', {}, `${s.title} · ${s.artist}`),
           h('span', { class: hasAudio ? 'tag-ok' : 'pill small' }, hasAudio ? 'Audio bereit' : s.level),
         ),
-        h('span', { class: 'muted' }, `${s.level} · ${s.words.length} Wörter`),
+        h('span', { class: 'muted' }, `${s.words.length} Wörter`),
       );
     }),
     h('a', { class: 'button secondary', href: '#/' }, 'Zurück'),
@@ -78,6 +78,10 @@ async function renderSong(el, song, { store, lexicon }) {
     if (!audio.src) return;
     audio.currentTime = Math.max(loopOn ? range.start : 0, audio.currentTime - 5);
   } }, '↺ -5s');
+  const fwdBtn = h('button', { type: 'button', class: 'secondary small', disabled: !track, onclick: () => {
+    if (!audio.src) return;
+    audio.currentTime = Math.min(audio.duration || range.end, audio.currentTime + 5);
+  } }, '+5s ↻');
   const speedBtn = h('button', { type: 'button', class: 'secondary small', disabled: !track, onclick: () => {
     slow = !slow;
     audio.playbackRate = slow ? 0.85 : 1;
@@ -101,15 +105,17 @@ async function renderSong(el, song, { store, lexicon }) {
     const has = !!track;
     playBtn.disabled = !has;
     backBtn.disabled = !has;
+    fwdBtn.disabled = !has;
     speedBtn.disabled = !has;
     loopBtn.disabled = !has;
     delBtn.hidden = !has;
     if (!has) {
       statusLine.textContent = 'Sin audio cargado. Elegí el archivo desde tu teléfono.';
     } else {
+      const now = fmtTime(audio.currentTime);
       const modeLabel = range.mode === 'clip'
-        ? `Recorte (${fmtTime(range.end)}) · bucle completo`
-        : `Canción (${fmtTime(audio.duration)}) · bucle ${fmtTime(range.start)}–${fmtTime(range.end)}`;
+        ? `${now} / ${fmtTime(range.end)} · bucle recorte`
+        : `${now} · bucle ${fmtTime(range.start)}–${fmtTime(range.end)}`;
       statusLine.textContent = `${track.name} · ${modeLabel}`;
     }
   };
@@ -132,6 +138,7 @@ async function renderSong(el, song, { store, lexicon }) {
     if (loopOn && range.end > range.start && audio.currentTime >= range.end) {
       audio.currentTime = range.start;
     }
+    syncControls();
   });
 
   if (track) attachBlob(track);
@@ -139,6 +146,7 @@ async function renderSong(el, song, { store, lexicon }) {
 
   const fileInput = h('input', {
     type: 'file',
+    class: 'sr-only',
     accept: 'audio/*,.flac,.m4a,.mp3',
     onchange: async e => {
       const file = e.target.files?.[0];
@@ -149,11 +157,11 @@ async function renderSong(el, song, { store, lexicon }) {
       e.target.value = '';
     },
   });
+  const loadLabel = h('label', { class: 'button secondary small' }, track ? 'Audio wechseln' : 'Audio laden', fileInput);
 
   const playerBar = h('div', { class: 'card lied-player' },
-    h('div', { class: 'lied-controls' }, playBtn, backBtn, speedBtn, loopBtn, delBtn),
+    h('div', { class: 'lied-controls' }, playBtn, backBtn, fwdBtn, speedBtn, loopBtn, loadLabel, delBtn),
     statusLine,
-    h('label', { class: 'muted' }, 'Audio laden (.m4a, .mp3, .flac):', fileInput),
   );
 
   // Paso 1: Hören (huecos)

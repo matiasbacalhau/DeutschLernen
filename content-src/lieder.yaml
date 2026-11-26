@@ -6,7 +6,7 @@
   artist: Rammstein
   level: A1
   tags: [a1.u1.t1, a1.u1.t2]
-  loop: { start: 34, end: 68 }
+  loop: { start: 34, end: 82 }
   hoeren:
     prompt: Hör genau zu und ergänze die Lücken.
     lines:
@@ -14,7 +14,7 @@
         answers: [["Eins", "eins"], ["Sonne", "sonne"]]
       - text: "___, hier kommt die ___"
         answers: [["Zwei", "zwei"], ["Sonne", "sonne"]]
-      - text: "Sie ist der hellste ___ von allen"
+      - text: "Drei, sie ist der hellste ___ von allen"
         answers: [["Stern", "stern"]]
   lesen:
     - prompt: "Was bedeutet „hier kommt die Sonne“?"
@@ -40,7 +40,7 @@
   artist: Rammstein
   level: A1
   tags: [a1.u3.t1, a1.u6.t2]
-  loop: { start: 68, end: 102 }
+  loop: { start: 65, end: 112 }
   hoeren:
     prompt: Hör genau zu und ergänze die Lücken.
     lines:
@@ -74,7 +74,7 @@
   artist: Rammstein
   level: A1
   tags: [a1.u4.t1, a1.u3.t1]
-  loop: { start: 42, end: 76 }
+  loop: { start: 16, end: 92 }
   hoeren:
     prompt: Hör genau zu und ergänze die Lücken.
     lines:
@@ -83,9 +83,11 @@
       - text: "Ich will, dass ihr mir ___"
         answers: [["vertraut"]]
       - text: "___ ihr mich?"
-        answers: [["Hört", "hört", "Seht", "seht"]]
-      - text: "___ ihr mich?"
-        answers: [["Versteht", "versteht", "Seht", "seht"]]
+        answers: [["Seht", "seht"]]
+      - text: "Versteht ihr ___?"
+        answers: [["mich"]]
+      - text: "Könnt ihr mich ___?"
+        answers: [["hören"]]
   lesen:
     - prompt: "Welche Form gehört zu „ich“ beim Modalverb „wollen“?"
       options:
@@ -110,16 +112,18 @@
   artist: Rammstein
   level: A1
   tags: [a1.u3.t1, a1.u1.t3]
-  loop: { start: 44, end: 74 }
+  loop: { start: 25, end: 82 }
   hoeren:
     prompt: Hör genau zu und ergänze die Lücken.
     lines:
       - text: "Ich hab ___ Lust"
         answers: [["keine"]]
-      - text: "Ich hab keine Lust, etwas zu ___"
-        answers: [["zählen", "zahlen"]]
-      - text: "Ich hab keine ___, mich zu bewegen"
+      - text: "Ich hab keine ___"
         answers: [["Lust", "lust"]]
+      - text: "Ich bleibe einfach ___"
+        answers: [["liegen"]]
+      - text: "Und wieder ___ ich die Fliegen"
+        answers: [["zähle", "zahle"]]
   lesen:
     - prompt: "Warum benutzt man „keine“ in „Ich hab keine Lust“?"
       options:
@@ -137,4 +141,4 @@
       answer: 0
       rule_de: "„Lust haben“ ist ein fester Ausdruck für „ganas de algo“."
       rule: "„Lust haben“ es la expresión cotidiana para decir «tener ganas» („keine Lust“ = sin ganas)."
-  words: [Lust, zählen, schwimmen, frieren, essen, schlafen]
+  words: [Lust, zählen, frieren]

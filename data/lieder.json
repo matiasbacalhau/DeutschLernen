@@ -10,7 +10,7 @@
   ],
   "loop": {
    "start": 34,
-   "end": 68
+   "end": 82
   },
   "hoeren": {
    "prompt": "Hör genau zu und ergänze die Lücken.",
@@ -42,7 +42,7 @@
      ]
     },
     {
-     "text": "Sie ist der hellste ___ von allen",
+     "text": "Drei, sie ist der hellste ___ von allen",
      "answers": [
       [
        "Stern",
@@ -93,8 +93,8 @@
    "a1.u6.t2"
   ],
   "loop": {
-   "start": 68,
-   "end": 102
+   "start": 65,
+   "end": 112
   },
   "hoeren": {
    "prompt": "Hör genau zu und ergänze die Lücken.",
@@ -164,8 +164,8 @@
    "a1.u3.t1"
   ],
   "loop": {
-   "start": 42,
-   "end": 76
+   "start": 16,
+   "end": 92
   },
   "hoeren": {
    "prompt": "Hör genau zu und ergänze die Lücken.",
@@ -190,21 +190,24 @@
      "text": "___ ihr mich?",
      "answers": [
       [
-       "Hört",
-       "hört",
        "Seht",
        "seht"
       ]
      ]
     },
     {
-     "text": "___ ihr mich?",
+     "text": "Versteht ihr ___?",
      "answers": [
       [
-       "Versteht",
-       "versteht",
-       "Seht",
-       "seht"
+       "mich"
+      ]
+     ]
+    },
+    {
+     "text": "Könnt ihr mich ___?",
+     "answers": [
+      [
+       "hören"
       ]
      ]
     }
@@ -251,8 +254,8 @@
    "a1.u1.t3"
   ],
   "loop": {
-   "start": 44,
-   "end": 74
+   "start": 25,
+   "end": 82
   },
   "hoeren": {
    "prompt": "Hör genau zu und ergänze die Lücken.",
@@ -266,20 +269,28 @@
      ]
     },
     {
-     "text": "Ich hab keine Lust, etwas zu ___",
-     "answers": [
-      [
-       "zählen",
-       "zahlen"
-      ]
-     ]
-    },
-    {
-     "text": "Ich hab keine ___, mich zu bewegen",
+     "text": "Ich hab keine ___",
      "answers": [
       [
        "Lust",
        "lust"
+      ]
+     ]
+    },
+    {
+     "text": "Ich bleibe einfach ___",
+     "answers": [
+      [
+       "liegen"
+      ]
+     ]
+    },
+    {
+     "text": "Und wieder ___ ich die Fliegen",
+     "answers": [
+      [
+       "zähle",
+       "zahle"
       ]
      ]
     }
@@ -312,10 +323,7 @@
   "words": [
    "Lust",
    "zählen",
-   "schwimmen",
-   "frieren",
-   "essen",
-   "schlafen"
+   "frieren"
   ]
  }
 ]
