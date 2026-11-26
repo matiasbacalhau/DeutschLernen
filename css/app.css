@@ -346,7 +346,7 @@ span.pic-gl:empty { background: none; }
 .lied-verse { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; border-top: 1px solid var(--hair); }
 .lied-verse:first-of-type { border-top: 0; }
 .lied-line { margin: 0; line-height: 2; }
-.lied-gap { display: inline-block; width: 112px; min-height: 36px; padding: 4px 8px; margin: 0 4px; font: inherit; color: var(--text); background: var(--ground); border: 1.5px solid var(--hair); border-radius: 8px; }
-.lied-gap:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
-.lied-gap.good { border-color: var(--accent); background: var(--accent-tint); }
-.lied-gap.bad { border-color: var(--negative); background: var(--negative-bg); }
+.card input.lied-gap { display: inline-block; width: 88px; min-height: 36px; padding: 4px 8px; margin: 0 4px; font: inherit; color: var(--text); background: var(--ground); border: 1.5px solid var(--hair); border-radius: 8px; }
+.card input.lied-gap:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.card input.lied-gap.good { border-color: var(--accent); background: var(--accent-tint); color: var(--text); }
+.card input.lied-gap.bad { border-color: var(--negative); background: var(--negative-bg); color: var(--text); }
