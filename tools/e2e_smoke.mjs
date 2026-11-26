@@ -151,6 +151,8 @@ async function main() {
         throw new Error('No apareció "' + expected + '" en ' + hash + ': ' + (document.getElementById('view')?.innerText ?? ''));
       };
       await visit('#/mapa', 'Themenkarte');
+      await visit('#/lieder', 'Lieder');
+      await visit('#/lieder/rammstein-sonne', 'Hören');
       await visit('#/ajustes', 'OpenMoji');
       await visit('#/grupo/a1.u1.t1/1', 'Stufe 1');
       return true;

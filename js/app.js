@@ -9,6 +9,7 @@ import ficha from './ui/ficha.js';
 import mapa from './ui/mapa.js';
 import tema from './ui/tema.js';
 import escritura from './ui/escritura.js';
+import lieder from './ui/lieder.js';
 import * as lt from './services/languagetool.js';
 import { withGrammar } from './services/grammar.js';
 import { applyResolved } from './core/inicio.js';
@@ -16,7 +17,7 @@ import { activeTagsFor } from './core/progress.js';
 import { loadContent } from './core/content.js';
 import { seedSrs } from './core/srs.js';
 
-const views = { home, ajustes, pruebas, grupo, fin, ficha, mapa, tema, escritura };
+const views = { home, ajustes, pruebas, grupo, fin, ficha, mapa, tema, escritura, lieder };
 let contentPromise;
 const content = () => (contentPromise ??= loadContent());
 const main = document.getElementById('view');

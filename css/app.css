@@ -336,3 +336,17 @@ span.pic-gl:empty { background: none; }
 .map-step[data-status="superado"] span:last-child { color: var(--accent); }
 .map-topic { color: var(--text); text-decoration: none; }
 .no-audio { margin-top: 12px; }
+
+/* Lieder (canciones con reproductor híbrido) */
+.lied-card { display: block; text-decoration: none; color: var(--text); }
+.lied-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 4px; }
+.lied-player { position: sticky; top: 8px; z-index: 2; border: 1px solid var(--hair); }
+.lied-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.lied-status { margin-bottom: 8px; }
+.lied-verse { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; border-top: 1px solid var(--hair); }
+.lied-verse:first-of-type { border-top: 0; }
+.lied-line { margin: 0; line-height: 2; }
+.lied-gap { display: inline-block; width: 112px; min-height: 36px; padding: 4px 8px; margin: 0 4px; font: inherit; color: var(--text); background: var(--ground); border: 1.5px solid var(--hair); border-radius: 8px; }
+.lied-gap:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.lied-gap.good { border-color: var(--accent); background: var(--accent-tint); }
+.lied-gap.bad { border-color: var(--negative); background: var(--negative-bg); }

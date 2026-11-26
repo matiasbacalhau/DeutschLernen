@@ -1,0 +1,321 @@
+[
+ {
+  "id": "rammstein-sonne",
+  "title": "Sonne",
+  "artist": "Rammstein",
+  "level": "A1",
+  "tags": [
+   "a1.u1.t1",
+   "a1.u1.t2"
+  ],
+  "loop": {
+   "start": 34,
+   "end": 68
+  },
+  "hoeren": {
+   "prompt": "Hör genau zu und ergänze die Lücken.",
+   "lines": [
+    {
+     "text": "___, hier kommt die ___",
+     "answers": [
+      [
+       "Eins",
+       "eins"
+      ],
+      [
+       "Sonne",
+       "sonne"
+      ]
+     ]
+    },
+    {
+     "text": "___, hier kommt die ___",
+     "answers": [
+      [
+       "Zwei",
+       "zwei"
+      ],
+      [
+       "Sonne",
+       "sonne"
+      ]
+     ]
+    },
+    {
+     "text": "Sie ist der hellste ___ von allen",
+     "answers": [
+      [
+       "Stern",
+       "stern"
+      ]
+     ]
+    }
+   ]
+  },
+  "lesen": [
+   {
+    "prompt": "Was bedeutet „hier kommt die Sonne“?",
+    "options": [
+     "Acá llega el sol",
+     "El sol se esconde",
+     "Hoy hace frío"
+    ],
+    "answer": 0,
+    "rule_de": "„Die Sonne“ ist feminin (die) und Subjekt im Nominativ.",
+    "rule": "„Sonne“ es un sustantivo femenino („die Sonne“) y acá funciona como sujeto en Nominativ."
+   },
+   {
+    "prompt": "Warum steht „Sie“ am Anfang von „Sie ist der hellste Stern“?",
+    "options": [
+     "Porque reemplaza a „die Sonne“ (femenino singular)",
+     "Porque habla de varias personas (ellos)",
+     "Porque es tratamiento formal (usted)"
+    ],
+    "answer": 0,
+    "rule_de": "„Sie“ ersetzt feminine Nomen im Singular (die Sonne → sie).",
+    "rule": "En alemán, el pronombre „sie“ (ella) reemplaza a cualquier sustantivo femenino singular como „die Sonne“."
+   }
+  ],
+  "words": [
+   "Sonne",
+   "Stern",
+   "kommen",
+   "scheinen"
+  ]
+ },
+ {
+  "id": "rammstein-du-hast",
+  "title": "Du hast",
+  "artist": "Rammstein",
+  "level": "A1",
+  "tags": [
+   "a1.u3.t1",
+   "a1.u6.t2"
+  ],
+  "loop": {
+   "start": 68,
+   "end": 102
+  },
+  "hoeren": {
+   "prompt": "Hör genau zu und ergänze die Lücken.",
+   "lines": [
+    {
+     "text": "Du ___ mich gefragt",
+     "answers": [
+      [
+       "hast"
+      ]
+     ]
+    },
+    {
+     "text": "Du hast mich ___",
+     "answers": [
+      [
+       "gefragt"
+      ]
+     ]
+    },
+    {
+     "text": "Und ich hab ___ gesagt",
+     "answers": [
+      [
+       "nichts"
+      ]
+     ]
+    }
+   ]
+  },
+  "lesen": [
+   {
+    "prompt": "Welche Zeitform ist „Du hast mich gefragt“?",
+    "options": [
+     "Perfekt (haben + Partizip II)",
+     "Präsens (presente simple)",
+     "Imperativ"
+    ],
+    "answer": 0,
+    "rule_de": "Perfekt bildet man mit „haben“ (Pos. 2) + Partizip II am Satzende.",
+    "rule": "El Perfekt se arma con el auxiliar conjugado („hast“) en posición 2 y el participio („gefragt“) al final de la oración."
+   },
+   {
+    "prompt": "Was bedeutet „ich hab nichts gesagt“?",
+    "options": [
+     "No dije nada",
+     "No pregunté nada",
+     "Dije todo"
+    ],
+    "answer": 0,
+    "rule_de": "„nichts“ verneint eine Sache (nada); „gesagt“ kommt von „sagen“.",
+    "rule": "„nichts“ niega una cosa („nada“). El participio „gesagt“ viene del verbo regular „sagen“ (decir)."
+   }
+  ],
+  "words": [
+   "fragen",
+   "sagen"
+  ]
+ },
+ {
+  "id": "rammstein-ich-will",
+  "title": "Ich will",
+  "artist": "Rammstein",
+  "level": "A1",
+  "tags": [
+   "a1.u4.t1",
+   "a1.u3.t1"
+  ],
+  "loop": {
+   "start": 42,
+   "end": 76
+  },
+  "hoeren": {
+   "prompt": "Hör genau zu und ergänze die Lücken.",
+   "lines": [
+    {
+     "text": "Ich ___",
+     "answers": [
+      [
+       "will"
+      ]
+     ]
+    },
+    {
+     "text": "Ich will, dass ihr mir ___",
+     "answers": [
+      [
+       "vertraut"
+      ]
+     ]
+    },
+    {
+     "text": "___ ihr mich?",
+     "answers": [
+      [
+       "Hört",
+       "hört",
+       "Seht",
+       "seht"
+      ]
+     ]
+    },
+    {
+     "text": "___ ihr mich?",
+     "answers": [
+      [
+       "Versteht",
+       "versteht",
+       "Seht",
+       "seht"
+      ]
+     ]
+    }
+   ]
+  },
+  "lesen": [
+   {
+    "prompt": "Welche Form gehört zu „ich“ beim Modalverb „wollen“?",
+    "options": [
+     "ich will",
+     "ich wolle",
+     "ich willst"
+    ],
+    "answer": 0,
+    "rule_de": "Bei Modalverben haben „ich“ und „er/sie/es“ die gleiche Form ohne -e/-t: „will“.",
+    "rule": "En los verbos modales („wollen“), la 1.ª y 3.ª persona singular cambian la vocal y no llevan terminación: „ich will / er will“."
+   },
+   {
+    "prompt": "Warum steht das Verb am Anfang in „Hört ihr mich?“?",
+    "options": [
+     "Porque es una pregunta cerrada (sí/no)",
+     "Porque está en pasado",
+     "Porque es un sustantivo"
+    ],
+    "answer": 0,
+    "rule_de": "In Ja/Nein-Fragen steht das konjugierte Verb auf Position 1.",
+    "rule": "En alemán, toda pregunta cerrada (Ja/Nein-Frage) pone el verbo conjugado en posición 1 delante del sujeto („Hört ihr…?“)."
+   }
+  ],
+  "words": [
+   "wollen",
+   "hören",
+   "sehen",
+   "verstehen"
+  ]
+ },
+ {
+  "id": "rammstein-keine-lust",
+  "title": "Keine Lust",
+  "artist": "Rammstein",
+  "level": "A1",
+  "tags": [
+   "a1.u3.t1",
+   "a1.u1.t3"
+  ],
+  "loop": {
+   "start": 44,
+   "end": 74
+  },
+  "hoeren": {
+   "prompt": "Hör genau zu und ergänze die Lücken.",
+   "lines": [
+    {
+     "text": "Ich hab ___ Lust",
+     "answers": [
+      [
+       "keine"
+      ]
+     ]
+    },
+    {
+     "text": "Ich hab keine Lust, etwas zu ___",
+     "answers": [
+      [
+       "zählen",
+       "zahlen"
+      ]
+     ]
+    },
+    {
+     "text": "Ich hab keine ___, mich zu bewegen",
+     "answers": [
+      [
+       "Lust",
+       "lust"
+      ]
+     ]
+    }
+   ]
+  },
+  "lesen": [
+   {
+    "prompt": "Warum benutzt man „keine“ in „Ich hab keine Lust“?",
+    "options": [
+     "Porque „Lust“ es un sustantivo femenino (die Lust) y se niega con kein-",
+     "Porque „nicht“ no existe en alemán",
+     "Porque está en plural"
+    ],
+    "answer": 0,
+    "rule_de": "Nomen verneint man mit „kein/keine“ (feminin Akkusativ: „keine Lust“).",
+    "rule": "Los sustantivos sin artículo definido se niegan con „kein“; como „die Lust“ es femenino, en acusativo toma „keine Lust“."
+   },
+   {
+    "prompt": "Was bedeutet „Ich hab keine Lust“?",
+    "options": [
+     "No tengo ganas",
+     "No tengo tiempo",
+     "No tengo hambre"
+    ],
+    "answer": 0,
+    "rule_de": "„Lust haben“ ist ein fester Ausdruck für „ganas de algo“.",
+    "rule": "„Lust haben“ es la expresión cotidiana para decir «tener ganas» („keine Lust“ = sin ganas)."
+   }
+  ],
+  "words": [
+   "Lust",
+   "zählen",
+   "schwimmen",
+   "frieren",
+   "essen",
+   "schlafen"
+  ]
+ }
+]
