@@ -38,6 +38,7 @@ export default async function home(el, { store, content }) {
     open && card(open, 'Grupo a medias', true),
     suggested && card(suggested, 'Siguiente grupo', !open),
     h('a', { class: 'button secondary', href: '#/mapa' }, 'Themenkarte'),
+    h('a', { class: 'button secondary', href: '#/lieder' }, 'Lieder'),
     h('a', { class: 'button secondary', href: '#/ajustes' }, 'Einstellungen & Backup'),
     !isStandalone() && h('div', { class: 'card' },
       h('h2', {}, 'Instalar en el iPhone'),

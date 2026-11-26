@@ -187,3 +187,19 @@
 - {lemma: gehen, pos: verb, es: "ir", field: wohnung, freq: 1, level: A1}
 - {lemma: suchen, pos: verb, es: "buscar", field: wohnung, freq: 2, level: A1}
 - {lemma: bezahlen, pos: verb, es: "pagar", field: hostel, freq: 2, level: A1}
+
+# Léxico para Lieder (canciones)
+- {lemma: Sonne, pos: noun, article: die, plural: Sonnen, es: "sol", field: lieder, freq: 1, level: A1}
+- {lemma: Stern, pos: noun, article: der, plural: Sterne, es: "estrella", field: lieder, freq: 2, level: A1}
+- {lemma: Lust, pos: noun, article: die, plural: null, es: "ganas", field: lieder, freq: 2, level: A1}
+- {lemma: scheinen, pos: verb, es: "brillar, parecer", field: lieder, freq: 2, level: A1}
+- {lemma: fragen, pos: verb, es: "preguntar", field: lieder, freq: 1, level: A1}
+- {lemma: sagen, pos: verb, es: "decir", field: lieder, freq: 1, level: A1}
+- {lemma: wollen, pos: verb, es: "querer", field: lieder, freq: 1, level: A1, irregular: {ich: will, du: willst, er: will}}
+- {lemma: hören, pos: verb, es: "escuchar, oír", field: lieder, freq: 1, level: A1}
+- {lemma: sehen, pos: verb, es: "ver", field: lieder, freq: 1, level: A1, irregular: {du: siehst, er: sieht}}
+- {lemma: verstehen, pos: verb, es: "entender", field: lieder, freq: 1, level: A1}
+- {lemma: zählen, pos: verb, es: "contar", field: lieder, freq: 2, level: A1}
+- {lemma: schwimmen, pos: verb, es: "nadar", field: lieder, freq: 2, level: A1}
+- {lemma: frieren, pos: verb, es: "tener frío, congelarse", field: lieder, freq: 3, level: A1}
+- {lemma: schlafen, pos: verb, es: "dormir", field: lieder, freq: 1, level: A1, irregular: {du: schläfst, er: schläft}}
