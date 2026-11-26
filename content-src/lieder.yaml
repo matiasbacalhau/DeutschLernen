@@ -6,7 +6,7 @@
   artist: Rammstein
   level: A1
   tags: [a1.u1.t1, a1.u1.t2]
-  loop: { start: 34, end: 68 }
+  loop: { start: 34, end: 82 }
   hoeren:
     prompt: Hör genau zu und ergänze die Lücken.
     lines:
